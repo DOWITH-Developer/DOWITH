@@ -1,0 +1,15 @@
+{% extends 'login/layout.html' %}
+
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            {{ field.errors }}
+            <div>
+                <label for="id_{{ field.html_name }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+        {% endfor %}
+        <button type="submit">Sign Up</button>
+    </form>
+{% endblock content %} 
