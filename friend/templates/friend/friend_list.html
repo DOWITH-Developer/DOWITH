@@ -1,0 +1,17 @@
+{% extends 'friend/layout.html' %}
+
+{% block content %}
+
+
+    {% for friend in friends %}
+    
+        {{friend.creator}}
+
+    {% endfor %}
+
+
+{% endblock content %}
+
+
+
+
