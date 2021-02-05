@@ -4,11 +4,13 @@
 hi
 
 {% if request.user.is_authenticated %}
-    {{ request.user }}
-    <form action="{% url 'login:logout' %}" method="POST">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
+    <div>
+        {{ request.user }}
+        <form action="{% url 'login:logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    </div>
 {% endif %}
 
 {% endblock %}
