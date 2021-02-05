@@ -2,13 +2,22 @@
 
 {% block content %}
 
+    나: {{me}}
+    <hr>
 
-    {% for friend in friends %}
+
+    친구:
+
+    <ul>
+
+        {% for fd in friends %}
+        
+            <a href="{% url 'friend:fd_detail' fd.friend.pk %}"><li>{{fd.friend}}</li></a>
+
+        {% endfor %}
+
+    </ul> 
     
-        {{friend.creator}}
-
-    {% endfor %}
-
 
 {% endblock content %}
 

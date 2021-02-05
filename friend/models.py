@@ -3,5 +3,6 @@ from login.models import User
 
 # Create your models here.
 class Friendship(models.Model):
-    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="creator_set")
-    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower_set")
+    me = models.ForeignKey(User, on_delete=models.CASCADE, related_name='self_set', blank=True, null=True)
+    friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name="friend_set")
+

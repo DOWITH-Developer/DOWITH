@@ -1,0 +1,18 @@
+{% extends 'friend/layout.html' %}
+
+{% block content %}
+    <form action="" method="POST" enctype='multipart/form-data', autocomplete='off'>
+        {% csrf_token %}
+        
+        <table>
+            <div style="display:none;">
+                {{ form.me }}
+            </div>
+
+            누구를 추가하시겠습니까?
+            {{ form.friend }}
+        </table>
+
+        <input type="submit" value="SUBMIT">
+    </form>
+{% endblock %}
