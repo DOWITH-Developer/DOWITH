@@ -22,14 +22,17 @@ class Challenge(models.Model):
     STATUS_OF_CHALLENGE = (
         (0, '대기 중'),
         (1, '진행 중'),
-        (2, '완료'), 
+        (2, '완료'),
     )
 
     title = models.CharField(max_length=100, verbose_name="제목")
     desc = models.TextField(verbose_name="설명")
-    category = models.CharField(max_length=100, choices=CATEGORY_OF_CHALLENGE, verbose_name="분류")
-    private = models.IntegerField(choices=PRIVATE_OF_CHALLENGE, verbose_name="공개 상태")
-    status = models.IntegerField(choices=STATUS_OF_CHALLENGE, verbose_name="진행 상태")
+    category = models.CharField(
+        max_length=100, choices=CATEGORY_OF_CHALLENGE, verbose_name="분류")
+    private = models.IntegerField(
+        choices=PRIVATE_OF_CHALLENGE, verbose_name="공개 상태")
+    status = models.IntegerField(
+        choices=STATUS_OF_CHALLENGE, verbose_name="진행 상태")
     min_pp = models.PositiveIntegerField(verbose_name="최소 인원")
     max_pp = models.PositiveIntegerField(verbose_name="최대 인원")
     duration = models.PositiveIntegerField(verbose_name="기간")
@@ -41,7 +44,12 @@ class Challenge(models.Model):
     def total_success(self):
         return self.success.count()
 
+    def __str__(self):
+        return self.title
+
 
 class Enrollment(models.Model):
-    challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE, verbose_name="챌린지", related_name="challenge_set")
-    player = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="유저", related_name="player_set")
+    challenge = models.ForeignKey(
+        Challenge, on_delete=models.CASCADE, verbose_name="챌린지", related_name="challenge_set")
+    player = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="유저", related_name="player_set")

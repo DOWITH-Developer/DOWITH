@@ -1,6 +1,41 @@
-from django.shortcuts import render, redirect
+from .models import Challenge
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import ChallengeForm
+
+
+def ch_list(request):
+    if request.method == 'GET':
+        alls = Challenge.objects.all()
+        languages = Challenge.objects.filter(
+            category=Challenge.CATEGORY_OF_CHALLENGE[1][0])
+        jobs = Challenge.objects.filter(
+            category=Challenge.CATEGORY_OF_CHALLENGE[2][0])
+        NCSs = Challenge.objects.filter(
+            category=Challenge.CATEGORY_OF_CHALLENGE[3][0])
+        programmings = Challenge.objects.filter(
+            category=Challenge.CATEGORY_OF_CHALLENGE[4][0])
+        certificates = Challenge.objects.filter(
+            category=Challenge.CATEGORY_OF_CHALLENGE[5][0])
+        others = Challenge.objects.filter(
+            category=Challenge.CATEGORY_OF_CHALLENGE[6][0])
+        ctx = {
+            'alls': alls,
+            'languages': languages,
+            'jobs': jobs,
+            'NCSs': NCSs,
+            'programmings': programmings,
+            'certificates': certificates,
+            'others': others,
+        }
+        return render(request, 'challenge/ch_list.html', ctx)
+    else:
+        pass
+
 
 def challenge_detail(request, pk):
     challenge = Challenge.objects.get(pk=pk)
@@ -20,7 +55,7 @@ def challenge_create(request):
 
     else:
         form = ChallengeForm()
-    return render(request, 'challenge/challenge_create.html', {"form" : form})
+    return render(request, 'challenge/challenge_create.html', {"form": form})
 
 
 def challenge_delete(request, pk):
@@ -34,18 +69,11 @@ def challenge_delete(request, pk):
     return redirect('/challenge/')
 
 
-
-
-
-from django.http import HttpResponse
 try:
     from django.utils import simplejson as json
 except ImportError:
     import json
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from .models import Challenge
+
 
 @login_required
 @require_POST
