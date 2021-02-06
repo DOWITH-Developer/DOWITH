@@ -5,14 +5,89 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-        {% block extra_head %}
-        {% endblock %}
+        <title>Navbar</title>
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+        />
+        <link rel="stylesheet" href="css/layout.css" />
+        <script src="js/layout.js" defer></script>
+
+        {% block extra_head %} {% endblock %}
     </head>
     <body>
+        <!-- navbar -->
+        <nav>
+            <div class="nav-center">
+                <!-- nav header -->
+                <div class="nav-header">
+                    <button class="nav-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <!-- links -->
+                <ul class="links">
+                    <li>
+                        <a href="">로그인</a>
+                    </li>
+                    <li>
+                        <a href="">로그아웃</a>
+                    </li>
+                    <li>
+                        <a href="">회원가입</a>
+                    </li>
+                    <li>
+                        <a href="">마이페이지</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <section class="back-image"></section>
+
+        <section class="main-page">
+            <!-- title -->
+            <div class="title">
+                <h2>Select your Category</h2>
+                <div class="underline"></div>
+            </div>
+
+            <!-- filter buttons -->
+            <div class="btn-container">
+                <button type="button" class="filter-btn" data-id="all">
+                    all
+                </button>
+                <button type="button" class="filter-btn" data-id="breakfast">
+                    breakfast
+                </button>
+                <button type="button" class="filter-btn" data-id="lunch">
+                    lunch
+                </button>
+                <button type="button" class="filter-btn" data-id="shakes">
+                    shakes
+                </button>
+            </div>
+
+            <!-- menu items -->
+            <div class="section-center">
+                <!-- single item -->
+                <article class="study-item">
+                    <img
+                        src="img/screenshot.png"
+                        alt="menu item"
+                        class="photo"
+                    />
+                    <div class="item-info">
+                        <h4>Python Study</h4>
+                        <p class="item-text">Lorem ipsum dolor</p>
+                    </div>
+                </article>
+                <!-- end of single item -->
+            </div>
+        </section>
+
         {% block content %}
         {% endblock content %}
-
         {% block script %}
         {% endblock script %}
     </body>
