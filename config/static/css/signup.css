@@ -49,6 +49,11 @@ body {
     padding: 10px;
 }
 
+/* input값이 invalid할 경우 테두리 빨간색 --> js로 처리해보자 */
+/* .signup__form-field input:invalid {
+    border-color: red;
+} */
+
 .signup__form-field input::placeholder {
 }
 

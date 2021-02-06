@@ -42,6 +42,7 @@ def login(request):
             return redirect("login:test")
         else:
             ctx = {
+                "form": form,
                 "error": "email or password is incorrect",
             }
             return render(request, "login/login.html", ctx)

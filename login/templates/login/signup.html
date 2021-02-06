@@ -17,16 +17,18 @@
                 <form action="" method="POST">
                     {% csrf_token %}
                     {% for field in form %}
-                        <!-- {{ field.errors }} -->
-    
-                        <div class="signup__form-field">
-                            <label for="id_{{ field.html_name }}">{{ field.label }}</label>
-                            {{ field }}
-                        </div>
-                        <div class="signup__form-error">
-                            {% for error in field.errors %}
-                                {{ error }}
-                            {% endfor %}
+                        <div class="{{ field.id_for_label }}__container {% if field.errors|length > 0%}has_error{% endif %}">
+                            <div class="signup__form-field">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                            </div>
+                            {% if field.errors|length > 0 %}
+                                <div class="signup__form-error">
+                                    {% for error in field.errors %}
+                                        <label class="error" for="{{ field.id_for_label }}">{{ error }}</label>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
                     {% endfor %}
     
