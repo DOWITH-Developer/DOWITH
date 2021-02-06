@@ -5,14 +5,50 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-        {% block extra_head %}
-        {% endblock %}
+        <title>Navbar</title>
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+        />
+        <link rel="stylesheet" href="{% static 'css/layout.css' %}" />
+        <script src="{% static 'js/layout.js' %}" defer></script>
+
+        {% block extra_head %} {% endblock %}
     </head>
     <body>
+        <!-- navbar -->
+        <nav>
+            <div class="nav-center">
+                <!-- nav header -->
+                <div class="nav-header">
+                    <button class="nav-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <!-- links -->
+                <ul class="links">
+                    <li>
+                        <a href="{% url 'login:login' %}">로그인</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'login:logout' %}">로그아웃</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'login:signup' %}">회원가입</a>
+                    </li>
+                    <li>
+                        <a href="">마이페이지</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <section class="back-image"></section>
+
+
+
         {% block content %}
         {% endblock content %}
-
         {% block script %}
         {% endblock script %}
     </body>

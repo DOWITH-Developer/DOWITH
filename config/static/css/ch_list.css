@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.c_box a {
+    text-decoration: none;
+}
+
+.c_box li {
+    list-style: none;
+}
+
+.c_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #bed9fa;
+    padding: 8px 12px;
+    height: 400px;
+    width: 60%;
+    margin: 0 auto;
+}
+.c_box .top_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.c_box .tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.c_box .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.c_box .items {
+    display: none;
+}
+
+.c_box .items.active {
+    display: inline-block;
+}
+
+li.tab button {
+    background-color: #bed9fa;
+    border-radius: 10px;
+    padding: 5px 10px;
+    border: 3px solid #bed9fa;
+    cursor: pointer;
+}
+
+li.tab button:hover {
+    background-color: rgb(96, 168, 255);
+}
+
+li.tab button:focus {
+    outline: 0;
+}
+
+li.tab.active button {
+    color: red;
+    border-color: red;
+}

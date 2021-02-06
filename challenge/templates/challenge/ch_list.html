@@ -1,0 +1,113 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/ch_list.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="c_box">
+        <div class="top_box">
+            <div class="search">
+                검색
+            </div>
+            <div class="ch_add">
+                <a href="{% url 'challenge:challenge_create' %}">
+                    챌린지 생성하기
+                </a>
+            </div>
+        </div>
+        <hr width=100% color="#808080" style="margin: 10px 0px">
+        <div class="tabs">
+            <li class="tab active" data-tab-target="#tab1"><button>전체</button></li>
+            <li class="tab" data-tab-target="#tab2"><button>어학</button></li>
+            <li class="tab" data-tab-target="#tab3"><button>취업</button></li>
+            <li class="tab" data-tab-target="#tab4"><button>고시/공무원</button></li>
+            <li class="tab" data-tab-target="#tab5"><button>프로그래밍</button></li>
+            <li class="tab" data-tab-target="#tab6"><button>자격증</button></li>
+            <li class="tab" data-tab-target="#tab7"><button>기타</button></li>
+        </div>
+        <hr width=100% color="#808080" style="margin: 10px 0px">
+        <div class="content">
+            <div id="tab1" data-tab-content class="items active">
+                {% for cha in alls %}
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                </li>
+                <br>
+                {% endfor %}
+            </div>
+            <div id="tab2" data-tab-content class="items">
+                {% for cha in languages %}
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                </li>
+                <br>
+                {% endfor %}
+            </div>
+            <div id="tab3" data-tab-content class="items">
+                {% for cha in jobs %}
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                </li>
+                <br>
+                {% endfor %}
+            </div>
+            <div id="tab4" data-tab-content class="items">
+                {% for cha in NCSs %}
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                </li>
+                <br>
+                {% endfor %}
+            </div>
+            <div id="tab5" data-tab-content class="items">
+                {% for cha in programmings %}
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                </li>
+                <br>
+                {% endfor %}
+            </div>
+            <div id="tab6" data-tab-content class="items">
+                {% for cha in certificates %}
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                </li>
+                <br>
+                {% endfor %}
+            </div>
+            <div id="tab7" data-tab-content class="items">
+                {% for cha in others %}
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                </li>
+                <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+   const tabs = document.querySelectorAll("[data-tab-target]");
+    const tabcon = document.querySelectorAll("[data-tab-content]");
+    tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+        const target = document.querySelector(tab.dataset.tabTarget);
+        tabcon.forEach((tabc_all) => {
+        tabc_all.classList.remove("active");
+        });
+        tabs.forEach((tabs_all) => {
+        tabs_all.classList.remove("active");
+        });
+
+        target.classList.add("active");
+        tab.classList.add("active");
+    });
+    });
+
+
+</script>
+{% endblock script %}
