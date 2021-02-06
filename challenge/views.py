@@ -20,9 +20,9 @@ def ch_list(request):
         programmings = Challenge.objects.filter(
             category=Challenge.CATEGORY_PROGRAMMING)
         certificates = Challenge.objects.filter(
-            category=Challenge.CATEGORY_OF_LICENSE)
+            category=Challenge.CATEGORY_CERTIFICATE)
         others = Challenge.objects.filter(
-            category=Challenge.CATEGORY_ETC)
+            category=Challenge.CATEGORY_OTHER)
         ctx = {
             'alls': alls,
             'languages': languages,
@@ -69,37 +69,37 @@ def challenge_delete(request, pk):
     return redirect('/challenge/')
 
 
-try:
-    from django.utils import simplejson as json
-except ImportError:
-    import json
+# try:
+#     from django.utils import simplejson as json
+# except ImportError:
+#     import json
 
 
-@login_required
-@require_POST
+# @login_required
+# @require_POST
 # 오늘 성공했는 지 안 성공 했는 지
 
-def success(request):
-    # 유저, 챌린지 1개
-    # ACTION : 성공했는 지 안했는 지
+# def success(request):
+#     # 유저, 챌린지 1개
+#     # ACTION : 성공했는 지 안했는 지
 
-    if request.method == 'POST':
-        user = request.user
-        challenge_id??
-        # slug = request.POST.get('slug', None)
-        # challenge = get_object_or_404(Challenge, slug=slug)
-        challenge = get_object_or_404(Challenge, id=challenge_id)
+#     if request.method == 'POST':
+#         user = request.user
+#         challenge_id??
+#         # slug = request.POST.get('slug', None)
+#         # challenge = get_object_or_404(Challenge, slug=slug)
+#         challenge = get_object_or_404(Challenge, id=challenge_id)
 
-        if challenge.success.filter(id=user.id).exists():
-            # user has already liked this company
-            # remove like/user
-            challenge.success.remove(user)
-            message = 'You disliked this'
-        else:
-            # add a new like for a company
-            challenge.success.add(user)
-            message = 'You liked this'
+#         if challenge.success.filter(id=user.id).exists():
+#             # user has already liked this company
+#             # remove like/user
+#             challenge.success.remove(user)
+#             message = 'You disliked this'
+#         else:
+#             # add a new like for a company
+#             challenge.success.add(user)
+#             message = 'You liked this'
 
-    ctx = {'likes_count': challenge.total_likes, 'message': message}
-    # use mimetype instead of content_type if django < 5
-    return HttpResponse(json.dumps(ctx), content_type='application/json')
+#     ctx = {'likes_count': challenge.total_likes, 'message': message}
+#     # use mimetype instead of content_type if django < 5
+#     return HttpResponse(json.dumps(ctx), content_type='application/json')

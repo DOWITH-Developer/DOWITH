@@ -1,7 +1,6 @@
 from django.db import models
 from login.models import User
 
-
 # User
 # - is staff : 내부자냐 아니냐
 
@@ -9,7 +8,8 @@ from login.models import User
 # - HostUser : user_id
 # - is_published : Boolean
 # - link_url : /challenge/cr23ou89hnacefijlnsho
-# URLSAFE : 띄어쓰기, 덧셈이 urlsafe function
+                # python hash
+# URLSAFE : 띄어쓰기, 덧셈이 urlsafe functionå
 
 def redirect_link(link):
     challenges = Challenge.objects.filter(link=link)
@@ -31,26 +31,21 @@ def redirect_link(link):
 # 2. 외부 클라우드 스토리지 : 서버에서는 사진을 클라우드로 올리고, 클라우드 링크만 갖고있어요
 # AWS S3, Microsoft, etc.
 
-
-
-
 class Challenge(models.Model):
-    CATEGORY_TOTAL = '전체'
-    CATEGORY_LANGUAGE = '어학'
-    CATEGORY_JOB = '취업'
-    CATEGORY_NCS = '고시/공무원'
-    CATEGORY_PROGRAMMING = '프로그래밍'
-    CATEGORY_LICENSE = '자격증'
-    CATEGORY_ETC = '기타'
+    CATEGORY_LANGUAGE = 'language'
+    CATEGORY_JOB = 'job'
+    CATEGORY_NCS = 'NCS'
+    CATEGORY_PROGRAMMING = 'programming'
+    CATEGORY_CERTIFICATE = 'certificate'
+    CATEGORY_OTHER = 'other'
 
     CATEGORY_OF_CHALLENGE = (
-        ('all', CATEGORY_TOTAL),
-        ('language', CATEGORY_LANGUAGE),
-        ('job', CATEGORY_JOB),
-        ('NCS', CATEGORY_NCS),
-        ('programming', CATEGORY_PROGRAMMING),
-        ('certificate', CATEGORY_LICENSE),
-        ('other', CATEGORY_ETC)
+        (CATEGORY_LANGUAGE, '어학'),
+        (CATEGORY_JOB, '취업'),
+        (CATEGORY_NCS, '고시/공무원'),
+        (CATEGORY_PROGRAMMING, '프로그래밍'),
+        (CATEGORY_CERTIFICATE, '자격증'),
+        (CATEGORY_OTHER, '기타')
     )
 
     PRIVATE_OF_CHALLENGE = (
@@ -79,6 +74,7 @@ class Challenge(models.Model):
     start_date = models.DateField(verbose_name="시작일")
     created_date = models.DateField(auto_now_add=True, verbose_name="생성일")
     # p_users = models.ManyToManyField(User, related_name="p_user")
+    link_url = models.URLField(blank=True, null=True)
 
     @property
     def total_success(self):
@@ -93,3 +89,5 @@ class Enrollment(models.Model):
         Challenge, on_delete=models.CASCADE, verbose_name="챌린지", related_name="challenge_set")
     player = models.ForeignKey(
         User, on_delete=models.CASCADE, verbose_name="유저", related_name="player_set")
+    result = models.BooleanField(default=False)
+    created_at = models.DateField(auto_now_add=True)
