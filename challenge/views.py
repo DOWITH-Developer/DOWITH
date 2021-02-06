@@ -12,17 +12,17 @@ def ch_list(request):
     if request.method == 'GET':
         alls = Challenge.objects.all()
         languages = Challenge.objects.filter(
-            category=Challenge.CATEGORY_OF_CHALLENGE[1][0])
+            category=Challenge.CATEGORY_LANGUAGE)
         jobs = Challenge.objects.filter(
-            category=Challenge.CATEGORY_OF_CHALLENGE[2][0])
+            category=Challenge.CATEGORY_JOB)
         NCSs = Challenge.objects.filter(
-            category=Challenge.CATEGORY_OF_CHALLENGE[3][0])
+            category=Challenge.CATEGORY_NCS)
         programmings = Challenge.objects.filter(
-            category=Challenge.CATEGORY_OF_CHALLENGE[4][0])
+            category=Challenge.CATEGORY_PROGRAMMING)
         certificates = Challenge.objects.filter(
-            category=Challenge.CATEGORY_OF_CHALLENGE[5][0])
+            category=Challenge.CATEGORY_OF_LICENSE)
         others = Challenge.objects.filter(
-            category=Challenge.CATEGORY_OF_CHALLENGE[6][0])
+            category=Challenge.CATEGORY_ETC)
         ctx = {
             'alls': alls,
             'languages': languages,
@@ -77,11 +77,18 @@ except ImportError:
 
 @login_required
 @require_POST
+# 오늘 성공했는 지 안 성공 했는 지
+
 def success(request):
+    # 유저, 챌린지 1개
+    # ACTION : 성공했는 지 안했는 지
+
     if request.method == 'POST':
         user = request.user
-        slug = request.POST.get('slug', None)
-        challenge = get_object_or_404(Challenge, slug=slug)
+        challenge_id??
+        # slug = request.POST.get('slug', None)
+        # challenge = get_object_or_404(Challenge, slug=slug)
+        challenge = get_object_or_404(Challenge, id=challenge_id)
 
         if challenge.success.filter(id=user.id).exists():
             # user has already liked this company

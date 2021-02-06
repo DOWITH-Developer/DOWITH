@@ -2,15 +2,55 @@ from django.db import models
 from login.models import User
 
 
+# User
+# - is staff : 내부자냐 아니냐
+
+# Challenge
+# - HostUser : user_id
+# - is_published : Boolean
+# - link_url : /challenge/cr23ou89hnacefijlnsho
+# URLSAFE : 띄어쓰기, 덧셈이 urlsafe function
+
+def redirect_link(link):
+    challenges = Challenge.objects.filter(link=link)
+    if len(challenges) == 0:
+        return
+    else:
+        pass
+    return
+
+# User <-> Challenge
+# --> Enrollment
+#      - user_id (User)
+#      - challenge_id (Challenge)
+#      - result/success
+#      - day
+
+# 이미지 저장
+# 1. 파일 : Django File Upload
+# 2. 외부 클라우드 스토리지 : 서버에서는 사진을 클라우드로 올리고, 클라우드 링크만 갖고있어요
+# AWS S3, Microsoft, etc.
+
+
+
+
 class Challenge(models.Model):
+    CATEGORY_TOTAL = '전체'
+    CATEGORY_LANGUAGE = '어학'
+    CATEGORY_JOB = '취업'
+    CATEGORY_NCS = '고시/공무원'
+    CATEGORY_PROGRAMMING = '프로그래밍'
+    CATEGORY_LICENSE = '자격증'
+    CATEGORY_ETC = '기타'
+
     CATEGORY_OF_CHALLENGE = (
-        ('all', '전체'),
-        ('language', '어학'),
-        ('job', '취업'),
-        ('NCS', '고시/공무원'),
-        ('programming', '프로그래밍'),
-        ('certificate', '자격증'),
-        ('other', '기타')
+        ('all', CATEGORY_TOTAL),
+        ('language', CATEGORY_LANGUAGE),
+        ('job', CATEGORY_JOB),
+        ('NCS', CATEGORY_NCS),
+        ('programming', CATEGORY_PROGRAMMING),
+        ('certificate', CATEGORY_LICENSE),
+        ('other', CATEGORY_ETC)
     )
 
     PRIVATE_OF_CHALLENGE = (
@@ -38,7 +78,7 @@ class Challenge(models.Model):
     duration = models.PositiveIntegerField(verbose_name="기간")
     start_date = models.DateField(verbose_name="시작일")
     created_date = models.DateField(auto_now_add=True, verbose_name="생성일")
-    success = models.ManyToManyField(User, related_name="success")
+    # p_users = models.ManyToManyField(User, related_name="p_user")
 
     @property
     def total_success(self):

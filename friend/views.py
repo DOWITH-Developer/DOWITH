@@ -48,10 +48,11 @@ def fd_create(request, pk):
 
 
 def fd_detail(request, pk):
-    me = User.objects.get(pk=pk)
+    user = User.objects.get(pk=pk)
     ctx = {
-        'me': me
+        'user': user
     }
+    # TODO : 템플릿 수정
     return render(request, 'friend/friend_detail.html', context=ctx)
 
 

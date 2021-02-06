@@ -8,7 +8,7 @@ from django.contrib.auth import logout as auth_logout
 # Create your views here.
 
 
-def signUp(request):
+def sign_up(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
