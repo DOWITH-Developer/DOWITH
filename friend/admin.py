@@ -4,4 +4,5 @@ from .models import *
 # Register your models here.
 @admin.register(Friendship)
 class FriendshipAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['me', 'friend']
+    list_display_links = ['friend']
