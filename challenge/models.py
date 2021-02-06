@@ -1,7 +1,7 @@
 from django.db import models
 from login.models import User
 
-# Create your models here.
+
 class Challenge(models.Model):
     CATEGORY_OF_CHALLENGE = (
         ('all', '전체'),
@@ -35,6 +35,12 @@ class Challenge(models.Model):
     duration = models.PositiveIntegerField(verbose_name="기간")
     start_date = models.DateField(verbose_name="시작일")
     created_date = models.DateField(auto_now_add=True, verbose_name="생성일")
+    success = models.ManyToManyField(User, related_name="success")
+
+    @property
+    def total_success(self):
+        return self.success.count()
+
 
 class Enrollment(models.Model):
     challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE, verbose_name="챌린지", related_name="challenge_set")

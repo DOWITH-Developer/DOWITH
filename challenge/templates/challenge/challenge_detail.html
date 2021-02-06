@@ -1,0 +1,67 @@
+{% extends 'challenge/layout.html' %}
+{% block content %}
+
+<h2>{{ challenge.title }}</h2>
+    
+
+    
+<div>
+    <div>챌린지 설명: {{ challenge.desc }}</div> 
+    <div>챌린지 공개범위: 
+    {% if challenge.privat == 0 %}
+        전체 공개
+    {% elif challenge.privat == 1 %}
+        친구 공개
+    {% else %}
+        나만 보기
+    {% endif %}
+       </div> 
+    <div>챌린지 시작일: {{ challenge.start_date }}</div> 
+    <div>챌린지 기간: {{ challenge.duration }}</div> 
+</div>
+
+<div>
+    <div>목표 인원</div>
+    <div> 참여중인 사람수(***수정필요***) / {{ challenge.max_pp }}</div>
+</div>
+
+<div>
+    <div>친구 초대 하기</div>
+     <button class = "btn-copy">URL 복사하기</button>
+</div>
+
+<hr>
+<form action="{% url 'challenge:challenge_delete' challenge.pk %}">
+    {% csrf_token %}
+    <div><input type="submit" value="챌린지 포기하기"></div>
+</form>
+
+<form action="">
+    {% csrf_token %}
+    <div><input type="submit" value="챌린지 참여하기"></div>
+</form>
+
+
+<hr>
+<input type="button" id="success" name="{{ company_slug }}" value="챌린지 성공" />
+
+<script>
+$('#success').click(function(){
+      $.ajax({
+               type: "POST",
+               url: "{% url 'challenge:success' %}",
+               data: {'slug': $(this).attr('name'), 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+               dataType: "json",
+               success: function(response) {
+                      alert(response.message);
+                      alert('Company success count is now ' + response.success_count);
+                },
+                error: function(rs, e) {
+                       alert(rs.responseText);
+                }
+          }); 
+    })
+</script>
+
+
+{% endblock %}
