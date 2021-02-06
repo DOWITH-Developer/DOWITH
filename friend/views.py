@@ -46,12 +46,15 @@ def fd_create(request, pk):
         }
         return render(request, "friend/friend_create.html", context=ctx)
 
+
 def fd_detail(request, pk):
     me = User.objects.get(pk=pk)
     ctx = {
         'me': me
     }
     return render(request, 'friend/friend_detail.html', context=ctx)
+
+
 
 def fd_approve(request):
     return HttpResponse('hello')
