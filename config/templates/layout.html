@@ -29,13 +29,13 @@
                 <!-- links -->
                 <ul class="links">
                     <li>
-                        <a href="">로그인</a>
+                        <a href="{% url 'login:login' %}">로그인</a>
                     </li>
                     <li>
-                        <a href="">로그아웃</a>
+                        <a href="{% url 'login:logout' %}">로그아웃</a>
                     </li>
                     <li>
-                        <a href="">회원가입</a>
+                        <a href="{% url 'login:signup' %}">회원가입</a>
                     </li>
                     <li>
                         <a href="">마이페이지</a>

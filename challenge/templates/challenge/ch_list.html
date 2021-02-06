@@ -12,7 +12,7 @@
                 검색
             </div>
             <div class="ch_add">
-                <a href="{% url 'challenge:ch_list' %}"> <!--지현누나 url로 변경-->
+                <a href="{% url 'challenge:challenge_create' %}">
                     챌린지 생성하기
                 </a>
             </div>
@@ -31,41 +31,58 @@
         <div class="content">
             <div id="tab1" data-tab-content class="items active">
                 {% for cha in alls %}
-                <li>{{cha.title}}</li><br>
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                </li>
+                <br>
                 {% endfor %}
             </div>
             <div id="tab2" data-tab-content class="items">
                 {% for cha in languages %}
                 <li>
-                    <div>{{cha.title}}</div>
-                    {# <a href="{% url 'challenge:ch_detail' cha.id%}">더보기</a> #} {#지현누나 디테일페이지#}
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
                 </li>
                 <br>
                 {% endfor %}
             </div>
             <div id="tab3" data-tab-content class="items">
                 {% for cha in jobs %}
-                <li>{{cha.title}}</li><br>
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                </li>
+                <br>
                 {% endfor %}
             </div>
             <div id="tab4" data-tab-content class="items">
                 {% for cha in NCSs %}
-                <li>{{cha.title}}</li><br>
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                </li>
+                <br>
                 {% endfor %}
             </div>
             <div id="tab5" data-tab-content class="items">
                 {% for cha in programmings %}
-                <li>{{cha.title}}</li><br>
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                </li>
+                <br>
                 {% endfor %}
             </div>
             <div id="tab6" data-tab-content class="items">
                 {% for cha in certificates %}
-                <li>{{cha.title}}</li><br>
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                </li>
+                <br>
                 {% endfor %}
             </div>
             <div id="tab7" data-tab-content class="items">
                 {% for cha in others %}
-                <li>{{cha.title}}</li><br>
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                </li>
+                <br>
                 {% endfor %}
             </div>
         </div>

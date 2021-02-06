@@ -45,6 +45,9 @@
 <hr>
 <input type="button" id="success" name="{{ company_slug }}" value="챌린지 성공" />
 
+<br>
+<a href="{% url 'challenge:ch_list' %}">챌린지 리스트로 돌아가기</a>
+
 <script>
 $('#success').click(function(){
       $.ajax({
