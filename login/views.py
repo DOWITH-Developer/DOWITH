@@ -12,13 +12,6 @@ def signUp(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            # username_id = User.id
-            # user = User.objects.create(
-            #     username=username_id,
-            #     email=request.POST["email"],
-            #     nickname=request.POST["nickname"],
-            #     password=request.POST["password1"]
-            # )
             user = form.save()
             return redirect("login:test")
         else:
