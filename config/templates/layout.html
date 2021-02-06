@@ -11,8 +11,8 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
         />
-        <link rel="stylesheet" href="css/layout.css" />
-        <script src="js/layout.js" defer></script>
+        <link rel="stylesheet" href="{% static 'css/layout.css' %}" />
+        <script src="{% static 'js/layout.js' %}" defer></script>
 
         {% block extra_head %} {% endblock %}
     </head>
@@ -45,46 +45,7 @@
         </nav>
         <section class="back-image"></section>
 
-        <section class="main-page">
-            <!-- title -->
-            <div class="title">
-                <h2>Select your Category</h2>
-                <div class="underline"></div>
-            </div>
 
-            <!-- filter buttons -->
-            <div class="btn-container">
-                <button type="button" class="filter-btn" data-id="all">
-                    all
-                </button>
-                <button type="button" class="filter-btn" data-id="breakfast">
-                    breakfast
-                </button>
-                <button type="button" class="filter-btn" data-id="lunch">
-                    lunch
-                </button>
-                <button type="button" class="filter-btn" data-id="shakes">
-                    shakes
-                </button>
-            </div>
-
-            <!-- menu items -->
-            <div class="section-center">
-                <!-- single item -->
-                <article class="study-item">
-                    <!-- <img
-                        src="img/screenshot.png"
-                        alt="menu item"
-                        class="photo"
-                    /> -->
-                    <div class="item-info">
-                        <h4>Python Study</h4>
-                        <p class="item-text">Lorem ipsum dolor</p>
-                    </div>
-                </article>
-                <!-- end of single item -->
-            </div>
-        </section>
 
         {% block content %}
         {% endblock content %}
