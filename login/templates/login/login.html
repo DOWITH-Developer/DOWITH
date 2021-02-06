@@ -1,0 +1,39 @@
+{% extends 'login/layout.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="login">
+        <div class="login__container">
+            <div class="login__header">
+                Login
+            </div>
+
+            <div class="login__body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="login__form-field">
+                            <label for="id_{{ field.html_name }}">{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+            
+                    {% if error %}
+                        <div class="login__form-error">
+                            {{ error }}
+                        </div>
+                    {% endif %}
+
+                    <div class="login__form-actions">
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %} 

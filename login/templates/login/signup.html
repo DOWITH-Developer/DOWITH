@@ -1,15 +1,42 @@
 {% extends 'login/layout.html' %}
 
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
 {% block content %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-            {{ field.errors }}
-            <div>
-                <label for="id_{{ field.html_name }}">{{ field.label }}</label>
-                {{ field }}
+    <div class="signup">
+        <div class="signup__container">
+            <div class="signup__header">
+                Sign up
             </div>
-        {% endfor %}
-        <button type="submit">Sign Up</button>
-    </form>
+    
+            <div class="signup__body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <!-- {{ field.errors }} -->
+    
+                        <div class="signup__form-field">
+                            <label for="id_{{ field.html_name }}">{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                        <div class="signup__form-error">
+                            {% for error in field.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+    
+                    <div class="signup__form-actions">
+                        <button type="submit">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
 {% endblock content %} 
