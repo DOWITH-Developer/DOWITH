@@ -5,6 +5,12 @@ from .forms import SignUpForm, LoginForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+
+from django.contrib.auth.decorators import login_required
+from django.views import View
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 # Create your views here.
 
 
@@ -60,3 +66,25 @@ def logout(request):
         return redirect("login:test")
     elif request.method == "GET":
         return redirect("login:test")
+
+
+# settings
+@login_required
+def settings_main(request):
+    return render(request, "login/settings_main.html")
+
+
+# class UserInfo(View):
+#     template_name = "login/settings_main.html"
+
+#     # 포비든 문제때문에 추가
+#     @method_decorator(csrf_exempt)
+#     def dispatch(self, request, *args, **kwargs):
+#         return super(LikeAjax, self).dispatch(request, *args, **kwargs)
+
+#     def post(self, request):
+#         user_name = request.user.username
+#         user_nickname = request.user.nickname
+#         user_email = request.user.email
+
+#         return JsonResponse({"user":})

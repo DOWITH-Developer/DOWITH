@@ -8,4 +8,7 @@ urlpatterns = [
     path("layout/", test, name="test"),  # 테스트용
     path("login/", login, name="login"),
     path("logout/", logout, name="logout"),
+    # settings
+    path("settings/", settings_main, name="settings"),
+    # path("settings/user_info/", UserInfo.as_view(), name="user_info"),
 ]
