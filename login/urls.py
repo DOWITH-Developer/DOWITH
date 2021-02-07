@@ -8,4 +8,5 @@ urlpatterns = [
     path("layout/", test, name="test"),  # 테스트용
     path("login/", login, name="login"),
     path("logout/", logout, name="logout"),
+    path("<int:pk>/mypage/",my_page, name="my_page")
 ]
