@@ -10,5 +10,7 @@ urlpatterns = [
     path("logout/", logout, name="logout"),
     # settings
     path("settings/", settings_main, name="settings"),
-    # path("settings/user_info/", UserInfo.as_view(), name="user_info"),
+    path("settings/user_info/", userinfo_get, name="user_info"),
+    path("settings/user_challenge/", userchallenge_get, name="user_challenge"),
+    path("settings/setting/", usersetting_get, name="user_setting"),
 ]

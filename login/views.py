@@ -74,17 +74,22 @@ def settings_main(request):
     return render(request, "login/settings_main.html")
 
 
-# class UserInfo(View):
-#     template_name = "login/settings_main.html"
+# Forbidden (CSRF token missing or incorrect.) 문제로 데코레이터 추가함
+@csrf_exempt
+def userinfo_get(request):
+    user_name = request.user.username
+    user_nickname = request.user.nickname
+    user_email = request.user.email
+    return JsonResponse({"name": user_name, "nickname": user_nickname, "email": user_email})
 
-#     # 포비든 문제때문에 추가
-#     @method_decorator(csrf_exempt)
-#     def dispatch(self, request, *args, **kwargs):
-#         return super(LikeAjax, self).dispatch(request, *args, **kwargs)
 
-#     def post(self, request):
-#         user_name = request.user.username
-#         user_nickname = request.user.nickname
-#         user_email = request.user.email
+@csrf_exempt
+def userchallenge_get(request):
+    # user의 challenge 접근하는 문법(쿼리셋?) 공부하기
+    return JsonResponse({})
 
-#         return JsonResponse({"user":})
+
+@csrf_exempt
+def usersetting_get(request):
+    # 설정사항들 정하고 모델에 필드 추가하기
+    return JsonResponse({})

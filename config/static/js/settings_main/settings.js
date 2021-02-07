@@ -4,31 +4,47 @@ const setting = document.querySelector(".setting")
 const ToS = document.querySelector(".ToS")
 const contentBox = document.querySelector(".content")
 
-// userInfo
-const printUserInfo = () => {
+ // userInfo
+ const onClickUserInfo = async () => {
+    const url = "/login/settings/user_info/";
+
+    const {data} = await axios.get(url)
+    printUserInfo(data.name, data.nickname, data.email);
+}
+
+const printUserInfo = (name, nickname, email) => {
     contentBox.innerHTML = ''
 
     const userInfoTemplate = `
         <div class="userInfo__content">
             <div>
-                Username : {{ request.user.username }}
-            </div>
+                Username : ` + name +
+            `</div>
             <div>
-                Nickname : {{ request.user.nickname }}
-            </div>
+                Nickname : ` + nickname +
+            `</div>
             <div>
-                Email : {{ request.user.email }}
-            </div>
+                Email : ` + email +
+            `</div>
         </div>
     `
     const newUserInfoDiv = new DOMParser().parseFromString(userInfoTemplate, "text/html").body.firstElementChild
     contentBox.appendChild(newUserInfoDiv)
 }
 
-userInfo.addEventListener("click", printUserInfo)
+userInfo.addEventListener("click", onClickUserInfo)
+
+
 
 
 // userChallenge
+const onClickUserChallenge = async () => {
+    const url = "/login/settings/user_challenge/";
+
+    const {data} = await axios.get(url)
+    printUserChallenge();
+}
+
 const printUserChallenge = () => {
     contentBox.innerHTML = ''
 
@@ -43,16 +59,25 @@ const printUserChallenge = () => {
     contentBox.appendChild(newUserChallengeDiv)
 }
 
-userChallenge.addEventListener("click", printUserChallenge)
+userChallenge.addEventListener("click", onClickUserChallenge)
+
+
 
 
 // settings
+const onClickSetting = async () => {
+    const url = "/login/settings/setting/";
+
+    const {data} = await axios.get(url)
+    printSetting();
+}
+
 const printSetting = () => {
     contentBox.innerHTML = ''
 
     const settingTemplate = `
         <div class="setting__content">
-            <form action="" method="GET">
+            <form action="" method="POST">
                 {% csrf_token %}
                 <p>디스플레이</p>
                 <label><input type="radio" name="display_mode" checked> 라이트 모드</label>
@@ -66,7 +91,9 @@ const printSetting = () => {
     contentBox.appendChild(newSettingDiv)
 }
 
-setting.addEventListener("click", printSetting)
+setting.addEventListener("click", onClickSetting)
+
+
 
 
 // ToS
