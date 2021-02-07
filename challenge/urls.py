@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/delete/', challenge_delete, name='challenge_delete'),
     #path('success/', success, name='success'),
     path('list/', view=ch_list, name='ch_list'),
+    path('calendar/', view=challenge_calendar, name='challenge_calendar'),
 ]

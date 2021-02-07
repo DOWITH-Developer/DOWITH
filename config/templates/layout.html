@@ -15,6 +15,8 @@
         <script src="{% static 'js/layout.js' %}" defer></script>
 
         {% block extra_head %} {% endblock %}
+        {% block calendar_head %} {% endblock %}
+
     </head>
     <body>
         <!-- navbar -->
@@ -49,7 +51,11 @@
 
         {% block content %}
         {% endblock content %}
+        {% block calendar %}
+        {% endblock calendar %}
         {% block script %}
         {% endblock script %}
+        {% block calendar_script %}
+        {% endblock calendar_script %}
     </body>
 </html>

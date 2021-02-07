@@ -68,7 +68,8 @@ def challenge_delete(request, pk):
 
     return redirect('/challenge/')
 
-
+def challenge_calendar(request):
+    return render(request, 'challenge/challenge_calendar.html')
 # try:
 #     from django.utils import simplejson as json
 # except ImportError:
