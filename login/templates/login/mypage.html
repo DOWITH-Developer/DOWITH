@@ -1,19 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>mypage</h2>
-    <h4>챌린지 리스트</h4>
-    {% for en in enrollments %}
-        <li>
-            <div><a href="{% url 'challenge:challenge_detail' en.challenge.id%}">{{en.challenge.title}}</a></div>
-        </li>
-        <br>
-    {% endfor %}
-</body>
-</html>
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="mypage">
+        <div class="challenge_list">
+            <h3>오늘의 챌린지 리스트</h3>
+            {% for en in enrollments %}
+                <li>
+                    <a href="{% url 'challenge:challenge_detail' en.challenge.id%}">{{en.challenge.title}}</a>
+                </li>
+            {% endfor %}
+        </div>
+        <div class="friend_list">
+            <h3>친구 리스트</h3>
+            {% for fd in friends %}
+                <a href="{% url 'friend:fd_detail' fd.friend.pk %}"><li>{{fd.friend}}</li></a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
