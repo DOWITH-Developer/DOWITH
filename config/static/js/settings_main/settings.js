@@ -58,6 +58,8 @@ const printUserChallenge = (enrollmentList, challengeList) => {
 
     const enrollmentListParsed = JSON.parse(enrollmentList)
     const challengeListParsed = JSON.parse(challengeList)
+    console.log(enrollmentListParsed);
+    console.log(challengeListParsed)
 
     const userChallengeTemplate = `
         <div class="userChallenge__content">
