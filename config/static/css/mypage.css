@@ -15,7 +15,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     background-color: #bed9fa;
     padding: 8px 12px;
     height: 400px;

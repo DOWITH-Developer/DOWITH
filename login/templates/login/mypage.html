@@ -20,6 +20,10 @@
             {% for fd in friends %}
                 <a href="{% url 'friend:fd_detail' fd.friend.pk %}"><li>{{fd.friend}}</li></a>
             {% endfor %}
+            <br>
+            <br>
+            <a href="{% url 'friend:fd_more' me.id %}">더보기</a><br>
+            {# <a href="{% url 'login:settings' %}">설정</a> #}
         </div>
     </div>
 {% endblock %}
