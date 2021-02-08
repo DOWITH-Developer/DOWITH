@@ -10,25 +10,37 @@
             margin: 2rem auto;
         }
 
-        section .friend__list {
+        .friend__add {
+            width: 100px;
+            text-align: center;
+            background: gray;
+            color: white;
+            margin: 5px auto;
+            padding: 5px;
+        }
+
+        .friend__list {
             width: 90%;
             overflow: hidden;
             margin: 0 auto;
             padding: 20px;
+            text-align: center;
         }
 
         .friend__search {
-            width: 50%;
+            width: 60%;
             border: 1px solid black;
             overflow: auto;
             text-align: center;
-            display:inline-block;
+            height: 300px;
+            float: left
         }
 
         .friend__request {
             width: 30%;
             border: 1px solid black;
-            display: inline-block;
+            height: 300px;
+            float: right;
         }
 
         .friend__list__content {
@@ -55,10 +67,14 @@
 {% block content %}
 
     <h3 class="friend__page__title">{{me}}님의 친구</h3>
+    <div class="friend__add">
+        <a href="{% url 'friend:fd_create' %}">친구 추가하기</a>
+    </div>
 
     <section class="friend__list">
 
         <div class="friend__search">
+            <h4>친구 리스트</h4>
             {% for fd in friends %}
                 <div class="friend__list__content">
                     <a href="{% url 'friend:fd_detail' fd.friend.pk %}" class="friend__friends__name"><li>{{fd.friend}}</li></a>
@@ -67,7 +83,25 @@
         </div>        
 
         <div class="friend__request">
-            이곳은 수락 대기중인 친구 리스트가 보여지는 곳
+            <h4>친구 수락 대기</h4>
+            {% for pd in pendings %}
+                <div class="friend__list__content">
+                    <a href="{% url 'friend:fd_detail' pd.friend.pk %}" class="friend__friends__name"><li>{{pd.friend}}</li></a>
+                </div>
+
+                <div class="buttons">
+                    <form action="{% url 'friend:fd_approve' pd.friend.pk %}", method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="수락">
+                    </form>
+
+                    <form action="{% url 'friend:fd_delete' pd.pk %}", method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="거절">
+                    </form>
+                </div>
+
+            {% endfor %}
         </div>
 
     </section>

@@ -53,6 +53,13 @@
         <p style="text-align: center; font-size: 3rem;">달력</p>
     </section>
 
+    <section class="friend__delete">
+        <form action="{% url 'friend:fd_delete' user.pk %}", method="POST">
+            {% csrf_token %}
+            <input type="submit" value="친구 끊기">
+        </form>
+    </section>
+
 {% endblock content %}
 
 
