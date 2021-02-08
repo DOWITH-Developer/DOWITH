@@ -53,16 +53,6 @@ const printUserChallenge = (enrollmentList, challengeList) => {
     const challengeListParsed = JSON.parse(challengeList)
     console.log(challengeListParsed)
 
-    // let challengeTitleList = [];
-    // console.log(challengeListParsed.length)
-    // for(let i = 0; i < challengeListParsed.length; i++){
-    //     if(enrollmentListParsed[i].fields.challenge === challengeListParsed[i].pk){
-    //         challengeTitleList.push(challengeListParsed[i])
-    //         console.log(challengeListParsed[i])
-    //     }
-    // }
-    // console.log(challengeTitleList);
-
     const userChallengeTemplate = `
         <div class="userChallenge__content">
             <div class="status_0">
@@ -84,7 +74,7 @@ const printUserChallenge = (enrollmentList, challengeList) => {
     const newUserChallengeDiv = new DOMParser().parseFromString(userChallengeTemplate, "text/html").body.firstElementChild
     contentBox.appendChild(newUserChallengeDiv)
 
-    
+
     const status0 = document.querySelector(".status_0");
     const status1 = document.querySelector(".status_1");
     const status2 = document.querySelector(".status_2");

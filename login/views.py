@@ -103,10 +103,10 @@ def userchallenge_get(request):
     print(challenge_list_serialized)
 
     print(user_enrollment_list)
-    print(user_enrollment_list[0].challenge)
     enrollment_list_serializer = json.Serializer()
     enrollment_list_serialized = enrollment_list_serializer.serialize(
         user_enrollment_list)
+    print(enrollment_list_serialized)
 
     return JsonResponse({"enrollment_list": enrollment_list_serialized, "challenge_list": challenge_list_serialized})
 
