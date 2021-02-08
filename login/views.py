@@ -5,10 +5,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from challenge.models import * # Enrollment가져옴
 # from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm, LoginForm
+from .forms import SignUpForm, LoginForm, UserInfoModifyForm, UserPasswordChangeForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+
+from django.contrib.auth.decorators import login_required
+from django.views import View
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.core.serializers import json
 # Create your views here.
 
 
@@ -46,6 +53,7 @@ def login(request):
             return redirect("login:test")
         else:
             ctx = {
+                "form": form,
                 "error": "email or password is incorrect",
             }
             return render(request, "login/login.html", ctx)
@@ -75,3 +83,85 @@ def my_page(request, pk):
         'enrollments' : enrollments,
     }
     return render(request, "login/mypage.html", ctx)
+
+# settings
+@login_required
+def settings_main(request):
+    return render(request, "login/settings_main.html")
+
+
+# Forbidden (CSRF token missing or incorrect.) 문제로 데코레이터 추가함
+@csrf_exempt
+def userinfo_get(request):
+    user_name = request.user.username
+    user_nickname = request.user.nickname
+    user_email = request.user.email
+    return JsonResponse({"name": user_name, "nickname": user_nickname, "email": user_email})
+
+
+@csrf_exempt
+def userchallenge_get(request):
+    user = request.user
+    user_enrollment_list = user.chEnrollment_set.all()  # user의 enrollment list
+    user_challenge_list = []    # user가 참여한 challenge list
+
+    # enrollment list 직렬화 --> QuerySet을 json으로 변환
+    enrollment_list_serializer = json.Serializer()
+    enrollment_list_serialized = enrollment_list_serializer.serialize(
+        user_enrollment_list)
+
+    # user가 참여한 challenge를 user_enrollment_list를 통해 가져와 list로 담음
+    for i, ch in enumerate(list(user_enrollment_list)):
+        user_challenge_list.append(ch.challenge)
+
+    # challenge list 직렬화 --> QuerySet을 json으로 변환
+    challenge_list_serializer = json.Serializer()
+    challenge_list_serialized = challenge_list_serializer.serialize(
+        user_challenge_list)
+
+    return JsonResponse({"enrollment_list": enrollment_list_serialized, "challenge_list": challenge_list_serialized})
+
+
+@csrf_exempt
+def usersetting_get(request):
+    # 설정사항들 정하고 모델에 필드 추가하기
+    return JsonResponse({})
+
+
+# settings 2차
+def userinfo_modify(request):
+    if request.method == "POST":
+        form = UserInfoModifyForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("login:settings")
+        else:
+            ctx = {
+                "form": form,
+            }
+            return render(request, "login/userinfo_modify.html", ctx)
+    elif request.method == "GET":
+        form = UserInfoModifyForm(instance=request.user)
+        ctx = {
+            "form": form,
+        }
+        return render(request, "login/userinfo_modify.html", ctx)
+
+
+def userinfo_password_modify(request):
+    if request.method == "POST":
+        form = UserPasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login:login")
+        else:
+            ctx = {
+                "form": form,
+            }
+            return render(request, "login/userpassword_modify.html", ctx)
+    if request.method == "GET":
+        form = UserPasswordChangeForm(request.user)
+        ctx = {
+            "form": form,
+        }
+        return render(request, "login/userpassword_modify.html", ctx)

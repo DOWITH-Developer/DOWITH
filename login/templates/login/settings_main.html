@@ -1,0 +1,45 @@
+{% extends 'login/layout.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <!-- axios install -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="{% static 'js/settings_main/settings.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <p>
+            {{ request.user }}'s Page
+        </p>
+    </div>
+
+    <div>
+        <div>
+            <div class="userInfo">
+                {{ request.user }} 정보
+            </div>
+            <div class="userChallenge">
+                나의 챌린지
+            </div>
+            <div class="setting">
+                설정
+            </div>
+            <div class="ToS">
+                약관
+            </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="content">
+
+        </div>
+    </div>
+
+    <script>
+        const url = "{% url 'login:userinfo_modify' %}";
+    </script>
+{% endblock %}
