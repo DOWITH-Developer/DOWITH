@@ -76,7 +76,7 @@ body {
 }
 
 
-/* li.tab button:hover {
+li.tab button:hover {
     background-color: rgb(96, 168, 255);
 }
 
@@ -87,4 +87,12 @@ li.tab button:focus {
 li.tab.active button {
     color: red;
     border-color: red;
-} */
+}
+
+.total_container .items {
+    display: none;
+}
+
+.total_container .items.active {
+    display: inline-block;
+}
