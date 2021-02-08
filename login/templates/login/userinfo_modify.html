@@ -8,7 +8,15 @@
 {% block content %}
     <form action="" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for field in form %}
+            <div>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {% if field.id_for_label != "id_password" %}
+                    {{ field }}
+                {% endif %}
+            </div>
+        {% endfor %}
+        <!-- {{ form.as_p }} -->
         <input type="submit" value="저장하기">
     </form>
 {% endblock %}
