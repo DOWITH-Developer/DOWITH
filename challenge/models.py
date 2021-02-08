@@ -94,3 +94,6 @@ class Enrollment(models.Model):
 
     class Meta:
     	unique_together = ('challenge', 'player',)
+
+    def __str__(self):
+        return str(self.challenge) +' '+ str(self.player)
