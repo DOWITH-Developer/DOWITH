@@ -11,7 +11,7 @@
             {% csrf_token %}
             {% for field in form %}
                 <div>{{ field.label}}</div>
-                <div>{{ field|linebreaks }}</div>
+                <div>{{ field }}</div>
             {% endfor %}
             <button type="submit" >등록하기</button>
         </form>
