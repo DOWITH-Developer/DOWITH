@@ -1,10 +1,13 @@
 {% extends 'challenge/layout.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/challenge_deatil.css' %}">
+{% endblock %}
+
 {% block content %}
-
 <h2>{{ challenge.title }}</h2>
-    
 
-    
 <div>
     <div>챌린지 설명: {{ challenge.desc }}</div> 
     <div>챌린지 공개범위: 
@@ -25,10 +28,8 @@
     <div> 참여중인 사람수(***수정필요***) / {{ challenge.max_pp }}</div>
 </div>
 
-<div>
-    <div>친구 초대 하기</div>
-     <button class = "btn-copy">URL 복사하기</button>
-</div>
+<div id="url-link">www.나는 !!.com</div>
+<button onclick="copyToClipboard('#url-link')">클립보드에 복사하기</button>
 
 <hr>
 <form action="{% url 'challenge:challenge_delete' challenge.pk %}">
@@ -41,30 +42,58 @@
     <div><input type="submit" value="챌린지 참여하기"></div>
 </form>
 
-
 <hr>
-<input type="button" id="success" name="{{ company_slug }}" value="챌린지 성공" />
+
+<input type="submit" id="result" value="챌린지 성공" />
 
 <br>
 <a href="{% url 'challenge:ch_list' %}">챌린지 리스트로 돌아가기</a>
 
-{% comment %} <script>
-$('#success').click(function(){
-      $.ajax({
-               type: "POST",
-               url: "{% url 'challenge:success' %}",
-               data: {'slug': $(this).attr('name'), 'csrfmiddlewaretoken': '{{ csrf_token }}'},
-               dataType: "json",
-               success: function(response) {
-                      alert(response.message);
-                      alert('Company success count is now ' + response.success_count);
-                },
-                error: function(rs, e) {
-                       alert(rs.responseText);
-                }
-          }); 
-    })
-</script> {% endcomment %}
-
-
 {% endblock %}
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+// 랜덤링크 생성
+
+
+// 클립보드에 복사하기
+function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
+
+// 매일 12시에 업데이트
+const resultBtn = document.querySelector("#result");
+
+resultBtn.addEventListener('click', event => {
+    resultBtn.classList.add('result-clicked');
+})
+
+function getTime() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    if (hours == 00){
+         resultBtn.classList.remove('result-clicked');
+    }
+    //if (seconds == 00){
+    //    resultBtn.classList.remove('result-clicked')
+    //}
+}
+
+function init(){
+    getTime();
+    setInterval(getTime, 1000);
+    return;
+}
+
+init()
+</script>
+{% endblock script %}
