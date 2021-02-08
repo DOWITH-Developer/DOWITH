@@ -42,27 +42,26 @@ const onClickUserChallenge = async () => {
     const url = "/login/settings/user_challenge/";
 
     const {data} = await axios.get(url)
-    printUserChallenge(data.ch_enrollments, data.ch_titles);
+    printUserChallenge(data.enrollment_list, data.challenge_list);
 }
 
 const printUserChallenge = (enrollmentList, challengeList) => {
     contentBox.innerHTML = ''
 
-    let enrollmentList_parsed = JSON.parse(enrollmentList)
-    console.log(enrollmentList_parsed);
-    console.log(enrollmentList_parsed[0].fields);
-    let challengeList_parsed = JSON.parse(challengeList)
-    console.log(challengeList_parsed)
+    const enrollmentListParsed = JSON.parse(enrollmentList)
+    console.log(enrollmentListParsed);
+    const challengeListParsed = JSON.parse(challengeList)
+    console.log(challengeListParsed)
 
-    let challengeTitleList = [];
-    console.log(challengeList_parsed.length)
-    for(let i = 0; i < challengeList_parsed.length; i++){
-        if(enrollmentList_parsed[i].fields.challenge === challengeList_parsed[i].pk){
-            challengeTitleList.push(challengeList_parsed[i])
-            console.log(challengeList_parsed[i])
-        }
-    }
-    console.log(challengeList_parsed);
+    // let challengeTitleList = [];
+    // console.log(challengeListParsed.length)
+    // for(let i = 0; i < challengeListParsed.length; i++){
+    //     if(enrollmentListParsed[i].fields.challenge === challengeListParsed[i].pk){
+    //         challengeTitleList.push(challengeListParsed[i])
+    //         console.log(challengeListParsed[i])
+    //     }
+    // }
+    // console.log(challengeTitleList);
 
     const userChallengeTemplate = `
         <div class="userChallenge__content">
@@ -85,22 +84,23 @@ const printUserChallenge = (enrollmentList, challengeList) => {
     const newUserChallengeDiv = new DOMParser().parseFromString(userChallengeTemplate, "text/html").body.firstElementChild
     contentBox.appendChild(newUserChallengeDiv)
 
+    
     const status0 = document.querySelector(".status_0");
     const status1 = document.querySelector(".status_1");
     const status2 = document.querySelector(".status_2");
-    for(let i = 0; i < challengeTitleList.length; i++){
-        const innerHtmlStr = `챌린지 명 : ` + challengeTitleList[i].fields.title +
-                            `<br>챌린지 창시일 : ` + challengeTitleList[i].fields.created_date +
-                            `<br>챌린지 시작일 : ` + challengeTitleList[i].fields.start_date +
-                            `<br>나의 챌린지 신청일 : ` + enrollmentList_parsed[i].fields.created_at +
+    for(let i = 0; i < challengeListParsed.length; i++){
+        const innerHtmlStr = `챌린지 명 : ` + challengeListParsed[i].fields.title +
+                            `<br>챌린지 창시일 : ` + challengeListParsed[i].fields.created_date +
+                            `<br>챌린지 시작일 : ` + challengeListParsed[i].fields.start_date +
+                            `<br>나의 챌린지 신청일 : ` + enrollmentListParsed[i].fields.created_at +
                             `<br><br>`;
-        if(challengeTitleList[i].fields.status === 0){
+        if(challengeListParsed[i].fields.status === 0){
             status0.innerHTML += innerHtmlStr;
         }
-        else if(challengeTitleList[i].fields.status === 1){
+        else if(challengeListParsed[i].fields.status === 1){
             status1.innerHTML += innerHtmlStr;
         }
-        else if(challengeTitleList[i].fields.status === 2){
+        else if(challengeListParsed[i].fields.status === 2){
             status2.innerHTML += innerHtmlStr
         }
     }
