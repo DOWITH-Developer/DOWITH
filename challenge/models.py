@@ -91,3 +91,9 @@ class Enrollment(models.Model):
         User, on_delete=models.CASCADE, verbose_name="유저", related_name="player_set")
     result = models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True)
+
+    class Meta:
+    	unique_together = ('challenge', 'player',)
+
+    def __str__(self):
+        return str(self.challenge) +' '+ str(self.player)

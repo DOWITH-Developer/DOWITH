@@ -59,3 +59,12 @@ def fd_detail(request, pk):
 
 def fd_approve(request):
     return HttpResponse('hello')
+
+def fd_more(request,pk):
+    me = get_object_or_404(User, id=pk) #me = 접속한 user
+    friends = me.self_set.all() #me의 friend들
+    ctx = {        
+        'me': me,
+        'friends': friends,
+    }
+    return render(request, "friend/friend_more.html", ctx)

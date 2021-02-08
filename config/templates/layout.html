@@ -29,6 +29,9 @@
                 <!-- links -->
                 <ul class="links">
                     <li>
+                        <a href="{% url 'challenge:ch_list' %}">챌린지리스트</a>
+                    </li>
+                    <li>
                         <a href="{% url 'login:login' %}">로그인</a>
                     </li>
                     <li>
@@ -37,9 +40,15 @@
                     <li>
                         <a href="{% url 'login:signup' %}">회원가입</a>
                     </li>
+                    {% if user.is_active %}
+                    <li>
+                        <a href="{% url 'login:my_page' user.id %}">마이페이지</a>
+                    </li>
+                    {% else %}
                     <li>
                         <a href="">마이페이지</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
