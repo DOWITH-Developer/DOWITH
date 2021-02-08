@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 # from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm, LoginForm
+from .forms import SignUpForm, LoginForm, UserInfoModifyForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
@@ -111,3 +111,23 @@ def userchallenge_get(request):
 def usersetting_get(request):
     # 설정사항들 정하고 모델에 필드 추가하기
     return JsonResponse({})
+
+
+# settings 2차
+def userinfo_modify(request):
+    if request.method == "POST":
+        form = UserInfoModifyForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("login:settings")
+        else:
+            ctx = {
+                "form": form,
+            }
+            return render(request, "login/userinfo_modify.html", ctx)
+    if request.method == "GET":
+        form = UserInfoModifyForm(instance=request.user)
+        ctx = {
+            "form": form,
+        }
+        return render(request, "login/userinfo_modify.html", ctx)

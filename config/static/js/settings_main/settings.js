@@ -26,10 +26,18 @@ const printUserInfo = (name, nickname, email) => {
             <div>
                 Email : ` + email +
             `</div>
+            <input class="userInfo__modification" type="submit" value="수정하기"/>
         </div>
     `
     const newUserInfoDiv = new DOMParser().parseFromString(userInfoTemplate, "text/html").body.firstElementChild
     contentBox.appendChild(newUserInfoDiv)
+
+
+    // userInfo__modification
+    const userInfoModify = document.querySelector(".userInfo__modification");
+    userInfoModify.addEventListener("click", () => {
+        document.location.href = url;
+    })
 }
 
 userInfo.addEventListener("click", onClickUserInfo)
