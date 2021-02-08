@@ -8,8 +8,8 @@ from django.views.generic import CreateView, UpdateView
 
 def fd_list(request):
     me = request.user
-    friends = me.self_set.all().filter(accepted=True)
-    friends_pending = me.self_set.all().filter(accepted=False)
+    friends = me.friend_set.all().filter(accepted=True)
+    friends_pending = me.friend_set.all().filter(accepted=False)
 
     ctx = {        
         'me': me,
@@ -59,7 +59,7 @@ def fd_create(request):
 def fd_approve(request, pk):
     if request.method == "POST":
         target = User.objects.get(id=pk)
-        friendship = Friendship.objects.get(me=request.user, friend=target)
+        friendship = Friendship.objects.get(me=target, friend=request.user)
         friendship.accepted = True
         friendship.save()
 
@@ -73,6 +73,17 @@ def fd_approve(request, pk):
     else:
         return redirect('friend:fd_list')
 
+def fd_deny(request, pk):
+    if request.method == "POST":
+        target = User.objects.get(id=pk)
+        friendship = Friendship.objects.get(me=target, friend=request.user)
+        friendship.delete()
+
+        return redirect('friend:fd_list')
+    else:
+        return redirect('friend:fd_list')
+
+
 def fd_detail(request, pk):
     user = User.objects.get(pk=pk)
     ctx = {
@@ -80,8 +91,6 @@ def fd_detail(request, pk):
     }
     # TODO : 템플릿 수정
     return render(request, 'friend/friend_detail.html', context=ctx)
-
-
 
 
 def fd_delete(request, pk):
