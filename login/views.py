@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 # from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm, LoginForm, UserInfoModifyForm
+from .forms import SignUpForm, LoginForm, UserInfoModifyForm, UserPasswordChangeForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
@@ -125,9 +125,28 @@ def userinfo_modify(request):
                 "form": form,
             }
             return render(request, "login/userinfo_modify.html", ctx)
-    if request.method == "GET":
+    elif request.method == "GET":
         form = UserInfoModifyForm(instance=request.user)
         ctx = {
             "form": form,
         }
         return render(request, "login/userinfo_modify.html", ctx)
+
+
+def userinfo_password_modify(request):
+    if request.method == "POST":
+        form = UserPasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login:login")
+        else:
+            ctx = {
+                "form": form,
+            }
+            return render(request, "login/userpassword_modify.html", ctx)
+    if request.method == "GET":
+        form = UserPasswordChangeForm(request.user)
+        ctx = {
+            "form": form,
+        }
+        return render(request, "login/userpassword_modify.html", ctx)

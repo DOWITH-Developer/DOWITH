@@ -14,5 +14,7 @@ urlpatterns = [
     path("settings/user_challenge/", userchallenge_get, name="user_challenge"),
     path("settings/setting/", usersetting_get, name="user_setting"),
     # settings 2차
-    path("userinfo_modify/", userinfo_modify, name="userinfo_modify")
+    path("userinfo_modify/", userinfo_modify, name="userinfo_modify"),
+    path("userinfo_password_modify/", userinfo_password_modify,
+         name="userpassword_modify"),
 ]

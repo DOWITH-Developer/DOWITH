@@ -25,8 +25,8 @@ class UserInfoModifyForm(UserChangeForm):
         fields = ["username", "nickname", "email", "password"]
 
 
-# class UserPasswordChangeForm(PasswordChangeForm):
+class UserPasswordChangeForm(PasswordChangeForm):
 
-#     class Meta:
-#         model = User
-#         field = "__all__"
+    class Meta:
+        model = User
+        field = "__all__"
