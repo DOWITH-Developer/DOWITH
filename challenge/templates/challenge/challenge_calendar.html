@@ -7,7 +7,7 @@
 {% endblock %}
 {% block calendar_script %}
 <div class="calendar_container">
-    <div class="calendar_title"></div>
+    <h2 class="calendar_title"></h2>
     <div class="weekday">
         <div>일요일</div>
         <div>월요일</div>
@@ -27,8 +27,9 @@
     const today = new Date();
     calendarTitle.innerHTML = months[today.getMonth()];
 
+        
     //날짜 데이터를 가공하는 함수
-    const setCalendarData = (year, month) => {
+    const setCalendarData = (year, month) => {        
         let calHtml = "";
 
         // 이번 달의 첫째 날 객체 반환
@@ -57,7 +58,7 @@
         let startDayCount = 1;
         let lastDayCount = 1;
 
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 7; j++) {
             if (i == 0 && j < firstDayName) {
                 if (j == 0) {
@@ -119,6 +120,7 @@
                     `<div style='background-color:#BBFFC9;'class='calendar__day horizontalGutter verticalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
                 }
             }
+            // 이번 달 이후의 달 표시
             else if (startDayCount > lastDay) {
                 if (j == 0) {
                 // 스타일링을 위한 클래스 추가
@@ -139,17 +141,18 @@
         document
             .querySelector(".calendar")
             .insertAdjacentHTML("beforeend", calHtml);
+
         };
 
         
         const setFixDayCount = number => {
-        let fixNum = "";
-        if (number < 10) {
-            fixNum = "0" + number;
-        } else {
-            fixNum = number;
-        }
-        return fixNum;
+            let fixNum = "";
+            if (number < 10) {
+                fixNum = "0" + number;
+            } else {
+                fixNum = number;
+            }
+            return fixNum;
         };
 
         if (today.getMonth() + 1 < 10) {
@@ -157,6 +160,8 @@
         } else {
         setCalendarData(today.getFullYear(), "" + (today.getMonth() + 1));
         }
+        
+
 </script>
 {% endblock calendar_script %}
 
