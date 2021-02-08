@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Navbar</title>
+        <title>iChallenge</title>
 
         <link
             rel="stylesheet"
@@ -15,6 +15,8 @@
         <script src="{% static 'js/layout.js' %}" defer></script>
 
         {% block extra_head %} {% endblock %}
+        {% block calendar_head %} {% endblock %}
+
     </head>
     <body>
         <!-- navbar -->
@@ -29,6 +31,9 @@
                 <!-- links -->
                 <ul class="links">
                     <li>
+                        <a href="{% url 'challenge:ch_list' %}">챌린지리스트</a>
+                    </li>
+                    <li>
                         <a href="{% url 'login:login' %}">로그인</a>
                     </li>
                     <li>
@@ -37,9 +42,15 @@
                     <li>
                         <a href="{% url 'login:signup' %}">회원가입</a>
                     </li>
+                    {% if user.is_active %}
+                    <li>
+                        <a href="{% url 'login:my_page' user.id %}">마이페이지</a>
+                    </li>
+                    {% else %}
                     <li>
                         <a href="">마이페이지</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
@@ -49,7 +60,11 @@
 
         {% block content %}
         {% endblock content %}
+        {% block calendar %}
+        {% endblock calendar %}
         {% block script %}
         {% endblock script %}
+        {% block calendar_script %}
+        {% endblock calendar_script %}
     </body>
 </html>

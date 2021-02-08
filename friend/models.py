@@ -8,7 +8,7 @@ class Friendship(models.Model):
     accepted = models.BooleanField(default=False)
 
     class Meta:
-    	unique_together = ('me', 'friend',)
+        unique_together = ('me', 'friend',)
 
 
 

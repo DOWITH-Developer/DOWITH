@@ -108,3 +108,12 @@ def fd_delete(request, pk):
         friendship = get_object_or_404(Friendship, me=friend, friend=me)
         friendship.delete()
         return redirect('friend:fd_list')
+
+def fd_more(request,pk):
+    me = get_object_or_404(User, id=pk) #me = 접속한 user
+    friends = me.self_set.all() #me의 friend들
+    ctx = {        
+        'me': me,
+        'friends': friends,
+    }
+    return render(request, "friend/friend_more.html", ctx)
