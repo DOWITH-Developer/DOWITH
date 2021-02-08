@@ -86,27 +86,23 @@ def userinfo_get(request):
 
 @csrf_exempt
 def userchallenge_get(request):
-    # user의 challenge 접근하는 문법(쿼리셋?) 공부하기
-    # user = User.objects.get(nickname="jmchoi")
-    # challenges = user.player_set.all()
-    # challenge_name = user.player_set.get().challenge.title -> a
     user = request.user
-    user_enrollment_list = user.chEnrollment_set.all()
-    user_challenge_list = []
+    user_enrollment_list = user.chEnrollment_set.all()  # user의 enrollment list
+    user_challenge_list = []    # user가 참여한 challenge list
 
-    for i, ch in enumerate(list(user_enrollment_list)):
-        user_challenge_list.append(ch.challenge)
-
-    challenge_list_serializer = json.Serializer()
-    challenge_list_serialized = challenge_list_serializer.serialize(
-        user_challenge_list)
-    print(challenge_list_serialized)
-
-    print(user_enrollment_list)
+    # enrollment list 직렬화 --> QuerySet을 json으로 변환
     enrollment_list_serializer = json.Serializer()
     enrollment_list_serialized = enrollment_list_serializer.serialize(
         user_enrollment_list)
-    print(enrollment_list_serialized)
+
+    # user가 참여한 challenge를 user_enrollment_list를 통해 가져와 list로 담음
+    for i, ch in enumerate(list(user_enrollment_list)):
+        user_challenge_list.append(ch.challenge)
+
+    # challenge list 직렬화 --> QuerySet을 json으로 변환
+    challenge_list_serializer = json.Serializer()
+    challenge_list_serialized = challenge_list_serializer.serialize(
+        user_challenge_list)
 
     return JsonResponse({"enrollment_list": enrollment_list_serialized, "challenge_list": challenge_list_serialized})
 

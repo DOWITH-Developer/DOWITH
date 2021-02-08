@@ -49,9 +49,7 @@ const printUserChallenge = (enrollmentList, challengeList) => {
     contentBox.innerHTML = ''
 
     const enrollmentListParsed = JSON.parse(enrollmentList)
-    console.log(enrollmentListParsed);
     const challengeListParsed = JSON.parse(challengeList)
-    console.log(challengeListParsed)
 
     const userChallengeTemplate = `
         <div class="userChallenge__content">
@@ -79,19 +77,23 @@ const printUserChallenge = (enrollmentList, challengeList) => {
     const status1 = document.querySelector(".status_1");
     const status2 = document.querySelector(".status_2");
     for(let i = 0; i < challengeListParsed.length; i++){
-        const innerHtmlStr = `챌린지 명 : ` + challengeListParsed[i].fields.title +
-                            `<br>챌린지 창시일 : ` + challengeListParsed[i].fields.created_date +
-                            `<br>챌린지 시작일 : ` + challengeListParsed[i].fields.start_date +
-                            `<br>나의 챌린지 신청일 : ` + enrollmentListParsed[i].fields.created_at +
-                            `<br><br>`;
+        const innerHtmlTemplate = `<div>챌린지 명 : ` + challengeListParsed[i].fields.title +
+                                    `<br>챌린지 창시일 : ` + challengeListParsed[i].fields.created_date +
+                                    `<br>챌린지 시작일 : ` + challengeListParsed[i].fields.start_date +
+                                    `<br>나의 챌린지 신청일 : ` + enrollmentListParsed[i].fields.created_at +
+                                    `<br><br>
+                                </div>`;
+        
+        const newChallengeDiv = new DOMParser().parseFromString(innerHtmlTemplate, "text/html").body.firstElementChild
+        
         if(challengeListParsed[i].fields.status === 0){
-            status0.innerHTML += innerHtmlStr;
+            status0.appendChild(newChallengeDiv);
         }
         else if(challengeListParsed[i].fields.status === 1){
-            status1.innerHTML += innerHtmlStr;
+            status1.appendChild(newChallengeDiv);
         }
         else if(challengeListParsed[i].fields.status === 2){
-            status2.innerHTML += innerHtmlStr
+            status2.appendChild(newChallengeDiv);
         }
     }
 }
@@ -114,9 +116,9 @@ const printSetting = () => {
 
     const settingTemplate = `
         <div class="setting__content">
-            <form action="" method="POST">
-                {% csrf_token %}
-                <p>디스플레이</p>
+            <form action="" method="POST">` + ``
+                // {% csrf_token %}
+                + `<p>디스플레이</p>
                 <label><input type="radio" name="display_mode" checked> 라이트 모드</label>
                 <label><input type="radio" name="display_mode"> 다크 모드</label>
                 <button type="submit">저장</button>
