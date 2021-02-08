@@ -6,26 +6,31 @@
     <link rel="stylesheet" href="{% static 'css/ch_list.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="c_box">
+    <div class="title">
+        <h2>Select your Challenge</h2>
+        <div class="underline"></div>
         <div class="top_box">
             <div class="search">
                 검색
             </div>
-            <div class="ch_add">
-                <a href="{% url 'challenge:challenge_create' %}">
-                    챌린지 생성하기
-                </a>
-            </div>
         </div>
+        <div class="ch_add">
+            <a href="{% url 'challenge:challenge_create' %}">
+                챌린지 생성하기
+            </a>
+        </div>
+    </div>
+
+    <div class="total_container">
         <hr width=100% color="#808080" style="margin: 10px 0px">
         <div class="tabs">
-            <li class="tab active" data-tab-target="#tab1"><button>전체</button></li>
-            <li class="tab" data-tab-target="#tab2"><button>어학</button></li>
-            <li class="tab" data-tab-target="#tab3"><button>취업</button></li>
-            <li class="tab" data-tab-target="#tab4"><button>고시/공무원</button></li>
-            <li class="tab" data-tab-target="#tab5"><button>프로그래밍</button></li>
-            <li class="tab" data-tab-target="#tab6"><button>자격증</button></li>
-            <li class="tab" data-tab-target="#tab7"><button>기타</button></li>
+            <button class="filter-btn tab active" data-tab-target="#tab1">전체</button>
+            <button class="filter-btn tab" data-tab-target="#tab2">어학</button>
+            <button class="filter-btn tab" data-tab-target="#tab3">취업</button>
+            <button class="filter-btn tab" data-tab-target="#tab4">고시/공무원</button>
+            <button class="filter-btn tab" data-tab-target="#tab5">프로그래밍</button>
+            <button class="filter-btn tab" data-tab-target="#tab6">자격증</button>
+            <button class="filter-btn tab" data-tab-target="#tab7">기타</button>
         </div>
         <hr width=100% color="#808080" style="margin: 10px 0px">
         <div class="content">

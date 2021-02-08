@@ -5,9 +5,10 @@ from login.models import User
 class Friendship(models.Model):
     me = models.ForeignKey(User, on_delete=models.CASCADE, related_name='self_set', blank=True, null=True)
     friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name="friend_set")
+    accepted = models.BooleanField(default=False)
 
     class Meta:
-    	unique_together = ('me', 'friend',)
+        unique_together = ('me', 'friend',)
 
 
 
@@ -30,6 +31,12 @@ class Friendship(models.Model):
 # pre_save() <-- 생성되기 직전에 하는 액션; 만약에 me / friend 순서 바뀐게 있으면, 저장하지 마세요!
 # save() <-- DB에 들어감
 # post_save() <-- 생성된 후에 하는 액션
+
+
+# 친구 요청 / 수락
+# 요청 pre_save()
+# 수락 -> save()
+# 상대방과의 opposite connection post_save()
 
 
 # -------------------------------

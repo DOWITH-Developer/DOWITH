@@ -1,23 +1,110 @@
 {% extends 'friend/layout.html' %}
 
+{% block extra_head %}
+
+
+    <style>
+
+        .friend__page__title {
+            text-align: center;
+            margin: 2rem auto;
+        }
+
+        .friend__add {
+            width: 100px;
+            text-align: center;
+            background: gray;
+            color: white;
+            margin: 5px auto;
+            padding: 5px;
+        }
+
+        .friend__list {
+            width: 90%;
+            overflow: hidden;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .friend__search {
+            width: 60%;
+            border: 1px solid black;
+            overflow: auto;
+            text-align: center;
+            height: 300px;
+            float: left
+        }
+
+        .friend__request {
+            width: 30%;
+            border: 1px solid black;
+            height: 300px;
+            float: right;
+        }
+
+        .friend__list__content {
+            width: 200px;
+            height: 140px;
+            list-style-type: none;
+            border: 1px solid black;
+            display:inline-block;
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .friend__friends__name {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+
+    </style>
+
+{% endblock extra_head %}
+
+
 {% block content %}
 
-    나: {{me}}
-    <hr>
+    <h3 class="friend__page__title">{{me}}님의 친구</h3>
+    <div class="friend__add">
+        <a href="{% url 'friend:fd_create' %}">친구 추가하기</a>
+    </div>
 
+    <section class="friend__list">
 
-    친구:
+        <div class="friend__search">
+            <h4>친구 리스트</h4>
+            {% for fd in friends %}
+                <div class="friend__list__content">
+                    <a href="{% url 'friend:fd_detail' fd.me.pk %}" class="friend__friends__name"><li>{{fd.me}}</li></a>
+                </div>
+            {% endfor %}
+        </div>        
 
-    <ul>
+        <div class="friend__request">
+            <h4>친구 수락 대기</h4>
+            {% for pd in pendings %}
+                <div class="friend__list__content">
+                    <a href="{% url 'friend:fd_detail' pd.me.pk %}" class="friend__friends__name"><li>{{pd.me}}</li></a>
+                </div>
 
-        {% for fd in friends %}
-        
-            <a href="{% url 'friend:fd_detail' fd.friend.pk %}"><li>{{fd.friend}}</li></a>
+                <div class="buttons">
+                    <form action="{% url 'friend:fd_approve' pd.me.pk %}", method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="수락">
+                    </form>
 
-        {% endfor %}
+                    <form action="{% url 'friend:fd_deny' pd.me.pk %}", method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="거절">
+                    </form>
+                </div>
 
-    </ul> 
-    
+            {% endfor %}
+        </div>
+
+    </section>
 
 {% endblock content %}
 
