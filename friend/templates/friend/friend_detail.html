@@ -1,14 +1,57 @@
 {% extends 'layout.html' %}
 
+{% block extra_head %}
+
+    <style>
+        .friend__page__title {
+            text-align: center;
+            margin: 2rem auto;
+        }
+
+        .friend__detail {
+            margin: 5rem auto;
+            display:flex;
+            justify-content: space-around;
+        }
+
+        .friend_calendar {
+            margin: 0 auto;
+        }
+    </style>
+
+{% endblock extra_head %}
+
+
 {% block content %}
 
-    유저 이름: {{user.username}}
+    <h2 class="friend__page__title">{{user.nickname}}님의 대시보드</h2>
 
-    <br>
-    <hr>
-    <br>
+    <section class="friend__detail">
 
-    유저 이메일: {{user.email}}
+        <div class="friend__info">
+            <h3 class="friend__name">
+                {{user.username}}
+            </h3>
+            <ul class="friend__info__content">
+                <li>닉네임: {{user.nickname}}</li>
+                <li>이메일: {{user.email}}</li>
+            </ul>
+        </div>
+
+        <div class="friend__challenge">
+            <h3>{{user.username}}님의 오늘 챌린지</h2>
+            <ul>
+                <li>1. 아침에 일어나기</li>
+                <li>2. 파이썬 하기</li>
+                <li>3. 이건 예시 입니다.</li>
+            </ul>
+        </div>
+
+    </section>
+
+    <section class="friend__calendar">
+        <p style="text-align: center; font-size: 3rem;">달력</p>
+    </section>
 
 {% endblock content %}
 

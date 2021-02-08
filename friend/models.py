@@ -32,6 +32,12 @@ class Friendship(models.Model):
 # post_save() <-- 생성된 후에 하는 액션
 
 
+# 친구 요청 / 수락
+# 요청 pre_save()
+# 수락 -> save()
+# 상대방과의 opposite connection post_save()
+
+
 # -------------------------------
 # fs = FriendShip(me=a, friend=b)
 # fs2 = FriendShip(me=b, friend=a)

@@ -52,10 +52,8 @@ def fd_detail(request, pk):
     ctx = {
         'user': user
     }
-    # TODO : 템플릿 수정
     return render(request, 'friend/friend_detail.html', context=ctx)
-
-
 
 def fd_approve(request):
     return HttpResponse('hello')
+
