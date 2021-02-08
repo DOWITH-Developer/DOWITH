@@ -42,21 +42,68 @@ const onClickUserChallenge = async () => {
     const url = "/login/settings/user_challenge/";
 
     const {data} = await axios.get(url)
-    printUserChallenge();
+    printUserChallenge(data.ch_enrollments, data.ch_titles);
 }
 
-const printUserChallenge = () => {
+const printUserChallenge = (enrollmentList, challengeList) => {
     contentBox.innerHTML = ''
+
+    let enrollmentList_parsed = JSON.parse(enrollmentList)
+    console.log(enrollmentList_parsed);
+    console.log(enrollmentList_parsed[0].fields);
+    let challengeList_parsed = JSON.parse(challengeList)
+    console.log(challengeList_parsed)
+
+    let challengeTitleList = [];
+    console.log(challengeList_parsed.length)
+    for(let i = 0; i < challengeList_parsed.length; i++){
+        if(enrollmentList_parsed[i].fields.challenge === challengeList_parsed[i].pk){
+            challengeTitleList.push(challengeList_parsed[i])
+            console.log(challengeList_parsed[i])
+        }
+    }
+    console.log(challengeList_parsed);
 
     const userChallengeTemplate = `
         <div class="userChallenge__content">
-            <div>
-                user의 challenge 접근하는 문법(쿼리셋?) 공부하기
+            <div class="status_0">
+                대기 중
+                <br>
+            </div>
+            <br>
+            <div class="status_1">
+                진행 중
+                <br>
+            </div>
+            <br>
+            <div class="status_2">
+                완료
+                <br>
             </div>
         </div>
     `
     const newUserChallengeDiv = new DOMParser().parseFromString(userChallengeTemplate, "text/html").body.firstElementChild
     contentBox.appendChild(newUserChallengeDiv)
+
+    const status0 = document.querySelector(".status_0");
+    const status1 = document.querySelector(".status_1");
+    const status2 = document.querySelector(".status_2");
+    for(let i = 0; i < challengeTitleList.length; i++){
+        const innerHtmlStr = `챌린지 명 : ` + challengeTitleList[i].fields.title +
+                            `<br>챌린지 창시일 : ` + challengeTitleList[i].fields.created_date +
+                            `<br>챌린지 시작일 : ` + challengeTitleList[i].fields.start_date +
+                            `<br>나의 챌린지 신청일 : ` + enrollmentList_parsed[i].fields.created_at +
+                            `<br><br>`;
+        if(challengeTitleList[i].fields.status === 0){
+            status0.innerHTML += innerHtmlStr;
+        }
+        else if(challengeTitleList[i].fields.status === 1){
+            status1.innerHTML += innerHtmlStr;
+        }
+        else if(challengeTitleList[i].fields.status === 2){
+            status2.innerHTML += innerHtmlStr
+        }
+    }
 }
 
 userChallenge.addEventListener("click", onClickUserChallenge)

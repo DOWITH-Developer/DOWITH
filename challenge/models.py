@@ -8,8 +8,9 @@ from login.models import User
 # - HostUser : user_id
 # - is_published : Boolean
 # - link_url : /challenge/cr23ou89hnacefijlnsho
-                # python hash
+# python hash
 # URLSAFE : 띄어쓰기, 덧셈이 urlsafe functionå
+
 
 def redirect_link(link):
     challenges = Challenge.objects.filter(link=link)
@@ -30,6 +31,7 @@ def redirect_link(link):
 # 1. 파일 : Django File Upload
 # 2. 외부 클라우드 스토리지 : 서버에서는 사진을 클라우드로 올리고, 클라우드 링크만 갖고있어요
 # AWS S3, Microsoft, etc.
+
 
 class Challenge(models.Model):
     CATEGORY_LANGUAGE = 'language'
@@ -86,8 +88,8 @@ class Challenge(models.Model):
 
 class Enrollment(models.Model):
     challenge = models.ForeignKey(
-        Challenge, on_delete=models.CASCADE, verbose_name="챌린지", related_name="challenge_set")
+        Challenge, on_delete=models.CASCADE, verbose_name="챌린지", related_name="chEnrollment_set")
     player = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name="유저", related_name="player_set")
+        User, on_delete=models.CASCADE, verbose_name="유저", related_name="chEnrollment_set")
     result = models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True)

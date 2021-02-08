@@ -11,6 +11,7 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.core.serializers import json
 # Create your views here.
 
 
@@ -86,7 +87,31 @@ def userinfo_get(request):
 @csrf_exempt
 def userchallenge_get(request):
     # user의 challenge 접근하는 문법(쿼리셋?) 공부하기
-    return JsonResponse({})
+    # user = User.objects.get(nickname="jmchoi")
+    # challenges = user.player_set.all()
+    # challenge_name = user.player_set.get().challenge.title -> a
+    user = request.user
+    challenge_enrollments = user.chEnrollment_set.all()
+    challenge_enrollments_len = len(challenge_enrollments)
+    challenge_titles = []
+    for i, ch in enumerate(list(challenge_enrollments)):
+        print(ch.challenge.title)
+        print(ch.challenge.pk)
+        print(ch.challenge)
+        challenge_titles.append(ch.challenge)
+        # challenge_titles.append([ch.challenge.pk, ch.challenge.title])
+    # print(challenge_titles)
+    json_serializer2 = json.Serializer()
+    json_serialized2 = json_serializer2.serialize(challenge_titles)
+    print(json_serialized2)
+
+    print(challenge_enrollments)
+    print(challenge_enrollments[0].challenge.pk)
+    json_serializer = json.Serializer()
+    json_serialized = json_serializer.serialize(challenge_enrollments)
+    # print(json_serialized)
+    # print(len(challenge_enrollments))
+    return JsonResponse({"ch_enrollments": json_serialized, "ch_enrollments_len": challenge_enrollments_len, "ch_titles": json_serialized2})
 
 
 @csrf_exempt

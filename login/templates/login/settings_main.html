@@ -31,6 +31,9 @@
             </div>
         </div>
 
+        <br>
+        <br>
+        
         <div class="content">
             <!-- <form action="" method="GET">
                 {% csrf_token %}
@@ -40,6 +43,66 @@
                 <button type="submit">저장</button>
                 <button type="reset">초기화</button>
             </form> -->
+            <div>
+                <!-- {% for challenge in challengeTitleList %}
+                    {{ challenge.fields.title }}
+                {% endfor %} -->
+            </div>
         </div>
     </div>
+
+    <!-- <script>
+        const userInfo = document.querySelector(".userInfo")
+        const userChallenge = document.querySelector(".userChallenge")
+        const setting = document.querySelector(".setting")
+        const ToS = document.querySelector(".ToS")
+        const contentBox = document.querySelector(".content")
+
+        // userChallenge
+        const onClickUserChallenge = async () => {
+            const url = "/login/settings/user_challenge/";
+
+            const {data} = await axios.get(url)
+            printUserChallenge(data.ch_enrollments, data.ch_enrollments_len, data.ch_titles);
+        }
+
+        const printUserChallenge = (enrollmentList, enrollmentListLen, challengeList) => {
+            contentBox.innerHTML = ''
+
+            let enrollmentList_parsed = JSON.parse(enrollmentList)
+            console.log(enrollmentList_parsed[0]);
+            console.log(enrollmentList_parsed[0].fields);
+            let challengeList_parsed = JSON.parse(challengeList)
+            console.log(challengeList_parsed[0])
+
+            let challengeTitleList = [];
+
+            for(let i = 0; i < challengeList_parsed[enrollmentListLen - 1].pk; i++){
+                if(enrollmentList_parsed[i].fields.challenge == challengeList_parsed[i].pk){
+                    challengeTitleList.push(challengeList_parsed[i].fields.title)
+                    console.log(challengeList_parsed[i])
+                }
+            }
+
+            // console.log(enrollmentList_parsed, enrollmentListLen)
+            const userChallengeTemplate = `
+                <div class="userChallenge__content">
+                    <div>
+                        user의 challenge 접근하는 문법(쿼리셋?) 공부하기
+                    </div>
+                    <div class="here">
+                    </div>
+                </div>
+            `
+            const newUserChallengeDiv = new DOMParser().parseFromString(userChallengeTemplate, "text/html").body.firstElementChild
+            contentBox.appendChild(newUserChallengeDiv)
+
+            const here = document.querySelector(".here");
+            for(let i = 0; i < challengeTitleList.length; i++){
+                here.innerHTML += challengeTitleList[i] + ` `;
+            }
+        }
+
+        userChallenge.addEventListener("click", onClickUserChallenge)
+    </script> -->
 {% endblock %}
