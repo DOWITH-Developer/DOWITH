@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from .models import Friendship
+from challenge.models import Challenge, Enrollment
 from login.models import User
 from .forms import FriendshipForm
 from django.views.generic import CreateView, UpdateView
@@ -86,10 +87,12 @@ def fd_deny(request, pk):
 
 def fd_detail(request, pk):
     user = User.objects.get(pk=pk)
+    enrollments = Enrollment.objects.all().filter(player=user)
+    #challenges = user.player_set.all()
     ctx = {
-        'user': user
+        'user': user,
+        'enrollments': enrollments,
     }
-    # TODO : 템플릿 수정
     return render(request, 'friend/friend_detail.html', context=ctx)
 
 

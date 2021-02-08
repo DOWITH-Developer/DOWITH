@@ -41,9 +41,9 @@
         <div class="friend__challenge">
             <h3>{{user.username}}님의 오늘 챌린지</h2>
             <ul>
-                <li>1. 아침에 일어나기</li>
-                <li>2. 파이썬 하기</li>
-                <li>3. 이건 예시 입니다.</li>
+                {% for enrollment in enrollments %}
+                    <li>{{enrollment.challenge.title}}</li>
+                {% endfor %}
             </ul>
         </div>
 
