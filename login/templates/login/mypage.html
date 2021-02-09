@@ -22,8 +22,10 @@
             {% endfor %}
             <br>
             <br>
-            <a href="{% url 'friend:fd_more' me.id %}">더보기</a><br>
-            {# <a href="{% url 'login:settings' %}">설정</a> #}
+            <a href="{% url 'friend:fd_list' %}">더보기</a><br>
+            
+            <h3>설정</h3>
+            <a href="{% url 'login:settings' %}">설정</a>
         </div>
     </div>
 {% endblock %}
