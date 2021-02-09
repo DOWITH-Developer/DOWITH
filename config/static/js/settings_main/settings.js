@@ -15,7 +15,7 @@ const contentBox = document.querySelector(".content")
 const printUserInfo = (name, nickname, email) => {
     contentBox.innerHTML = ''
 
-    const userInfoTemplate = `
+    let userInfoTemplate = `
         <div class="userInfo__content">
             <div>
                 Username : ` + name +
@@ -27,16 +27,23 @@ const printUserInfo = (name, nickname, email) => {
                 Email : ` + email +
             `</div>
             <input class="userInfo__modification" type="submit" value="수정하기"/>
+            <input class="userInfo_password__modification" type="submit" value="비밀번호 변경하기"/>
         </div>
     `
-    const newUserInfoDiv = new DOMParser().parseFromString(userInfoTemplate, "text/html").body.firstElementChild
+    let newUserInfoDiv = new DOMParser().parseFromString(userInfoTemplate, "text/html").body.firstElementChild
     contentBox.appendChild(newUserInfoDiv)
 
 
     // userInfo__modification
     const userInfoModify = document.querySelector(".userInfo__modification");
     userInfoModify.addEventListener("click", () => {
-        document.location.href = url;
+        document.location.href = userInfoModifyUrl;
+    })
+
+    // userInfo_password__modification
+    const userInfoPasswordModify = document.querySelector(".userInfo_password__modification");
+    userInfoPasswordModify.addEventListener("click", () => {
+        document.location.href = passwordModifyUrl;
     })
 }
 

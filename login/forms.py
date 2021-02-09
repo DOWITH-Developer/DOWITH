@@ -22,7 +22,7 @@ class UserInfoModifyForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ["username", "nickname", "email", "password"]
+        fields = ["username", "nickname"]
 
 
 class UserPasswordChangeForm(PasswordChangeForm):
