@@ -24,7 +24,7 @@ def sign_up(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            return redirect("login:test")
+            return redirect("challenge:ch_list")
         else:
             ctx = {
                 "form": form,
@@ -50,7 +50,7 @@ def login(request):
         user = authenticate(email=email, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect("login:test")
+            return redirect("challenge:ch_list")
         else:
             ctx = {
                 "form": form,

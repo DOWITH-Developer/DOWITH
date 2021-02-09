@@ -95,24 +95,22 @@
 {% endblock %}
 
 {% block script %}
-<script type="text/javascript">
-   const tabs = document.querySelectorAll("[data-tab-target]");
-    const tabcon = document.querySelectorAll("[data-tab-content]");
-    tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-        const target = document.querySelector(tab.dataset.tabTarget);
-        tabcon.forEach((tabc_all) => {
-        tabc_all.classList.remove("active");
+    <script type="text/javascript">
+        const tabs = document.querySelectorAll("[data-tab-target]");
+        const tabcon = document.querySelectorAll("[data-tab-content]");
+        tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+            const target = document.querySelector(tab.dataset.tabTarget);
+            tabcon.forEach((tabc_all) => {
+            tabc_all.classList.remove("active");
+            });
+            tabs.forEach((tabs_all) => {
+            tabs_all.classList.remove("active");
+            });
+
+            target.classList.add("active");
+            tab.classList.add("active");
         });
-        tabs.forEach((tabs_all) => {
-        tabs_all.classList.remove("active");
         });
-
-        target.classList.add("active");
-        tab.classList.add("active");
-    });
-    });
-
-
-</script>
+    </script>
 {% endblock script %}
