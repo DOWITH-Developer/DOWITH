@@ -49,7 +49,7 @@ def challenge_create(request):
     if request.method == 'POST':
         form = ChallengeForm(request.POST, request.FILES)
         if form.is_valid():
-            challenge = form.save()  # ModelForm에서 제공
+            challenge = form.save()
             return redirect(f'/challenge/{challenge.pk}')
 
     else:
@@ -69,6 +69,9 @@ def challenge_delete(request, pk):
 
 def challenge_calendar(request):
     return render(request, 'challenge/challenge_calendar.html')
+
+# Enrollment(result)
+
 # try:
 #     from django.utils import simplejson as json
 # except ImportError:

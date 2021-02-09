@@ -75,8 +75,10 @@ class Challenge(models.Model):
     duration = models.PositiveIntegerField(verbose_name="기간")
     start_date = models.DateField(verbose_name="시작일")
     created_date = models.DateField(auto_now_add=True, verbose_name="생성일")
-    # p_users = models.ManyToManyField(User, related_name="p_user")
     link_url = models.URLField(blank=True, null=True)
+
+    def link_url_uuid():
+        return uuid.uuid4().hex
 
     @property
     def total_success(self):
@@ -100,3 +102,5 @@ class Enrollment(models.Model):
     def __str__(self):
         return str(self.challenge) +' '+ str(self.player)
 
+    def total_player(self):
+        return self.player.count()
