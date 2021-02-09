@@ -99,3 +99,4 @@ class Enrollment(models.Model):
 
     def __str__(self):
         return str(self.challenge) +' '+ str(self.player)
+
