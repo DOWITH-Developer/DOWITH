@@ -76,7 +76,7 @@ def my_page(request, pk):
     me = get_object_or_404(User, id=pk) #me = 접속한 user
     friends = me.self_set.all() #me의 friend들
     enrollments = Enrollment.objects.filter(
-            player=me)
+            player=me).order_by('-pk')
     ctx = {        
         'me': me,
         'friends': friends,
