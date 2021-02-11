@@ -12,10 +12,11 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
         />
         <link rel="stylesheet" href="{% static 'css/layout.css' %}" />
-        <script src="{% static 'js/layout.js' %}" defer></script>
+        
 
         {% block extra_head %} {% endblock %}
         {% block calendar_head %} {% endblock %}
+        {% block search_friend %} {% endblock %}
 
     </head>
     <body>
@@ -62,10 +63,11 @@
 
         {% block content %}
         {% endblock content %}
-        {% block calendar %}
-        {% endblock calendar %}
         {% block script %}
         {% endblock script %}
+
+        {% block calendar %}
+        {% endblock calendar %}
         {% block calendar_script %}
         {% endblock calendar_script %}
     </body>
