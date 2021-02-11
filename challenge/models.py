@@ -87,6 +87,7 @@ class Challenge(models.Model):
 
 
 class Enrollment(models.Model):
+    # player_total = 0
     challenge = models.ForeignKey(
         Challenge, on_delete=models.CASCADE, verbose_name="챌린지", related_name="chEnrollment_set")
     player = models.ForeignKey(
@@ -95,7 +96,13 @@ class Enrollment(models.Model):
     created_at = models.DateField(auto_now_add=True)
 
     class Meta:
-    	unique_together = ('challenge', 'player',)
+        unique_together = ('challenge', 'player',)
 
     def __str__(self):
-        return str(self.challenge) +' '+ str(self.player)
+        return str(self.challenge) + ' ' + str(self.player)
+
+    # def __init__(self):
+    #     Enrollment.player_total += 1
+
+    # def total_player(self):
+    #     return Enrollment.player_total

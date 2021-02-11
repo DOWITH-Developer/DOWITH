@@ -2,6 +2,9 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Password
 from .models import User
 from django import forms
 
+# from allauth.socialaccount.forms import SignupForm
+# from allauth.account.forms import SignupForm
+
 
 class SignUpForm(UserCreationForm):
 
@@ -11,18 +14,22 @@ class SignUpForm(UserCreationForm):
 
 
 class SS(forms.Form):
-    # nickname = forms.CharField(max_length=100)
-    # username = forms.CharField(max_length=100)
-    # email = forms.EmailField(max_length=100)
+    username = forms.CharField(max_length=100)
+    nickname = forms.CharField(max_length=100)
+    # first_name = forms.CharField(max_length=100)
+    # last_name = forms.CharField(max_length=100)
 
-    class Meta:
-        model = User
+    # 필요한건가?
+    # class Meta:
+    #     model = User
 
     def signup(self, request, user):
-        # user = super(SS, self).save(request)
-        user.username = user.cleaned_data["name"]
-        user.nickname = user.cleaned_data["name"]
-        user.email = self.cleaned_data["email"]
+        user.username = self.cleaned_data["username"]
+        user.nickname = self.cleaned_data["nickname"]
+        # user.username = self.cleaned_data["last_name"] + \
+        #     self.cleaned_data["first_name"]
+        # user.nickname = self.cleaned_data["last_name"] + \
+        #     self.cleaned_data["first_name"]
         user.save()
 
 

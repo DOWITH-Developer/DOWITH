@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     # provider
     "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.naver",
 
     'login',
     'friend',
@@ -140,6 +141,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 AUTH_USER_MODEL = 'login.User'
 
+
+# login
+
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
@@ -150,8 +154,13 @@ LOGIN_REDIRECT_URL = "/"
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
-# SOCIALACCOUNT_AUTO_SIGNUP = False
+#
+# ACCOUNT_USERNAME_REQUIRED = False
+#
+SOCIALACCOUNT_AUTO_SIGNUP = False
 ACCOUNT_SIGNUP_FORM_CLASS = 'login.forms.SS'
+# ACCOUNT_FORMS = {'signup': 'login.forms.SS', }
+
 
 # SOCIALACCOUNT_PROVIDERS = {
 #     'google': {
