@@ -15,7 +15,7 @@ const modify = (id, result) => {
 
     if (result === false) {
         heart.className = "far fa-check-circle";
-        like_con.innerHTML = "챌린지가 성공되면 하트를 눌러주세요!";
+        like_con.innerHTML = "챌린지가 성공되면 체크박스를 눌러주세요!";
     } else {
         heart.className = "fas fa-check-circle";
         like_con.innerHTML = "챌린지를 성공처리하셨습니다!";
