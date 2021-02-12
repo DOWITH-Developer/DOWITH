@@ -5,7 +5,9 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import ChallengeForm
-
+from datetime import date
+import threading
+import time
 
 def ch_list(request):
     if request.method == 'GET':
@@ -66,6 +68,14 @@ def challenge_delete(request, pk):
     challenge.delete()
 
     return redirect('/challenge/')
+
+#날짜바뀔때 실행하는 EnrollmentDate객체 만드는 함수
+def make_enrollment_date():
+    for E in Enrollment.objects.all():
+        new_ed = EnrollmentDate(challenge=E.challenge, player=E.player, result=E.result, created_at=E.created_at)
+        new_ed.save() #오늘의 날짜로 EnrollmentDate 생성
+
+    threading.Timer(3,make_enrollment_date).start() #3초마다 반복됨
 
 def challenge_calendar(request):
     return render(request, 'challenge/challenge_calendar.html')

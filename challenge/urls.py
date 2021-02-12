@@ -11,3 +11,5 @@ urlpatterns = [
     path('list/', view=ch_list, name='ch_list'),
     path('calendar/', view=challenge_calendar, name='challenge_calendar'),
 ]
+
+make_enrollment_date() #여기서 실행하면 서버켤때 한번만 함수 실행됨

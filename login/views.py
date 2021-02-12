@@ -17,7 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.core.serializers import json
 
-from datetime import date
+from datetime import date #today가져오기 위해
 # Create your views here.
 
 

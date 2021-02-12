@@ -109,9 +109,6 @@ class EnrollmentDate(models.Model):
     created_at = models.DateField(auto_now_add=True)
     date = models.DateField(auto_now_add=True) #12시 1분쯤 생성된 시간이 들어감
 
-    class Meta:
-    	unique_together = ('created_at',)
-
     def __str__(self):
         return str(self.challenge) +' '+ str(self.player) +' '+str(self.created_at)
     
