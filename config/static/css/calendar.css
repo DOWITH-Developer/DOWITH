@@ -1,3 +1,11 @@
+:root {
+    --base: #BBFFC9;
+    --saturday: #FFE0BB;
+    --sunday: #FFB3BB;
+    --spacing: 10px;
+    --blur: 10px;
+}
+
 .calendar_container {
     margin: 0 auto;
     padding: 5rem 0;
