@@ -1,19 +1,21 @@
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+// challenge List 에 대해서 접근하려면 어떻게 해야될까?
 
-const cities = [];
-fetch(endpoint)
+const URL = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+const challengeList = [];
+fetch(URL)
   .then(blob => blob.json())
-  .then(data => cities.push(...data));
+  .then(data => challengeList.push(...data));
 
-function findMatches(wordToMatch, cities) {
-  return cities.filter(place => {
+function findMatches(wordToMatch, challengeList) {
+  return challengeList.filter(place => {
     const regex = new RegExp(wordToMatch, 'gi');
     return place.city.match(regex) || place.state.match(regex)
   });
 }
 
 function displayMatches() {
-  const matchArray = findMatches(this.value, cities);
+  const matchArray = findMatches(this.value, challengeList);
   const html = matchArray.map(place => {
     const regex = new RegExp(this.value, 'gi');
     const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
