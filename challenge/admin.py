@@ -7,9 +7,9 @@ class FriendshipAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Enrollment)
-class FriendshipAdmin(admin.ModelAdmin):
+class EnrollmentAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(EnrollmentDate)
-class FriendshipAdmin(admin.ModelAdmin):
+class EnrollmentDateAdmin(admin.ModelAdmin):
     pass

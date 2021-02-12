@@ -16,6 +16,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.core.serializers import json
+import json as JSON
 
 from datetime import date #today가져오기 위해
 # Create your views here.
@@ -88,6 +89,19 @@ def my_page(request, pk):
         'enrollments' : enrollments,
     }
     return render(request, "login/mypage.html", ctx)
+
+@csrf_exempt
+def result_ajax(request):
+    req = JSON.loads(request.body)
+    enrollmentdate = EnrollmentDate.objects.get(id=req["id"])
+
+    if enrollmentdate.result == False:
+        enrollmentdate.result = True
+    else:
+        enrollmentdate.result = False
+    enrollmentdate.save()
+
+    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.result})
 
 # settings
 @login_required
