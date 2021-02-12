@@ -75,7 +75,7 @@ def make_enrollment_date():
         new_ed = EnrollmentDate(challenge=E.challenge, player=E.player, result=E.result, created_at=E.created_at)
         new_ed.save() #오늘의 날짜로 EnrollmentDate 생성
 
-    threading.Timer(3,make_enrollment_date).start() #3초마다 반복됨
+    threading.Timer(60*60*24,make_enrollment_date).start() #60*60*24초마다 반복됨
 
 def challenge_calendar(request):
     return render(request, 'challenge/challenge_calendar.html')

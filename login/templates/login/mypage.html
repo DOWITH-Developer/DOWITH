@@ -11,7 +11,7 @@
             <h3>오늘의 챌린지 리스트</h3>
             {% for en in enrollments %}
                 <li>
-                    <a href="{% url 'challenge:challenge_detail' en.challenge.id%}">{{en.challenge.title}}</a>
+                    <a href="{% url 'challenge:challenge_detail' en.challenge.id%}">{{en.challenge.title}}</a> 성공 실패
                 </li>
             {% endfor %}
         </div>
