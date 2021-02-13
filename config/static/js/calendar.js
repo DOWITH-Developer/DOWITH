@@ -22,7 +22,7 @@ function setCalendarData(year, month){
 
     let startDayCount = 1;
     let lastDayCount = 1;
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         for (let j = 0; j < 7; j++) {
         if (i == 0 && j < firstDayName) {
             if (j == 0) {
@@ -84,22 +84,22 @@ function setCalendarData(year, month){
                 `<div style='background-color: var(--base);'class='calendar__day horizontalGutter verticalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
             }
         }
-        //이번 달 이후의 달 표시
-        else if (startDayCount > lastDay) {
-            if (j == 0) {
-            // 스타일링을 위한 클래스 추가
-            calHtml +=
-                `<div style='background-color:#BBFFC9;' class='calendar__day horizontalGutter verticalGutter'><span>${lastDayCount++}</span><span></span></div>`;
-            } else if (j == 6) {
-            // 스타일링을 위한 클래스 추가
-            calHtml +=
-                `<div style='background-color:#BBFFC9;' class='calendar__day verticalGutter'><span>${lastDayCount++}</span><span></span></div>`;
-            } else {
-            // 스타일링을 위한 클래스 추가
-            calHtml +=
-                `<div style='background-color:#B9E1FF;' class='calendar__day horizontalGutter verticalGutter'><span>${lastDayCount++}</span><span></span></div>`;
-            }
-        }
+        // 이번 달 이후의 달 표시
+        // else if (startDayCount > lastDay) {
+        //     if (j == 0) {
+        //     // 스타일링을 위한 클래스 추가
+        //     calHtml +=
+        //         `<div style='background-color:#BBFFC9;' class='calendar__day horizontalGutter verticalGutter'><span>${lastDayCount++}</span><span></span></div>`;
+        //     } else if (j == 6) {
+        //     // 스타일링을 위한 클래스 추가
+        //     calHtml +=
+        //         `<div style='background-color:#BBFFC9;' class='calendar__day verticalGutter'><span>${lastDayCount++}</span><span></span></div>`;
+        //     } else {
+        //     // 스타일링을 위한 클래스 추가
+        //     calHtml +=
+        //         `<div style='background-color:#B9E1FF;' class='calendar__day horizontalGutter verticalGutter'><span>${lastDayCount++}</span><span></span></div>`;
+        //     }
+        // }
         }
     }
     console.log(`변수로 넘어오는 달 : ${month}`)
@@ -129,7 +129,7 @@ const setFixDayCount = number => {
 //  - 저번 달 보여주는 걸 지우는 함수
 // 2. 지난 달 표시 
 // 3. 년도가 바뀔 때 연도를 바꿔주는 함수 + 년도가 바뀔 때 함수 위에 이름도 
-// 4. 날짜 선택자로 선택
+// 4. 날짜 선택자로 선택 (완료)
 // 5. 오늘 날짜 표시
 // 6. 리펙토링 범수쓰 함수 구성 참고 
 // 7. 일주일 단위 보여주기
@@ -146,6 +146,7 @@ function selectMonth(thisMonth, thisYear){
     }
     console.log(`${thisMonth}+${thisYear}`)
 }
+
 
 
 let afterMonth = document.querySelector('.after');
@@ -170,4 +171,19 @@ previousMonth.addEventListener('click', () => {
     selectMonth(thisMonth, thisYear);
 })
 
+   // 20210222
+    // 년 월 일 
+// console.log(today.getDate());
+// console.log(thisMonth, thisYear)
+// const thisDay = document.querySelector(``)
 window.addEventListener('DOMContentLoaded', selectMonth(thisMonth, thisYear))
+
+const todayId = (thisMonth < 10) ? `${thisYear}${'0' + thisMonth}${today.getDate()}`: `${thisYear}${thisMonth}${today.getDate()}`;
+const todaySelector = document.getElementById(`${todayId}`);
+const todayContainer = todaySelector.parentNode;
+// style 에서 outline 을 추가만 할꺼야
+todayContainer.style.borderColor = "red";
+// todayContainer.setAttribute("style", "background-color: var(--base);");
+// 이번 달 모든 span 을 가져온다
+// 그 중 id 가 오늘 날짜
+

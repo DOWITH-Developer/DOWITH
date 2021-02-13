@@ -53,3 +53,7 @@ margin-right: 0.5%;
 .verticalGutter {
 margin-top: 0.5%;
 }
+
+.todayOutline {
+    background-color: red;
+}
