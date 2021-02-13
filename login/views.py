@@ -16,6 +16,9 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.core.serializers import json
+import json as JSON
+
+from datetime import date #today가져오기 위해
 # Create your views here.
 
 
@@ -75,14 +78,30 @@ def logout(request):
 def my_page(request, pk):
     me = get_object_or_404(User, id=pk) #me = 접속한 user
     friends = me.self_set.all() #me의 friend들
-    enrollments = Enrollment.objects.filter(
-            player=me)
+
+    today = date.today() #오늘 날짜에 맞는 챌린지만 가져오게 하기
+    enrollments = EnrollmentDate.objects.filter(
+            player=me, date__year=today.year, date__month=today.month, date__day=today.day)#.order_by('-pk')
+
     ctx = {        
         'me': me,
         'friends': friends,
         'enrollments' : enrollments,
     }
     return render(request, "login/mypage.html", ctx)
+
+@csrf_exempt
+def result_ajax(request):
+    req = JSON.loads(request.body)
+    enrollmentdate = EnrollmentDate.objects.get(id=req["id"])
+
+    if enrollmentdate.result == False:
+        enrollmentdate.result = True
+    else:
+        enrollmentdate.result = False
+    enrollmentdate.save()
+
+    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.result})
 
 # settings
 @login_required
