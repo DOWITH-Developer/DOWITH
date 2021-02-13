@@ -16,14 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
+from login.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', include('login.urls')),
     path('challenge/', include('challenge.urls')),
     path('friend/', include('friend.urls')),
-<<<<<<< Updated upstream
-    path('', lambda req:redirect('challenge:ch_list'), name="home")
-=======
->>>>>>> Stashed changes
+    # 성공/실패
 ]
