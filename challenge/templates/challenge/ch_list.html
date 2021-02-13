@@ -2,9 +2,13 @@
 
 {% load static %}
 
+
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'css/ch_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/ch_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/search_challenge.css' %}">
+<script src="{% static 'js/search.js' %}" defer></script>
 {% endblock %}
+
 {% block content %}
     <div class="title">
         <h2>Select your Challenge</h2>
@@ -33,6 +37,11 @@
             <button class="filter-btn tab" data-tab-target="#tab7">기타</button>
         </div>
         <hr width=100% color="#808080" style="margin: 10px 0px">
+        <form class="search-form">
+            <input type="text" class="searchInput" placeholder="City or State">
+            <ul class="suggestions">
+            </ul>
+        </form>
         <div class="content">
             <div id="tab1" data-tab-content class="items active">
                 {% for cha in alls %}
@@ -91,7 +100,10 @@
                 {% endfor %}
             </div>
         </div>
+        <div class="contentContainer">
+        </div>
     </div>
+
 {% endblock %}
 
 {% block script %}
