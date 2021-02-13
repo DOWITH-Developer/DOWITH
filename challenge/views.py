@@ -10,23 +10,25 @@ from django.views import View
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-
+from datetime import date
+import threading
+import time
 
 def ch_list(request):
     if request.method == 'GET':
-        alls = Challenge.objects.all()
+        alls = Challenge.objects.filter(private=0,status=0)
         languages = Challenge.objects.filter(
-            category=Challenge.CATEGORY_LANGUAGE)
+            category=Challenge.CATEGORY_LANGUAGE,private=0,status=0)
         jobs = Challenge.objects.filter(
-            category=Challenge.CATEGORY_JOB)
+            category=Challenge.CATEGORY_JOB,private=0,status=0)
         NCSs = Challenge.objects.filter(
-            category=Challenge.CATEGORY_NCS)
+            category=Challenge.CATEGORY_NCS,private=0,status=0)
         programmings = Challenge.objects.filter(
-            category=Challenge.CATEGORY_PROGRAMMING)
+            category=Challenge.CATEGORY_PROGRAMMING,private=0,status=0)
         certificates = Challenge.objects.filter(
-            category=Challenge.CATEGORY_CERTIFICATE)
+            category=Challenge.CATEGORY_CERTIFICATE,private=0,status=0)
         others = Challenge.objects.filter(
-            category=Challenge.CATEGORY_OTHER)
+            category=Challenge.CATEGORY_OTHER,private=0,status=0)
         ctx = {
             'alls': alls,
             'languages': languages,
@@ -97,6 +99,16 @@ def challenge_delete(request, pk):
         return redirect('/challenge/list/')
 
 
+    return redirect('/challenge/')
+
+#날짜바뀔때 실행하는 EnrollmentDate객체 만드는 함수
+def make_enrollment_date():
+    for E in Enrollment.objects.all():
+        new_ed = EnrollmentDate(challenge=E.challenge, player=E.player, result=E.result, created_at=E.created_at)
+        new_ed.save() #오늘의 날짜로 EnrollmentDate 생성
+
+    threading.Timer(60*60*24,make_enrollment_date).start() #60*60*24초마다 반복됨
+
 def challenge_calendar(request):
     return render(request, 'challenge/challenge_calendar.html')
 
@@ -122,3 +134,17 @@ class ResultAjax(View):
         enrollment.save()
 
         return JsonResponse({'id': challenge_id, 'result': enrollment.result})
+
+#         if challenge.success.filter(id=user.id).exists():
+#             # user has already liked this company
+#             # remove like/user
+#             challenge.success.remove(user)
+#             message = 'You disliked this'
+#         else:
+#             # add a new like for a company
+#             challenge.success.add(user)
+#             message = 'You liked this'
+
+#     ctx = {'likes_count': challenge.total_likes, 'message': message}
+#     # use mimetype instead of content_type if django < 5
+#     return HttpResponse(json.dumps(ctx), content_type='application/json')
