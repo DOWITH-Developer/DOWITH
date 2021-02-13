@@ -80,10 +80,6 @@ class Challenge(models.Model):
     def link_url_uuid():
         return uuid.uuid4().hex
 
-    @property
-    def total_success(self):
-        return self.success.count()
-
     def __str__(self):
         return self.title
 

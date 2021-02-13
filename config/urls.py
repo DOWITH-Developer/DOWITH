@@ -22,8 +22,5 @@ urlpatterns = [
     path('login/', include('login.urls')),
     path('challenge/', include('challenge.urls')),
     path('friend/', include('friend.urls')),
-<<<<<<< Updated upstream
     path('', lambda req:redirect('challenge:ch_list'), name="home")
-=======
->>>>>>> Stashed changes
 ]
