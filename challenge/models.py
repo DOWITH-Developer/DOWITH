@@ -75,12 +75,10 @@ class Challenge(models.Model):
     duration = models.PositiveIntegerField(verbose_name="기간")
     start_date = models.DateField(verbose_name="시작일")
     created_date = models.DateField(auto_now_add=True, verbose_name="생성일")
-    # p_users = models.ManyToManyField(User, related_name="p_user")
     link_url = models.URLField(blank=True, null=True)
 
-    @property
-    def total_success(self):
-        return self.success.count()
+    def link_url_uuid():
+        return uuid.uuid4().hex
 
     def __str__(self):
         return self.title
@@ -98,5 +96,17 @@ class Enrollment(models.Model):
     	unique_together = ('challenge', 'player',)
 
     def __str__(self):
-        return str(self.challenge) +' '+ str(self.player)
+        return str(self.challenge) +' '+ str(self.player) +' '+str(self.created_at)
 
+class EnrollmentDate(models.Model):
+    challenge = models.ForeignKey(
+        Challenge, on_delete=models.CASCADE, verbose_name="챌린지", related_name="chEnrollment_set2")
+    player = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="유저", related_name="chEnrollment_set2")
+    result = models.BooleanField(default=False)
+    created_at = models.DateField(auto_now_add=True)
+    date = models.DateField(auto_now_add=True) #12시 1분쯤 생성된 시간이 들어감
+
+    def __str__(self):
+        return str(self.challenge) +' '+ str(self.player) +' '+str(self.created_at)
+    
