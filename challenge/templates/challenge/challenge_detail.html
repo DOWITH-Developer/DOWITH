@@ -2,7 +2,12 @@
 {% load static %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'css/challenge_deatil.css' %}">
+    <link rel="stylesheet" href="{% static 'css/challenge_detail.css' %}">
+    <!-- axios install -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script defer src="{% static 'js/challenge_detail.js' %}"></script>
+    
 {% endblock %}
 
 {% block content %}
@@ -11,40 +16,56 @@
 <div>
     <div>챌린지 설명: {{ challenge.desc }}</div> 
     <div>챌린지 공개범위: 
-    {% if challenge.privat == 0 %}
+    {% if challenge.private == 0 %}
         전체 공개
-    {% elif challenge.privat == 1 %}
+    {% elif challenge.private == 1 %}
         친구 공개
     {% else %}
         나만 보기
     {% endif %}
-       </div> 
+    </div> 
     <div>챌린지 시작일: {{ challenge.start_date }}</div> 
     <div>챌린지 기간: {{ challenge.duration }}</div> 
 </div>
 
+{% comment %} 
 <div>
     <div>목표 인원</div>
-    <div> 참여중인 사람수(***수정필요***) / {{ challenge.max_pp }}</div>
-</div>
+    <div> 참여중인 사람수(***수정필요***) {{ enrollment.total_player }}/ {{ challenge.max_pp }}</div>
+</div> 
+{% endcomment %}
 
-<div id="url-link">www.나는 !!.com</div>
+<div id="url-link">www.나는 초대링크다!!.com</div>
 <button onclick="copyToClipboard('#url-link')">클립보드에 복사하기</button>
 
 <hr>
-<form action="{% url 'challenge:challenge_delete' challenge.pk %}">
-    {% csrf_token %}
-    <div><input type="submit" value="챌린지 포기하기"></div>
-</form>
 
-<form action="">
-    {% csrf_token %}
-    <div><input type="submit" value="챌린지 참여하기"></div>
-</form>
-
+{% if status %}
+    <form action="{% url 'challenge:challenge_delete' challenge.pk %}", method="POST">
+        {% csrf_token %}
+        <div><input type="submit" value="챌린지 포기하기"></div>
+    </form>
+    
+{% else %}
+    <form action="{% url 'challenge:challenge_enrollment' challenge.pk %}", method="POST">
+        {% csrf_token %}
+        <input type="submit" value="챌린지 참여하기">
+    </form>  
+{% endif %}
+   
 <hr>
 
-<input type="submit" id="result" value="챌린지 성공" />
+
+<div>
+    {% if status %}
+        {% if enrollment.result %}
+            <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}} result-clicked">챌린지 성공</button>
+        {% else %}
+            <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}}">챌린지 성공</button>
+        {% endif %}
+    {% endif %}
+</div>
+
 
 <br>
 <a href="{% url 'challenge:ch_list' %}">챌린지 리스트로 돌아가기</a>
@@ -52,10 +73,9 @@
 {% endblock %}
 
 {% block script %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript">
-
-
 // 랜덤링크 생성
 
 
@@ -68,13 +88,32 @@ function copyToClipboard(element) {
   $temp.remove();
 }
 
-// 매일 12시에 업데이트
-const resultBtn = document.querySelector("#result");
 
-resultBtn.addEventListener('click', event => {
-    resultBtn.classList.add('result-clicked');
-})
+// 챌린지 성공 버튼
+const onClickResult = async (id) => {
+    const url = "/challenge/result_ajax/";
 
+    const {data} = await axios.post(url, {
+        id
+    })
+
+    result_modify(data.id, data.result);
+}
+
+const result_modify = (id, result) => {
+        const resultBtn = document.querySelector(`.result-${id}`);
+
+        if (result === false) {
+            resultBtn.className = `result-${id}`;
+        }
+        else {
+            resultBtn.classList.add('result-clicked');
+        }
+    }
+
+
+
+// 매일 12시 업데이트
 function getTime() {
     const now = new Date();
     const hours = now.getHours();

@@ -23,5 +23,5 @@ urlpatterns = [
     path('login/', include('login.urls')),
     path('challenge/', include('challenge.urls')),
     path('friend/', include('friend.urls')),
-    # 성공/실패
+    path('', lambda req:redirect('challenge:ch_list'), name="home")
 ]
