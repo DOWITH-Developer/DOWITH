@@ -1,7 +1,7 @@
 {% extends 'login/layout.html' %} {% load static %} {% block extra_head %}
 <!-- axios install -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script defer src="{% static 'js/settings_main/settings.js' %}"></script>
+<script defer src="{% static 'login/javascript/settings_main.js' %}"></script>
 {% endblock %} {% block content %}
 <div>
     <p>{{ request.user }}'s Page</p>
