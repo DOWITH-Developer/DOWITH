@@ -10,7 +10,8 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ["username", "nickname", "email", "first_name"]
+        fields = ["username", "nickname", "email"]
+        # fields = ["username", "nickname", "email", "first_name"]
 
 
 class SS(forms.Form):
@@ -26,6 +27,7 @@ class SS(forms.Form):
     def signup(self, request, user):
         user.username = self.cleaned_data["username"]
         user.nickname = self.cleaned_data["nickname"]
+        user.is_social = True
         # user.username = self.cleaned_data["last_name"] + \
         #     self.cleaned_data["first_name"]
         # user.nickname = self.cleaned_data["last_name"] + \

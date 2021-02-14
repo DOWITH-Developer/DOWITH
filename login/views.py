@@ -1,21 +1,23 @@
-import os, sys
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))) #다른 경로 모델 import위해
-
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import *
-from challenge.models import * # Enrollment가져옴
-# from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm, LoginForm, UserInfoModifyForm, UserPasswordChangeForm
-from django.contrib.auth import authenticate
-from django.contrib.auth import login as auth_login
-from django.contrib.auth import logout as auth_logout
-
-from django.contrib.auth.decorators import login_required
-from django.views import View
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
 from django.core.serializers import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.views import View
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import authenticate
+from .forms import SignUpForm, LoginForm, UserInfoModifyForm, UserPasswordChangeForm
+from challenge.models import *  # Enrollment가져옴
+from .models import *
+from django.shortcuts import render, redirect, get_object_or_404
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(
+    os.path.dirname(__file__))))  # 다른 경로 모델 import위해
+
+# from django.contrib.auth.forms import UserCreationForm
+
 # Create your views here.
 
 
@@ -72,19 +74,22 @@ def logout(request):
     elif request.method == "GET":
         return redirect("login:test")
 
+
 def my_page(request, pk):
-    me = get_object_or_404(User, id=pk) #me = 접속한 user
-    friends = me.self_set.all() #me의 friend들
+    me = get_object_or_404(User, id=pk)  # me = 접속한 user
+    friends = me.self_set.all()  # me의 friend들
     enrollments = Enrollment.objects.filter(
-            player=me)
-    ctx = {        
+        player=me)
+    ctx = {
         'me': me,
         'friends': friends,
-        'enrollments' : enrollments,
+        'enrollments': enrollments,
     }
     return render(request, "login/mypage.html", ctx)
 
 # settings
+
+
 @login_required
 def settings_main(request):
     return render(request, "login/settings_main.html")
@@ -96,7 +101,8 @@ def userinfo_get(request):
     user_name = request.user.username
     user_nickname = request.user.nickname
     user_email = request.user.email
-    return JsonResponse({"name": user_name, "nickname": user_nickname, "email": user_email})
+    user_is_social = request.user.is_social
+    return JsonResponse({"name": user_name, "nickname": user_nickname, "email": user_email, "is_social": user_is_social})
 
 
 @csrf_exempt

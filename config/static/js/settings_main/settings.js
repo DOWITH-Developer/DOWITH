@@ -9,10 +9,10 @@ const contentBox = document.querySelector(".content")
     const url = "/login/settings/user_info/";
 
     const {data} = await axios.get(url)
-    printUserInfo(data.name, data.nickname, data.email);
+    printUserInfo(data.name, data.nickname, data.email, data.is_social);
 }
 
-const printUserInfo = (name, nickname, email) => {
+const printUserInfo = (name, nickname, email, is_social) => {
     contentBox.innerHTML = ''
 
     let userInfoTemplate = `
@@ -24,12 +24,27 @@ const printUserInfo = (name, nickname, email) => {
                 Nickname : ` + nickname +
             `</div>
             <div>
-                Email : ` + email +
-            `</div>
+                Email : ` + email
+    //         + `</div>
+    //         <input class="userInfo__modification" type="submit" value="수정하기"/>
+    //         <input class="userInfo_password__modification" type="submit" value="비밀번호 변경하기"/>
+    //     </div>
+    // `
+
+    if (!(is_social)){
+        userInfoTemplate += `</div>
             <input class="userInfo__modification" type="submit" value="수정하기"/>
             <input class="userInfo_password__modification" type="submit" value="비밀번호 변경하기"/>
         </div>
-    `
+        `
+    }
+    else if (is_social){
+        userInfoTemplate +=`</div>
+            <input class="userInfo__modification" type="submit" value="수정하기"/>
+        </div>
+        `
+    }
+
     let newUserInfoDiv = new DOMParser().parseFromString(userInfoTemplate, "text/html").body.firstElementChild
     contentBox.appendChild(newUserInfoDiv)
 
