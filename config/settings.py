@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # provider
     "allauth.socialaccount.providers.google",
     "allauth.socialaccount.providers.naver",
+    "allauth.socialaccount.providers.kakao",
 
     'login',
     'friend',
@@ -154,6 +155,7 @@ LOGIN_REDIRECT_URL = "/"
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = None
 #
 # ACCOUNT_USERNAME_REQUIRED = False
 #
