@@ -4,47 +4,7 @@
 
 {% block extra_head %}
 
-    <style>
-    
-        * {
-            font-family: 'Do Hyeon', sans-serif;          
-        }
-
-        body {
-            width: 100vw;
-            height: 100vh;
-        }
-        
-        .invitation__failed {
-            display: flex;
-            height: 100%;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .invitation__failed__container {
-            width: 80%;
-            text-align:center;
-            margin: 0 auto;
-        }
-
-        .invitation__logo {
-            display: flex;
-            justify-content:center;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .invitation__logo > img {
-            margin-right: 20px;
-            width:100px;
-        }
-
-        .invitation__failed__content > p {
-            font-size: 1.4rem;
-        }
-
-    </style>
+    <link rel="stylesheet" href="{% static 'css/invitation/invitation_failed.css' %}">
 
 {% endblock extra_head %}
 
