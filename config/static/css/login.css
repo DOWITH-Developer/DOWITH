@@ -3,6 +3,13 @@ body {
     height: 100vh;
 }
 
+.login {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .login__container {
     width: 500px;
     border: 1px solid gray;

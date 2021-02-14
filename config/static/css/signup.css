@@ -3,11 +3,12 @@ body {
     height: 100vh;
 }
 
-/* .signup {
-    width: 400px;
-    height: 300px;
-    margin: 0 auto;
-} */
+.signup {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 .signup__container {
     width: 500px;
