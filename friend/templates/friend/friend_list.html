@@ -1,9 +1,14 @@
 {% extends 'friend/layout.html' %}
 
+{% load static %}
+
 {% block extra_head %}
 
 
     <style>
+        * {
+            font-family: 'Do Hyeon', sans-serif;
+        }
 
         .friend__page__title {
             text-align: center;
@@ -29,18 +34,20 @@
 
         .friend__search {
             width: 60%;
-            border: 1px solid black;
             overflow: auto;
             text-align: center;
             height: 300px;
-            float: left
+            float: left;
+            background: #EFEFEF;
+            border-radius:20px;
         }
 
         .friend__request {
             width: 30%;
-            border: 1px solid black;
             height: 300px;
             float: right;
+            background: #EFEFEF;
+            border-radius: 20px;
         }
 
         .friend__list__content {
@@ -66,6 +73,10 @@
 
 {% block content %}
 
+    <div class="friend__title">
+        <img src="{% static 'img/DOWITH.png' %}" alt="logo">
+        <h3>친구들</h3>
+    </div>
     <h3 class="friend__page__title">{{me}}님의 친구</h3>
     <div class="friend__add">
         <a href="{% url 'friend:fd_create' %}">친구 추가하기</a>

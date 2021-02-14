@@ -1,0 +1,23 @@
+{% extends 'challenge/layout.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+    <form action="" method="post">
+
+        {% csrf_token %}
+
+        <label>초대링크 입력: </label>
+        <input type="text", name="invitation_key" placeholder="초대링크를 입력해주세요">
+
+        <button type="submit">검색!</button>
+    
+    </form>
+
+{% endblock content %}
+
+
+
+
