@@ -1,10 +1,12 @@
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q    
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
-from .forms import ChallengeForm
+from .forms import ChallengeForm, SearchForm
+from django.views.generic import FormView
 # ajax
 from django.views import View
 import json
@@ -15,20 +17,22 @@ import threading
 import time
 
 def ch_list(request):
+    alls = Challenge.objects.filter(private=0,status=0)
+    languages = Challenge.objects.filter(
+        category=Challenge.CATEGORY_LANGUAGE,private=0,status=0)
+    jobs = Challenge.objects.filter(
+        category=Challenge.CATEGORY_JOB,private=0,status=0)
+    NCSs = Challenge.objects.filter(
+        category=Challenge.CATEGORY_NCS,private=0,status=0)
+    programmings = Challenge.objects.filter(
+        category=Challenge.CATEGORY_PROGRAMMING,private=0,status=0)
+    certificates = Challenge.objects.filter(
+        category=Challenge.CATEGORY_CERTIFICATE,private=0,status=0)
+    others = Challenge.objects.filter(
+        category=Challenge.CATEGORY_OTHER,private=0,status=0)
+        
     if request.method == 'GET':
-        alls = Challenge.objects.filter(private=0,status=0)
-        languages = Challenge.objects.filter(
-            category=Challenge.CATEGORY_LANGUAGE,private=0,status=0)
-        jobs = Challenge.objects.filter(
-            category=Challenge.CATEGORY_JOB,private=0,status=0)
-        NCSs = Challenge.objects.filter(
-            category=Challenge.CATEGORY_NCS,private=0,status=0)
-        programmings = Challenge.objects.filter(
-            category=Challenge.CATEGORY_PROGRAMMING,private=0,status=0)
-        certificates = Challenge.objects.filter(
-            category=Challenge.CATEGORY_CERTIFICATE,private=0,status=0)
-        others = Challenge.objects.filter(
-            category=Challenge.CATEGORY_OTHER,private=0,status=0)
+        form = SearchForm()
         ctx = {
             'alls': alls,
             'languages': languages,
@@ -37,10 +41,29 @@ def ch_list(request):
             'programmings': programmings,
             'certificates': certificates,
             'others': others,
+            'form': form,
         }
         return render(request, 'challenge/ch_list.html', ctx)
+
     else:
-        pass
+        form = SearchForm(request.POST)
+        searchWord = request.POST["search_word"]
+        ChallengeList = Challenge.objects.filter(Q(title__icontains=searchWord))
+        # distinct() 함수는 중복 방지, 나중에 추가
+
+        context = {
+            'alls': alls,
+            'languages': languages,
+            'jobs': jobs,
+            'NCSs': NCSs,
+            'programmings': programmings,
+            'certificates': certificates,
+            'others': others,
+            'form' : form,
+            'search_term' : searchWord,
+            'challenge_list' : ChallengeList
+        }
+        return render(request, 'challenge/ch_list.html', context)
 
 
 def challenge_detail(request, pk):
@@ -114,7 +137,6 @@ def challenge_calendar(request):
 
 
 class ResultAjax(View):
-
     # 포비든 문제때문에 추가
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -134,17 +156,3 @@ class ResultAjax(View):
         enrollment.save()
 
         return JsonResponse({'id': challenge_id, 'result': enrollment.result})
-
-#         if challenge.success.filter(id=user.id).exists():
-#             # user has already liked this company
-#             # remove like/user
-#             challenge.success.remove(user)
-#             message = 'You disliked this'
-#         else:
-#             # add a new like for a company
-#             challenge.success.add(user)
-#             message = 'You liked this'
-
-#     ctx = {'likes_count': challenge.total_likes, 'message': message}
-#     # use mimetype instead of content_type if django < 5
-#     return HttpResponse(json.dumps(ctx), content_type='application/json')
