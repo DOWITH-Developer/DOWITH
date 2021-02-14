@@ -60,3 +60,22 @@ body {
     margin-bottom: 15px;
     color: red;
 }
+
+.social_login {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.social_login > a {
+    margin: 0 20px;
+}
+
+.login__form-actions > button:hover,
+.social_login > a:hover {
+    cursor: pointer;
+}
+
+.social_login > a > img {
+    height: 40px;
+}

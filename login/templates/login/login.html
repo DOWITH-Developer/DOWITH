@@ -1,39 +1,40 @@
 {% extends 'login/layout.html' %}
-
 {% load static %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
 {% endblock %}
 
 {% block content %}
-    <div class="login">
-        <div class="login__container">
-            <div class="login__header">
-                Login
-            </div>
+<div class="login">
+    <div class="login__container">
+        <div class="login__header">Login</div>
 
-            <div class="login__body">
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="login__form-field">
-                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                            {{ field }}
-                        </div>
-                    {% endfor %}
-            
-                    {% if error %}
-                        <div class="login__form-error">
-                            {{ error }}
-                        </div>
-                    {% endif %}
+        <div class="login__body">
+            <form action="" method="POST">
+                {% csrf_token %} {% for field in form %}
+                <div class="login__form-field">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+                {% endfor %} {% if error %}
+                <div class="login__form-error">{{ error }}</div>
+                {% endif %}
 
-                    <div class="login__form-actions">
-                        <button type="submit">Login</button>
-                    </div>
-                </form>
+                <div class="login__form-actions">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+
+            <div class="social_login">
+                <!-- <a href="{% url 'google_login' %}"><i class="fab fa-google"></i></a> -->
+                <!-- google_icon : flaticon, naver_icon : naver developers, kakao : kakao developers -->
+                <a href="{% url 'google_login' %}"><img src="{% static 'google_icon.png' %}" alt=""></a>
+                <a href="{% url 'naver_login' %}"><img src="{% static 'naver_icon_green.png' %}" alt=""></a>
+                <a href="{% url 'kakao_login' %}"><img src="{% static 'kakaolink_btn_medium.png' %}" alt=""></a>
             </div>
         </div>
     </div>
-{% endblock content %} 
+</div>
+{% endblock content %}
