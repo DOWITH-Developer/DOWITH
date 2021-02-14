@@ -90,6 +90,9 @@ def my_page(request, pk):
     }
     return render(request, "login/mypage.html", ctx)
 
+def register_success(request):
+    return render(request, 'login/register_success.html')
+
 @csrf_exempt
 def result_ajax(request):
     req = JSON.loads(request.body)

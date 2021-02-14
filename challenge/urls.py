@@ -13,4 +13,4 @@ urlpatterns = [
     path('result_ajax/', ResultAjax.as_view(), name="result_ajax"),
 ]
 
-make_enrollment_date() #여기서 실행하면 서버켤때 한번만 함수 실행됨
+#make_enrollment_date() #여기서 실행하면 서버켤때 한번만 함수 실행됨
