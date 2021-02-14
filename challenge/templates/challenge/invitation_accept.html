@@ -2,19 +2,94 @@
 
 {% load static %}
 
+{% block extra_head %}
+
+    <style>
+
+        * {
+            font-family: 'Do Hyeon', sans-serif;          
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        .invitation__accept {
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .invitation__accept__container {
+            width: 80%;
+            text-align:center;
+            margin: 0 auto;
+        }
+
+        .invitation__logo {
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .invitation__logo > img {
+            margin-right: 20px;
+            width:100px;
+        }
+
+        .invitation__form {
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .invitation__search {
+            width: 400px;
+            height: 30px;
+            border-radius: 20px;
+            border: 0px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .invitation__btn {
+            width: 150px;
+            height: 30px;
+            border-radius: 20px;
+            border: 0px;
+            background: #47CC71;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            transform: rotate(-0.23deg);
+            color: white;
+        }
+
+    </style>
+
+{% endblock extra_head %}
+
 {% block content %}
 
+    <div class="invitation__accept">
+        <div class="invitation__accept__container">
+            <div class="invitation__logo">
+                <img src="{% static 'img/DOWITH.png' %}" alt="logo">
+                <h1>초대 링크 검색</h1>
+            </div>
 
-    <form action="" method="post">
-
-        {% csrf_token %}
-
-        <label>초대링크 입력: </label>
-        <input type="text", name="invitation_key" placeholder="초대링크를 입력해주세요">
-
-        <button type="submit">검색!</button>
+            <form action="" method="post" class="invitation__form">
     
-    </form>
+                {% csrf_token %}
+                <input class="invitation__search" type="text", name="invitation_key" placeholder="초대링크를 입력해주세요">
+        
+                <button class="invitation__btn" type="submit">검색!</button>
+            
+            </form>    
+        </div>
+    </div>
 
 {% endblock content %}
 

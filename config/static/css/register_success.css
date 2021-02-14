@@ -3,14 +3,14 @@ body {
     height: 100vh;
  }
 
- .success {
+.success {
      display: flex;
      height: 100%;
      flex-direction: column;
      justify-content: center;
- }
+}
 
- .success__container {
+.success__container {
     width: 80%;
     text-align:center;
     margin: 0 auto;
