@@ -8,3 +8,6 @@ class FriendshipForm(forms.ModelForm):
     class Meta:
         model = Friendship
         fields = '__all__'
+        
+class FriendSearchForm(forms.Form):
+    search_word = forms.CharField(label='Search Word')

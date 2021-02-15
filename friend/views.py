@@ -1,8 +1,9 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from .models import Friendship, Motivation
 from challenge.models import Challenge, Enrollment
+from django.db.models import Q
 from login.models import User
-from .forms import FriendshipForm
+from .forms import FriendshipForm, FriendSearchForm
 from django.views.generic import CreateView, UpdateView
 from django.views import View
 import json
@@ -13,23 +14,40 @@ from django.http import JsonResponse
 # Create your views here.
 
 def fd_list(request):
+    
     me = request.user
     friends = me.friend_set.all().filter(accepted=True)
     friends_pending = me.friend_set.all().filter(accepted=False)
-
     #motivation을 위한 코드
     motivation_from_friends = me.motivation_friend_set.all()
 
-    ctx = {        
-        'me': me,
-        'friends': friends,
-        'pendings' : friends_pending,
+    if request.method == 'GET':
+        form = FriendSearchForm()
+        ctx = {        
+            'friends': friends,
+            'pendings' : friends_pending,
+            'form': form,
 
-        #motivation을 위한 코드
-        'motivation_from_friends' : motivation_from_friends,
-    }
-    return render(request, 'friend/friend_list.html', context=ctx)
+            #motivation을 위한 코드
+            'motivation_from_friends' : motivation_from_friends,
+        }
+        return render(request, 'friend/friend_list.html', context=ctx)
+    
+    else:
+        form = FriendSearchForm(request.POST)
+        searchWord = request.POST["search_word"]
+        #! 왜 me.friend_set 으로 접근하는지
+        friends = me.friend_set.filter(Q(me__nickname__icontains=searchWord))
+        ctx = {        
+            'friends': friends,
+            'pendings' : friends_pending,
+            'form': form,
 
+            #motivation을 위한 코드
+            'motivation_from_friends' : motivation_from_friends,
+        }
+        return render(request, 'friend/friend_list.html', context=ctx)
+    
 def fd_create(request):
     user = request.user
     if request.method == "POST":

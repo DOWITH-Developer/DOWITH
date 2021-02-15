@@ -26,9 +26,13 @@
                 나의 친구 리스트
             </p>
 
+            
             <div class="friend__search__input">
-                <input class="friend__list__search" type="text" placeholder="친구 닉네임을 검색하세요!">
-                <button class="friend__list__btn">검색</button>    
+                <form action="" method="post"> {% csrf_token %}
+                    {{ form.as_p }}
+                    <!-- <input class="friend__list__search" type="text" placeholder="친구 닉네임을 검색하세요!"> -->
+                    <button class="friend__list__btn">검색</button>    
+                </form>
             </div>
 
             {% for fd in friends %}
