@@ -9,10 +9,39 @@
     <div>
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {% for field in form %}
-                <div>{{ field.label}}</div>
-                <div>{{ field }}</div>
-            {% endfor %}
+
+            <label>제목 : </label>
+            {{form.title}}
+            <br>
+
+            <label>설명 : </label>
+            {{form.desc}}
+            <br>
+
+            <label>분류 : </label>
+            {{form.category}}
+            <br>
+
+            <label>공개 상태 : </label>
+            {{form.private}}
+            <br>
+
+            <label>최소 인원 : </label>
+            {{form.min_pp}}
+            <br>
+
+            <label>최대 인원 : </label>
+            {{form.max_pp}}
+            <br>
+
+            <label>시작일 : </label>
+            {{form.start_date}}           
+            <br>
+
+            <label>기간 : </label>
+            {{form.duration}}
+            <br>
+
             <button type="submit" >등록하기</button>
         </form>
     </div>

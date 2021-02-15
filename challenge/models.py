@@ -69,13 +69,13 @@ class Challenge(models.Model):
     private = models.IntegerField(
         choices=PRIVATE_OF_CHALLENGE, verbose_name="공개 상태")
     status = models.IntegerField(
-        choices=STATUS_OF_CHALLENGE, verbose_name="진행 상태")
+        choices=STATUS_OF_CHALLENGE, blank=True, null=True, verbose_name="진행 상태")
     min_pp = models.PositiveIntegerField(verbose_name="최소 인원")
     max_pp = models.PositiveIntegerField(verbose_name="최대 인원")
     duration = models.PositiveIntegerField(verbose_name="기간")
     start_date = models.DateField(verbose_name="시작일")
     created_date = models.DateField(auto_now_add=True, verbose_name="생성일")
-    link_url = models.URLField(blank=True, null=True)
+    invitation_key = models.CharField(max_length=100, blank=True, null=True)
 
     def link_url_uuid():
         return uuid.uuid4().hex

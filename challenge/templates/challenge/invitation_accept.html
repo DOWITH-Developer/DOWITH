@@ -1,0 +1,35 @@
+{% extends 'challenge/layout.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+
+    <link rel="stylesheet" href="{% static 'css/invitation/invitation_accept.css' %}">
+
+{% endblock extra_head %}
+
+{% block content %}
+
+    <div class="invitation__accept">
+        <div class="invitation__accept__container">
+            <div class="invitation__logo">
+                <img src="{% static 'img/DOWITH.png' %}" alt="logo">
+                <h1>초대 링크 검색</h1>
+            </div>
+
+            <form action="" method="post" class="invitation__form">
+    
+                {% csrf_token %}
+                <input class="invitation__search" type="text", name="invitation_key" placeholder="초대링크를 입력해주세요">
+        
+                <button class="invitation__btn" type="submit">검색!</button>
+            
+            </form>    
+        </div>
+    </div>
+
+{% endblock content %}
+
+
+
+

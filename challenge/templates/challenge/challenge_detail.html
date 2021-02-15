@@ -1,4 +1,4 @@
-    {% extends 'challenge/layout.html' %}
+{% extends 'challenge/layout.html' %}
 {% load static %}
 
 {% block extra_head %}
@@ -35,8 +35,9 @@
 </div> 
 {% endcomment %}
 
-<div id="url-link">www.나는 초대링크다!!.com</div>
-<button onclick="copyToClipboard('#url-link')">클립보드에 복사하기</button>
+
+<div onclick="urlGet({{challenge.id}});">url이 보고싶니?</div>
+<div id="url-link"></div>
 
 <hr>
 
@@ -79,6 +80,60 @@
 // 랜덤링크 생성
 
 
+//function urlGet() = {
+//    const url = document.location.href
+//    const target = document.querySelector('#url-link')
+//    const urlMaker = document.createElement('div')
+//    const currentUrl = document.createElement('p')
+//
+//    currentUrl.id = "challengeUrl"
+//    currentUrl.innerText = url
+//    urlMaker.appendChild(currentUrl)
+//    target.appendChild(urlMaker)    
+//} 
+
+const urlGet = async (id) => {
+    const url = "/challenge/send/invitation/";
+    //이미 challengeUrl이 존재한다면 axios 실행을 안해도 됨. 그 조건을 따지기 위한 코드
+    const urlStatus = document.querySelector('#urlMaker') === null;
+    
+    if (urlStatus) {
+
+        const {data} = await axios.post(url, {
+            id
+        })
+        urlGetModify(data.id, data.invitation_key)
+
+    } else {
+
+        const target = document.querySelector('#urlMaker')
+        target.remove()
+
+    }
+}
+
+const urlGetModify = (id, invitation_key) => {
+
+    const target = document.querySelector('#url-link')
+
+    const urlMaker = document.createElement('div')
+    const currentUrl = document.createElement('div')
+    const copyBtn = document.createElement('button')
+
+    urlMaker.id = "urlMaker"
+    currentUrl.id = "challengeUrl"
+    currentUrl.innerText = invitation_key
+
+    copyBtn.innerText = '복사하기'
+    copyBtn.setAttribute('onclick', "copyToClipboard('#challengeUrl')")
+
+    urlMaker.appendChild(currentUrl)
+    urlMaker.appendChild(copyBtn)
+    target.appendChild(urlMaker)     
+}
+
+
+
 // 클립보드에 복사하기
 function copyToClipboard(element) {
   var $temp = $("<input>");
@@ -114,25 +169,25 @@ const result_modify = (id, result) => {
 
 
 // 매일 12시 업데이트
-function getTime() {
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-    if (hours == 00){
-         resultBtn.classList.remove('result-clicked');
-    }
+//function getTime() {
+//    const now = new Date();
+//    const hours = now.getHours();
+//    const minutes = now.getMinutes();
+//    const seconds = now.getSeconds();
+//    if (hours == 00){
+//         resultBtn.classList.remove('result-clicked');
+//    }
     //if (seconds == 00){
     //    resultBtn.classList.remove('result-clicked')
     //}
-}
+//}
 
-function init(){
-    getTime();
-    setInterval(getTime, 1000);
-    return;
-}
+//function init(){
+//    getTime();
+//    setInterval(getTime, 1000);
+//    return;
+//}
 
-init()
+//init()
 </script>
 {% endblock script %}

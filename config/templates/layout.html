@@ -5,21 +5,22 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>iChallenge</title>
+        <title>DOWITH</title>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
         <link rel="stylesheet" href="{% static 'css/layout.css' %}" />
         
-
         {% block extra_head %} {% endblock %}
         {% block calendar_head %} {% endblock %}
         {% block search_friend %} {% endblock %}
-
     </head>
     <body>
         <!-- navbar -->
         <nav>
             <div class="nav-center">
+                <div class="nav-home">
+                    <a href="{% url 'home' %}"><img id="main__logo" src="{% static 'img/DOWITH_logo.svg' %}" alt="logo"></a>
+                </div>
                 <!-- nav header -->
                 <div class="nav-header">
                     <button class="nav-toggle">
@@ -28,15 +29,13 @@
                 </div>
                 <!-- links -->
                 <ul class="links">
-                    <li><a href="{% url 'home' %}">홈</a></li>
-                    <li>
-                        <a href="{% url 'friend:fd_list' %}">친구 리스트</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'challenge:ch_list' %}">챌린지리스트</a>
-                    </li>
-
                     {% if user.is_active %}
+                        <li>
+                            <a href="{% url 'challenge:ch_list' %}">챌린지</a>                    
+                        </li>
+                        <li>
+                            <a href="{% url 'friend:fd_list' %}">친구들</a>
+                        </li>
                         <li>
                             <a href="{% url 'login:logout' %}">로그아웃</a>
                         </li>
@@ -45,16 +44,16 @@
                         </li>
                     {% else %}
                         <li>
-                            <a href="{% url 'login:login' %}">로그인</a>
+                            <a href="{% url 'challenge:ch_list' %}">챌린지</a>                    
                         </li>
                         <li>
-                            <a href="{% url 'login:signup' %}">회원가입</a>
+                            <a href="{% url 'login:login' %}">로그인</a>
                         </li>
                     {% endif %}
                 </ul>
             </div>
         </nav>
-        <section class="back-image"></section>
+        <!--<section class="back-image"></section>-->
         {% block calendar %}
         {% endblock calendar %}
         {% block content %}

@@ -5,4 +5,9 @@ from .models import *
 @admin.register(Friendship)
 class FriendshipAdmin(admin.ModelAdmin):
     list_display = ['me', 'friend']
-    list_display_links = ['friend']
+    list_display_links = ['me', 'friend']
+
+@admin.register(Motivation)
+class MotivationAdmin(admin.ModelAdmin):
+    list_display = ['me', 'friend']
+    list_display_links = ['me','friend']
