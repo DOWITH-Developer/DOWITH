@@ -17,7 +17,7 @@ import threading
 import time
 import hashlib
 
-def ch_list(request):
+def challenge_list(request):
     alls = Challenge.objects.filter(private=0,status=0)
     languages = Challenge.objects.filter(
         category=Challenge.CATEGORY_LANGUAGE,private=0,status=0)
@@ -44,7 +44,7 @@ def ch_list(request):
             'others': others,
             'form': form,
         }
-        return render(request, 'challenge/ch_list.html', ctx)
+        return render(request, 'challenge/challenge_list.html', ctx)
 
     else:
         form = SearchForm(request.POST)
@@ -64,7 +64,7 @@ def ch_list(request):
             'search_term' : searchWord,
             'challenge_list' : ChallengeList
         }
-        return render(request, 'challenge/ch_list.html', context)
+        return render(request, 'challenge/challenge_list.html', context)
 
 
 def challenge_detail(request, pk):

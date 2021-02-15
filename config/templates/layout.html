@@ -31,7 +31,7 @@
                 <ul class="links">
                     {% if user.is_active %}
                         <li>
-                            <a href="{% url 'challenge:ch_list' %}">챌린지</a>                    
+                            <a href="{% url 'challenge:challenge_list' %}">챌린지</a>                    
                         </li>
                         <li>
                             <a href="{% url 'friend:fd_list' %}">친구들</a>
@@ -44,7 +44,7 @@
                         </li>
                     {% else %}
                         <li>
-                            <a href="{% url 'challenge:ch_list' %}">챌린지</a>                    
+                            <a href="{% url 'challenge:challenge_list' %}">챌린지</a>                    
                         </li>
                         <li>
                             <!-- <a href="/accounts/social/signup">aa</a>
