@@ -13,6 +13,7 @@ from django.utils.decorators import method_decorator
 from datetime import date
 import threading
 import time
+import hashlib
 
 def ch_list(request):
     if request.method == 'GET':
@@ -73,20 +74,33 @@ def challenge_enrollment(request, pk):
             challenge = challenge,
             )
         return redirect(f'/challenge/{challenge.pk}')
-    else: 
+    else:
         return redirect(f'/challenge/{challenge.pk}')
-
 
 def challenge_create(request):
     if request.method == 'POST':
         form = ChallengeForm(request.POST, request.FILES)
         if form.is_valid():
             challenge = form.save()
+            challenge.status = 0
+
+            #url hash 값 생성
+            HASH_NAME = "md5"
+            temp_hash = str(challenge.pk)
+
+            text = temp_hash.encode('utf-8')
+            md5 = hashlib.new(HASH_NAME)
+            md5.update(text)
+            result = md5.hexdigest()
+
+            #TODO 하드코딩 말고 애를 다른 형식으로 전달할 수 있는지 코드리뷰에서 물어보기
+            challenge.invitation_key = result
+            challenge.save()
+            print(challenge.pk)
             return redirect(f'/challenge/{challenge.pk}')
     else:
         form = ChallengeForm()
     return render(request, 'challenge/challenge_create.html', {"form": form})
-
 
 def challenge_delete(request, pk):
     if request.method == "POST":
@@ -94,12 +108,12 @@ def challenge_delete(request, pk):
         challenge = Challenge.objects.get(pk=pk)
         enrollment = get_object_or_404(Enrollment, player=player, challenge=challenge)
         enrollment.delete()
-        return redirect('/challenge/list/')
+        return redirect(f'/challenge/{challenge.pk}')
     else: #GET
-        return redirect('/challenge/list/')
+        return redirect(f'/challenge/{challenge.pk}')
 
 
-    return redirect('/challenge/')
+    return redirect(f'/challenge/{challenge.pk}')
 
 #날짜바뀔때 실행하는 EnrollmentDate객체 만드는 함수
 def make_enrollment_date():
@@ -114,7 +128,6 @@ def challenge_calendar(request):
 
 
 class ResultAjax(View):
-
     # 포비든 문제때문에 추가
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -148,3 +161,53 @@ class ResultAjax(View):
 #     ctx = {'likes_count': challenge.total_likes, 'message': message}
 #     # use mimetype instead of content_type if django < 5
 #     return HttpResponse(json.dumps(ctx), content_type='application/json')
+
+
+def challenge_invitation(request, invitation):
+    challenge = Challenge.objects.get(invitation_key=invitation)
+    
+    if Enrollment.objects.filter(challenge=challenge, player=request.user).exists():
+        status = True
+        enrollment = Enrollment.objects.get(player=request.user, challenge=challenge)
+    else:
+        status = False
+        enrollment = None
+
+    data = {
+        "challenge": challenge, 
+        "status": status,
+        "enrollment": enrollment,
+        # "private": challenge.private
+    }
+    # print(enrollment.total_player())
+    # print(data)    
+    return render(request, "challenge/challenge_detail.html", data) 
+
+
+
+class InvitationAjax(View):
+    # 포비든 문제때문에 추가
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(InvitationAjax, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request):
+        req = json.loads(request.body)
+        challenge_id = req["id"]
+        challenge = Challenge.objects.get(id=challenge_id)
+
+        return JsonResponse({'id': challenge_id, 'invitation_key': challenge.invitation_key})
+
+def invitation_accept(request):
+    if request.method == 'POST':
+        invitation_key = request.POST['invitation_key']
+
+        if Challenge.objects.filter(invitation_key=invitation_key).exists():
+            return redirect(f'/challenge/invite/' + invitation_key)
+        else:
+            return redirect(f'/challenge/invitation/failed')
+    else:    
+        return render(request, 'challenge/invitation_accept.html')
+
+def invitation_failed(request):
+    return render(request, 'challenge/invitation_failed.html')
