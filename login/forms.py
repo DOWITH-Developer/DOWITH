@@ -10,6 +10,21 @@ class SignUpForm(UserCreationForm):
         fields = ["username", "nickname", "email"]
 
 
+class SocialSignUpForm(forms.Form):
+    username = forms.CharField(max_length=100)
+    nickname = forms.CharField(max_length=100)
+
+    def signup(self, request, user):
+        user.username = self.cleaned_data["username"]
+        user.nickname = self.cleaned_data["nickname"]
+        user.is_social = True
+        # user.username = self.cleaned_data["last_name"] + \
+        #     self.cleaned_data["first_name"]
+        # user.nickname = self.cleaned_data["last_name"] + \
+        #     self.cleaned_data["first_name"]
+        user.save()
+
+
 class LoginForm(forms.ModelForm):
 
     class Meta:
@@ -22,7 +37,7 @@ class UserInfoModifyForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ["username", "nickname", "email", "password"]
+        fields = ["username", "nickname"]
 
 
 class UserPasswordChangeForm(PasswordChangeForm):

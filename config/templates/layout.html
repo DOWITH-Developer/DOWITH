@@ -47,7 +47,13 @@
                             <a href="{% url 'challenge:ch_list' %}">챌린지</a>                    
                         </li>
                         <li>
+                            <!-- <a href="/accounts/social/signup">aa</a>
+                            <a href="/accounts/signup">구글구글네이버</a>
+                            <a href="{% url 'kakao_login' %}">카카오</a> -->
                             <a href="{% url 'login:login' %}">로그인</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'login:signup' %}">회원가입</a>
                         </li>
                     {% endif %}
                 </ul>
