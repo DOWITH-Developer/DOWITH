@@ -1,12 +1,12 @@
-    {% extends 'layout.html' %}
+    {% extends 'challenge/layout.html' %}
 
     {% load static %}
 
 
     {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'css/ch_list.css' %}">
-    <link rel="stylesheet" href="{% static 'css/search_challenge.css' %}">
-    <script src="{% static 'js/challengeToggle.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'challenge/css/challenge_list.css' %}">
+    <link rel="stylesheet" href="{% static 'challenge/css/search_challenge.css' %}">
+    <script defer src="{% static 'challenge/javascript/challengeToggle.js' %}"></script>
     {% endblock %}
 
     {% block content %}
@@ -17,11 +17,6 @@
                 <div class="search">
                     검색
                 </div>
-            </div>
-            <div class="ch_add">
-                <a href="{% url 'challenge:challenge_create' %}">
-                    챌린지 생성하기
-                </a>
             </div>
         </div>
         <div class="ch_add">
@@ -54,7 +49,7 @@
             <div class="searchList">
             {% if challenge_list %}
                 {% for challenge in challenge_list %}
-                        <h2><a href="{% url 'challenge:challenge_detail' challenge.id%}"">{{ challenge.title }}</a></h2>
+                        <h2><a href="{% url 'challenge:challenge_detail' challenge.id %}">{{ challenge.title }}</a></h2>
                 {% endfor %}
             {% elif search_term %}<!-- 검색란이 공란인지 확인-->
                         <b><i>Search Word({{ search_term }}) Not Found</i></b>
