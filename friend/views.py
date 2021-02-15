@@ -10,7 +10,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 
-
 # Create your views here.
 
 def fd_list(request):
