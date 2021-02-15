@@ -24,6 +24,14 @@
                 </a>
             </div>
         </div>
+        <div class="ch_add">
+            <a href="{% url 'challenge:challenge_create' %}">
+                챌린지 생성하기
+            </a>
+            <br>
+            <a href="{% url 'challenge:invitation_accept' %}">초대링크 입력하기</a>
+        </div>
+    </div>
 
         <form action="" method="post"> {% csrf_token %}
             {{ form.as_p }} <!-- form을 테이블 형식으로 표시, 여기서 form은 views에서 넘겨준 PostSearchForm 객체임-->

@@ -110,4 +110,3 @@ class EnrollmentDate(models.Model):
 
     def __str__(self):
         return str(self.challenge) +' '+ str(self.player) +' '+str(self.created_at)
-    

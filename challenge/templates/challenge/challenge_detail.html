@@ -2,74 +2,107 @@
 {% load static %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'css/challenge_detail.css' %}">
+    <link rel="stylesheet" href="fontawesome-free-5.15.1-web/css/all.css">
+    <link rel="stylesheet" href="{% static 'css/challenge/challenge_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/challenge/challenge_waiting.css' %}">
     <!-- axios install -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script defer src="{% static 'js/challenge_detail.js' %}"></script>
-    
+
 {% endblock %}
 
 {% block content %}
-<h2>{{ challenge.title }}</h2>
 
-<div>
-    <div>챌린지 설명: {{ challenge.desc }}</div> 
-    <div>챌린지 공개범위: 
-    {% if challenge.private == 0 %}
-        전체 공개
-    {% elif challenge.private == 1 %}
-        친구 공개
-    {% else %}
-        나만 보기
-    {% endif %}
-    </div> 
-    <div>챌린지 시작일: {{ challenge.start_date }}</div> 
-    <div>챌린지 기간: {{ challenge.duration }}</div> 
-</div>
+<div class="container">
+    <div class = "left-container">
+        <div class='ch-title'>{{ challenge.title }}</div>
 
-{% comment %} 
-<div>
-    <div>목표 인원</div>
-    <div> 참여중인 사람수(***수정필요***) {{ enrollment.total_player }}/ {{ challenge.max_pp }}</div>
-</div> 
-{% endcomment %}
+        <i class="fas fa-heart"></i>
 
+        <div class = "ch-desc">{{ challenge.desc }}</div> 
+    </div>
 
-<div onclick="urlGet({{challenge.id}});">url이 보고싶니?</div>
-<div id="url-link"></div>
+    <div class = "right-container">
+        <div class="ch-startdate">
+            <div>시작</div> 
+            <div style = "font-size: 20px;"><span style = "color: #47CC71;">{{ challenge.start_date }}</span>부터 시작</div>
+        </div>
 
-<hr>
+        <div class="ch-duration">
+            <div>기간</div> 
+            <div style = "font-size: 20px;"><span style = "color: #47CC71;">{{ challenge.duration }}</span>일</div>
+        </div>
 
-{% if status %}
-    <form action="{% url 'challenge:challenge_delete' challenge.pk %}", method="POST">
-        {% csrf_token %}
-        <div><input type="submit" value="챌린지 포기하기"></div>
-    </form>
+        <div class="ch-targetpp">
+            <div>목표인원</div> 
+            <div style = "font-size: 20px;">4/9</div>
+        </div>
+
+        <div class="ch-category">
+            <div>분야</div>
+            {% if challenge.category ==  'language' %}
+                <i class="fas fa-language"></i>
+            {% elif challenge.category ==  'job' %}
+                <i class="fas fa-laptop-house"></i>
+            {% elif challenge.category ==  'NCS' %}
+                <i class="fas fa-user-check"></i>
+            {% elif challenge.category ==  'programming' %}
+                <i class="fas fa-tv"></i>
+            {% elif challenge.category ==  'certificate' %}
+                <i class="fas fa-medal"></i>
+            {% else %}
+                <i class="far fa-sticky-note"></i>
+            {% endif %}
     
-{% else %}
-    <form action="{% url 'challenge:challenge_enrollment' challenge.pk %}", method="POST">
-        {% csrf_token %}
-        <input type="submit" value="챌린지 참여하기">
-    </form>  
-{% endif %}
-   
-<hr>
+        </div>
 
+        <div class="ch-private">
+            <div>공개</div> 
+            <div style = "font-size: 20px; color: #47CC71;">
+                {% if challenge.private == 0 %}
+                    전체 공개
+                {% elif challenge.private == 1 %}
+                    친구 공개
+                {% else %}
+                    나만 보기
+                {% endif %}
+            </div> 
+        </div>
+        
+        <div class = "button-container">
+            {% if status %}
+            <form action="{% url 'challenge:challenge_delete' challenge.pk %}", method="POST">
+                {% csrf_token %}
+                <button class="ch-cancel" type="submit">챌린지 취소하기</button>
+                <div class="ch-share" onclick="urlGet({{challenge.id}});">챌린지 공유코드 확인하기</div>
+                <div id="url-link"></div>
+                <button class="ch-golist"><a href="{% url 'challenge:ch_list' %}" style="text-decoration: none; color: #FFFFFF;">챌린지 리스트로 가기</a></button>
+            </form>
+            
+            {% else %}
+                <form action="{% url 'challenge:challenge_enrollment' challenge.pk %}", method="POST">
+                    {% csrf_token %}
+                    <button class="ch-join" type="submit">나도 도전하기</button>
+                    <div class="ch-share" onclick="urlGet({{challenge.id}});">챌린지 공유코드 확인하기</div>
+                    <div id="url-link"></div>
+                    <button class="ch-golist"><a href="{% url 'challenge:ch_list' %}" style="text-decoration: none; color: #FFFFFF;">챌린지 리스트로 가기</a></button>
+                </form>  
+            {% endif %}
 
-<div>
-    {% if status %}
-        {% if enrollment.result %}
-            <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}} result-clicked">챌린지 성공</button>
-        {% else %}
-            <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}}">챌린지 성공</button>
-        {% endif %}
-    {% endif %}
+            <div>
+                {% if status %}
+                    {% if enrollment.result %}
+                        <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}} result-clicked ch-result">챌린지 성공</button>
+                    {% else %}
+                        <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}} ch-result">챌린지 성공</button>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+<hr> 
 </div>
-
-
-<br>
-<a href="{% url 'challenge:ch_list' %}">챌린지 리스트로 돌아가기</a>
 
 {% endblock %}
 
@@ -78,59 +111,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript">
 // 랜덤링크 생성
-
-
-//function urlGet() = {
-//    const url = document.location.href
-//    const target = document.querySelector('#url-link')
-//    const urlMaker = document.createElement('div')
-//    const currentUrl = document.createElement('p')
-//
-//    currentUrl.id = "challengeUrl"
-//    currentUrl.innerText = url
-//    urlMaker.appendChild(currentUrl)
-//    target.appendChild(urlMaker)    
-//} 
-
-const urlGet = async (id) => {
-    const url = "/challenge/send/invitation/";
-    //이미 challengeUrl이 존재한다면 axios 실행을 안해도 됨. 그 조건을 따지기 위한 코드
-    const urlStatus = document.querySelector('#urlMaker') === null;
-    
-    if (urlStatus) {
-
-        const {data} = await axios.post(url, {
-            id
-        })
-        urlGetModify(data.id, data.invitation_key)
-
-    } else {
-
-        const target = document.querySelector('#urlMaker')
-        target.remove()
-
-    }
-}
-
-const urlGetModify = (id, invitation_key) => {
-
-    const target = document.querySelector('#url-link')
-
-    const urlMaker = document.createElement('div')
-    const currentUrl = document.createElement('div')
-    const copyBtn = document.createElement('button')
-
-    urlMaker.id = "urlMaker"
-    currentUrl.id = "challengeUrl"
-    currentUrl.innerText = invitation_key
-
-    copyBtn.innerText = '복사하기'
-    copyBtn.setAttribute('onclick', "copyToClipboard('#challengeUrl')")
-
-    urlMaker.appendChild(currentUrl)
-    urlMaker.appendChild(copyBtn)
-    target.appendChild(urlMaker)     
-}
 
 
 

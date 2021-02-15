@@ -131,12 +131,12 @@ def challenge_delete(request, pk):
         challenge = Challenge.objects.get(pk=pk)
         enrollment = get_object_or_404(Enrollment, player=player, challenge=challenge)
         enrollment.delete()
-        return redirect('/challenge/list/')
+        return redirect(f'/challenge/{challenge.pk}')
     else: #GET
-        return redirect('/challenge/list/')
+        return redirect(f'/challenge/{challenge.pk}')
 
 
-    return redirect('/challenge/')
+    return redirect(f'/challenge/{challenge.pk}')
 
 #날짜바뀔때 실행하는 EnrollmentDate객체 만드는 함수
 def make_enrollment_date():
