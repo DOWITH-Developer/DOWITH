@@ -96,3 +96,7 @@ li.tab.active button {
 .total_container .items.active {
     display: inline-block;
 }
+
+.search__display__none {
+    display: none;
+}

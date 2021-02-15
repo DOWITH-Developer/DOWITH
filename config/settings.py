@@ -38,6 +38,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 의존성 앱
+    "django.contrib.sites",
+
+    # allauth
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+
+    # provider
+    "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.naver",
+    "allauth.socialaccount.providers.kakao",
+
     'login',
     'friend',
     'challenge',
@@ -127,4 +140,42 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
 AUTH_USER_MODEL = 'login.User'
+
+
+# login
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = "/"
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = None
+#
+# ACCOUNT_USERNAME_REQUIRED = False
+#
+SOCIALACCOUNT_AUTO_SIGNUP = False
+ACCOUNT_SIGNUP_FORM_CLASS = 'login.forms.SocialSignUpForm'
+# ACCOUNT_FORMS = {'signup': 'login.forms.SocialSignUpForm', }
+
+
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'AUTH_PARAMS': {
+#             'access_type': 'online',
+#         }
+#     }
+# }

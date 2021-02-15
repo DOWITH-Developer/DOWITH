@@ -2,8 +2,29 @@
 
 {% load static %}
 
+{% block extra_head %}
+
+    <link rel="stylesheet" href="{% static 'css/invitation/invitation_failed.css' %}">
+
+{% endblock extra_head %}
+
 {% block content %}
 
-    <h2>죄송합니다. 해당 코드는 잘못된 초대 링크입니다. 다시 확인해 주세요</h2>
+    <div class="invitation__failed">
+        <div class="invitation__failed__container">
+            <div class="invitation__logo">
+                <img src="{% static 'img/DOWITH.png' %}" alt="logo">
+                <h1>안내</h1>
+            </div>
+
+            <div class="invitation__failed__content">
+                <p>죄송합니다. 해당 코드는 잘못된 초대 링크입니다. 다시 확인해 주세요</p>
+            </div>
+        </div>
+    </div>
 
 {% endblock content %}
+
+
+
+

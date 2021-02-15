@@ -8,6 +8,7 @@ urlpatterns = [
     path("layout/", test, name="test"),  # 테스트용
     path("login/", login, name="login"),
     path("logout/", logout, name="logout"),
+    path("register/", register_success, name='register_success'),
     path("<int:pk>/mypage/",my_page, name="my_page"),
     # settings
     path("settings/", settings_main, name="settings"),
@@ -17,5 +18,5 @@ urlpatterns = [
     # settings 2차
     path("userinfo_modify/", userinfo_modify, name="userinfo_modify"),
     path("userinfo_password_modify/", userinfo_password_modify,
-         name="userpassword_modify"),
+         name="userinfo_password_modify"),
 ]
