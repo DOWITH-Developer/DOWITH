@@ -1,27 +1,39 @@
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q    
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
-from .forms import ChallengeForm
-
+from .forms import ChallengeForm, SearchForm
+from django.views.generic import FormView
+# ajax
+from django.views import View
+import json
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from datetime import date
+import threading
+import time
+import hashlib
 
 def ch_list(request):
+    alls = Challenge.objects.filter(private=0,status=0)
+    languages = Challenge.objects.filter(
+        category=Challenge.CATEGORY_LANGUAGE,private=0,status=0)
+    jobs = Challenge.objects.filter(
+        category=Challenge.CATEGORY_JOB,private=0,status=0)
+    NCSs = Challenge.objects.filter(
+        category=Challenge.CATEGORY_NCS,private=0,status=0)
+    programmings = Challenge.objects.filter(
+        category=Challenge.CATEGORY_PROGRAMMING,private=0,status=0)
+    certificates = Challenge.objects.filter(
+        category=Challenge.CATEGORY_CERTIFICATE,private=0,status=0)
+    others = Challenge.objects.filter(
+        category=Challenge.CATEGORY_OTHER,private=0,status=0)
+        
     if request.method == 'GET':
-        alls = Challenge.objects.all()
-        languages = Challenge.objects.filter(
-            category=Challenge.CATEGORY_LANGUAGE)
-        jobs = Challenge.objects.filter(
-            category=Challenge.CATEGORY_JOB)
-        NCSs = Challenge.objects.filter(
-            category=Challenge.CATEGORY_NCS)
-        programmings = Challenge.objects.filter(
-            category=Challenge.CATEGORY_PROGRAMMING)
-        certificates = Challenge.objects.filter(
-            category=Challenge.CATEGORY_CERTIFICATE)
-        others = Challenge.objects.filter(
-            category=Challenge.CATEGORY_OTHER)
+        form = SearchForm()
         ctx = {
             'alls': alls,
             'languages': languages,
@@ -30,65 +42,134 @@ def ch_list(request):
             'programmings': programmings,
             'certificates': certificates,
             'others': others,
+            'form': form,
         }
         return render(request, 'challenge/ch_list.html', ctx)
+
     else:
-        pass
+        form = SearchForm(request.POST)
+        searchWord = request.POST["search_word"]
+        ChallengeList = Challenge.objects.filter(Q(title__icontains=searchWord))
+        # distinct() 함수는 중복 방지, 나중에 추가
+
+        context = {
+            'alls': alls,
+            'languages': languages,
+            'jobs': jobs,
+            'NCSs': NCSs,
+            'programmings': programmings,
+            'certificates': certificates,
+            'others': others,
+            'form' : form,
+            'search_term' : searchWord,
+            'challenge_list' : ChallengeList
+        }
+        return render(request, 'challenge/ch_list.html', context)
 
 
 def challenge_detail(request, pk):
     challenge = Challenge.objects.get(pk=pk)
-    data = {
-        "challenge": challenge
-    }
+    if Enrollment.objects.filter(challenge=challenge, player=request.user).exists():
+        status = True
+        enrollment = Enrollment.objects.get(player=request.user, challenge=challenge)
+    else:
+        status = False
+        enrollment = None
 
+    data = {
+        "challenge": challenge, 
+        "status": status,
+        "enrollment": enrollment,
+        # "private": challenge.private
+    }
+    # print(enrollment.total_player())
+    # print(data)    
     return render(request, "challenge/challenge_detail.html", data)
 
+
+def challenge_enrollment(request, pk):
+    if request.method == "POST":  
+        player = request.user
+        challenge = Challenge.objects.get(pk=pk)
+
+        enrollment = Enrollment.objects.create(
+            player = player, 
+            challenge = challenge,
+            )
+        return redirect(f'/challenge/{challenge.pk}')
+    else:
+        return redirect(f'/challenge/{challenge.pk}')
 
 def challenge_create(request):
     if request.method == 'POST':
         form = ChallengeForm(request.POST, request.FILES)
         if form.is_valid():
-            challenge = form.save()  # ModelForm에서 제공
-            return redirect(f'/challenge/{challenge.pk}')
+            challenge = form.save()
+            challenge.status = 0
 
+            #url hash 값 생성
+            HASH_NAME = "md5"
+            temp_hash = str(challenge.pk)
+
+            text = temp_hash.encode('utf-8')
+            md5 = hashlib.new(HASH_NAME)
+            md5.update(text)
+            result = md5.hexdigest()
+
+            #TODO 하드코딩 말고 애를 다른 형식으로 전달할 수 있는지 코드리뷰에서 물어보기
+            challenge.invitation_key = result
+            challenge.save()
+            print(challenge.pk)
+            return redirect(f'/challenge/{challenge.pk}')
     else:
         form = ChallengeForm()
     return render(request, 'challenge/challenge_create.html', {"form": form})
 
-
 def challenge_delete(request, pk):
-    if request.method == "GET":
-        return redirect('/challenge/')
+    if request.method == "POST":
+        player = request.user
+        challenge = Challenge.objects.get(pk=pk)
+        enrollment = get_object_or_404(Enrollment, player=player, challenge=challenge)
+        enrollment.delete()
+        return redirect(f'/challenge/{challenge.pk}')
+    else: #GET
+        return redirect(f'/challenge/{challenge.pk}')
 
-    # POST
-    challenge = Challenge.objects.get(id=pk)
-    challenge.delete()
 
-    return redirect('/challenge/')
+    return redirect(f'/challenge/{challenge.pk}')
+
+#날짜바뀔때 실행하는 EnrollmentDate객체 만드는 함수
+def make_enrollment_date():
+    for E in Enrollment.objects.all():
+        new_ed = EnrollmentDate(challenge=E.challenge, player=E.player, result=E.result, created_at=E.created_at)
+        new_ed.save() #오늘의 날짜로 EnrollmentDate 생성
+
+    threading.Timer(60*60*24,make_enrollment_date).start() #60*60*24초마다 반복됨
 
 def challenge_calendar(request):
     return render(request, 'challenge/challenge_calendar.html')
-# try:
-#     from django.utils import simplejson as json
-# except ImportError:
-#     import json
 
 
-# @login_required
-# @require_POST
-# 오늘 성공했는 지 안 성공 했는 지
+class ResultAjax(View):
+    # 포비든 문제때문에 추가
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ResultAjax, self).dispatch(request, *args, **kwargs)
 
-# def success(request):
-#     # 유저, 챌린지 1개
-#     # ACTION : 성공했는 지 안했는 지
+    def post(self, request):
+        req = json.loads(request.body)
+        challenge_id = req["id"]
+        challenge = Challenge.objects.get(id=challenge_id)
+        enrollment = Enrollment.objects.get(player=request.user, challenge=challenge)
+        print(enrollment.result)
 
-#     if request.method == 'POST':
-#         user = request.user
-#         challenge_id??
-#         # slug = request.POST.get('slug', None)
-#         # challenge = get_object_or_404(Challenge, slug=slug)
-#         challenge = get_object_or_404(Challenge, id=challenge_id)
+        if enrollment.result == False:
+            enrollment.result = True
+        else:
+            enrollment.result = False
+        enrollment.save()
+
+        return JsonResponse({'id': challenge_id, 'result': enrollment.result})
 
 #         if challenge.success.filter(id=user.id).exists():
 #             # user has already liked this company
@@ -103,3 +184,53 @@ def challenge_calendar(request):
 #     ctx = {'likes_count': challenge.total_likes, 'message': message}
 #     # use mimetype instead of content_type if django < 5
 #     return HttpResponse(json.dumps(ctx), content_type='application/json')
+
+
+def challenge_invitation(request, invitation):
+    challenge = Challenge.objects.get(invitation_key=invitation)
+    
+    if Enrollment.objects.filter(challenge=challenge, player=request.user).exists():
+        status = True
+        enrollment = Enrollment.objects.get(player=request.user, challenge=challenge)
+    else:
+        status = False
+        enrollment = None
+
+    data = {
+        "challenge": challenge, 
+        "status": status,
+        "enrollment": enrollment,
+        # "private": challenge.private
+    }
+    # print(enrollment.total_player())
+    # print(data)    
+    return render(request, "challenge/challenge_detail.html", data) 
+
+
+
+class InvitationAjax(View):
+    # 포비든 문제때문에 추가
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(InvitationAjax, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request):
+        req = json.loads(request.body)
+        challenge_id = req["id"]
+        challenge = Challenge.objects.get(id=challenge_id)
+
+        return JsonResponse({'id': challenge_id, 'invitation_key': challenge.invitation_key})
+
+def invitation_accept(request):
+    if request.method == 'POST':
+        invitation_key = request.POST['invitation_key']
+
+        if Challenge.objects.filter(invitation_key=invitation_key).exists():
+            return redirect(f'/challenge/invite/' + invitation_key)
+        else:
+            return redirect(f'/challenge/invitation/failed')
+    else:    
+        return render(request, 'challenge/invitation_accept.html')
+
+def invitation_failed(request):
+    return render(request, 'challenge/invitation_failed.html')

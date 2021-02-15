@@ -8,7 +8,8 @@ urlpatterns = [
     path("layout/", test, name="test"),  # 테스트용
     path("login/", login, name="login"),
     path("logout/", logout, name="logout"),
-    path("<int:pk>/mypage/", my_page, name="my_page"),
+    path("register/", register_success, name='register_success'),
+    path("<int:pk>/mypage/",my_page, name="my_page"),
     # settings
     path("settings/", settings_main, name="settings"),
     path("settings/user_info/", userinfo_get, name="user_info"),

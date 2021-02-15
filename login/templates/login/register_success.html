@@ -1,0 +1,31 @@
+{% extends 'login/layout.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/register_success.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="success">
+        <div class="success__container">
+
+            <div class="success__logo">
+                <img src="{% static 'img/DOWITH_logo.png' %}" alt="logo">
+            </div>
+
+            <div class="success__content">
+                <p>반갑습니다!</p>
+                <p>회원가입이 완료되었습니다.</p>
+            </div>
+        
+            <div class="success__button">
+                <a href="{% url 'home' %}"><button class="success__home__btn">홈</button></a>
+                <a href="{% url 'login:login' %}"><button class="success__login__btn">로그인</button></a>
+            </div>
+        
+        </div>
+    </div>
+
+
+{% endblock content %} 

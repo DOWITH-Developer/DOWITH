@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 
 /* root */
 :root {
@@ -138,6 +139,7 @@ nav {
     box-shadow: var(--light-shadow);
     height: 10vh;
     display: flex;
+    font-family: 'Do Hyeon', sans-serif;
 }
 
 .nav-center {
@@ -166,6 +168,7 @@ nav {
 .logo {
     height: 40px;
 }
+
 .links a {
     color: var(--clr-grey-3);
     font-size: 1rem;
@@ -339,4 +342,9 @@ main {
 .item-text {
     margin-bottom: 0;
     padding-top: 1rem;
+}
+
+
+#main__logo {
+    width: 100px;
 }

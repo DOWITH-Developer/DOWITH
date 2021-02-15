@@ -3,6 +3,10 @@
 {% load static %}
 
 {% block extra_head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="{% static 'js/result.js' %}"></script>
     <link rel="stylesheet" href="{% static 'login/css/mypage.css' %}">
 {% endblock %}
 {% block content %}
@@ -13,6 +17,15 @@
                 <li>
                     <a href="{% url 'challenge:challenge_detail' en.challenge.id%}">{{en.challenge.title}}</a>
                 </li>
+                <div class="result result-{{en.id}}" onclick="onClickResult({{en.pk}})">
+                    {% if en.result %}
+                        <i class="fas fa-check-circle"></i>
+                        <p class="result__content"> 챌린지를 성공처리하셨습니다! </p>
+                    {% elif en.result == False %}
+                        <i class="far fa-check-circle"></i>
+                        <p class="result__content"> 챌린지가 성공되면 체크박스를 눌러주세요! </p>
+                    {% endif %}
+                </div>
             {% endfor %}
         </div>
         <div class="friend_list">

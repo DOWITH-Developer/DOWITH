@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
+from login.views import *
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -25,6 +26,8 @@ urlpatterns = [
     path('challenge/', include('challenge.urls')),
     path('friend/', include('friend.urls')),
     path('', lambda req:redirect('challenge:ch_list'), name="home"),
+    # 성공/실패
+    path("result_ajax/",result_ajax, name="result_ajax"),
     path("accounts/", include("allauth.urls")),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,180 @@
+* {
+    font-family: 'Do Hyeon', sans-serif;          
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background: #FFFFFF;
+}
+
+.container{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .left-container{
+    width: 60%;
+    height: 100%;
+    background: #EFEFEF;
+    border-radius: 20px;
+    margin-right: 50px;
+}
+
+.ch-title{
+    font-size: 40px;
+    font-weight: bold;
+    padding: 30px;
+    margin: 50px;
+    text-align:center;
+}
+
+.container .left-container i{
+    font-size: 200px;
+    padding: 30px 300px;
+    margin: 10px auto;
+    text-align:center;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.ch-desc{
+    text-align:center;
+    padding: 60px;
+    margin: 50px 50px;
+}
+
+.container .right-container{
+    width: 25%;
+    height: 100%;
+    padding: 30px;
+    background: #EFEFEF;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.ch-startdate{
+    padding: 25px 0;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.ch-duration{
+    padding: 25px 0;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.ch-targetpp{
+    padding: 25px 0;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.ch-category{
+    padding: 25px 0;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.ch-category i{
+    padding: 5px;
+    font-size: 50px;
+}
+
+.ch-private{
+    padding: 25px 0;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#url-link{
+    font-family: 'Do Hyeon', sans-serif;  
+}
+
+#copyBtn{
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    background: #47CC71;
+    border: 0.1px solid #47CC71;
+    width: 100px;
+    height: 23px;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 400;
+    margin: 5px 0;
+}
+
+.ch-join{
+    background: #5C62CC;
+    border: 0.1px solid #5C62CC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    width: 200px;
+    height: 35px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 12px 0;
+}
+
+.ch-share{
+    background: #47CC71;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    line-height: 35px;
+    width: 200px;
+    height: 35px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 12px auto;
+}
+
+.ch-golist{
+    background: #F0D800;
+    border: 0.1px solid #F0D800;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    width: 200px;
+    height: 35px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 12px 0;
+}
+
+.ch-cancel{
+    background: #EB7676;
+    border: 0.1px solid #EB7676;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    width: 200px;
+    height: 35px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 12px 0;
+}
+
+.ch-result{
+    background: #76C8EB;
+    border: 0.1px solid #76C8EB;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    width: 200px;
+    height: 35px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 12px 0;
+}
+
+.result-clicked {
+    color: white;
+    background-color: tomato;
+}
