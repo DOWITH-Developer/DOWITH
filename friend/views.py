@@ -1,9 +1,15 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
-from .models import Friendship
+from .models import Friendship, Motivation
 from challenge.models import Challenge, Enrollment
 from login.models import User
 from .forms import FriendshipForm
 from django.views.generic import CreateView, UpdateView
+from django.views import View
+import json
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.http import JsonResponse
+
 
 # Create your views here.
 
@@ -12,17 +18,18 @@ def fd_list(request):
     friends = me.friend_set.all().filter(accepted=True)
     friends_pending = me.friend_set.all().filter(accepted=False)
 
+    #motivation을 위한 코드
+    motivation_from_friends = me.motivation_friend_set.all()
+
     ctx = {        
         'me': me,
         'friends': friends,
         'pendings' : friends_pending,
+
+        #motivation을 위한 코드
+        'motivation_from_friends' : motivation_from_friends,
     }
     return render(request, 'friend/friend_list.html', context=ctx)
-
-# def fd_create(request, pk):
-#     # idea_new = CreateView.as_view(model=Idea, form_class=IdeaForm, template_name_suffix = '_create')
-
-#fd_create = CreateView.as_view(model=Friendship, form_class=FriendshipForm, template_name_suffix="_create")
 
 def fd_create(request):
     user = request.user
@@ -117,3 +124,53 @@ def fd_more(request,pk):
         'friends': friends,
     }
     return render(request, "friend/friend_more.html", ctx)
+
+
+class MotivationAjax(View):
+    # 포비든 문제때문에 추가
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(MotivationAjax, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request):
+        req = json.loads(request.body)
+        user_id =req['id']
+        user = User.objects.get(id=user_id)
+
+        if not(Motivation.objects.filter(me=request.user, friend=user).exists()):
+            motivation = Motivation.objects.create(
+                me=request.user,
+                friend=user
+        )
+        else:
+            motivation = Motivation.objects.get(me=request.user, friend=user)
+            motivation.count += 1
+            motivation.save()
+        return JsonResponse({'user': user.nickname, 'count':motivation.count})
+
+class MotivationRemoveAjax(View):
+    # 포비든 문제때문에 추가
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(MotivationRemoveAjax, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request):
+        req = json.loads(request.body)
+
+        #모두 지우기 일 경우
+        if req['id'] == None:
+            me = request.user
+            motivations = Motivation.objects.all().filter(friend=me)
+            
+            for motivation in motivations:
+                motivation.delete()
+            
+            return JsonResponse({'status': True})
+            
+
+        #특정 콕 찌르기만 지우기일 경우
+        else:
+            motivation = Motivation.objects.get(id=req['id'])
+            motivation.delete()
+
+            return JsonResponse({'id': motivation.id})

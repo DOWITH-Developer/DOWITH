@@ -10,6 +10,11 @@ class Friendship(models.Model):
     class Meta:
         unique_together = ('me', 'friend',)
 
+class Motivation(models.Model):
+    me = models.ForeignKey(User, on_delete=models.CASCADE, related_name="motivation_me_set")
+    friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name="motivation_friend_set")
+    count = models.PositiveIntegerField(default=1)
+
 
 
 # (A, B) / (B, A) = 동일
