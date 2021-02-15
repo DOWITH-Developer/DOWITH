@@ -164,8 +164,8 @@ ACCOUNT_EMAIL_VERIFICATION = None
 # ACCOUNT_USERNAME_REQUIRED = False
 #
 SOCIALACCOUNT_AUTO_SIGNUP = False
-ACCOUNT_SIGNUP_FORM_CLASS = 'login.forms.SS'
-# ACCOUNT_FORMS = {'signup': 'login.forms.SS', }
+ACCOUNT_SIGNUP_FORM_CLASS = 'login.forms.SocialSignUpForm'
+# ACCOUNT_FORMS = {'signup': 'login.forms.SocialSignUpForm', }
 
 
 # SOCIALACCOUNT_PROVIDERS = {
