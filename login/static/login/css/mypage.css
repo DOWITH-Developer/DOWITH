@@ -22,6 +22,152 @@
     margin: 0 auto;
 }
 
+.challenge_list {
+    width: 100%;
+}
+
+.challenge_list h3 {
+    text-align: center;
+}
+
+.mypage .one_challenge {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 5px;
+    margin: 10px;
+    width: 100%;
+}
+.mypage .one_challenge .challenge_title {
+    background-color: #d8d8d8;
+    border-radius: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.mypage .one_challenge input {
+    border-radius: 10px;
+    padding: 0px 10px;
+    color: white;
+}
+
+.mypage .one_challenge input:focus {
+    outline: none;
+}
+
+.mypage .one_challenge .fail {
+    background-color: tomato;
+}
+
+.mypage .one_challenge .success {
+    background-color: #76c8eb;
+}
+
 .challenge_list_calendar {
     height: 200px; /*달력넣으면 제거*/
 }
+
+.friend__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.friend__list .friends {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.friend__list .friends {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.friend__list .friends .one_friend {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem 1rem;
+}
+
+.friends__profile__image {
+    width: 80px;
+    margin: 0 auto;
+}
+
+/* 영빈 friend list */
+
+/* .friend__list {
+    width: 90%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.friend__search {
+    width: 60%;
+    overflow: auto;
+    text-align: center;
+    min-height: 30%;
+    float: left;
+    background: #efefef;
+    border-radius: 20px;
+    padding: 2rem 1rem;
+    overflow: auto;
+}
+
+.friend__search__input {
+    display: flex;
+    justify-content: center;
+}
+
+.friend__list__search {
+    width: 60%;
+    border: 0px;
+    background: #ffffff;
+    border-radius: 20px;
+    transform: rotate(-0.23deg);
+    height: 30px;
+    text-align: center;
+}
+
+.friend__friends__name {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.friends__profile {
+    width: 110px;
+    min-width: 40%;
+    padding: 0.5rem;
+    margin: 1.5rem 1rem;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 180px;
+    border-radius: 20px;
+}
+
+.friends__profile__image {
+    width: 80px;
+    margin: 0 auto;
+}
+
+.friend__profile__name {
+    margin-bottom: 0.5rem;
+}
+
+.friends__pending__btn {
+    display: flex;
+    justify-content: center;
+}
+
+.friends {
+    display: inline-block;
+} */

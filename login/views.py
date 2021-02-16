@@ -85,8 +85,10 @@ def logout(request):
 
 
 def my_page(request, pk):
-    me = get_object_or_404(User, id=pk) #me = 접속한 user
-    friends = me.self_set.all() #me의 friend들
+    me = request.user
+    friends = me.friend_set.all().filter(accepted=True)
+    # me = get_object_or_404(User, id=pk) #me = 접속한 user
+    # friends = me.self_set.all() #me의 friend들
 
     today = date.today() #오늘 날짜에 맞는 챌린지만 가져오게 하기
     enrollmentdates = EnrollmentDate.objects.filter(
