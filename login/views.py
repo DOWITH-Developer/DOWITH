@@ -85,17 +85,19 @@ def logout(request):
 
 
 def my_page(request, pk):
-    me = get_object_or_404(User, id=pk) #me = 접속한 user
-    friends = me.self_set.all() #me의 friend들
+    me = request.user
+    friends = me.friend_set.all().filter(accepted=True)
+    # me = get_object_or_404(User, id=pk) #me = 접속한 user
+    # friends = me.self_set.all() #me의 friend들
 
     today = date.today() #오늘 날짜에 맞는 챌린지만 가져오게 하기
-    enrollments = EnrollmentDate.objects.filter(
-            player=me, date__year=today.year, date__month=today.month, date__day=today.day)#.order_by('-pk')
+    enrollmentdates = EnrollmentDate.objects.filter(
+            enrollment__player=me, date__year=today.year, date__month=today.month, date__day=today.day)#.order_by('-pk')
 
     ctx = {        
         'me': me,
         'friends': friends,
-        'enrollments': enrollments,
+        'enrollmentdates': enrollmentdates,
     }
     return render(request, "login/mypage.html", ctx)
 
@@ -107,13 +109,13 @@ def result_ajax(request):
     req = JSON.loads(request.body)
     enrollmentdate = EnrollmentDate.objects.get(id=req["id"])
 
-    if enrollmentdate.result == False:
-        enrollmentdate.result = True
+    if enrollmentdate.date_result == False:
+        enrollmentdate.date_result = True
     else:
-        enrollmentdate.result = False
+        enrollmentdate.date_result = False
     enrollmentdate.save()
 
-    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.result})
+    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.date_result})
 
 # settings
 
