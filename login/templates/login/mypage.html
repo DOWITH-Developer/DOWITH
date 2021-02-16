@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="{% static 'login/javascript/result.js' %}"></script>
     <link rel="stylesheet" href="{% static 'login/css/mypage.css' %}">
+    <script defer src="{% static 'friend/javascript/friend_list.js' %}"></script>
 {% endblock %}
 {% block content %}
     <div class="mypage">
@@ -35,18 +36,31 @@
                 <h3> 오늘 내 친구들은?</h3>
                 <div class="friends">
                     {% for fd in friends %}
+                    <div class="friend_total">
                         <div class="one_friend">
-                            <a href="{% url 'friend:fd_detail' fd.me.pk %}">
-                                <img class="friends__profile__image" src="{% static 'img/DOWITH.png' %}" alt="logo">
-                                <p class="friends__profile__name">{{fd.me}}</p>
-                            </a>
+                            <div>
+                                <a href="{% url 'friend:fd_detail' fd.me.pk %}">
+                                    <img class="friends__profile__image" src="{% static 'img/DOWITH.png' %}" alt="logo">
+                                    <p class="friends__profile__name">{{fd.me}}</p>
+                                </a>
+                            </div>
+                            <div class="complete_challenge">
+                                <div>오늘 완료한 챌린지</div>
+                                <div>3개</div>
+                            </div>
                         </div>
+                        <div>
+                            <button class="one_friend_motivate" onclick="giveMotivation({{fd.me.id}})">응원하기</button>
+                        </div>
+                    </div>
                     {% endfor %}
                 </div>
         </div>
-            <a href="{% url 'friend:fd_list' %}">친구 더보기</a><br>
-            
-            <a href="{% url 'login:settings' %}">설정으로 가기</a>
-        </div>
+
+        <br>
+        <a href="{% url 'friend:fd_list' %}">친구 더보기</a><br>
+        <br>
+        <a href="{% url 'login:settings' %}">설정으로 가기</a>
+        <br>
     </div>
 {% endblock %}

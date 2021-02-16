@@ -67,11 +67,14 @@
     height: 200px; /*달력넣으면 제거*/
 }
 
+/* 친구관련 */
+
 .friend__list {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     text-align: center;
+    width: 100%;
 }
 
 .friend__list .friends {
@@ -84,74 +87,27 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+
+.friend__list .friends .friend_total {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 20px;
+    padding: 2rem 1rem;
 }
 
 .friend__list .friends .one_friend {
-    background: white;
-    border-radius: 20px;
-    padding: 2rem 1rem;
-}
-
-.friends__profile__image {
-    width: 80px;
-    margin: 0 auto;
-}
-
-/* 영빈 friend list */
-
-/* .friend__list {
-    width: 90%;
-    height: 100%;
-    overflow: hidden;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-}
-
-.friend__search {
-    width: 60%;
-    overflow: auto;
-    text-align: center;
-    min-height: 30%;
-    float: left;
-    background: #efefef;
-    border-radius: 20px;
-    padding: 2rem 1rem;
-    overflow: auto;
-}
-
-.friend__search__input {
     display: flex;
-    justify-content: center;
-}
-
-.friend__list__search {
-    width: 60%;
-    border: 0px;
-    background: #ffffff;
-    border-radius: 20px;
-    transform: rotate(-0.23deg);
-    height: 30px;
-    text-align: center;
-}
-
-.friend__friends__name {
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.4rem;
-}
-
-.friends__profile {
-    width: 110px;
-    min-width: 40%;
-    padding: 0.5rem;
-    margin: 1.5rem 1rem;
+    flex-direction: row;
     background: white;
+}
+
+.complete_challenge {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 180px;
-    border-radius: 20px;
+    margin-left: 10px;
 }
 
 .friends__profile__image {
@@ -159,15 +115,12 @@
     margin: 0 auto;
 }
 
-.friend__profile__name {
-    margin-bottom: 0.5rem;
+.friends .one_friend_motivate {
+    background: #47cc71;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    border-radius: 20px;
+    width: 60px;
+    border: 0px;
+    color: white;
+    height: 30px;
 }
-
-.friends__pending__btn {
-    display: flex;
-    justify-content: center;
-}
-
-.friends {
-    display: inline-block;
-} */
