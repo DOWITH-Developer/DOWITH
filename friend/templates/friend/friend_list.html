@@ -40,7 +40,6 @@
             {% for fd in friends %}
                 <div class="friends">
                     <div class="friends__profile">
-    
                         <div class="friends__profile__info">
                             <a href="{% url 'friend:fd_detail' fd.me.pk %}">
                                 <img class="friends__profile__image" src="{% static 'img/DOWITH.png' %}" alt="logo">
