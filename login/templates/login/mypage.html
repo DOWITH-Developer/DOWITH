@@ -22,7 +22,7 @@
                     <div class="challenge_title"><a href="{% url 'challenge:challenge_detail' end.enrollment.challenge.id%}">{{end.enrollment.challenge.title}}</a></div>
                     <div class="result result-{{end.id}}" onclick="onClickResult({{end.pk}})">
                         {% if end.date_result %}
-                            <input type="button" class="result_word success" value="챌린지 성공!"></input>
+                            <input type="button" class="result_word success" value="챌린지 성공"></input>
                         {% elif end.date_result == False %}
                             <input type="button" class="result_word fail" value="성공시 클릭"></input>
                         {% endif %}

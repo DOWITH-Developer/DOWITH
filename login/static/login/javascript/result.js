@@ -17,7 +17,7 @@ const modify = (id, result) => {
         result_word.classList.remove("success");
         result_word.classList.add("fail");
     } else {
-        result_word.value = "챌린지 성공!";
+        result_word.value = "챌린지 성공";
         result_word.classList.remove("fail");
         result_word.classList.add("success");
     }
