@@ -1,9 +1,7 @@
 const friendContainer = document.querySelector('.friend__list__container ')
-
-
 const searchFriend = async () => {
     const url = "/friend/search/";
-    const value = document.querySelector('#id_search_word');    
+    const value = document.querySelector('.friend__list__search');    
     const {data} = await axios.post(url, {
         value : value.value
     })
@@ -12,6 +10,7 @@ const searchFriend = async () => {
     printFriendList(friendList)
 }
 
+//todo 이렇게 하는건 어떻게 하는걸까...
 // const deStructure = (friendList) => {
 //     // console.log(friendList);
 //     friendList.forEach(element => {
@@ -23,17 +22,22 @@ const searchFriend = async () => {
 const printFriendList = (friendList) => {
     friendContainer.innerHTML = ''
     friendList.forEach(element => {
+
+
+
+
         let {pk, fields} = element;
         
         let friends = document.createElement('div');
         friends.className = 'friends'
         let profileContainer = document.createElement("div");
         profileContainer.className = `friends__profile ${pk}`
+
         let infoContainer = document.createElement("div");
         infoContainer.className = "friends__profile__info"
         infoContainer.innerHTML = `
             <a href="{% url 'friend:fd_detail' ${pk} %}">
-            <img class="friends__profile__image" src="{% static ` + 'img/DOWITH.png' + `%}" alt="logo">
+            <img class="friends__profile__image" src="{% static img/DOWITH.png %}" alt="logo">
             <p class="friends__profile__name"> ${fields.nickname} </p>
         `
 
@@ -46,7 +50,6 @@ const printFriendList = (friendList) => {
         friends.appendChild(profileContainer)
         friendContainer.append(friends);
         
-        console.log('하나 끝')
     })
     //todo 
     // 1. 여러개를 domparser로 보이게 하는 방법 
