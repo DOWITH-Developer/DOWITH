@@ -1,35 +1,55 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from .models import Friendship, Motivation
 from challenge.models import Challenge, Enrollment
+from django.db.models import Q
 from login.models import User
-from .forms import FriendshipForm
+from .forms import FriendshipForm, FriendSearchForm
 from django.views.generic import CreateView, UpdateView
 from django.views import View
 import json
+from challenge.models import *  # Enrollment가져옴
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.http import JsonResponse
+from django.core.serializers import json as JSON
 
 # Create your views here.
 
 def fd_list(request):
+    
     me = request.user
     friends = me.friend_set.all().filter(accepted=True)
     friends_pending = me.friend_set.all().filter(accepted=False)
-
     #motivation을 위한 코드
     motivation_from_friends = me.motivation_friend_set.all()
 
-    ctx = {        
-        'me': me,
-        'friends': friends,
-        'pendings' : friends_pending,
+    if request.method == 'GET':
+        form = FriendSearchForm()
+        ctx = {        
+            'friends': friends,
+            'pendings' : friends_pending,
+            'form': form,
 
-        #motivation을 위한 코드
-        'motivation_from_friends' : motivation_from_friends,
-    }
-    return render(request, 'friend/friend_list.html', context=ctx)
+            #motivation을 위한 코드
+            'motivation_from_friends' : motivation_from_friends,
+        }
+        return render(request, 'friend/friend_list.html', context=ctx)
+    
+    # else:
+        # form = FriendSearchForm(request.POST)
+        # searchWord = request.POST["search_word"]
+        # #! 왜 me.friend_set 으로 접근하는지
+        # friends = me.friend_set.filter(Q(me__nickname__icontains=searchWord))
+        # ctx = {        
+        #     'friends': friends,
+        #     'pendings' : friends_pending,
+        #     'form': form,
 
+        #     #motivation을 위한 코드
+        #     'motivation_from_friends' : motivation_from_friends,
+        # }
+        # return render(request, 'friend/friend_list.html', context=ctx)
+    
 def fd_create(request):
     user = request.user
     if request.method == "POST":
@@ -173,3 +193,40 @@ class MotivationRemoveAjax(View):
             motivation.delete()
 
             return JsonResponse({'id': motivation.id})
+        
+    
+class SearchAjax(View):
+    # 포비든 문제때문에 추가
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(SearchAjax, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request):
+        req = json.loads(request.body)
+        word = req["value"]
+        # friendship 인스턴스 중 me field 가 user 인 인스턴스만 접근하는 방식
+        user = request.user
+        friend_list = [] # user 의 친구 list
+        
+        friend = user.self_set.filter(Q(friend__nickname__icontains=word))
+        friend_serializer = JSON.Serializer()
+        friend_serialized = friend_serializer.serialize(friend)
+        
+        # friend 를 serialize 해서 json 으로 넘겨줬는데, 이게 끝이 아니라 friend list 를 넘겨줘야해
+        
+        for i, ch in enumerate(list(friend)):
+            friend_list.append(ch.friend)
+        
+        friend_list_serializer = JSON.Serializer()
+        friend_list_serialized = friend_list_serializer.serialize(friend_list)
+    
+        return JsonResponse({"friend" : friend_serialized, "friend_list" : friend_list_serialized})
+        
+            # if request.method == 'GET':
+        # form = FriendSearchForm()
+        # ctx = {        
+        #     'friends': friends,
+        #     'pendings' : friends_pending,
+        #     'form': form,
+        #     'motivation_from_friends' : motivation_from_friends,
+        # }   
