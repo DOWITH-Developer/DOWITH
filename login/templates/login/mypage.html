@@ -11,6 +11,9 @@
 {% endblock %}
 {% block content %}
     <div class="mypage">
+        <div class="challenge_list_calendar">
+            <h3>달력</h3>
+        </div>
         <div class="challenge_list">
             <h3>오늘의 챌린지 리스트</h3>
             {% for en in enrollments %}
@@ -20,9 +23,11 @@
                 <div class="result result-{{en.id}}" onclick="onClickResult({{en.pk}})">
                     {% if en.result %}
                         <i class="fas fa-check-circle"></i>
+                        <input type="button" class="result_word succuss" value="챌린지 성공!"></input>
                         <p class="result__content"> 챌린지를 성공처리하셨습니다! </p>
                     {% elif en.result == False %}
                         <i class="far fa-check-circle"></i>
+                        <input type="button" class="result_word fail" value="성공시 클릭"></input>
                         <p class="result__content"> 챌린지가 성공되면 체크박스를 눌러주세요! </p>
                     {% endif %}
                 </div>
