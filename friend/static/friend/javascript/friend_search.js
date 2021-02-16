@@ -22,10 +22,7 @@ const searchFriend = async () => {
 const printFriendList = (friendList) => {
     friendContainer.innerHTML = ''
     friendList.forEach(element => {
-
-
-
-
+        
         let {pk, fields} = element;
         
         let friends = document.createElement('div');
