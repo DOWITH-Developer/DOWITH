@@ -17,5 +17,3 @@ urlpatterns = [
     path('invitation/', invitation_accept, name='invitation_accept'),
     path('invitation/failed/', invitation_failed, name="invitation_failed"),
 ]
-
-#make_enrollment_date() #여기서 실행하면 서버켤때 한번만 함수 실행됨
