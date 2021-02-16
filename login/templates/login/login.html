@@ -9,23 +9,34 @@
 {% block content %}
 <div class="login">
     <div class="login__container">
-        <div class="login__header">Login</div>
+        <div class="login__logo">
+            <img src="{% static 'img/DOWITH_logo.png' %}" alt="DOWITH_logo">
+        </div>
 
         <div class="login__body">
             <form action="" method="POST">
-                {% csrf_token %} {% for field in form %}
+                {% csrf_token %}
+                {% for field in form %}
                 <div class="login__form-field">
                     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                     {{ field }}
                 </div>
-                {% endfor %} {% if error %}
+                {% endfor %}
+                {% if error %}
                 <div class="login__form-error">{{ error }}</div>
                 {% endif %}
 
                 <div class="login__form-actions">
-                    <button type="submit">Login</button>
+                    <!-- <a href="{% url 'login:signup' %}"><button>회원가입</button></a> -->
+                    <button type="submit">로그인</button>
                 </div>
             </form>
+
+            <div class="href_signup">
+                <!-- <div>회원가입을 안 하셨나요?</div> -->
+                <a href="{% url 'login:signup' %}"><div>회원가입</div></a>
+            </div>
+
 
             <div class="social_login">
                 <!-- <a href="{% url 'google_login' %}"><i class="fab fa-google"></i></a> -->

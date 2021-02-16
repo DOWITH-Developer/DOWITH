@@ -7,7 +7,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ["username", "nickname", "email"]
+        fields = ["email", "username", "nickname"]
 
 
 class SocialSignUpForm(forms.Form):

@@ -9,8 +9,12 @@
 {% block content %}
     <div class="signup">
         <div class="signup__container">
-            <div class="signup__header">
-                Sign up
+            <div class="login__logo">
+                <img src="{% static 'img/DOWITH_logo.png' %}" alt="DOWITH_logo">
+            </div>
+
+            <div class="ToS">
+                약관쓰
             </div>
     
             <div class="signup__body">
@@ -33,7 +37,7 @@
                     {% endfor %}
     
                     <div class="signup__form-actions">
-                        <button type="submit">Sign Up</button>
+                        <button type="submit">가입하기</button>
                     </div>
                 </form>
             </div>
