@@ -12,5 +12,6 @@ urlpatterns = [
     path('deny/<int:pk>', fd_deny, name="fd_deny"),
     path('delete/<int:pk>', fd_delete, name="fd_delete"),
     path('motivate/', MotivationAjax.as_view(), name="fd_motivate"),
-    path('motivate/remove/', MotivationRemoveAjax.as_view(), name="motivation_remove")
+    path('motivate/remove/', MotivationRemoveAjax.as_view(), name="motivation_remove"),
+    path('search/', SearchAjax.as_view(), name="fd_search"),
 ]

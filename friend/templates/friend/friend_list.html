@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="{% static 'friend/css/friend_list.css' %}">
     <script defer src="{% static 'friend/javascript/friend_list.js' %}"></script>
+    <script defer src="{% static 'friend/javascript/friend_search.js' %}"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
@@ -28,13 +29,14 @@
 
             
             <div class="friend__search__input">
-                <form action="" method="post"> {% csrf_token %}
-                    {{ form.as_p }}
+                <!-- <form action="" method="post"> {% csrf_token %} -->
+                    <!-- </form> -->
                     <!-- <input class="friend__list__search" type="text" placeholder="친구 닉네임을 검색하세요!"> -->
-                    <button class="friend__list__btn">검색</button>    
-                </form>
+                {{ form.as_p }}
+                <button class="friend__list__btn" onclick="searchFriend()">검색</button>    
             </div>
 
+            <div class="friend__list__container">
             {% for fd in friends %}
                 <div class="friends">
                     <div class="friends__profile">
@@ -51,9 +53,8 @@
                         </div>
                     </div>
                 </div>
-    
-
             {% endfor %}
+            </div>
         </div>        
 
         <div class="friend__request">
