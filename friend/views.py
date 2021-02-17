@@ -52,35 +52,44 @@ def fd_list(request):
     
 def fd_create(request):
     user = request.user
-    if request.method == "POST":
-        form = FriendshipForm(request.POST)
-        if form.is_valid():
-            connection = form.save()
-            connection.me = user
+    users = User.objects.all().filter(~Q(email= user.email))
 
-            #이부분 최적화가 가능하다면 이후에 할 필요 있음
-            # form.save된 과정에서 이미 존재하는 쿼리의 경우 unique set을 삭제해줘야하는 이슈 발생 -> 수정은 완료
-            if Friendship.objects.filter(me=connection.me, friend=connection.friend).exists():
-                connection.delete()
-                return redirect('friend:fd_list')
-            else:
-                connection = form.save()
-                return redirect('friend:fd_list')
+    ctx = {
+        'users': users,
+    }
 
-                # #반대의 관계도 생성
-                # opposite = Friendship.objects.create(
-                #     me = connection.friend,
-                #     friend = connection.me
-                # )
+    return render(request, 'friend/friend_create.html', context=ctx)
 
-                # return redirect('friend:fd_list')
+    # user = request.user
+    # if request.method == "POST":
+    #     form = FriendshipForm(request.POST)
+    #     if form.is_valid():
+    #         connection = form.save()
+    #         connection.me = user
 
-    else:
-        form = FriendshipForm()
-        ctx = {
-            'form': form
-        }
-        return render(request, "friend/friend_create.html", context=ctx)
+    #         #이부분 최적화가 가능하다면 이후에 할 필요 있음
+    #         # form.save된 과정에서 이미 존재하는 쿼리의 경우 unique set을 삭제해줘야하는 이슈 발생 -> 수정은 완료
+    #         if Friendship.objects.filter(me=connection.me, friend=connection.friend).exists():
+    #             connection.delete()
+    #             return redirect('friend:fd_list')
+    #         else:
+    #             connection = form.save()
+    #             return redirect('friend:fd_list')
+
+    #             # #반대의 관계도 생성
+    #             # opposite = Friendship.objects.create(
+    #             #     me = connection.friend,
+    #             #     friend = connection.me
+    #             # )
+
+    #             # return redirect('friend:fd_list')
+
+    # else:
+    #     form = FriendshipForm()
+    #     ctx = {
+    #         'form': form
+    #     }
+    #     return render(request, "friend/friend_create.html", context=ctx)
 
 
 def fd_approve(request, pk):

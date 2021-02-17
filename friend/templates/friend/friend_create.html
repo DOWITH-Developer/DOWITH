@@ -15,4 +15,32 @@
 
         <input type="submit" value="SUBMIT">
     </form>
+
+
+    <div class="input-form">
+        이름: <input type="text" id="friend_keyword">
+    </div>
+
+    {% for u in users %}
+
+        {{u.nickname}}
+    
+    {% endfor %}
+
 {% endblock %}
+
+{% block script %}
+
+    $(document).ready(function() {
+        $("#friend_keyword").keyup(function() {
+            let k = $(this).val();
+
+            console.log(k)
+        })
+
+    })
+
+
+{% endblock script %}
+
+

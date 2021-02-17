@@ -33,7 +33,7 @@ const printFriendList = (friendList) => {
         infoContainer.className = "friends__profile__info";
         infoContainer.innerHTML = `
             <a href="detail/${pk}">
-            <img class="friends__profile__image" src="{% static img/DOWITH.png %}" alt="logo">
+            <img class="friends__profile__image" src="img/DOWITH.png" alt="logo">
             <p class="friends__profile__name"> ${fields.nickname} </p></a>
         `;
 
