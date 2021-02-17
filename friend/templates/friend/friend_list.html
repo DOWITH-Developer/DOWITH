@@ -43,7 +43,7 @@
                         <div class="friends__profile__info">
                             <a href="{% url 'friend:fd_detail' fd.me.pk %}">
                                 <img class="friends__profile__image" src="{% static 'img/DOWITH.png' %}" alt="logo">
-                                <p class="friends__profile__name">{{fd.me}}</p>
+                                <p class="friends__profile__name">{{fd.me.nickname}}</p>
                             </a>
                         </div>
 
