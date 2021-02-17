@@ -46,7 +46,7 @@
                             </div>
                             <div class="complete_challenge">
                                 <div>오늘 완료한 챌린지</div>
-                                <div>3개</div>
+                                <div><span class="green_text">{{friends_enrollment|get_item:fd.me.id}}</span>개</div>
                             </div>
                         </div>
                         <div>
@@ -60,6 +60,18 @@
         <br>
         <a href="{% url 'friend:fd_list' %}">친구 더보기</a><br>
         <br>
+
+                <!--임시방편으로 위치만 잡아둔 것 나중에 코드 복사를 통해서 위치 조정 예정-->
+        <div class="friend__motivation">
+            <h3>나를 찌른 친구</h3>
+            <button onclick="removeMotivation()">모두 지우기</button>
+            {% for motivation in motivation_from_friends %}
+
+                <li class="friend__motivation__from__friend motivation-{{motivation.id}}">{{motivation.me.nickname}}님이 {{motivation.count}}번 콕 찔렀습니다. <button onclick="removeMotivation({{motivation.id}})">지우기</button></li>
+
+            {% endfor %}
+        </div>
+
         <a href="{% url 'login:settings' %}">설정으로 가기</a>
         <br>
     </div>
