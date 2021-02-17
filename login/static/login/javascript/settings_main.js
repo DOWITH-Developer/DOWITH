@@ -6,16 +6,16 @@ const contentBox = document.querySelector(".content")
 
  // userInfo
  const onClickUserInfo = async () => {
-    const url = "/login/settings/user_info/";
+    const url = "/login/settings/user_info/" ; 
 
     const {data} = await axios.get(url)
-    printUserInfo(data.name, data.nickname, data.email);
+    printUserInfo(data.name, data.nickname, data.email, data.is_social);
 }
 
-const printUserInfo = (name, nickname, email) => {
+const printUserInfo = (name, nickname, email, is_social) => {
     contentBox.innerHTML = ''
 
-    const userInfoTemplate = `
+    let userInfoTemplate = `
         <div class="userInfo__content">
             <div>
                 Username : ` + name +
@@ -24,19 +24,41 @@ const printUserInfo = (name, nickname, email) => {
                 Nickname : ` + nickname +
             `</div>
             <div>
-                Email : ` + email +
-            `</div>
+                Email : ` + email
+    //         + `</div>
+    //         <input class="userInfo__modification" type="submit" value="수정하기"/>
+    //         <input class="userInfo_password__modification" type="submit" value="비밀번호 변경하기"/>
+    //     </div>
+    // `
+
+    if (!(is_social)){
+        userInfoTemplate += `</div>
+            <input class="userInfo__modification" type="submit" value="수정하기"/>
+            <input class="userInfo_password__modification" type="submit" value="비밀번호 변경하기"/>
+        </div>
+        `
+    }
+    else if (is_social){
+        userInfoTemplate +=`</div>
             <input class="userInfo__modification" type="submit" value="수정하기"/>
         </div>
-    `
-    const newUserInfoDiv = new DOMParser().parseFromString(userInfoTemplate, "text/html").body.firstElementChild
+        `
+    }
+
+    let newUserInfoDiv = new DOMParser().parseFromString(userInfoTemplate, "text/html").body.firstElementChild
     contentBox.appendChild(newUserInfoDiv)
 
 
     // userInfo__modification
     const userInfoModify = document.querySelector(".userInfo__modification");
     userInfoModify.addEventListener("click", () => {
-        document.location.href = url;
+        document.location.href = userInfoModifyUrl;
+    })
+
+    // userInfo_password__modification
+    const userInfoPasswordModify = document.querySelector(".userInfo_password__modification");
+    userInfoPasswordModify.addEventListener("click", () => {
+        document.location.href = passwordModifyUrl;
     })
 }
 

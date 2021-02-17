@@ -3,14 +3,15 @@ body {
     height: 100vh;
 }
 
-/* .signup {
-    width: 400px;
-    height: 300px;
-    margin: 0 auto;
-} */
+.login {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-.signup__container {
-    width: 500px;
+.login__container {
+    width: 100%;
     border: 1px solid gray;
     border-radius: 10px;
     margin: 0 auto;
@@ -21,7 +22,7 @@ body {
     align-items: center;
 }
 
-.signup__header {
+.login__header {
     margin: 1rem;
     /* background-color: beige; */
     /* border-bottom 길게 */
@@ -29,11 +30,11 @@ body {
     font-weight: bold;
 }
 
-.signup__body {
+.login__body {
     margin: 1rem;
 }
 
-.signup__form-field {
+.login__form-field {
     width: 355px;
     height: 30px;
     font-weight: bold;
@@ -43,21 +44,16 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.signup__form-field input {
+.login__form-field input {
     width: 150px;
     border-radius: 10px;
     padding: 10px;
 }
 
-/* input값이 invalid할 경우 테두리 빨간색 --> js로 처리해보자 */
-/* .signup__form-field input:invalid {
-    border-color: red;
-} */
-
-.signup__form-field input::placeholder {
+.login__form-field input::placeholder {
 }
 
-.signup__form-actions button {
+.login__form-actions button {
     width: 100%;
     height: 30px;
     margin-top: 10px;
@@ -67,7 +63,26 @@ body {
     font-weight: bold;
 }
 
-.signup__form-error {
+.login__form-error {
     margin-bottom: 15px;
     color: red;
+}
+
+.social_login {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.social_login > a {
+    margin: 0 20px;
+}
+
+.login__form-actions > button:hover,
+.social_login > a:hover {
+    cursor: pointer;
+}
+
+.social_login > a > img {
+    height: 40px;
 }

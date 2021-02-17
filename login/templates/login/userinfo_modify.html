@@ -9,13 +9,32 @@
     <form action="" method="POST">
         {% csrf_token %}
         {% for field in form %}
-            <div>
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                {% if field.id_for_label != "id_password" %}
-                    {{ field }}
+            <div class="{{ field.id_for_label }}__container {% if field.errors|length > 0 %}has_error{% endif %}">
+                <div class="modify__form-field">
+
+                    {% if request.user.is_social == False or field.id_for_label != "id_password" %}
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {% if field.id_for_label != "id_password" %}
+                            {{ field }}
+                        {% else %}
+                            <a href="{% url 'login:userinfo_password_modify' %}">비밀번호 바꾸기</a>
+                        {% endif %}
+                    {% endif %}
+                    
+                </div>
+                {% if field.errors|length > 0 %}
+                    <div class="modify__form-error">
+                        {% for error in field.errors %}
+                            <label class="error" for="{{ field.id_for_label }}">{{ error }}</label>
+                        {% endfor %}
+                    </div>
                 {% endif %}
             </div>
+            <div>
+                
+            </div>
         {% endfor %}
+        
         <!-- {{ form.as_p }} -->
         <input type="submit" value="저장하기">
     </form>

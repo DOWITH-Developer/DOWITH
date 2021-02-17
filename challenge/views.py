@@ -1,10 +1,12 @@
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q    
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
-from .forms import ChallengeForm
+from .forms import ChallengeForm, SearchForm
+from django.views.generic import FormView
 # ajax
 from django.views import View
 import json
@@ -15,21 +17,23 @@ import threading
 import time
 import hashlib
 
-def ch_list(request):
+def challenge_list(request):
+    alls = Challenge.objects.filter(private=0,status=0)
+    languages = Challenge.objects.filter(
+        category=Challenge.CATEGORY_LANGUAGE,private=0,status=0)
+    jobs = Challenge.objects.filter(
+        category=Challenge.CATEGORY_JOB,private=0,status=0)
+    NCSs = Challenge.objects.filter(
+        category=Challenge.CATEGORY_NCS,private=0,status=0)
+    programmings = Challenge.objects.filter(
+        category=Challenge.CATEGORY_PROGRAMMING,private=0,status=0)
+    certificates = Challenge.objects.filter(
+        category=Challenge.CATEGORY_CERTIFICATE,private=0,status=0)
+    others = Challenge.objects.filter(
+        category=Challenge.CATEGORY_OTHER,private=0,status=0)
+        
     if request.method == 'GET':
-        alls = Challenge.objects.filter(private=0,status=0)
-        languages = Challenge.objects.filter(
-            category=Challenge.CATEGORY_LANGUAGE,private=0,status=0)
-        jobs = Challenge.objects.filter(
-            category=Challenge.CATEGORY_JOB,private=0,status=0)
-        NCSs = Challenge.objects.filter(
-            category=Challenge.CATEGORY_NCS,private=0,status=0)
-        programmings = Challenge.objects.filter(
-            category=Challenge.CATEGORY_PROGRAMMING,private=0,status=0)
-        certificates = Challenge.objects.filter(
-            category=Challenge.CATEGORY_CERTIFICATE,private=0,status=0)
-        others = Challenge.objects.filter(
-            category=Challenge.CATEGORY_OTHER,private=0,status=0)
+        form = SearchForm()
         ctx = {
             'alls': alls,
             'languages': languages,
@@ -38,10 +42,29 @@ def ch_list(request):
             'programmings': programmings,
             'certificates': certificates,
             'others': others,
+            'form': form,
         }
-        return render(request, 'challenge/ch_list.html', ctx)
+        return render(request, 'challenge/challenge_list.html', ctx)
+
     else:
-        pass
+        form = SearchForm(request.POST)
+        searchWord = request.POST["search_word"]
+        ChallengeList = Challenge.objects.filter(Q(title__icontains=searchWord))
+        # distinct() 함수는 중복 방지, 나중에 추가
+
+        context = {
+            'alls': alls,
+            'languages': languages,
+            'jobs': jobs,
+            'NCSs': NCSs,
+            'programmings': programmings,
+            'certificates': certificates,
+            'others': others,
+            'form' : form,
+            'search_term' : searchWord,
+            'challenge_list' : ChallengeList
+        }
+        return render(request, 'challenge/challenge_list.html', context)
 
 
 def challenge_detail(request, pk):
@@ -108,20 +131,20 @@ def challenge_delete(request, pk):
         challenge = Challenge.objects.get(pk=pk)
         enrollment = get_object_or_404(Enrollment, player=player, challenge=challenge)
         enrollment.delete()
-        return redirect('/challenge/list/')
+        return redirect(f'/challenge/{challenge.pk}')
     else: #GET
-        return redirect('/challenge/list/')
+        return redirect(f'/challenge/{challenge.pk}')
 
 
-    return redirect('/challenge/')
+    return redirect(f'/challenge/{challenge.pk}')
 
-#날짜바뀔때 실행하는 EnrollmentDate객체 만드는 함수
-def make_enrollment_date():
-    for E in Enrollment.objects.all():
-        new_ed = EnrollmentDate(challenge=E.challenge, player=E.player, result=E.result, created_at=E.created_at)
-        new_ed.save() #오늘의 날짜로 EnrollmentDate 생성
+# #날짜바뀔때 실행하는 EnrollmentDate객체 만드는 함수
+# def make_enrollment_date():
+#     for E in Enrollment.objects.all():
+#         new_ed = EnrollmentDate(challenge=E.challenge, player=E.player, result=E.result, created_at=E.created_at)
+#         new_ed.save() #오늘의 날짜로 EnrollmentDate 생성
 
-    threading.Timer(60*60*24,make_enrollment_date).start() #60*60*24초마다 반복됨
+#     threading.Timer(60*60*24,make_enrollment_date).start() #60*60*24초마다 반복됨
 
 def challenge_calendar(request):
     return render(request, 'challenge/challenge_calendar.html')

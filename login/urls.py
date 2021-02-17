@@ -18,5 +18,5 @@ urlpatterns = [
     # settings 2차
     path("userinfo_modify/", userinfo_modify, name="userinfo_modify"),
     path("userinfo_password_modify/", userinfo_password_modify,
-         name="userpassword_modify")
+         name="userinfo_password_modify"),
 ]

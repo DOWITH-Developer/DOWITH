@@ -4,7 +4,11 @@
 
 {% block extra_head %}
 
-    <link rel="stylesheet" href="{% static 'css/friend_list.css' %}">
+    <link rel="stylesheet" href="{% static 'friend/css/friend_list.css' %}">
+    <script defer src="{% static 'friend/javascript/friend_list.js' %}"></script>
+    <script defer src="{% static 'friend/javascript/friend_search.js' %}"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 {% endblock extra_head %}
 
@@ -23,15 +27,19 @@
                 나의 친구 리스트
             </p>
 
+            
             <div class="friend__search__input">
+                <!-- <form action="" method="post"> {% csrf_token %} -->
+                    <!-- </form> -->
+                    <!-- {{ form.as_p }} -->
                 <input class="friend__list__search" type="text" placeholder="친구 닉네임을 검색하세요!">
-                <button class="friend__list__btn">검색</button>    
+                <button class="friend__list__btn" onclick="searchFriend()">검색</button>    
             </div>
 
+            <div class="friend__list__container">
             {% for fd in friends %}
                 <div class="friends">
                     <div class="friends__profile">
-    
                         <div class="friends__profile__info">
                             <a href="{% url 'friend:fd_detail' fd.me.pk %}">
                                 <img class="friends__profile__image" src="{% static 'img/DOWITH.png' %}" alt="logo">
@@ -44,9 +52,8 @@
                         </div>
                     </div>
                 </div>
-    
-
             {% endfor %}
+            </div>
         </div>        
 
         <div class="friend__request">
@@ -106,76 +113,3 @@
     </section>
 
 {% endblock content %}
-
-
-
-{% block script %}
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-    <script>
-    
-        const giveMotivation = async (id) => {
-            const url = "/friend/motivate/";
-            //이미 challengeUrl이 존재한다면 axios 실행을 안해도 됨. 그 조건을 따지기 위한 코드
-            
-            let message = confirm("콕 찌르시겠습니까?")
-
-            if (message) {
-                const {data} = await axios.post(url, {
-                    id
-                })
-
-                alert(data.user + '님을 콕 찌르셨습니다.')
-            }
-        }
-
-
-        //콕 찌르기의 위치가 정해지면 수정해야 함
-        const removeMotivation = async (id=null) => {
-            const url = "/friend/motivate/remove/";
-
-            if (id === null) {
-
-                let = message = confirm('모든 콕 찌르기를 지우시겠습니까?')
-
-                if (message) {
-                    const {data} = await axios.post(url, {
-                        id
-                    })
-
-                    if (data.status == true) {
-                        const allMotivations = document.querySelectorAll('.friend__motivation__from__friend')
-
-                        allMotivations.forEach(motivation => motivation.remove())
-
-                        alert('모든 콕 찌르기를 지우셨습니다.')
-                    } else {
-                        alert('다시 실행해 주세요.')
-                    }
-                }
-
-            } else {
-
-                let = message = confirm('해당 콕 찌르기를 지우시겠습니까?')
-
-                if (message) {
-                    
-                    const motivationTarget = document.querySelector(`.motivation-${id}`)
-                    motivationTarget.remove()
-
-                    const {data} = await axios.post(url, {
-                        id
-                    })
-
-                    alert('지웠습니다.')
-                }
-
-            }
-
-
-        }
-
-    </script>
-
-{% endblock script %}

@@ -6,38 +6,61 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script defer src="{% static 'js/result.js' %}"></script>
+    <script defer src="{% static 'login/javascript/result.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'login/css/mypage.css' %}">
+    <script defer src="{% static 'friend/javascript/friend_list.js' %}"></script>
 {% endblock %}
 {% block content %}
     <div class="mypage">
+        <div class="challenge_list_calendar">
+            <h3>달력</h3>
+        </div>
         <div class="challenge_list">
             <h3>오늘의 챌린지 리스트</h3>
-            {% for en in enrollments %}
-                <li>
-                    <a href="{% url 'challenge:challenge_detail' en.challenge.id%}">{{en.challenge.title}}</a>
-                </li>
-                <div class="result result-{{en.id}}" onclick="onClickResult({{en.pk}})">
-                    {% if en.result %}
-                        <i class="fas fa-check-circle"></i>
-                        <p class="result__content"> 챌린지를 성공처리하셨습니다! </p>
-                    {% elif en.result == False %}
-                        <i class="far fa-check-circle"></i>
-                        <p class="result__content"> 챌린지가 성공되면 체크박스를 눌러주세요! </p>
-                    {% endif %}
+            {% for end in enrollmentdates %}
+                <div class="one_challenge">
+                    <div class="challenge_title"><a href="{% url 'challenge:challenge_detail' end.enrollment.challenge.id%}">{{end.enrollment.challenge.title}}</a></div>
+                    <div class="result result-{{end.id}}" onclick="onClickResult({{end.pk}})">
+                        {% if end.date_result %}
+                            <input type="button" class="result_word success" value="챌린지 성공"></input>
+                        {% elif end.date_result == False %}
+                            <input type="button" class="result_word fail" value="성공시 클릭"></input>
+                        {% endif %}
+                    </div>
                 </div>
             {% endfor %}
         </div>
-        <div class="friend_list">
-            <h3>친구 리스트</h3>
-            {% for fd in friends %}
-                <a href="{% url 'friend:fd_detail' fd.friend.pk %}"><li>{{fd.friend}}</li></a>
-            {% endfor %}
-            <br>
-            <br>
-            <a href="{% url 'friend:fd_list' %}">더보기</a><br>
-            
-            <h3>설정</h3>
-            <a href="{% url 'login:settings' %}">설정</a>
+        <br>
+
+        <div class="friend__list">
+                <h3> 오늘 내 친구들은?</h3>
+                <div class="friends">
+                    {% for fd in friends %}
+                    <div class="friend_total">
+                        <div class="one_friend">
+                            <div>
+                                <a href="{% url 'friend:fd_detail' fd.me.pk %}">
+                                    <img class="friends__profile__image" src="{% static 'img/DOWITH.png' %}" alt="logo">
+                                    <p class="friends__profile__name">{{fd.me}}</p>
+                                </a>
+                            </div>
+                            <div class="complete_challenge">
+                                <div>오늘 완료한 챌린지</div>
+                                <div>3개</div>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="one_friend_motivate" onclick="giveMotivation({{fd.me.id}})">응원하기</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
         </div>
+
+        <br>
+        <a href="{% url 'friend:fd_list' %}">친구 더보기</a><br>
+        <br>
+        <a href="{% url 'login:settings' %}">설정으로 가기</a>
+        <br>
     </div>
 {% endblock %}

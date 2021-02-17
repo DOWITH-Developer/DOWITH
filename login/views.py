@@ -1,14 +1,22 @@
-import os, sys
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))) #다른 경로 모델 import위해
-
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import *
-from challenge.models import * # Enrollment가져옴
-# from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm, LoginForm, UserInfoModifyForm, UserPasswordChangeForm
-from django.contrib.auth import authenticate
-from django.contrib.auth import login as auth_login
+from django.core.serializers import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.views import View
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import authenticate
+from .forms import SignUpForm, LoginForm, UserInfoModifyForm, UserPasswordChangeForm
+from challenge.models import *  # Enrollment가져옴
+from .models import *
+from django.shortcuts import render, redirect, get_object_or_404
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(
+    os.path.dirname(__file__))))  # 다른 경로 모델 import위해
+
+# from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth.decorators import login_required
 from django.views import View
@@ -27,7 +35,7 @@ def sign_up(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            return redirect("challenge:ch_list")
+            return redirect("challenge:challenge_list")
         else:
             ctx = {
                 "form": form,
@@ -53,7 +61,7 @@ def login(request):
         user = authenticate(email=email, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect("challenge:ch_list")
+            return redirect("challenge:challenge_list")
         else:
             ctx = {
                 "form": form,
@@ -75,18 +83,21 @@ def logout(request):
     elif request.method == "GET":
         return redirect("login:test")
 
+
 def my_page(request, pk):
-    me = get_object_or_404(User, id=pk) #me = 접속한 user
-    friends = me.self_set.all() #me의 friend들
+    me = request.user
+    friends = me.friend_set.all().filter(accepted=True)
+    # me = get_object_or_404(User, id=pk) #me = 접속한 user
+    # friends = me.self_set.all() #me의 friend들
 
     today = date.today() #오늘 날짜에 맞는 챌린지만 가져오게 하기
-    enrollments = EnrollmentDate.objects.filter(
-            player=me, date__year=today.year, date__month=today.month, date__day=today.day)#.order_by('-pk')
+    enrollmentdates = EnrollmentDate.objects.filter(
+            enrollment__player=me, date__year=today.year, date__month=today.month, date__day=today.day)#.order_by('-pk')
 
     ctx = {        
         'me': me,
         'friends': friends,
-        'enrollments' : enrollments,
+        'enrollmentdates': enrollmentdates,
     }
     return render(request, "login/mypage.html", ctx)
 
@@ -98,15 +109,17 @@ def result_ajax(request):
     req = JSON.loads(request.body)
     enrollmentdate = EnrollmentDate.objects.get(id=req["id"])
 
-    if enrollmentdate.result == False:
-        enrollmentdate.result = True
+    if enrollmentdate.date_result == False:
+        enrollmentdate.date_result = True
     else:
-        enrollmentdate.result = False
+        enrollmentdate.date_result = False
     enrollmentdate.save()
 
-    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.result})
+    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.date_result})
 
 # settings
+
+
 @login_required
 def settings_main(request):
     return render(request, "login/settings_main.html")
@@ -118,7 +131,8 @@ def userinfo_get(request):
     user_name = request.user.username
     user_nickname = request.user.nickname
     user_email = request.user.email
-    return JsonResponse({"name": user_name, "nickname": user_nickname, "email": user_email})
+    user_is_social = request.user.is_social
+    return JsonResponse({"name": user_name, "nickname": user_nickname, "email": user_email, "is_social": user_is_social})
 
 
 @csrf_exempt

@@ -1,0 +1,126 @@
+* {
+    font-family: "Do Hyeon", sans-serif;
+}
+
+.mypage a {
+    text-decoration: none;
+}
+
+.mypage li {
+    list-style: none;
+}
+
+.mypage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #efefef;
+    border-radius: 20px;
+    padding: 8px 12px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.challenge_list {
+    width: 100%;
+}
+
+.challenge_list h3 {
+    text-align: center;
+}
+
+.mypage .one_challenge {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 5px;
+    margin: 10px;
+    width: 100%;
+}
+.mypage .one_challenge .challenge_title {
+    background-color: #d8d8d8;
+    border-radius: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.mypage .one_challenge input {
+    border-radius: 10px;
+    padding: 0px 10px;
+    color: white;
+}
+
+.mypage .one_challenge input:focus {
+    outline: none;
+}
+
+.mypage .one_challenge .fail {
+    background-color: tomato;
+}
+
+.mypage .one_challenge .success {
+    background-color: #76c8eb;
+}
+
+.challenge_list_calendar {
+    height: 200px; /*달력넣으면 제거*/
+}
+
+/* 친구관련 */
+
+.friend__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    width: 100%;
+}
+
+.friend__list .friends {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.friend__list .friends {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.friend__list .friends .friend_total {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 20px;
+    padding: 2rem 1rem;
+}
+
+.friend__list .friends .one_friend {
+    display: flex;
+    flex-direction: row;
+    background: white;
+}
+
+.complete_challenge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.friends__profile__image {
+    width: 80px;
+    margin: 0 auto;
+}
+
+.friends .one_friend_motivate {
+    background: #47cc71;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    border-radius: 20px;
+    width: 60px;
+    border: 0px;
+    color: white;
+    height: 30px;
+}

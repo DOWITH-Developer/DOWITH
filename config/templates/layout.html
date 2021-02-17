@@ -9,7 +9,7 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
         <link rel="stylesheet" href="{% static 'css/layout.css' %}" />
-        
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         {% block extra_head %} {% endblock %}
         {% block calendar_head %} {% endblock %}
         {% block search_friend %} {% endblock %}
@@ -31,7 +31,7 @@
                 <ul class="links">
                     {% if user.is_active %}
                         <li>
-                            <a href="{% url 'challenge:ch_list' %}">챌린지</a>                    
+                            <a href="{% url 'challenge:challenge_list' %}">챌린지</a>                    
                         </li>
                         <li>
                             <a href="{% url 'friend:fd_list' %}">친구들</a>
@@ -44,10 +44,16 @@
                         </li>
                     {% else %}
                         <li>
-                            <a href="{% url 'challenge:ch_list' %}">챌린지</a>                    
+                            <a href="{% url 'challenge:challenge_list' %}">챌린지</a>                    
                         </li>
                         <li>
+                            <!-- <a href="/accounts/social/signup">aa</a>
+                            <a href="/accounts/signup">구글구글네이버</a>
+                            <a href="{% url 'kakao_login' %}">카카오</a> -->
                             <a href="{% url 'login:login' %}">로그인</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'login:signup' %}">회원가입</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -58,7 +64,5 @@
         {% endblock calendar %}
         {% block content %}
         {% endblock content %}
-        {% block script %}
-        {% endblock script %}
     </body>
 </html>

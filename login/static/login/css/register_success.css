@@ -1,13 +1,13 @@
 body {
     width: 100vw;
     height: 100vh;
- }
+}
 
 .success {
-     display: flex;
-     height: 100%;
-     flex-direction: column;
-     justify-content: center;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .success__container {
