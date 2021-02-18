@@ -2,23 +2,25 @@
 <!-- axios install -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script defer src="{% static 'login/javascript/settings_main.js' %}"></script>
+<link rel="stylesheet" href="{% static 'login/css/settings_main.css' %}">
 {% endblock %} {% block content %}
-<div>
-    <p>{{ request.user }}'s Page</p>
-</div>
-
-<div>
-    <div>
-        <div class="userInfo">{{ request.user }} 정보</div>
-        <div class="userChallenge">나의 챌린지</div>
-        <div class="setting">설정</div>
-        <div class="ToS">약관</div>
+<div class="settings">
+    <div class="settings__title">
+        <p>마이페이지</p>
     </div>
-
-    <br />
-    <br />
-
-    <div class="content"></div>
+    
+    <div class="settings__content__container">
+        <div>
+            <div class="userInfo">{{ request.user }} 정보</div>
+            <div class="userChallenge">나의 챌린지</div>
+            <div class="setting">설정</div>
+            <div class="ToS">약관</div>
+        </div>
+        
+        <div class="content">
+            히히
+        </div>
+    </div>
 </div>
 
 <script>

@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="{% static 'friend/css/friend_list.css' %}">
     <script defer src="{% static 'friend/javascript/friend_list.js' %}"></script>
+    <script defer src="{% static 'friend/javascript/friend_search.js' %}"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
@@ -26,19 +27,23 @@
                 나의 친구 리스트
             </p>
 
+            
             <div class="friend__search__input">
-                <input class="friend__list__search" type="text" placeholder="친구 닉네임을 검색하세요!">
-                <button class="friend__list__btn">검색</button>    
+                <!-- <form action="" method="post"> {% csrf_token %} -->
+                    <!-- </form> -->
+                    <!-- {{ form.as_p }} -->
+                <input class="friend__list__search" type="text" id="friend_search" placeholder="친구 닉네임을 검색하세요!">
+                <button class="friend__list__btn" onclick="searchFriend()">검색</button>    
             </div>
 
+            <div class="friend__list__container">
             {% for fd in friends %}
                 <div class="friends">
                     <div class="friends__profile">
-    
                         <div class="friends__profile__info">
                             <a href="{% url 'friend:fd_detail' fd.me.pk %}">
                                 <img class="friends__profile__image" src="{% static 'img/DOWITH.png' %}" alt="logo">
-                                <p class="friends__profile__name">{{fd.me}}</p>
+                                <p class="friends__profile__name">{{fd.me.nickname}}</p>
                             </a>
                         </div>
 
@@ -47,9 +52,8 @@
                         </div>
                     </div>
                 </div>
-    
-
             {% endfor %}
+            </div>
         </div>        
 
         <div class="friend__request">
@@ -94,18 +98,27 @@
         
 
 
-        <!--임시방편으로 위치만 잡아둔 것 나중에 코드 복사를 통해서 위치 조정 예정-->
-        <div class="friend__motivation">
-            친구 콕 찌르기
-            <button onclick="removeMotivation()">모두 지우기</button>
-            {% for motivation in motivation_from_friends %}
 
-                <li class="friend__motivation__from__friend motivation-{{motivation.id}}">{{motivation.me.nickname}}님이 {{motivation.count}}번 콕 찔렀습니다. <button onclick="removeMotivation({{motivation.id}})">지우기</button></li>
-
-            {% endfor %}
-        </div>
 
 
     </section>
 
 {% endblock content %}
+
+{% block script %}
+
+    $(document).ready(function() {
+        $("#friend_search").keyup(function() {
+            var k = $(this).val();
+
+            console.log(k);
+
+        })
+    })
+
+
+{% endblock script %}
+
+
+
+

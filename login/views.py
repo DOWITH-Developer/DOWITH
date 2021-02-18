@@ -28,17 +28,31 @@ import json as JSON
 
 from datetime import date #today가져오기 위해
 # Create your views here.
+from django.template.defaulttags import register
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
 
 
 def sign_up(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            return redirect("challenge:challenge_list")
+        if(request.POST.get("is_ToS")):
+            # is_ToS 체크돼서 올때
+            if form.is_valid():
+                user = form.save()
+                return redirect("challenge:challenge_list")
+            else:
+                ctx = {
+                    "form": form,
+                }
+                return render(request, "login/signup.html", ctx)
         else:
+            # is_ToS 체크 안돼서 올때
             ctx = {
                 "form": form,
+                "ToS_error": "약관을 동의해야합니다."
             }
             return render(request, "login/signup.html", ctx)
     elif request.method == "GET":
@@ -85,18 +99,29 @@ def logout(request):
 
 
 def my_page(request, pk):
-    me = get_object_or_404(User, id=pk) #me = 접속한 user
-    friends = me.self_set.all() #me의 friend들
+    me = request.user
+    friends = me.friend_set.all().filter(accepted=True)
+    # me = get_object_or_404(User, id=pk) #me = 접속한 user
+    # friends = me.self_set.all() #me의 friend들
+    friends_enrollment = {}
+    motivation_from_friends = me.motivation_friend_set.all()
+
+    for friend in friends:
+        friends_enrollment[friend.me.id] = EnrollmentDate.objects.all().filter(enrollment__player=friend.me, date_result=True).count()
 
     today = date.today() #오늘 날짜에 맞는 챌린지만 가져오게 하기
-    enrollments = EnrollmentDate.objects.filter(
-            player=me, date__year=today.year, date__month=today.month, date__day=today.day)#.order_by('-pk')
+    enrollmentdates = EnrollmentDate.objects.all().filter(
+            enrollment__player=me, date__year=today.year, date__month=today.month, date__day=today.day)#.order_by('-pk')
 
     ctx = {        
         'me': me,
         'friends': friends,
-        'enrollments': enrollments,
+        'enrollmentdates': enrollmentdates,
+        'friends_enrollment': friends_enrollment,
+        'motivation_from_friends': motivation_from_friends,
     }
+
+    print(ctx)
     return render(request, "login/mypage.html", ctx)
 
 def register_success(request):
@@ -107,13 +132,13 @@ def result_ajax(request):
     req = JSON.loads(request.body)
     enrollmentdate = EnrollmentDate.objects.get(id=req["id"])
 
-    if enrollmentdate.result == False:
-        enrollmentdate.result = True
+    if enrollmentdate.date_result == False:
+        enrollmentdate.date_result = True
     else:
-        enrollmentdate.result = False
+        enrollmentdate.date_result = False
     enrollmentdate.save()
 
-    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.result})
+    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.date_result})
 
 # settings
 
@@ -130,7 +155,9 @@ def userinfo_get(request):
     user_nickname = request.user.nickname
     user_email = request.user.email
     user_is_social = request.user.is_social
-    return JsonResponse({"name": user_name, "nickname": user_nickname, "email": user_email, "is_social": user_is_social})
+    user_image = request.user.image.url
+    print(user_image)
+    return JsonResponse({"name": user_name, "nickname": user_nickname, "email": user_email, "is_social": user_is_social, "image": user_image})
 
 
 @csrf_exempt
@@ -166,6 +193,7 @@ def usersetting_get(request):
 def userinfo_modify(request):
     if request.method == "POST":
         form = UserInfoModifyForm(request.POST, instance=request.user)
+        # print(request.POST.get("image"))
         if form.is_valid():
             form.save()
             return redirect("login:settings")
@@ -199,3 +227,4 @@ def userinfo_password_modify(request):
             "form": form,
         }
         return render(request, "login/userpassword_modify.html", ctx)
+
