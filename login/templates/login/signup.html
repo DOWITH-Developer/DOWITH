@@ -25,6 +25,11 @@
                             <div class="signup__form-field">
                                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                                 {{ field }}
+                                {% if field.id_for_label == "id_is_ToS" and ToS_error %}
+                                    <div class="signup__form-error">
+                                        <label class="error" for="{{ field.id_for_label }}">{{ ToS_error }}</label>
+                                    </div>
+                                {% endif %}
                             </div>
                             {% if field.errors|length > 0 %}
                                 <div class="signup__form-error">
