@@ -38,12 +38,21 @@ def get_item(dictionary, key):
 def sign_up(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            return redirect("challenge:challenge_list")
+        if(request.POST.get("is_ToS")):
+            # is_ToS 체크돼서 올때
+            if form.is_valid():
+                user = form.save()
+                return redirect("challenge:challenge_list")
+            else:
+                ctx = {
+                    "form": form,
+                }
+                return render(request, "login/signup.html", ctx)
         else:
+            # is_ToS 체크 안돼서 올때
             ctx = {
                 "form": form,
+                "ToS_error": "약관을 동의해야합니다."
             }
             return render(request, "login/signup.html", ctx)
     elif request.method == "GET":
@@ -146,7 +155,9 @@ def userinfo_get(request):
     user_nickname = request.user.nickname
     user_email = request.user.email
     user_is_social = request.user.is_social
-    return JsonResponse({"name": user_name, "nickname": user_nickname, "email": user_email, "is_social": user_is_social})
+    user_image = request.user.image.url
+    print(user_image)
+    return JsonResponse({"name": user_name, "nickname": user_nickname, "email": user_email, "is_social": user_is_social, "image": user_image})
 
 
 @csrf_exempt
@@ -182,6 +193,7 @@ def usersetting_get(request):
 def userinfo_modify(request):
     if request.method == "POST":
         form = UserInfoModifyForm(request.POST, instance=request.user)
+        # print(request.POST.get("image"))
         if form.is_valid():
             form.save()
             return redirect("login:settings")

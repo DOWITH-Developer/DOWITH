@@ -1,48 +1,71 @@
 {% extends 'challenge/layout.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'challenge/css/challenge_create.css' %}">
+{% endblock %}
 
 {% block content %}
-    <div>
-        <div>챌린지 등록하기</div>
-        <br>
-    </div>
+<div class=content>
+<h2>챌린지 등록하기</h2>
 
-    <div>
+<div class="total-container">
+    <div class="form-container">
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-
-            <label>제목 : </label>
-            {{form.title}}
+            <div class = "label-container">
+                <label>제목 : </label>
+                <div class="value">{{form.title}}</div>
+            </div>
             <br>
 
-            <label>설명 : </label>
-            {{form.desc}}
+            <div class = "label-container">
+                <label>설명 : </label>
+                <div class="value">{{form.desc}}</div>
+            </div>
+            <br>
+            
+            <div class = "label-container">
+                <label>분류 : </label>
+                <div class="value">{{form.category}}</div>
+            </div>
             <br>
 
-            <label>분류 : </label>
-            {{form.category}}
+            <div class = "label-container">
+                <label>공개 상태 : </label>
+                <div class="value">{{form.private}}</div>
+            </div>
             <br>
 
-            <label>공개 상태 : </label>
-            {{form.private}}
+            <div class = "label-container">
+                <label>최소 인원  (숫자 입력): </label>
+                <div class="value">{{form.min_pp}}</div>
+            </div>
             <br>
 
-            <label>최소 인원 : </label>
-            {{form.min_pp}}
+            <div class = "label-container">
+                <label>최대 인원  (숫자 입력): </label>
+                <div class="value">{{form.max_pp}}</div>
+            </div>
             <br>
 
-            <label>최대 인원 : </label>
-            {{form.max_pp}}
+            <div class = "label-container">
+                <label>시작일  (YYYY-MM-DD): </label>
+                <div class="value">{{form.start_date}}</div>
+            </div>          
             <br>
 
-            <label>시작일 : </label>
-            {{form.start_date}}           
+            <div class = "label-container">
+                <label>기간 : </label>
+                <div class="value">{{form.duration}}</div> 
+            </div>
             <br>
 
-            <label>기간 : </label>
-            {{form.duration}}
-            <br>
-
-            <button type="submit" >등록하기</button>
+            <div class="button-container">
+                <button type="submit" >등록하기</button>
+            </div>
         </form>
     </div>
+</div>
+</div>
 {% endblock %}
