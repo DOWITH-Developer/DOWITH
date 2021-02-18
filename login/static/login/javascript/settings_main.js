@@ -9,14 +9,17 @@ const contentBox = document.querySelector(".content")
     const url = "/login/settings/user_info/" ; 
 
     const {data} = await axios.get(url)
-    printUserInfo(data.name, data.nickname, data.email, data.is_social);
+    printUserInfo(data.name, data.nickname, data.email, data.is_social, data.image);
 }
 
-const printUserInfo = (name, nickname, email, is_social) => {
+const printUserInfo = (name, nickname, email, is_social, image) => {
     contentBox.innerHTML = ''
 
     let userInfoTemplate = `
         <div class="userInfo__content">
+            <div>
+                profile image : <img src="` + image + `" alt="profile_photo">` +
+            `</div>
             <div>
                 Username : ` + name +
             `</div>
