@@ -6,8 +6,18 @@
 {% endblock %}
 
 {% block content %}
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
         {% csrf_token %}
+
+        {% for field in image_form %}
+            <div class="{{ field.id_for_label }}__container">
+                <div class="modify__form-field">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            </div>
+        {% endfor %}
+
         {% for field in form %}
             <div class="{{ field.id_for_label }}__container {% if field.errors|length > 0 %}has_error{% endif %}">
                 <div class="modify__form-field">
@@ -29,9 +39,6 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-            </div>
-            <div>
-                
             </div>
         {% endfor %}
         

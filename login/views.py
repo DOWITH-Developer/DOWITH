@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
-from .forms import SignUpForm, LoginForm, UserInfoModifyForm, UserPasswordChangeForm
+from .forms import SignUpForm, LoginForm, UserInfoModifyForm, UserPasswordChangeForm, UserImageModifyForm
 from challenge.models import *  # Enrollment가져옴
 from .models import *
 from django.shortcuts import render, redirect, get_object_or_404
@@ -193,19 +193,24 @@ def usersetting_get(request):
 def userinfo_modify(request):
     if request.method == "POST":
         form = UserInfoModifyForm(request.POST, instance=request.user)
-        # print(request.POST.get("image"))
-        if form.is_valid():
+        image_form = UserImageModifyForm(request.POST, request.FILES, instance=request.user)
+        print(image_form)
+        if form.is_valid() and image_form.is_valid():
             form.save()
+            image_form.save()
             return redirect("login:settings")
         else:
             ctx = {
                 "form": form,
+                "image_form": image_form,
             }
             return render(request, "login/userinfo_modify.html", ctx)
     elif request.method == "GET":
         form = UserInfoModifyForm(instance=request.user)
+        image_form = UserImageModifyForm(instance=request.user)
         ctx = {
             "form": form,
+            "image_form": image_form,
         }
         return render(request, "login/userinfo_modify.html", ctx)
 

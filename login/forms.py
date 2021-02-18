@@ -40,6 +40,14 @@ class UserInfoModifyForm(UserChangeForm):
         fields = ["username", "nickname"]
 
 
+class UserImageModifyForm(forms.ModelForm):
+    image = forms.ImageField(required=False)
+
+    class Meta:
+        model = User
+        fields = ["image"]
+
+
 class UserPasswordChangeForm(PasswordChangeForm):
 
     class Meta:
