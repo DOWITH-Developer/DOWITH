@@ -31,6 +31,9 @@
                 <ul class="links">
                     {% if user.is_active %}
                         <li>
+                            <a href="{% url 'challenge:invitation_accept' %}">초대코드 입력</a>
+                        </li>
+                        <li>
                             <a href="{% url 'challenge:challenge_list' %}">챌린지</a>                    
                         </li>
                         <li>
