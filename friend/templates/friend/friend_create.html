@@ -1,5 +1,14 @@
 {% extends 'friend/layout.html' %}
 
+{% block extra_head %}
+
+
+
+{% endblock extra_head %}
+
+
+
+
 {% block content %}
     <form action="" method="POST" enctype='multipart/form-data', autocomplete='off'>
         {% csrf_token %}
@@ -17,9 +26,65 @@
     </form>
 
 
-    <div class="input-form">
-        이름: <input type="text" id="friend_keyword">
+    <div id="container">
+        <div id="input-form">
+            이름 : <input type="text" id="keyword" />
+        </div>        
     </div>
+
+
+    <body>
+    <div class="searchbox">
+        <div class="header">
+            <h1>Search</h1>
+            <input onkeyup="filter()" type="text" id="value" placeholder="Type to Search">
+        </div>
+
+        <div class="container">
+
+            <div class="item">
+            <span class="icon">A</span>
+            <span class="name">Apple</span>
+            </div>
+
+            <div class="item">
+            <span class="icon">O</span>
+            <span class="name">Orange</span>
+            </div>
+
+            <div class="item">
+            <span class="icon">M</span>
+            <span class="name">Mandarin</span>
+            </div>
+
+            <div class="item">
+            <span class="icon">S</span>
+            <span class="name">Strawberry</span>
+            </div>
+
+            <div class="item">
+            <span class="icon">W</span>
+            <span class="name">Watermelon</span>
+            </div>
+
+            <div class="item">
+            <span class="icon">G</span>
+            <span class="name">Grape</span>
+            </div>
+
+            <div class="item">
+            <span class="icon">P</span>
+            <span class="name">Pear</span>
+            </div>
+
+            <div class="item">
+            <span class="icon">C</span>
+            <span class="name">Cherry</span>
+            </div>
+        </div>
+        </div>
+    </body>
+
 
     {% for u in users %}
 
@@ -31,14 +96,27 @@
 
 {% block script %}
 
-    $(document).ready(function() {
-        $("#friend_keyword").keyup(function() {
-            let k = $(this).val();
+<script>
 
-            console.log(k)
-        })
+    function filter(){
 
-    })
+        var value, name, item, i;
+
+        value = document.getElementById("value").value.toUpperCase();
+        item = document.getElementsByClassName("item");
+
+        for(i=0;i<item.length;i++){
+            name = item[i].getElementsByClassName("name");
+            if(name[0].innerHTML.toUpperCase().indexOf(value) > -1){
+            item[i].style.display = "flex";
+            }else{
+            item[i].style.display = "none";
+            }
+        }
+    }
+
+
+</script>
 
 
 {% endblock script %}
