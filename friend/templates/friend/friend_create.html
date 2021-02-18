@@ -7,117 +7,15 @@
 {% endblock extra_head %}
 
 
-
-
 {% block content %}
-    <form action="" method="POST" enctype='multipart/form-data', autocomplete='off'>
-        {% csrf_token %}
-        
-        <table>
-            <div style="display:none;">
-                {{ form.me }}
-            </div>
 
-            누구를 추가하시겠습니까?
-            {{ form.friend }}
-        </table>
+    <input type="text" id="friend_search">
 
-        <input type="submit" value="SUBMIT">
-    </form>
-
-
-    <div id="container">
-        <div id="input-form">
-            이름 : <input type="text" id="keyword" />
-        </div>        
-    </div>
-
-
-    <body>
-    <div class="searchbox">
-        <div class="header">
-            <h1>Search</h1>
-            <input onkeyup="filter()" type="text" id="value" placeholder="Type to Search">
-        </div>
-
-        <div class="container">
-
-            <div class="item">
-            <span class="icon">A</span>
-            <span class="name">Apple</span>
-            </div>
-
-            <div class="item">
-            <span class="icon">O</span>
-            <span class="name">Orange</span>
-            </div>
-
-            <div class="item">
-            <span class="icon">M</span>
-            <span class="name">Mandarin</span>
-            </div>
-
-            <div class="item">
-            <span class="icon">S</span>
-            <span class="name">Strawberry</span>
-            </div>
-
-            <div class="item">
-            <span class="icon">W</span>
-            <span class="name">Watermelon</span>
-            </div>
-
-            <div class="item">
-            <span class="icon">G</span>
-            <span class="name">Grape</span>
-            </div>
-
-            <div class="item">
-            <span class="icon">P</span>
-            <span class="name">Pear</span>
-            </div>
-
-            <div class="item">
-            <span class="icon">C</span>
-            <span class="name">Cherry</span>
-            </div>
-        </div>
-        </div>
-    </body>
-
-
-    {% for u in users %}
-
-        {{u.nickname}}
-    
-    {% endfor %}
+    <button onclick="getUserList()">검색</button>
 
 {% endblock %}
 
 {% block script %}
-
-<script>
-
-    function filter(){
-
-        var value, name, item, i;
-
-        value = document.getElementById("value").value.toUpperCase();
-        item = document.getElementsByClassName("item");
-
-        for(i=0;i<item.length;i++){
-            name = item[i].getElementsByClassName("name");
-            if(name[0].innerHTML.toUpperCase().indexOf(value) > -1){
-            item[i].style.display = "flex";
-            }else{
-            item[i].style.display = "none";
-            }
-        }
-    }
-
-
-</script>
-
 
 {% endblock script %}
 
