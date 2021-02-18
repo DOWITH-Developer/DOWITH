@@ -6,7 +6,7 @@ const contentBox = document.querySelector(".content")
 
  // userInfo
  const onClickUserInfo = async () => {
-    const url = "/login/settings/user_info/";
+    const url = "/login/settings/user_info/" ; 
 
     const {data} = await axios.get(url)
     printUserInfo(data.name, data.nickname, data.email, data.is_social, data.image);

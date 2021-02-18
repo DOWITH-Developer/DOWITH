@@ -4,20 +4,21 @@
 
 body {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     background: #FFFFFF;
 }
 
 .container{
     display: flex;
-    height: 100%;
     justify-content: center;
+    padding: 50px 0;
+    height: 100%;
     align-items: center;
 }
 
 .container .left-container{
     width: 60%;
-    height: 100%;
+    height: 140vh;
     background: #EFEFEF;
     border-radius: 20px;
     margin-right: 50px;
@@ -33,7 +34,7 @@ body {
 
 .container .left-container i{
     font-size: 200px;
-    padding: 30px 300px;
+    padding: 30px;
     margin: 10px auto;
     text-align:center;
     display: flex;
@@ -43,13 +44,13 @@ body {
 
 .ch-desc{
     text-align:center;
-    padding: 60px;
-    margin: 50px 50px;
+    padding: 85px;
+    margin: 25px 50px;
 }
 
 .container .right-container{
     width: 25%;
-    height: 100%;
+    height: 140vh;
     padding: 30px;
     background: #EFEFEF;
     border-radius: 20px;
@@ -86,6 +87,11 @@ body {
     font-size: 50px;
 }
 
+.category-name{
+    margin: 5px 0;
+    font-size: 20px;
+}
+
 .ch-private{
     padding: 25px 0;
     font-size: 25px;
@@ -93,7 +99,8 @@ body {
 }
 
 #url-link{
-    font-family: 'Do Hyeon', sans-serif;  
+    font-family: 'Do Hyeon', sans-serif;
+    text-align: center;
 }
 
 #copyBtn{
@@ -107,6 +114,12 @@ body {
     font-size: 13px;
     font-weight: 400;
     margin: 5px 0;
+    line-height: 23px;
+}
+
+#copyBtn:hover{
+    background: #06A739;
+    border: 0.1px solid #06A739;
 }
 
 .ch-join{
@@ -114,7 +127,7 @@ body {
     border: 0.1px solid #5C62CC;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    width: 200px;
+    width: 15vw;
     height: 35px;
     color: #FFFFFF;
     font-size: 15px;
@@ -127,7 +140,7 @@ body {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     line-height: 35px;
-    width: 200px;
+    width: 15vw;
     height: 35px;
     color: #FFFFFF;
     font-size: 15px;
@@ -140,7 +153,7 @@ body {
     border: 0.1px solid #F0D800;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    width: 200px;
+    width: 15vw;
     height: 35px;
     color: #FFFFFF;
     font-size: 15px;
@@ -153,7 +166,7 @@ body {
     border: 0.1px solid #EB7676;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    width: 200px;
+    width: 15vw;
     height: 35px;
     color: #FFFFFF;
     font-size: 15px;
@@ -162,11 +175,11 @@ body {
 }
 
 .ch-result{
-    background: #76C8EB;
-    border: 0.1px solid #76C8EB;
+    background: #99D8F2;
+    border: 2px dashed #00A8F0;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    width: 200px;
+    width: 15vw;
     height: 35px;
     color: #FFFFFF;
     font-size: 15px;
@@ -176,5 +189,14 @@ body {
 
 .result-clicked {
     color: white;
-    background-color: tomato;
+    border: 0.1px solid #00A8F0;
+    background-color: #00A8F0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    width: 15vw;
+    height: 35px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 12px 0;
 }

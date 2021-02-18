@@ -28,6 +28,11 @@ import json as JSON
 
 from datetime import date #today가져오기 위해
 # Create your views here.
+from django.template.defaulttags import register
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
 
 
 def sign_up(request):
@@ -94,18 +99,29 @@ def logout(request):
 
 
 def my_page(request, pk):
-    me = get_object_or_404(User, id=pk) #me = 접속한 user
-    friends = me.self_set.all() #me의 friend들
+    me = request.user
+    friends = me.friend_set.all().filter(accepted=True)
+    # me = get_object_or_404(User, id=pk) #me = 접속한 user
+    # friends = me.self_set.all() #me의 friend들
+    friends_enrollment = {}
+    motivation_from_friends = me.motivation_friend_set.all()
+
+    for friend in friends:
+        friends_enrollment[friend.me.id] = EnrollmentDate.objects.all().filter(enrollment__player=friend.me, date_result=True).count()
 
     today = date.today() #오늘 날짜에 맞는 챌린지만 가져오게 하기
-    enrollments = EnrollmentDate.objects.filter(
-            player=me, date__year=today.year, date__month=today.month, date__day=today.day)#.order_by('-pk')
+    enrollmentdates = EnrollmentDate.objects.all().filter(
+            enrollment__player=me, date__year=today.year, date__month=today.month, date__day=today.day)#.order_by('-pk')
 
     ctx = {        
         'me': me,
         'friends': friends,
-        'enrollments': enrollments,
+        'enrollmentdates': enrollmentdates,
+        'friends_enrollment': friends_enrollment,
+        'motivation_from_friends': motivation_from_friends,
     }
+
+    print(ctx)
     return render(request, "login/mypage.html", ctx)
 
 def register_success(request):
@@ -116,13 +132,13 @@ def result_ajax(request):
     req = JSON.loads(request.body)
     enrollmentdate = EnrollmentDate.objects.get(id=req["id"])
 
-    if enrollmentdate.result == False:
-        enrollmentdate.result = True
+    if enrollmentdate.date_result == False:
+        enrollmentdate.date_result = True
     else:
-        enrollmentdate.result = False
+        enrollmentdate.date_result = False
     enrollmentdate.save()
 
-    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.result})
+    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.date_result})
 
 # settings
 
@@ -211,3 +227,4 @@ def userinfo_password_modify(request):
             "form": form,
         }
         return render(request, "login/userpassword_modify.html", ctx)
+
