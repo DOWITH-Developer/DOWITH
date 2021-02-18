@@ -69,6 +69,7 @@ def challenge_list(request):
 
 def challenge_detail(request, pk):
     challenge = Challenge.objects.get(pk=pk)
+
     if Enrollment.objects.filter(challenge=challenge, player=request.user).exists():
         status = True
         enrollment = Enrollment.objects.get(player=request.user, challenge=challenge)
@@ -91,6 +92,8 @@ def challenge_enrollment(request, pk):
     if request.method == "POST":  
         player = request.user
         challenge = Challenge.objects.get(pk=pk)
+        challenge.cur_pp += 1
+        challenge.save()
 
         enrollment = Enrollment.objects.create(
             player = player, 
@@ -116,10 +119,16 @@ def challenge_create(request):
             md5.update(text)
             result = md5.hexdigest()
 
-            #TODO 하드코딩 말고 애를 다른 형식으로 전달할 수 있는지 코드리뷰에서 물어보기
             challenge.invitation_key = result
+
+            #create 와 동시에 enrollment 로 할당
+            Enrollment.objects.create(
+                player=request.user,
+                challenge=challenge
+            )
+            challenge.cur_pp += 1
             challenge.save()
-            print(challenge.pk)
+
             return redirect(f'/challenge/{challenge.pk}')
     else:
         form = ChallengeForm()
