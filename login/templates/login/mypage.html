@@ -4,16 +4,31 @@
 
 {% block extra_head %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+    <link rel="stylesheet" href="{% static 'login/css/mycalendar.css' %}">
+    <link rel="stylesheet" href="{% static 'login/css/mypage.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="{% static 'login/javascript/result.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'login/css/mypage.css' %}">
     <script defer src="{% static 'friend/javascript/friend_list.js' %}"></script>
 {% endblock %}
+
 {% block content %}
     <div class="mypage">
-        <div class="challenge_list_calendar">
-            <h3>달력</h3>
+        <div class="calendar_container">
+            <div class="calendar_header">
+                <h2 class="calendar_title"></h2>
+                <button class="previous">previous</button>
+                <button class="after">after</button>
+            </div>
+            <div class="weekday">
+                <div>일요일</div>
+                <div>월요일</div>
+                <div>화요일</div>
+                <div>수요일</div>
+                <div>목요일</div>
+                <div>금요일</div>
+                <div>토요일</div>
+            </div>
+            <div class="calendar"></div>
         </div>
         <div class="challenge_list">
             <h3>오늘의 챌린지 리스트</h3>
