@@ -23,10 +23,12 @@ function copyToClipboard(element) {
           const resultBtn = document.querySelector(`.result-${id}`);
   
           if (result === false) {
-              resultBtn.className = `result-${id}`;
+              resultBtn.className = `result-${id} ch-result`;
+              resultBtn.innerText = "챌린지 실패"
           }
           else {
               resultBtn.classList.add('result-clicked');
+              resultBtn.innerText = "챌린지 성공"
           }
       }
   

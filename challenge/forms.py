@@ -8,4 +8,4 @@ class ChallengeForm(forms.ModelForm):
         fields = "__all__"
 
 class SearchForm(forms.Form):
-    search_word = forms.CharField(label='Search Word')
+    search_word = forms.CharField(label = "")
