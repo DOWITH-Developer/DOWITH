@@ -14,3 +14,40 @@ from django.http import HttpResponse
 #                 return HttpResponse("You are not authorized to view this page")
 #         return wrapper_func
 #     return decorator
+
+
+# def allowed_users(func):
+#     def wrapper(self, request, *args, **kwargs):
+#         if request.user.is_ToS == True:
+#             print("y")
+#             func()
+#         else:
+#             print("no")
+#         return wrapper
+
+from functools import wraps
+
+# 약관 동의한 유저(소셜 계정의 유저)만이 접근할 수 있도록 하는 데코레이터
+# 약관에 동의하지 않았을 경우 '추가 정보 입력 및 약관 동의' 페이지로 이동시킴
+def allowed_users(function):
+    @wraps(function)
+    def wrap(request, *args, **kwargs):
+        if request.user.is_ToS == True:
+            return function(request, *args, **kwargs)
+        else:
+            return redirect("login:social_signup")
+
+    return wrap
+
+
+# # local user는 회원가입 시 무조건 약관을 동의하게 되어있음
+# # 단, login view.py의 social_sign_up 함수에만 사용 가능 (소셜 계정의 유저 또한 결국엔 약관을 동의하게 되기 때문)
+# def local_users(function):
+#     @wraps(function)
+#     def wrap(request, *args, **kwargs):
+#         if request.user.is_ToS == True:
+#             return function(request, *args, **kwargs)
+#         else:
+#             return redirect("login:social_signup")
+
+#     return wrap

@@ -17,4 +17,5 @@ urlpatterns = [
     path('send/invitation/', InvitationAjax.as_view(), name='InvitationAjax'),
     path('invitation/', invitation_accept, name='invitation_accept'),
     path('invitation/failed/', invitation_failed, name="invitation_failed"),
+    path('search/', SearchAjax.as_view(), name="challenge_search"),
 ]
