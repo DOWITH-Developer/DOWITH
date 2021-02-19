@@ -33,23 +33,33 @@ def get_item(dictionary, key):
 def sign_up(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
-        if(request.POST.get("is_ToS")):
-            # is_ToS 체크돼서 올때
-            if form.is_valid():
-                user = form.save()
-                return redirect("login:signup_success")
-            else:
-                ctx = {
-                    "form": form,
-                }
-                return render(request, "login/signup.html", ctx)
+        if form.is_valid():
+            user = form.save()
+            return redirect("login:signup_success")
         else:
-            # is_ToS 체크 안돼서 올때
             ctx = {
                 "form": form,
-                "ToS_error": "약관에 동의해야합니다."
             }
             return render(request, "login/signup.html", ctx)
+    # if request.method == "POST":
+    #     form = SignUpForm(request.POST)
+    #     if(request.POST.get("is_ToS")):
+    #         # is_ToS 체크돼서 올때
+    #         if form.is_valid():
+    #             user = form.save()
+    #             return redirect("login:signup_success")
+    #         else:
+    #             ctx = {
+    #                 "form": form,
+    #             }
+    #             return render(request, "login/signup.html", ctx)
+    #     else:
+    #         # is_ToS 체크 안돼서 올때
+    #         ctx = {
+    #             "form": form,
+    #             "ToS_error": "약관에 동의해야합니다."
+    #         }
+    #         return render(request, "login/signup.html", ctx)
     elif request.method == "GET":
         form = SignUpForm()
         ctx = {
