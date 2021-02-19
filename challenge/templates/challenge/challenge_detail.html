@@ -80,26 +80,26 @@
             <form action="{% url 'challenge:challenge_delete' challenge.pk %}", method="POST">
                 {% csrf_token %}
                 <button class="ch-cancel" type="submit">챌린지 취소하기</button>
-                <div class="ch-share" onclick="urlGet({{challenge.id}});">챌린지 공유코드 확인하기</div>
+            </form>
+                <div class="ch-share" onclick="urlGet('{{challenge.id}}');">챌린지 공유코드 확인하기</div>
                 <div id="url-link"></div>
                 <button class="ch-golist"><a href="{% url 'challenge:challenge_list' %}" style="text-decoration: none; color: #FFFFFF;">챌린지 리스트로 가기</a></button>
-            </form>
-            {% else %}
+             {% else %}
                 <form action="{% url 'challenge:challenge_enrollment' challenge.pk %}", method="POST">
                     {% csrf_token %}
                     <button class="ch-join" type="submit">나도 도전하기</button>
-                    <div class="ch-share" onclick="urlGet({{challenge.id}});">챌린지 공유코드 확인하기</div>
+                </form>
+                    <div class="ch-share" onclick="urlGet('{{challenge.id}}');">챌린지 공유코드 확인하기</div>
                     <div id="url-link"></div>
                     <button class="ch-golist"><a href="{% url 'challenge:challenge_list' %}" style="text-decoration: none; color: #FFFFFF;">챌린지 리스트로 가기</a></button>
-                </form>  
             {% endif %}
 
             {% comment %} <div>
                 {% if status %}
                     {% if enrollment.result %}
-                        <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}} result-clicked ch-result">챌린지 성공</button>
+                        <button type="submit" onclick="onClickResult('{{ challenge.id }}')" class="result-{{challenge.id}} result-clicked ch-result">챌린지 성공</button>
                     {% else %}
-                        <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}} ch-result">챌린지 성공</button>
+                        <button type="submit" onclick="onClickResult('{{ challenge.id }}')" class="result-{{challenge.id}} ch-result">챌린지 성공</button>
                     {% endif %}
                 {% endif %}
             </div> {% endcomment %}
@@ -108,8 +108,6 @@
 <hr> 
 </div>
 
+
 {% endblock %}
 
-{% block script %}
-
-{% endblock script %}

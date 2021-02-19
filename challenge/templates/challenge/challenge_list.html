@@ -1,126 +1,136 @@
-    {% extends 'challenge/layout.html' %}
+{% extends 'challenge/layout.html' %}
 
-    {% load static %}
+{% load static %}
 
 
-    {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'challenge/css/challenge_list.css' %}">
-    <link rel="stylesheet" href="{% static 'challenge/css/search_challenge.css' %}">
-    <script defer src="{% static 'challenge/javascript/challengeToggle.js' %}"></script>
-    <script defer src="{% static 'challenge/javascript/challenge_search.js' %}"></script>
-    {% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'challenge/css/challenge_list.css' %}">
+<link rel="stylesheet" href="{% static 'challenge/css/search_challenge.css' %}">
+<script defer src="{% static 'challenge/javascript/challengeToggle.js' %}"></script>
+<script defer src="{% static 'challenge/javascript/challenge_search.js' %}"></script>
+{% endblock %}
 
-    {% block content %}
-    <div class="title">
-        <img src="{% static 'img/DOWITH.png' %}" alt="logo">
-        <h2>챌린지</h2>
-    </div>
+{% block content %}
+<div class="title">
+    <img src="{% static 'img/DOWITH.png' %}" alt="logo">
+    <h2>챌린지</h2>
+</div>
 
-     <div class="ch_add">
-        <button class="ch-createBtn">
-            <a href="{% url 'challenge:challenge_create' %}" style = "color: #FFFFFF" >챌린지 등록하기</a>
-        </button>
-        <br>
-        <button class="ch-shareBtn">
-            <a href="{% url 'challenge:invitation_accept' %}" style = "color: #FFFFFF">초대코드 입력하기</a>
-        </button>
-    </div>
+    <div class="ch_add">
+    <button class="ch-createBtn">
+        <a href="{% url 'challenge:challenge_create' %}" style = "color: #FFFFFF" >챌린지 등록하기</a>
+    </button>
+    <br>
+    <button class="ch-shareBtn">
+        <a href="{% url 'challenge:invitation_accept' %}" style = "color: #FFFFFF">초대코드 입력하기</a>
+    </button>
+</div>
 
-    </div>
-        <div class="category-container">
-         <hr width=100% color="#FFFFFF" style="margin: 10px 0px">
-            <div class="tabs">
-                <button class="filter-btn tab active" data-tab-target="#tab1">전체</button>
-                <button class="filter-btn tab" data-tab-target="#tab2">어학</button>
-                <button class="filter-btn tab" data-tab-target="#tab3">취업</button>
-                <button class="filter-btn tab" data-tab-target="#tab4">고시/공무원</button>
-                <button class="filter-btn tab" data-tab-target="#tab5">프로그래밍</button>
-                <button class="filter-btn tab" data-tab-target="#tab6">자격증</button>
-                <button class="filter-btn tab" data-tab-target="#tab7">기타</button>
+</div>
+    <div class="category-container">
+        <hr width=100% color="#FFFFFF" style="margin: 10px 0px">
+        <div class="tabs">
+            <button class="filter-btn tab active" data-tab-target="#tab1">전체</button>
+            <button class="filter-btn tab" data-tab-target="#tab2">어학</button>
+            <button class="filter-btn tab" data-tab-target="#tab3">취업</button>
+            <button class="filter-btn tab" data-tab-target="#tab4">고시/공무원</button>
+            <button class="filter-btn tab" data-tab-target="#tab5">프로그래밍</button>
+            <button class="filter-btn tab" data-tab-target="#tab6">자격증</button>
+            <button class="filter-btn tab" data-tab-target="#tab7">기타</button>
+        </div>
+        <hr width=100% color="#FFFFFF" style="margin: 10px 0px">
+            
+        <form action="" method="post" class='search-container' > 
+            {% csrf_token %}
+            <div class = "from-container">
+                <div class='search-form'>{{ form.as_p }}</div> <!-- form을 테이블 형식으로 표시, 여기서 form은 views에서 넘겨준 PostSearchForm 객체임--> 
+                <button class="btn btn-primary btn-sm search-btn">챌린지 검색</button> 
             </div>
-            <hr width=100% color="#FFFFFF" style="margin: 10px 0px">
-             
-            <form action="" method="post" class='search-container' > 
-                {% csrf_token %}
-                <div class = "from-container">
-                    <div class='search-form'>{{ form.as_p }}</div> <!-- form을 테이블 형식으로 표시, 여기서 form은 views에서 넘겨준 PostSearchForm 객체임--> 
-                    <button class="btn btn-primary btn-sm search-btn">챌린지 검색</button> 
-                </div>
-            </form>
-             
+        </form>
+            
+        <!-- <div class="searchList">
+        {% if challenge_list %}
+            {% for challenge in challenge_list %}
+                    <h2><a href="{% url 'challenge:challenge_detail' challenge.id %}">'{{ challenge.title }}' 로 바로가기</a></h2>
+            {% endfor %}
+        {% elif search_term %}
+                    <b><i class="words-notfound">검색한 단어 '{{ search_term }}' 를 찾지 못했습니다.</i></b>
+        {% endif %}
+        </div> -->
+    </div>
+    
+    <div class="total_container">
+        <div class="content">
             <div class="searchList">
-            {% if challenge_list %}
-                {% for challenge in challenge_list %}
-                        <h2><a href="{% url 'challenge:challenge_detail' challenge.id %}">'{{ challenge.title }}' 로 바로가기</a></h2>
-                {% endfor %}
-            {% elif search_term %}<!-- 검색란이 공란인지 확인-->
-                        <b><i class="words-notfound">검색한 단어 '{{ search_term }}' 를 찾지 못했습니다.</i></b>
-            {% endif %}
-            </div>
-        </div>
-        
-        <div class="total_container">
-            <div class="content">
-                {% if search_term %}
-                    <div id="tab1" data-tab-content class="items">
-                {% else %}
-                <div id="tab1" data-tab-content class="items active">
+                {% if challenge_list %}
+                    {% for challenge in challenge_list %}
+                        <div><a href="{% url 'challenge:challenge_detail' challenge.pk %}">{{ challenge.title }}</a></div>
+                    {% endfor %}
+                {% elif search_term %}<!-- 검색란이 공란인지 확인-->
+                        <div><i class="words-notfound">검색한 단어 '{{ search_term }}' 를 찾지 못했습니다.</i></div>
                 {% endif %}
-                    {% for cha in alls %}
-                        <li>
-                            <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
-                        </li>
-                        <br>
-                        {% endfor %}
-                    </div>
-                <div id="tab2" data-tab-content class="items">
-                    {% for cha in languages %}
+            </div>
+
+            {% if search_term %}
+                <div id="tab1" data-tab-content class="items">
+            {% else %}
+                <div id="tab1" data-tab-content class="items active">
+            {% endif %}
+                {% for cha in alls %}
                     <li>
-                        <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
+                        <div><a href="{% url 'challenge:challenge_detail' cha.pk %}">{{cha.title}}</a></div>
                     </li>
                     <br>
                     {% endfor %}
                 </div>
-                <div id="tab3" data-tab-content class="items">
-                    {% for cha in jobs %}
-                    <li>
-                        <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
-                    </li>
-                    <br>
-                    {% endfor %}
-                </div>
-                <div id="tab4" data-tab-content class="items">
-                    {% for cha in NCSs %}
-                    <li>
-                        <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
-                    </li>
-                    <br>
-                    {% endfor %}
-                </div>
-                <div id="tab5" data-tab-content class="items">
-                    {% for cha in programmings %}
-                    <li>
-                        <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
-                    </li>
-                    <br>
-                    {% endfor %}
-                </div>
-                <div id="tab6" data-tab-content class="items">
-                    {% for cha in certificates %}
-                    <li>
-                        <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
-                    </li>
-                    <br>
-                    {% endfor %}
-                </div>
-                <div id="tab7" data-tab-content class="items">
-                    {% for cha in others %}
-                    <li>
-                        <div><a href="{% url 'challenge:challenge_detail' cha.id%}">{{cha.title}}</a></div>
-                    </li>
-                    <br>
-                    {% endfor %}
-                </div>
+            <div id="tab2" data-tab-content class="items">
+                {% for cha in languages %}
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.pk %}">{{cha.title}}</a></div>
+                </li>
+                <br>
+                {% endfor %}
+            </div>
+            <div id="tab3" data-tab-content class="items">
+                {% for cha in jobs %}
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.pk %}">{{cha.title}}</a></div>
+                </li>
+                <br>
+                {% endfor %}
+            </div>
+            <div id="tab4" data-tab-content class="items">
+                {% for cha in NCSs %}
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.pk %}">{{cha.title}}</a></div>
+                </li>
+                <br>
+                {% endfor %}
+            </div>
+            <div id="tab5" data-tab-content class="items">
+                {% for cha in programmings %}
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.pk %}">{{cha.title}}</a></div>
+                </li>
+                <br>
+                {% endfor %}
+            </div>
+            <div id="tab6" data-tab-content class="items">
+                {% for cha in certificates %}
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.pk %}">{{cha.title}}</a></div>
+                </li>
+                <br>
+                {% endfor %}
+            </div>
+            <div id="tab7" data-tab-content class="items">
+                {% for cha in others %}
+                <li>
+                    <div><a href="{% url 'challenge:challenge_detail' cha.pk%}">{{cha.title}}</a></div>
+                </li>
+                <br>
+                {% endfor %}
             </div>
         </div>
-    {% endblock %}
+    </div>
+{% endblock %}

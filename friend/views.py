@@ -232,12 +232,10 @@ class SearchAjax(View):
 
         friend_list_serializer = JSON.Serializer()
         friend_list_serialized = friend_list_serializer.serialize(friend_list)
-
-        print(friend_list_serialized)
     
         return JsonResponse({"friend" : friend_serialized, "friend_list" : friend_list_serialized})
         
-            # if request.method == 'GET':
+        # if request.method == 'GET':
         # form = FriendSearchForm()
         # ctx = {        
         #     'friends': friends,
