@@ -157,27 +157,43 @@ def userinfo_get(request):
     return JsonResponse({"name": user_name, "nickname": user_nickname, "email": user_email, "is_social": user_is_social, "image": user_image})
 
 
+# # challenge 자체의 모든 내용들을 보내는 방식
+# @csrf_exempt
+# def userchallenge_get(request):
+#     user = request.user
+#     user_enrollment_list = user.chEnrollment_set.all()  # user의 enrollment list
+#     user_challenge_list = []    # user가 참여한 challenge list
+
+#     # enrollment list 직렬화 --> QuerySet을 json으로 변환
+#     enrollment_list_serializer = json.Serializer()
+#     enrollment_list_serialized = enrollment_list_serializer.serialize(
+#         user_enrollment_list)
+
+#     # user가 참여한 challenge를 user_enrollment_list를 통해 가져와 list로 담음
+#     for i, ch in enumerate(list(user_enrollment_list)):
+#         user_challenge_list.append(ch.challenge)
+
+#     # challenge list 직렬화 --> QuerySet을 json으로 변환
+#     challenge_list_serializer = json.Serializer()
+#     challenge_list_serialized = challenge_list_serializer.serialize(
+#         user_challenge_list)
+
+#     return JsonResponse({"enrollment_list": enrollment_list_serialized, "challenge_list": challenge_list_serialized})
+
+
+# challenge에서 필요한 내용들만 보내는 방식
 @csrf_exempt
 def userchallenge_get(request):
     user = request.user
     user_enrollment_list = user.chEnrollment_set.all()  # user의 enrollment list
     user_challenge_list = []    # user가 참여한 challenge list
 
-    # enrollment list 직렬화 --> QuerySet을 json으로 변환
-    enrollment_list_serializer = json.Serializer()
-    enrollment_list_serialized = enrollment_list_serializer.serialize(
-        user_enrollment_list)
-
     # user가 참여한 challenge를 user_enrollment_list를 통해 가져와 list로 담음
     for i, ch in enumerate(list(user_enrollment_list)):
-        user_challenge_list.append(ch.challenge)
+        user_challenge_list.append({"pk" : ch.challenge.pk, "title" : ch.challenge.title, "status" : ch.challenge.status})
 
-    # challenge list 직렬화 --> QuerySet을 json으로 변환
-    challenge_list_serializer = json.Serializer()
-    challenge_list_serialized = challenge_list_serializer.serialize(
-        user_challenge_list)
+    return JsonResponse({"challenge_list": user_challenge_list})
 
-    return JsonResponse({"enrollment_list": enrollment_list_serialized, "challenge_list": challenge_list_serialized})
 
 
 @csrf_exempt
