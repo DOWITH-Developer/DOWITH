@@ -4,6 +4,7 @@ const setting = document.querySelector(".setting")
 const ToS = document.querySelector(".ToS")
 const contentBox = document.querySelector(".content")
 
+
  // userInfo
  const onClickUserInfo = async () => {
     const url = "/login/settings/user_info/" ; 
@@ -17,16 +18,16 @@ const printUserInfo = (name, nickname, email, is_social, image) => {
 
     let userInfoTemplate = `
         <div class="userInfo__content">
-            <div>
-                profile image : <img src="` + image + `" alt="profile_photo">` +
+            <div class="profile_photo">
+                <img src="` + image + `" alt="profile_photo">` +
             `</div>
-            <div>
+            <div class="username">
                 Username : ` + name +
             `</div>
-            <div>
+            <div class="nickname">
                 Nickname : ` + nickname +
             `</div>
-            <div>
+            <div class="email">
                 Email : ` + email
     //         + `</div>
     //         <input class="userInfo__modification" type="submit" value="수정하기"/>
@@ -65,7 +66,27 @@ const printUserInfo = (name, nickname, email, is_social, image) => {
     })
 }
 
+const checkAddCss = (event) => {
+    let target = event.currentTarget;
+    target.classList.add("check");
+
+    const settings_list = [userInfo, userChallenge, setting, ToS];
+    settings_list.forEach((i) => {
+        if (i == target){
+            i.classList.add("check");
+        }
+        else{
+            i.classList.remove("check");
+        }
+    })
+}
+
 userInfo.addEventListener("click", onClickUserInfo)
+
+userInfo.addEventListener("click", checkAddCss)
+userChallenge.addEventListener("click", checkAddCss)
+setting.addEventListener("click", checkAddCss)
+ToS.addEventListener("click", checkAddCss)
 
 
 
@@ -85,22 +106,32 @@ const printUserChallenge = (enrollmentList, challengeList) => {
     const challengeListParsed = JSON.parse(challengeList)
     console.log(enrollmentListParsed);
     console.log(challengeListParsed)
+    console.log(challengeListParsed[0].pk)
 
     const userChallengeTemplate = `
         <div class="userChallenge__content">
-            <div class="status_0">
-                대기 중
-                <br>
+            <div class="status_0__container">   
+                <div class="status_0__title">
+                    대기 중
+                </div>
+                <div class="status_0">
+                </div>
             </div>
-            <br>
-            <div class="status_1">
-                진행 중
-                <br>
+
+            <div class="status_1__container">   
+                <div class="status_1__title">
+                    진행 중
+                </div>
+                <div class="status_1">
+                </div>
             </div>
-            <br>
-            <div class="status_2">
-                완료
-                <br>
+
+            <div class="status_2__container">   
+                <div class="status_2__title">
+                    완료
+                </div>
+                <div class="status_2">
+                </div>
             </div>
         </div>
     `
@@ -112,13 +143,16 @@ const printUserChallenge = (enrollmentList, challengeList) => {
     const status1 = document.querySelector(".status_1");
     const status2 = document.querySelector(".status_2");
     for(let i = 0; i < challengeListParsed.length; i++){
-        const innerHtmlTemplate = `<div>챌린지 명 : ` + challengeListParsed[i].fields.title +
-                                    `<br>챌린지 창시일 : ` + challengeListParsed[i].fields.created_date +
-                                    `<br>챌린지 시작일 : ` + challengeListParsed[i].fields.start_date +
-                                    `<br>나의 챌린지 신청일 : ` + enrollmentListParsed[i].fields.created_at +
-                                    `<br><br>
-                                </div>`;
-        
+        // const innerHtmlTemplate = `<div>챌린지 명 : ` + challengeListParsed[i].fields.title +
+        //                             `<br>챌린지 창시일 : ` + challengeListParsed[i].fields.created_date +
+        //                             `<br>챌린지 시작일 : ` + challengeListParsed[i].fields.start_date +
+        //                             `<br>나의 챌린지 신청일 : ` + enrollmentListParsed[i].fields.created_at +
+        //                             `<br><br>
+        //                         </div>`;
+        // const innerHtmlTemplate = `<div><a href="http://127.0.0.1:8000/challenge/3">챌린지 명 : ` + challengeListParsed[i].fields.title + `</a></div>`
+        const innerHtmlTemplate = `<div><a href="http://127.0.0.1:8000/challenge/` + challengeListParsed[i].pk + `">챌린지 명 : `
+                                    + challengeListParsed[i].fields.title + `</a></div>`
+
         const newChallengeDiv = new DOMParser().parseFromString(innerHtmlTemplate, "text/html").body.firstElementChild
         
         if(challengeListParsed[i].fields.status === 0){

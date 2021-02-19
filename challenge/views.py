@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import ChallengeForm, SearchForm
 from django.views.generic import FormView
+import datetime
 # ajax
 from django.views import View
 import json
@@ -16,6 +17,14 @@ from datetime import date
 import threading
 import time
 import hashlib
+
+# decorator
+from login.decorators import allowed_users
+from django.contrib.auth.decorators import login_required
+
+
+def home(request):
+    return render(request, "challenge/home.html")
 
 def challenge_list(request):
     alls = Challenge.objects.filter(private=0,status=0)
@@ -83,9 +92,28 @@ def challenge_detail(request, pk):
         "enrollment": enrollment,
         # "private": challenge.private
     }
-    # print(enrollment.total_player())
-    # print(data)    
+    print(challenge.start_date)
+    today = datetime.date.today()
+    print(today)
     return render(request, "challenge/challenge_detail.html", data)
+    
+    # print(date.today())
+    
+    
+
+    # if challenge.start_date > today:
+    #     challenge.status = 0
+    #     return render(request, "challenge/challenge_detail.html", data)
+    # elif (challenge.start_date <= today) and (today < challenge.end_date):
+    #     challenge.status = 1
+    #     enrollment.challenge.status = 1
+    #     return render(request, "challenge/challenge_ing.html", data)
+    # else:
+    #     challenge.status = 2
+    #     enrollment.challenge.status = 1
+    #     return render(request, "challenge/challenge_done.html", data)
+
+   
 
 
 def challenge_enrollment(request, pk):
@@ -104,6 +132,9 @@ def challenge_enrollment(request, pk):
     else:
         return redirect(f'/challenge/{challenge.pk}')
 
+
+@login_required
+@allowed_users
 def challenge_create(request):
     if request.method == 'POST':
         form = ChallengeForm(request.POST, request.FILES)

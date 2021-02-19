@@ -25,7 +25,7 @@ urlpatterns = [
     path('login/', include('login.urls')),
     path('challenge/', include('challenge.urls')),
     path('friend/', include('friend.urls')),
-    path('', lambda req:redirect('challenge:challenge_list'), name="home"),
+    path('', lambda req:redirect('challenge:home'), name="home"),
     # 성공/실패
     path("result_ajax/",result_ajax, name="result_ajax"),
     path("accounts/", include("allauth.urls")),

@@ -3,39 +3,75 @@
 {% load static %}
 
 {% block extra_head %}
+    <link rel="stylesheet" href="{% static 'login/css/userinfo_modify.css' %}">
 {% endblock %}
 
 {% block content %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-            <div class="{{ field.id_for_label }}__container {% if field.errors|length > 0 %}has_error{% endif %}">
-                <div class="modify__form-field">
+    <div class="userinfo_modify">
+        <div class="userinfo_modify__container">
+            <div class="userinfo_modify__logo">
+                <img src="{% static 'img/DOWITH_logo.png' %}" alt="DOWITH_logo">
+            </div>
 
-                    {% if request.user.is_social == False or field.id_for_label != "id_password" %}
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        {% if field.id_for_label != "id_password" %}
-                            {{ field }}
-                        {% else %}
-                            <a href="{% url 'login:userinfo_password_modify' %}">비밀번호 바꾸기</a>
-                        {% endif %}
-                    {% endif %}
+            <div class="userinfo_modify__title">
+                나의 정보 수정하기
+            </div>
+
+            <div class="userinfo_modify__body">
+                <form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
+                    {% csrf_token %}
+            
+                    {% for field in image_form %}
+                        <div class="{{ field.id_for_label }}__container">
+                            <div class="modify__form-field">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                <div>
+                                    <div class="current">
+                                        <p>현재 사진</p>
+                                        <img src="{{ request.user.image.url }}" alt="">
+                                    </div>
+                                    <div class="change">
+                                        <p>변경할 사진</p>
+                                        <input type="file" name="image" accept="image/*" id="id_image">
+                                    </div>
+                                </div>
+                                <!-- {{ field }} -->
+                            </div>
+                        </div>
+                    {% endfor %}
+            
+                    {% for field in form %}
+                        <div class="{{ field.id_for_label }}__container {% if field.errors|length > 0 %}has_error{% endif %}">
+                            <div class="modify__form-field">
+            
+                                {% if request.user.is_social == False or field.id_for_label != "id_password" %}
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {% if field.id_for_label != "id_password" %}
+                                        {{ field }}
+                                    {% else %}
+                                        <a class="password_modify" href="{% url 'login:userinfo_password_modify' %}">비밀번호 변경 페이지로 이동</a>
+                                    {% endif %}
+                                {% endif %}
+                                
+                            </div>
+                            {% if field.errors|length > 0 %}
+                                <div class="modify__form-error">
+                                    {% for error in field.errors %}
+                                        <label class="error" for="{{ field.id_for_label }}">{{ error }}</label>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                     
-                </div>
-                {% if field.errors|length > 0 %}
-                    <div class="modify__form-error">
-                        {% for error in field.errors %}
-                            <label class="error" for="{{ field.id_for_label }}">{{ error }}</label>
-                        {% endfor %}
+
+                    <div class="modify__form-actions">
+                        <button type="submit">저장하기</button>
                     </div>
-                {% endif %}
+                </form>
             </div>
-            <div>
-                
-            </div>
-        {% endfor %}
-        
-        <!-- {{ form.as_p }} -->
-        <input type="submit" value="저장하기">
-    </form>
+        </div>
+
+
+    </div>
 {% endblock %}

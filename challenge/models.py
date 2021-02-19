@@ -84,9 +84,6 @@ class Challenge(models.Model):
     created_date = models.DateField(auto_now_add=True, verbose_name="생성일")
     invitation_key = models.CharField(max_length=100, blank=True, null=True)
 
-    def link_url_uuid():
-        return uuid.uuid4().hex
-
     def __str__(self):
         return self.title
 
