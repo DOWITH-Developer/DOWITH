@@ -1,22 +1,45 @@
 {% extends 'friend/layout.html' %}
 
+{% load static %}
+
 {% block extra_head %}
 
-
+    <link rel="stylesheet" href="{% static 'friend/css/friend_create.css' %}">
+    <script defer src="{% static 'friend/javascript/friend_create.js' %}"></script>
 
 {% endblock extra_head %}
 
 
+
 {% block content %}
 
-    <input type="text" id="friend_search">
+    <div class="friend__search__container">
+    
+        <div class="friend__search__title">
+            <h3>유저의 닉네임을 검색하세요</h3>
+        </div>
 
-    <button onclick="getUserList()">검색</button>
+        <div class="friend__search__input">
+            <input type="text" id="friend_search">
+            <button class="friend__search__btn" onclick="getUserList();">검색</button>
+        </div>
+    
+    </div>
+
+    <div id="friend__new__search__container">
+    
+    </div>
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script ></script>
+    <script>
+
+
+    </script>
+
 
 {% endblock %}
-
-{% block script %}
-
-{% endblock script %}
 
 

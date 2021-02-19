@@ -34,7 +34,7 @@ def fd_list(request):
             'motivation_from_friends' : motivation_from_friends,
         }
         return render(request, 'friend/friend_list.html', context=ctx)
-    
+
     # else:
         # form = FriendSearchForm(request.POST)
         # searchWord = request.POST["search_word"]
@@ -49,15 +49,21 @@ def fd_list(request):
         #     'motivation_from_friends' : motivation_from_friends,
         # }
         # return render(request, 'friend/friend_list.html', context=ctx)
-    
+
 def fd_create(request):
+    return render(request, 'friend/friend_create.html')
+
+
+def new_fd_create(request, pk):
     user = request.user
+    friend = User.objects.get(id=pk)
     
     if request.method == "POST":
         form = FriendshipForm(request.POST)
         if form.is_valid():
             connection = form.save()
             connection.me = user
+            connection.friend = friend
 
             #이부분 최적화가 가능하다면 이후에 할 필요 있음
             # form.save된 과정에서 이미 존재하는 쿼리의 경우 unique set을 삭제해줘야하는 이슈 발생 -> 수정은 완료
@@ -81,7 +87,7 @@ def fd_create(request):
         ctx = {
             'form': form
         }
-        return render(request, "friend/friend_create.html", context=ctx)
+        return redirect('friend:fd_list')
 
 
 def fd_approve(request, pk):
@@ -112,13 +118,19 @@ def fd_deny(request, pk):
         return redirect('friend:fd_list')
 
 
+#TODO 대시보드에서 수정사항 있을 수 있음 -> 지금 바꾸기 때문
 def fd_detail(request, pk):
+    me = request.user
     user = User.objects.get(pk=pk)
     enrollments = Enrollment.objects.all().filter(player=user)
+
+    #만약 detail을 조회한 사람이 친구관계에 있는 사람이 아니라면
+    friendship = Friendship.objects.filter(me=me, friend=user, accepted=True).exists()
     #challenges = user.player_set.all()
     ctx = {
         'user': user,
         'enrollments': enrollments,
+        'friendship': friendship,
     }
     return render(request, 'friend/friend_detail.html', context=ctx)
 
@@ -231,3 +243,27 @@ class SearchAjax(View):
         #     'form': form,
         #     'motivation_from_friends' : motivation_from_friends,
         # }   
+
+
+class SearchUserAjax(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(SearchUserAjax, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request):
+        me = request.user
+        req = json.loads(request.body)
+        word = req['value']
+        if word == "":
+            return JsonResponse({'user_list': None})
+        else:
+            users = User.objects.all().filter().exclude(email=request.user.email)
+            users = users.filter(Q(nickname__icontains=word))
+        
+            user_list = {}
+
+            for user in users:
+                if not(Friendship.objects.filter(me=me, friend=user, accepted=True).exists()):
+                    user_list[user.id] = {'pk':user.pk, 'username':user.username, 'nickname':user.nickname}
+
+            return JsonResponse({'user_list': user_list})
