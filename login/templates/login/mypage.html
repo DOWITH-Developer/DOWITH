@@ -245,10 +245,7 @@ for (let i = 0; i < 6; i++) {
 
     window.addEventListener('DOMContentLoaded', selectMonth(thisMonth, thisYear))
 
-    const todayId = (thisMonth < 10) ? `${thisYear}${'0' + thisMonth}${today.getDate()}`: `${thisYear}${thisMonth}${today.getDate()}`;
-    const todaySelector = document.getElementById(`${todayId}`);
-    const todayContainer = todaySelector.parentNode;
-    todayContainer.style.background = "skyblue";
+    
     // style 에서 outline 을 추가만 할꺼야
 
 
@@ -259,9 +256,6 @@ for (let i = 0; i < 6; i++) {
     const { data } = await axios.post(url, {
     id,
     });
-    if (data.result === true){
-    changeCalendar(data.id, data.title)
-    }
     modify(data.id, data.result);
     };
 
@@ -279,16 +273,34 @@ for (let i = 0; i < 6; i++) {
         }
     };
 
-    const changeCalendar = (id, title) => {
+    const todayId = (thisMonth < 10) ? `${thisYear}${'0' + thisMonth}${today.getDate()}`: `${thisYear}${thisMonth}${today.getDate()}`;
+    const todaySelector = document.getElementById(`${todayId}`);
+    const todayContainer = todaySelector.parentNode;
+    todayContainer.style.background = "skyblue";
+
+
+    const changeCalendar = (title, date) => {
         const challengeContent = title + '🤔';
         const newTag = document.createElement('p');
+        const thisday = document.getElementById(`${date}`);
         newTag.classList.add('done');
         newTag.textContent = challengeContent;
-        todaySelector.append(newTag)
+        thisday.append(newTag)
     }
 
-    console.log({{challenge_success|safe}});
+    // date, title 
+    let enrollmentDateList = JSON.parse({{challenge_success|safe}});
+    let challengeTitleList = {{challenge_success_title|safe}}
+    for(let enrollmentDate in enrollmentDateList){
+        let {enrollment, date} = enrollmentDateList[enrollmentDate]["fields"]
+        enrollment = challengeTitleList[enrollment]
+        console.log(enrollment)
+        date = date.replace('-', '')
+        date = date.replace('-', '')
+        changeCalendar(enrollment, date)
+    }
+    console.log(enrollmentDateList)
     console.log({{challenge_success_title|safe}});
-    
+    console.log(challengeTitleList[1])
     </script>
 {% endblock %}
