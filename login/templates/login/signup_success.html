@@ -21,7 +21,11 @@
         
             <div class="success__button">
                 <a href="{% url 'home' %}"><button class="success__home__btn">홈</button></a>
-                <a href="{% url 'login:login' %}"><button class="success__login__btn">로그인</button></a>
+                {% if request.user and request.user.is_social == True %}
+                
+                {% else %}
+                    <a href="{% url 'login:login' %}"><button class="success__login__btn">로그인</button></a>
+                {% endif%}
             </div>
         
         </div>

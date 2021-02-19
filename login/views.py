@@ -37,7 +37,7 @@ def sign_up(request):
             # is_ToS 체크돼서 올때
             if form.is_valid():
                 user = form.save()
-                return redirect("challenge:challenge_list")
+                return redirect("login:signup_success")
             else:
                 ctx = {
                     "form": form,
@@ -91,6 +91,8 @@ def logout(request):
         return redirect("login:test")
     elif request.method == "GET":
         return redirect("login:test")
+def signup_success(request):
+    return render(request, "login/signup_success.html")
 
 @allowed_users
 def my_page(request, pk):
@@ -119,8 +121,6 @@ def my_page(request, pk):
     print(ctx)
     return render(request, "login/mypage.html", ctx)
 
-def register_success(request):
-    return render(request, 'login/register_success.html')
 
 @csrf_exempt
 def result_ajax(request):
@@ -255,7 +255,7 @@ def social_sign_up(request):
                 request.user.is_social = True
                 # TODO : 만약 로컬 회원가입 시 is_ToS 등이 false일 경우 로컬 계정은 소셜 계정이 됨
                 user = form.save()
-                return redirect("challenge:challenge_list")
+                return redirect("login:signup_success")
             else:
                 ctx = {
                     "form": form,
