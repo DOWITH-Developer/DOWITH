@@ -18,6 +18,11 @@ import threading
 import time
 import hashlib
 
+# decorator
+from login.decorators import allowed_users
+from django.contrib.auth.decorators import login_required
+
+
 def home(request):
     return render(request, "challenge/home.html")
 
@@ -127,6 +132,9 @@ def challenge_enrollment(request, pk):
     else:
         return redirect(f'/challenge/{challenge.pk}')
 
+
+@login_required
+@allowed_users
 def challenge_create(request):
     if request.method == 'POST':
         form = ChallengeForm(request.POST, request.FILES)

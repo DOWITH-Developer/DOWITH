@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
-from .forms import SignUpForm, LoginForm, UserInfoModifyForm, UserPasswordChangeForm
+from .forms import SignUpForm, LoginForm, UserInfoModifyForm, UserPasswordChangeForm, UserImageModifyForm, SocialSignUpForm
 from challenge.models import *  # Enrollment가져옴
 from .models import *
 from django.shortcuts import render, redirect, get_object_or_404
@@ -18,17 +18,12 @@ sys.path.append(os.path.dirname(os.path.abspath(
 
 # from django.contrib.auth.forms import UserCreationForm
 
-from django.contrib.auth.decorators import login_required
-from django.views import View
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
-from django.core.serializers import json
 import json as JSON
-
 from datetime import date #today가져오기 위해
-# Create your views here.
 from django.template.defaulttags import register
+
+# decorator
+from .decorators import allowed_users
 
 @register.filter
 def get_item(dictionary, key):
@@ -97,7 +92,7 @@ def logout(request):
     elif request.method == "GET":
         return redirect("login:test")
 
-
+@allowed_users
 def my_page(request, pk):
     me = request.user
     friends = me.friend_set.all().filter(accepted=True)
@@ -140,10 +135,12 @@ def result_ajax(request):
 
     return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.date_result})
 
+
+
 # settings
 
-
 @login_required
+@allowed_users
 def settings_main(request):
     return render(request, "login/settings_main.html")
 
@@ -193,19 +190,23 @@ def usersetting_get(request):
 def userinfo_modify(request):
     if request.method == "POST":
         form = UserInfoModifyForm(request.POST, instance=request.user)
-        # print(request.POST.get("image"))
-        if form.is_valid():
+        image_form = UserImageModifyForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid() and image_form.is_valid():
             form.save()
+            image_form.save()
             return redirect("login:settings")
         else:
             ctx = {
                 "form": form,
+                "image_form": image_form,
             }
             return render(request, "login/userinfo_modify.html", ctx)
     elif request.method == "GET":
         form = UserInfoModifyForm(instance=request.user)
+        image_form = UserImageModifyForm(instance=request.user)
         ctx = {
             "form": form,
+            "image_form": image_form,
         }
         return render(request, "login/userinfo_modify.html", ctx)
 
@@ -228,3 +229,36 @@ def userinfo_password_modify(request):
         }
         return render(request, "login/userpassword_modify.html", ctx)
 
+
+def social_sign_up(request):
+    if request.method == "POST":
+        form = SocialSignUpForm(request.POST, instance=request.user)
+        if(request.POST.get("is_ToS")):
+            # is_ToS 체크돼서 올때
+            if form.is_valid():
+                request.user.is_social = True
+                # TODO : 만약 로컬 회원가입 시 is_ToS 등이 false일 경우 로컬 계정은 소셜 계정이 됨
+                user = form.save()
+                return redirect("challenge:challenge_list")
+            else:
+                ctx = {
+                    "form": form,
+                }
+                return render(request, "login/social_signup.html", ctx)
+        else:
+            # is_ToS 체크 안돼서 올때
+            ctx = {
+                "form": form,
+                "ToS_error": "약관을 동의해야합니다."
+            }
+            return render(request, "login/social_signup.html", ctx)
+
+    elif request.method == "GET" and (request.user.is_ToS == False or request.user.email == None or request.user.username == None or request.user.nickname == None):
+        form = SocialSignUpForm(instance=request.user)
+        ctx = {
+            "form": form,
+        }
+        return render(request, "login/social_signup.html", ctx)
+
+    elif request.method == "GET":
+        return redirect("challenge:challenge_list")

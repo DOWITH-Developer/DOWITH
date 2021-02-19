@@ -19,4 +19,6 @@ urlpatterns = [
     path("userinfo_modify/", userinfo_modify, name="userinfo_modify"),
     path("userinfo_password_modify/", userinfo_password_modify,
          name="userinfo_password_modify"),
+    # social sign up
+    path("social_signup/", social_sign_up, name="social_signup"),
 ]

@@ -1,0 +1,61 @@
+{% extends 'login/layout.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'login/css/signup.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="signup">
+        <div class="signup__container">
+            <div class="login__logo">
+                <img src="{% static 'img/DOWITH_logo.png' %}" alt="DOWITH_logo">
+            </div>
+            
+            <div class="login__title">
+                * DOWITH을 이용하기 위해 필요한 추가 정보를 입력해주세요.
+            </div>
+
+            <div class="ToS">
+                약관쓰
+            </div>
+    
+            <div class="signup__body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {% if field.id_for_label != "id_password" %}
+                            <div class="{{ field.id_for_label }}__container {% if field.errors|length > 0%}has_error{% endif %}">
+                                <div class="signup__form-field">
+                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                        {{ field }}
+                                        {% if field.id_for_label == "id_is_ToS" and ToS_error %}
+                                            <div class="signup__form-error">
+                                                <label class="error" for="{{ field.id_for_label }}">{{ ToS_error }}</label>
+                                            </div>
+                                        {% endif %}
+                                </div>
+                                {% if field.errors|length > 0 %}
+                                    <div class="signup__form-error">
+                                        {% for error in field.errors %}
+                                            <label class="error" for="{{ field.id_for_label }}">{{ error }}</label>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% elif field.id_for_label == "id_password" %}
+
+                        {% endif %}
+                    {% endfor %}
+    
+                    <div class="signup__form-actions">
+                        <button type="submit">가입하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock content %} 
