@@ -259,33 +259,40 @@ for (let i = 0; i < 6; i++) {
     const { data } = await axios.post(url, {
         id,
         });
-    modify(data.id, data.result);
-        if (data.result == true){
-            changeCalendar(data.title, todayId)
-        }
+            modify(data.id, data.result);
+            changeCalendar(data.title, data.result, todayId)
     };
-
+    
     const modify = (id, result) => {
         const result_word = document.querySelector(`.result-${id} .result_word`);
-
         if (result === false) {
-        result_word.value = "성공시 클릭";
-        result_word.classList.remove("success");
-        result_word.classList.add("fail");
+            result_word.value = "성공시 클릭";
+            result_word.classList.remove("success");
+            result_word.classList.add("fail");
         } else {
-        result_word.value = "챌린지 성공";
-        result_word.classList.remove("fail");
-        result_word.classList.add("success");
+            result_word.value = "챌린지 성공";
+            result_word.classList.remove("fail");
+            result_word.classList.add("success");
         }
     };
-
-    const changeCalendar = (title, date) => {
-        const challengeContent = title + '🤔';
-        const newTag = document.createElement('p');
+    
+    const changeCalendar = (title, result, date) => {
         const thisday = document.getElementById(`${date}`);
-        newTag.classList.add('done');
-        newTag.textContent = challengeContent;
-        thisday.append(newTag)
+        const challengeContent = title + '🤔';
+        if (result === true){
+            const newTag = document.createElement('p');
+            newTag.classList.add('done');
+            newTag.textContent = challengeContent;
+            thisday.append(newTag)
+        } else {
+            for(let child of thisday.children){
+                if(child.innerHTML === challengeContent){
+                    child.remove()
+                }
+            }
+        }
+        // 성공하면 p 에게 특정 클래스 부여한다
+        // 실패버튼을 누르면 p 태그에 display: none 을 준다
     }
 
     // date, title 
@@ -297,10 +304,14 @@ for (let i = 0; i < 6; i++) {
         console.log(enrollment)
         date = date.replace('-', '')
         date = date.replace('-', '')
-        changeCalendar(enrollment, date)
+        changeCalendar(enrollment, true, date)
     }
-    console.log(enrollmentDateList)
-    console.log({{challenge_success_title|safe}});
-    console.log(challengeTitleList[1])
+    // TODO
+    // 1. 챌린지 성공상태에서 눌렀을 때 달력에서 제거 -> 여러 개 중복 생성을 방지 
+
+    // 2. 달력에서 쓰레기통 버튼을 눌럿을 때 -> 모달 정말 삭제하시겠습니까? -> django viewes delete
+    // 3. 2번을 ajax 로 구현
+    // 4. 날짜를 눌렀을 때 추가하거나 수정이 가능하게 만들기! 
+
     </script>
 {% endblock %}
