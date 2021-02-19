@@ -1,5 +1,7 @@
 from django.db import models
+from django import forms
 from login.models import User
+import datetime
 
 # User
 # - is staff : 내부자냐 아니냐
@@ -11,6 +13,10 @@ from login.models import User
 # python hash
 # URLSAFE : 띄어쓰기, 덧셈이 urlsafe functionå
 
+
+# def less_then_min_validator(value1, value2):
+#     if len(value1) < value2:
+#         raise forms.ValidationError("최소 인원보다 작은 수의 인원을 입력하셨습니다.")
 
 def redirect_link(link):
     challenges = Challenge.objects.filter(link=link)
@@ -72,8 +78,8 @@ class Challenge(models.Model):
         choices=STATUS_OF_CHALLENGE, blank=True, null=True, verbose_name="진행 상태")
     min_pp = models.PositiveIntegerField(verbose_name="최소 인원")
     max_pp = models.PositiveIntegerField(verbose_name="최대 인원")
-    # duration = models.PositiveIntegerField(verbose_name="기간")
-    start_date = models.DateField(verbose_name="시작일")
+    cur_pp = models.IntegerField(default=0, blank=True)
+    start_date = models.DateField(verbose_name="시작일", default=datetime.date.today)
     end_date = models.DateField(verbose_name="종료일")
     created_date = models.DateField(auto_now_add=True, verbose_name="생성일")
     invitation_key = models.CharField(max_length=100, blank=True, null=True)

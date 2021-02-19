@@ -2,70 +2,103 @@
 {% load static %}
 
 {% block extra_head %}
+    <link rel="stylesheet" href="fontawesome-free-5.15.1-web/css/all.css">
     <link rel="stylesheet" href="{% static 'challenge/css/challenge_create.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class=content>
-<h2>챌린지 등록하기</h2>
+    <h2>챌린지 등록하기</h2>
 
-<div class="total-container">
-    <div class="form-container">
-        <form action="" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class = "label-container">
-                <label>제목 : </label>
-                <div class="value">{{form.title}}</div>
-            </div>
-            <br>
+    <div class="total-container">
+        <div class="form-container">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class = "label-container">
+                    <label>제목 : </label>
+                    <div class="value">{{form.title}}</div>
+                </div>
+                <br>
 
-            <div class = "label-container">
-                <label>설명 : </label>
-                <div class="value">{{form.desc}}</div>
-            </div>
-            <br>
-            
-            <div class = "label-container">
-                <label>분류 : </label>
-                <div class="value">{{form.category}}</div>
-            </div>
-            <br>
+                <div class = "label-container">
+                    <label>설명 : </label>
+                    <div class="value">{{form.desc}}</div>
+                </div>
+                <br>
+                                
+                <div class="label-container">
+                    <label>분류 : </label>
+                        <div class="category-choice">
+                            <div class="category-three">
+                                <label class="category-choice-label"><input type="radio" name="category" value="language"><i class="fas fa-language"></i><span class="category__label">어학</span></label>
+                                <label class="category-choice-label"><input type="radio" name="category" value="job"><i class="fas fa-laptop-house"></i><span class="category__label">취업</span></label>
+                                <label class="category-choice-label"><input type="radio" name="category" value="NCS"><i class="fas fa-user-check"></i><span class="category__label">고시/공무원</span></label>
+                            </div>
+                            <div class="category-three">
+                                <label class="category-choice-label"><input type="radio" name="category" value="programming"><i class="fas fa-tv"></i><span class="category__label">프로그래밍</span></label>
+                                <label class="category-choice-label"><input type="radio" name="category" value="certificate"><i class="fas fa-medal"></i><span class="category__label">자격증</span></label>
+                                <label class="category-choice-label"><input type="radio" name="category" value="other"><i class="far fa-sticky-note"></i><span class="category__label">기타</span></label>
+                            </div>
+                        </div>
+                </div>
+                <br>
 
-            <div class = "label-container">
-                <label>공개 상태 : </label>
-                <div class="value">{{form.private}}</div>
-            </div>
-            <br>
+                <div class = "label-container">
+                    <label>공개 상태 : </label>
+                    <div class="category-choice">
+                        <div class="category-three">
+                            <label class="category-choice-label"><input type="radio" name="private" value=0><span class="category__label category__btn">전체 공개</span></label>
+                            <label class="category-choice-label"><input type="radio" name="private" value=1><span class="category__label category__btn">친구 공개</span></label>
+                            <label class="category-choice-label"><input type="radio" name="private" value=2><span class="category__label category__btn">나만 공개</span></label>
+                        </div>
+                    </div>
+                </div>
+                <br>
 
-            <div class = "label-container">
-                <label>최소 인원  (숫자 입력): </label>
-                <div class="value">{{form.min_pp}}</div>
-            </div>
-            <br>
+                <div class = "label-container">
+                    <label>최소 인원  (숫자 입력): </label>
+                    <div class="value">{{form.min_pp}}</div>
+                </div>
+                <br>
 
-            <div class = "label-container">
-                <label>최대 인원  (숫자 입력): </label>
-                <div class="value">{{form.max_pp}}</div>
-            </div>
-            <br>
+                <div class = "label-container">
+                    <label>최대 인원  (숫자 입력): </label>
+                    <div class="value">{{form.max_pp}}</div>
+                </div>
+                <br>
 
-            <div class = "label-container">
-                <label>시작일 : </label>
-                <div class="value">{{form.start_date}}</div>
-            </div>          
-            <br>
+                <div class = "label-container">
+                    <label>시작일 : </label>
+                    <div class="date-choice">
+                        <input type="date" name="start_date" id="currentDate">
+                    </div>
+                </div>          
+                <br>
 
-            <div class = "label-container">
-                <label>종료일 : </label>
-                <div class="value">{{form.end_date}}</div> 
-            </div>
-            <br>
+                <div class = "label-container">
+                    <label>종료일 : </label>
+                    <div class="date-choice">
+                        <input type="date", name="end_date" id="endDate">
+                    </div>
+                </div>
+                <br>
 
-            <div class="button-container">
-                <button type="submit" >등록하기</button>
-            </div>
-        </form>
+                <div class="button-container">
+                    <button type="submit" >등록하기</button>
+                </div>
+
+            </form>
+
+
+        </div>
     </div>
-</div>
+
+    <script>
+    
+        document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
+        document.getElementById('endDate').value = new Date().toISOString().substring(0,10);
+
+    </script>
+
 </div>
 {% endblock %}

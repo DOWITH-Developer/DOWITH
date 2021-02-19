@@ -4,7 +4,7 @@ body {
     background-color: #ffffff;
 }
 
-.signup {
+.userinfo_modify {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -12,7 +12,7 @@ body {
     /* justify-content: center; */
 }
 
-.signup__container {
+.userinfo_modify__container {
     width: 80%;
     /* border: 1px solid gray;
     border-radius: 10px; */
@@ -25,32 +25,25 @@ body {
     align-items: center;
 }
 
-.login__logo {
+.userinfo_modify__logo {
     margin-bottom: 50px;
 }
 
-.login__logo > img {
+.userinfo_modify__logo > img {
     width: 400px;
 }
 
-/* 소셜 로그인을 위한 css */
-.login__title {
+.userinfo_modify__title {
     margin-bottom: 3rem;
     font-family: "Do Hyeon";
     font-style: normal;
     font-weight: normal;
     font-size: 30px;
-    color: tomato;
 }
 
-.ToS {
-    background-color: #efefef;
-    width: 400px;
-    height: 300px;
-}
-
-.signup__body {
-    margin: 1rem;
+.userinfo_modify__body {
+    margin: 0 1rem 1rem;
+    /* margin: 1rem; */
     font-family: "Do Hyeon";
     font-style: normal;
     font-weight: normal;
@@ -63,7 +56,7 @@ body {
     align-items: center;
 }
 
-.signup__body > form {
+.userinfo_modify__body > form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -71,21 +64,32 @@ body {
     align-items: center;
 }
 
-.signup__form-field {
+.modify__form-field,
+.password-modify__form-field {
     width: 350px;
     /* height: 30px; */
     font-weight: bold;
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin: 1rem;
 }
 
-.signup__form-field label {
+.password-modify__form-field {
+    width: 400px;
+}
+
+.modify__form-field label {
     width: 100px;
 }
 
-.signup__form-field input {
+.password-modify__form-field label {
+    width: 140px;
+}
+
+.modify__form-field input,
+.password-modify__form-field input {
     width: 240px;
     background-color: #efefef;
     border: none;
@@ -93,20 +97,12 @@ body {
     padding: 10px;
 }
 
-/* input값이 invalid할 경우 테두리 빨간색 --> js로 처리해보자 */
-/* .signup__form-field input:invalid {
-    border-color: red;
-} */
-
-.signup__form-field input::placeholder {
-}
-
-.login__form-actions {
+.modify__form-actions {
     width: 50%;
     /* font-weight: bold; */
 }
 
-.signup__form-actions button {
+.modify__form-actions button {
     width: 120px;
     height: 30px;
     margin-top: 40px;
@@ -124,12 +120,36 @@ body {
     line-height: 35px;
 }
 
-.signup__form-error {
+.modify__form-actions > button:hover {
+    cursor: pointer;
+}
+
+.modify__form-error {
     font-size: 17px;
     /* margin-bottom: 10px; */
     color: #5c62cc;
 }
 
-.signup__form-actions > button:hover {
-    cursor: pointer;
+.password_modify {
+    width: 240px;
+    height: 30px;
+    border: none;
+    border-radius: 20px;
+    background-color: #5c62cc;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+
+    font-family: "Do Hyeon";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 35px;
+}
+
+.current img {
+    height: 230px;
+    width: 230px;
+    object-fit: cover;
+    border-radius: 20px;
 }
