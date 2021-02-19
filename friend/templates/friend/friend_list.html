@@ -20,6 +20,14 @@
         <h1>친구들</h1>
     </div>
 
+    <div class="friend__add__btn">
+        <button class="friend__list__createBtn">
+            <a href="{% url 'friend:fd_create' %}" style = "color: #FFFFFF" >친구 추가하기</a>
+        </button>
+    </div>
+
+
+
     <section class="friend__list">
 
         <div class="friend__search">
@@ -90,16 +98,6 @@
 
             {% endfor %}
         </div>
-
-
-        <div class="friend__add">
-            <a href="{% url 'friend:fd_create' %}">친구 추가하기</a>
-        </div>
-        
-
-
-
-
 
     </section>
 
