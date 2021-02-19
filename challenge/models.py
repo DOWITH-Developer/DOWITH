@@ -72,8 +72,9 @@ class Challenge(models.Model):
         choices=STATUS_OF_CHALLENGE, blank=True, null=True, verbose_name="진행 상태")
     min_pp = models.PositiveIntegerField(verbose_name="최소 인원")
     max_pp = models.PositiveIntegerField(verbose_name="최대 인원")
-    duration = models.PositiveIntegerField(verbose_name="기간")
+    # duration = models.PositiveIntegerField(verbose_name="기간")
     start_date = models.DateField(verbose_name="시작일")
+    end_date = models.DateField(verbose_name="종료일")
     created_date = models.DateField(auto_now_add=True, verbose_name="생성일")
     invitation_key = models.CharField(max_length=100, blank=True, null=True)
 

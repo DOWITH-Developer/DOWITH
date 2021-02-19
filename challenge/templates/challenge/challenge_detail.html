@@ -24,12 +24,12 @@
     <div class = "right-container">
         <div class="ch-startdate">
             <div>시작</div> 
-            <div style = "font-size: 20px;"><span style = "color: #47CC71;">{{ challenge.start_date }}</span>부터 시작</div>
+            <div style = "font-size: 20px;"><span style = "color: #47CC71;">{{ challenge.start_date }}</span> 시작</div>
         </div>
 
-        <div class="ch-duration">
-            <div>기간</div> 
-            <div style = "font-size: 20px;"><span style = "color: #47CC71;">{{ challenge.duration }}</span>일</div>
+        <div class="ch-end_date">
+            <div>종료</div> 
+            <div style = "font-size: 20px;"><span style = "color: #47CC71;">{{ challenge.end_date }}</span> 종료</div>
         </div>
 
         <div class="ch-targetpp">
@@ -94,7 +94,7 @@
                 </form>  
             {% endif %}
 
-            <div>
+            {% comment %} <div>
                 {% if status %}
                     {% if enrollment.result %}
                         <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}} result-clicked ch-result">챌린지 성공</button>
@@ -102,7 +102,7 @@
                         <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}} ch-result">챌린지 성공</button>
                     {% endif %}
                 {% endif %}
-            </div>
+            </div> {% endcomment %}
         </div>
     </div>
 <hr> 
