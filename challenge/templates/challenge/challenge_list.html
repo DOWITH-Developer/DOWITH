@@ -48,19 +48,29 @@
                 </div>
             </form>
              
-            <div class="searchList">
+            <!-- <div class="searchList">
             {% if challenge_list %}
                 {% for challenge in challenge_list %}
                         <h2><a href="{% url 'challenge:challenge_detail' challenge.id %}">'{{ challenge.title }}' 로 바로가기</a></h2>
                 {% endfor %}
-            {% elif search_term %}<!-- 검색란이 공란인지 확인-->
+            {% elif search_term %}
                         <b><i class="words-notfound">검색한 단어 '{{ search_term }}' 를 찾지 못했습니다.</i></b>
             {% endif %}
-            </div>
+            </div> -->
         </div>
         
         <div class="total_container">
             <div class="content">
+                <div class="searchList">
+                    {% if challenge_list %}
+                        {% for challenge in challenge_list %}
+                            <div><a href="{% url 'challenge:challenge_detail' challenge.id %}">{{ challenge.title }}</a></div>
+                        {% endfor %}
+                    {% elif search_term %}<!-- 검색란이 공란인지 확인-->
+                            <div><i class="words-notfound">검색한 단어 '{{ search_term }}' 를 찾지 못했습니다.</i></div>
+                    {% endif %}
+                </div>
+
                 {% if search_term %}
                     <div id="tab1" data-tab-content class="items">
                 {% else %}
