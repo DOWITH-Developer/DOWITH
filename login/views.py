@@ -47,7 +47,7 @@ def sign_up(request):
             # is_ToS 체크 안돼서 올때
             ctx = {
                 "form": form,
-                "ToS_error": "약관을 동의해야합니다."
+                "ToS_error": "약관에 동의해야합니다."
             }
             return render(request, "login/signup.html", ctx)
     elif request.method == "GET":
