@@ -5,6 +5,7 @@ from . import views
 app_name = 'challenge'
 
 urlpatterns = [
+    path('',home, name='home'),
     path('<int:pk>/', challenge_detail, name='challenge_detail'),
     path('create/', challenge_create, name='challenge_create'),
     path('delete/<int:pk>/', challenge_delete, name='challenge_delete'),
@@ -16,4 +17,5 @@ urlpatterns = [
     path('send/invitation/', InvitationAjax.as_view(), name='InvitationAjax'),
     path('invitation/', invitation_accept, name='invitation_accept'),
     path('invitation/failed/', invitation_failed, name="invitation_failed"),
+    path('search/', SearchAjax.as_view(), name="challenge_search"),
 ]

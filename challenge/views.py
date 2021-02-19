@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import ChallengeForm, SearchForm
 from django.views.generic import FormView
+import datetime
 # ajax
 from django.views import View
 import json
@@ -21,6 +22,9 @@ import hashlib
 from login.decorators import allowed_users
 from django.contrib.auth.decorators import login_required
 
+
+def home(request):
+    return render(request, "challenge/home.html")
 
 def challenge_list(request):
     alls = Challenge.objects.filter(private=0,status=0)
@@ -74,6 +78,7 @@ def challenge_list(request):
 
 def challenge_detail(request, pk):
     challenge = Challenge.objects.get(pk=pk)
+
     if Enrollment.objects.filter(challenge=challenge, player=request.user).exists():
         status = True
         enrollment = Enrollment.objects.get(player=request.user, challenge=challenge)
@@ -87,15 +92,37 @@ def challenge_detail(request, pk):
         "enrollment": enrollment,
         # "private": challenge.private
     }
-    # print(enrollment.total_player())
-    # print(data)    
+    print(challenge.start_date)
+    today = datetime.date.today()
+    print(today)
     return render(request, "challenge/challenge_detail.html", data)
+    
+    # print(date.today())
+    
+    
+
+    # if challenge.start_date > today:
+    #     challenge.status = 0
+    #     return render(request, "challenge/challenge_detail.html", data)
+    # elif (challenge.start_date <= today) and (today < challenge.end_date):
+    #     challenge.status = 1
+    #     enrollment.challenge.status = 1
+    #     return render(request, "challenge/challenge_ing.html", data)
+    # else:
+    #     challenge.status = 2
+    #     enrollment.challenge.status = 1
+    #     return render(request, "challenge/challenge_done.html", data)
+
+   
 
 
 def challenge_enrollment(request, pk):
     if request.method == "POST":  
         player = request.user
         challenge = Challenge.objects.get(pk=pk)
+        challenge.cur_pp += 1
+        print(challenge.category)
+        challenge.save()
 
         enrollment = Enrollment.objects.create(
             player = player, 
@@ -124,10 +151,16 @@ def challenge_create(request):
             md5.update(text)
             result = md5.hexdigest()
 
-            #TODO 하드코딩 말고 애를 다른 형식으로 전달할 수 있는지 코드리뷰에서 물어보기
             challenge.invitation_key = result
+
+            #create 와 동시에 enrollment 로 할당
+            Enrollment.objects.create(
+                player=request.user,
+                challenge=challenge
+            )
+            challenge.cur_pp += 1
             challenge.save()
-            print(challenge.pk)
+
             return redirect(f'/challenge/{challenge.pk}')
     else:
         form = ChallengeForm()
@@ -240,3 +273,32 @@ def invitation_accept(request):
 
 def invitation_failed(request):
     return render(request, 'challenge/invitation_failed.html')
+
+
+class SearchAjax(View):
+    # 포비든 문제때문에 추가
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(SearchAjax, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request):
+        req = json.loads(request.body)
+        word = req["value"]
+        # friendship 인스턴스 중 me field 가 user 인 인스턴스만 접근하는 방식
+        user = request.user
+        challenge_list = [] # user 의 친구 list
+        
+        challenge = user.self_set.filter(Q(challenge__title__icontains=word))
+        challenge_serializer = JSON.Serializer()
+        challenge_serialized = challenge_serializer.serialize(challenge)
+        
+        # friend 를 serialize 해서 json 으로 넘겨줬는데, 이게 끝이 아니라 friend list 를 넘겨줘야해
+        
+        for i, ch in enumerate(list(challenge)):
+            challenge_list.append(ch.title)
+        
+        challenge_list_serializer = JSON.Serializer()
+        challenge_list_serialized = fz_list_serializer.serialize(friend_list)
+    
+        return JsonResponse({"friend" : friend_serialized, "friend_list" : friend_list_serialized})
+     

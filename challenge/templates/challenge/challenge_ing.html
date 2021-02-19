@@ -3,7 +3,7 @@
 
 {% block extra_head %}
     <link rel="stylesheet" href="fontawesome-free-5.15.1-web/css/all.css">
-    <link rel="stylesheet" href="{% static 'challenge/css/challenge_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'challenge/css/challenge_ing.css' %}">
     <!-- axios install -->
     <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -19,6 +19,10 @@
         <i class="fas fa-heart"></i>
 
         <div class = "ch-desc">{{ challenge.desc }}</div> 
+        <form action="{% url 'challenge:challenge_delete' challenge.pk %}", method="POST">
+                {% csrf_token %}
+                <button class="ch-cancel" type="submit">챌린지 취소하기</button>
+        </form>
     </div>
 
     <div class = "right-container">
@@ -34,7 +38,7 @@
 
         <div class="ch-targetpp">
             <div>목표인원</div> 
-            <div style = "font-size: 20px;">{{challenge.cur_pp}}/{{challenge.max_pp}}</div>
+            <div style = "font-size: 20px;">4/9</div>
         </div>
 
         <div class="ch-category">
@@ -76,33 +80,17 @@
         
         
         <div class = "button-container">
-            {% if status %}
-            <form action="{% url 'challenge:challenge_delete' challenge.pk %}", method="POST">
-                {% csrf_token %}
-                <button class="ch-cancel" type="submit">챌린지 취소하기</button>
-                <div class="ch-share" onclick="urlGet({{challenge.id}});">챌린지 공유코드 확인하기</div>
-                <div id="url-link"></div>
-                <button class="ch-golist"><a href="{% url 'challenge:challenge_list' %}" style="text-decoration: none; color: #FFFFFF;">챌린지 리스트로 가기</a></button>
-            </form>
-            {% else %}
-                <form action="{% url 'challenge:challenge_enrollment' challenge.pk %}", method="POST">
-                    {% csrf_token %}
-                    <button class="ch-join" type="submit">나도 도전하기</button>
-                    <div class="ch-share" onclick="urlGet({{challenge.id}});">챌린지 공유코드 확인하기</div>
-                    <div id="url-link"></div>
-                    <button class="ch-golist"><a href="{% url 'challenge:challenge_list' %}" style="text-decoration: none; color: #FFFFFF;">챌린지 리스트로 가기</a></button>
-                </form>  
-            {% endif %}
-
-            {% comment %} <div>
+            <div>
                 {% if status %}
                     {% if enrollment.result %}
+                        <div class="challenge-ask">오늘 챌린지를 하셨나요?</div>
                         <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}} result-clicked ch-result">챌린지 성공</button>
                     {% else %}
+                        <div class="challenge-ask">오늘 챌린지를 하셨나요?</div>
                         <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}} ch-result">챌린지 성공</button>
                     {% endif %}
                 {% endif %}
-            </div> {% endcomment %}
+            </div>
         </div>
     </div>
 <hr> 
