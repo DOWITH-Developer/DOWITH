@@ -1,9 +1,11 @@
 * {
     box-sizing: border-box;
-    font-family: 'Do Hyeon', sans-serif;  
+    font-family: 'Do Hyeon', sans-serif;
 }
 
 body {
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     padding: 0;
     background: #ffffff;
@@ -16,16 +18,16 @@ body {
 }
 
 .title img{
-    width: 150px;
-    height: 110px;
+    width: 110px;
+    height: 85px;
 }
 
-.title h2{
+.title h1{
     padding: 20px;
     margin-top: 20px;
     height: 90px;
     line-height: 90px;
-    font-size: 70px;
+    font-size: 65px;
 }
 
 .category-container{

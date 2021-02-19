@@ -2,6 +2,15 @@
     box-sizing: border-box;
     font-family: 'Do Hyeon', sans-serif;  
 }
+
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+}
+
 option{
     font-family: 'Do Hyeon', sans-serif; 
 }
