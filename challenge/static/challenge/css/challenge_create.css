@@ -69,6 +69,19 @@ h2{
     border: 0.1px solid #C4C4C4;
 }
 
+
+
+.date-choice > input {
+    width: 25vw;
+    padding: 10px;
+    margin: 10px 20px;
+    border-radius: 20px;
+    background: #EFEFEF;
+    transform: rotate(-0.23deg);
+    border: 0.1px solid #C4C4C4;
+    font-size: 1rem;
+}
+
 textarea{
     height: 150px;
 }
