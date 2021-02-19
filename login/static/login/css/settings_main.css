@@ -78,7 +78,7 @@ body {
     background: #efefef;
     border-radius: 5px;
     width: 80%;
-    height: 60vh;
+    height: 100vh;
 }
 
 /* userInfo__content */
@@ -174,7 +174,7 @@ body {
 .userChallenge__content .status_0__container,
 .userChallenge__content .status_1__container,
 .userChallenge__content .status_2__container {
-    height: 50vh;
+    height: 70vh;
     width: 30%;
     margin: 0 1rem;
 
