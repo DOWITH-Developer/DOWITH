@@ -41,3 +41,123 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
+.settings__category {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem;
+}
+
+.userInfo,
+.userChallenge,
+.setting,
+.ToS,
+.check {
+    background-color: rgba(71, 204, 113, 0.4);
+    border-radius: 5px;
+    margin: 0.2rem;
+    padding: 0.3rem 1rem;
+
+    font-family: "Do Hyeon";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.userInfo:hover,
+.userChallenge:hover,
+.setting:hover,
+.ToS:hover,
+.check {
+    background-color: #47cc71;
+}
+
+.settings__content {
+    background: #efefef;
+    border-radius: 5px;
+    width: 80%;
+    height: 60vh;
+}
+
+.userInfo__content {
+    margin: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userInfo__content .profile_photo {
+    /* width: 15vw; */
+    width: 250px;
+    height: 250px;
+    background-color: #c4c4c4;
+    border-radius: 20px;
+    margin-bottom: 0.5rem;
+
+    /* img를 가운데에 정렬 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userInfo__content .profile_photo > img {
+    /* width: 15vw; */
+    width: 230px;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.userInfo__content .username,
+.userInfo__content .nickname,
+.userInfo__content .email {
+    font-family: "Do Hyeon";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    margin: 0.2rem;
+}
+
+.userInfo__modification {
+    width: 120px;
+    height: 30px;
+    /* margin-top: 40px; */
+    margin-top: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #47cc71;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+
+    font-family: "Do Hyeon";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 35px;
+}
+
+.userInfo_password__modification {
+    width: 150px;
+    height: 30px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #5c62cc;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+
+    font-family: "Do Hyeon";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 35px;
+}
+
+.userInfo__modification:hover,
+.userInfo_password__modification:hover {
+    cursor: pointer;
+}

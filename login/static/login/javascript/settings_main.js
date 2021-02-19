@@ -4,6 +4,7 @@ const setting = document.querySelector(".setting")
 const ToS = document.querySelector(".ToS")
 const contentBox = document.querySelector(".content")
 
+
  // userInfo
  const onClickUserInfo = async () => {
     const url = "/login/settings/user_info/" ; 
@@ -17,16 +18,16 @@ const printUserInfo = (name, nickname, email, is_social, image) => {
 
     let userInfoTemplate = `
         <div class="userInfo__content">
-            <div>
-                profile image : <img src="` + image + `" alt="profile_photo">` +
+            <div class="profile_photo">
+                <img src="` + image + `" alt="profile_photo">` +
             `</div>
-            <div>
+            <div class="username">
                 Username : ` + name +
             `</div>
-            <div>
+            <div class="nickname">
                 Nickname : ` + nickname +
             `</div>
-            <div>
+            <div class="email">
                 Email : ` + email
     //         + `</div>
     //         <input class="userInfo__modification" type="submit" value="수정하기"/>
@@ -65,7 +66,27 @@ const printUserInfo = (name, nickname, email, is_social, image) => {
     })
 }
 
+const checkAddCss = (event) => {
+    let target = event.currentTarget;
+    target.classList.add("check");
+
+    const settings_list = [userInfo, userChallenge, setting, ToS];
+    settings_list.forEach((i) => {
+        if (i == target){
+            i.classList.add("check");
+        }
+        else{
+            i.classList.remove("check");
+        }
+    })
+}
+
 userInfo.addEventListener("click", onClickUserInfo)
+
+userInfo.addEventListener("click", checkAddCss)
+userChallenge.addEventListener("click", checkAddCss)
+setting.addEventListener("click", checkAddCss)
+ToS.addEventListener("click", checkAddCss)
 
 
 
