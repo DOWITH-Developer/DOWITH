@@ -102,14 +102,26 @@ def my_page(request, pk):
 
     today = date.today() #오늘 날짜에 맞는 챌린지만 가져오게 하기
     enrollmentdates = EnrollmentDate.objects.all().filter(
-            enrollment__player=me, date__year=today.year, date__month=today.month, date__day=today.day)#.order_by('-pk')
-
+            enrollment__player=me, date__year=today.year, date__month=today.month, date__day=today.day)
+    challenge_success = EnrollmentDate.objects.all().filter(
+            enrollment__player=me, date_result=True)#.order_by('-pk')
+    
+    challenge_success_title = {}
+    for ch in challenge_success:
+        challenge_success_title[ch.enrollment.pk] = ch.enrollment.challenge.title
+    
+    challenge_success_serializer = json.Serializer()
+    challenge_success_serialized = challenge_success_serializer.serialize(
+        challenge_success)
+    
     ctx = {        
         'me': me,
         'friends': friends,
         'enrollmentdates': enrollmentdates,
         'friends_enrollment': friends_enrollment,
         'motivation_from_friends': motivation_from_friends,
+        'challenge_success' : JSON.dumps(challenge_success_serialized),
+        'challenge_success_title' : JSON.dumps(challenge_success_title),
     }
 
     print(ctx)
@@ -122,14 +134,14 @@ def register_success(request):
 def result_ajax(request):
     req = JSON.loads(request.body)
     enrollmentdate = EnrollmentDate.objects.get(id=req["id"])
-
+    enrollment_title = enrollmentdate.enrollment.challenge.title
     if enrollmentdate.date_result == False:
         enrollmentdate.date_result = True
     else:
         enrollmentdate.date_result = False
     enrollmentdate.save()
 
-    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.date_result})
+    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.date_result, 'title': enrollment_title})
 
 # settings
 
