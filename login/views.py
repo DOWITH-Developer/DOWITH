@@ -237,6 +237,7 @@ def social_sign_up(request):
             # is_ToS 체크돼서 올때
             if form.is_valid():
                 request.user.is_social = True
+                # TODO : 만약 로컬 회원가입 시 is_ToS 등이 false일 경우 로컬 계정은 소셜 계정이 됨
                 user = form.save()
                 return redirect("challenge:challenge_list")
             else:
@@ -252,7 +253,7 @@ def social_sign_up(request):
             }
             return render(request, "login/social_signup.html", ctx)
 
-    elif request.method == "GET" and request.user.is_ToS == False and request.user.email != None and request.user.username != None and request.user.nickname != None:
+    elif request.method == "GET" and (request.user.is_ToS == False or request.user.email == None or request.user.username == None or request.user.nickname == None):
         form = SocialSignUpForm(instance=request.user)
         ctx = {
             "form": form,

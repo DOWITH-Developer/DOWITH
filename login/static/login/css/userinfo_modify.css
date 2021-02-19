@@ -72,6 +72,7 @@ body {
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin: 1rem;
 }
 
@@ -144,4 +145,11 @@ body {
     font-weight: normal;
     font-size: 20px;
     line-height: 35px;
+}
+
+.current img {
+    height: 230px;
+    width: 230px;
+    object-fit: cover;
+    border-radius: 20px;
 }

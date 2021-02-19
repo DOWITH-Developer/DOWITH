@@ -23,10 +23,19 @@
             
                     {% for field in image_form %}
                         <div class="{{ field.id_for_label }}__container">
-                            <!-- <div class="modify__form-field"> -->
-                            <div>
+                            <div class="modify__form-field">
                                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                {{ field }}
+                                <div>
+                                    <div class="current">
+                                        <p>현재 사진</p>
+                                        <img src="{{ request.user.image.url }}" alt="">
+                                    </div>
+                                    <div class="change">
+                                        <p>변경할 사진</p>
+                                        <input type="file" name="image" accept="image/*" id="id_image">
+                                    </div>
+                                </div>
+                                <!-- {{ field }} -->
                             </div>
                         </div>
                     {% endfor %}

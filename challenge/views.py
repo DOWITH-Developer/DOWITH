@@ -19,6 +19,7 @@ import hashlib
 
 # decorator
 from login.decorators import allowed_users
+from django.contrib.auth.decorators import login_required
 
 
 def challenge_list(request):
@@ -105,6 +106,7 @@ def challenge_enrollment(request, pk):
         return redirect(f'/challenge/{challenge.pk}')
 
 
+@login_required
 @allowed_users
 def challenge_create(request):
     if request.method == 'POST':
