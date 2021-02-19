@@ -17,6 +17,9 @@ import threading
 import time
 import hashlib
 
+def home(request):
+    return render(request, "challenge/home.html")
+
 def challenge_list(request):
     alls = Challenge.objects.filter(private=0,status=0)
     languages = Challenge.objects.filter(
