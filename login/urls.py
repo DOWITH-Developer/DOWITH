@@ -22,4 +22,5 @@ urlpatterns = [
     path("social_signup/", social_sign_up, name="social_signup"),
     # success
     path("signup_success/", signup_success, name='signup_success'),
+    path("login_success/", login_success, name="login_success"),
 ]

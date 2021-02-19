@@ -70,7 +70,7 @@ def login(request):
         user = authenticate(email=email, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect("challenge:challenge_list")
+            return redirect("login:login_success")
         else:
             ctx = {
                 "form": form,
@@ -93,6 +93,9 @@ def logout(request):
         return redirect("login:test")
 def signup_success(request):
     return render(request, "login/signup_success.html")
+
+def login_success(request):
+    return render(request, "login/login_success.html")
 
 @allowed_users
 def my_page(request, pk):
@@ -277,4 +280,4 @@ def social_sign_up(request):
         return render(request, "login/social_signup.html", ctx)
 
     elif request.method == "GET":
-        return redirect("challenge:challenge_list")
+        return redirect("login:login_success")
