@@ -58,10 +58,6 @@ def sign_up(request):
         return render(request, "login/signup.html", ctx)
 
 
-def test(request):
-    return render(request, "login/layout.html")
-
-
 def login(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -88,14 +84,20 @@ def login(request):
 def logout(request):
     if request.method == "POST":
         auth_logout(request)
-        return redirect("login:test")
+        return redirect("home")
     elif request.method == "GET":
-        return redirect("login:test")
+        return redirect("login:logout_success")
+
+
 def signup_success(request):
     return render(request, "login/signup_success.html")
 
 def login_success(request):
     return render(request, "login/login_success.html")
+
+def logout_success(request):
+    return render(request, "login/logout_success.html")
+
 
 @allowed_users
 def my_page(request, pk):
