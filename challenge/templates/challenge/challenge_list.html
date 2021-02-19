@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{% static 'challenge/css/challenge_list.css' %}">
     <link rel="stylesheet" href="{% static 'challenge/css/search_challenge.css' %}">
     <script defer src="{% static 'challenge/javascript/challengeToggle.js' %}"></script>
+    <script defer src="{% static 'challenge/javascript/challenge_search.js' %}"></script>
     {% endblock %}
 
     {% block content %}
@@ -46,7 +47,7 @@
                     <button class="btn btn-primary btn-sm search-btn">챌린지 검색</button> 
                 </div>
             </form>
-            
+             
             <div class="searchList">
             {% if challenge_list %}
                 {% for challenge in challenge_list %}

@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block extra_head %}
+    <link rel="stylesheet" href="fontawesome-free-5.15.1-web/css/all.css">
     <link rel="stylesheet" href="{% static 'challenge/css/challenge_create.css' %}">
 {% endblock %}
 
@@ -24,10 +25,24 @@
                 <div class="value">{{form.desc}}</div>
             </div>
             <br>
-            
-            <div class = "label-container">
+                            
+            <div class="label-container">
+
                 <label>분류 : </label>
-                <div class="value">{{form.category}}</div>
+                    <div class="category-choice">
+                        <div class="category-three">
+                            <label class="category-choice-label"><input type="radio" name="category" value="language"><i class="fas fa-language"></i><span class="category__label">어학</span></label>
+                            <label class="category-choice-label"><input type="radio" name="category" value="job"><i class="fas fa-laptop-house"></i><span class="category__label">취업</span></label>
+                            <label class="category-choice-label"><input type="radio" name="category" value="NCS"><i class="fas fa-user-check"></i><span class="category__label">고시/공무원</span></label>
+                        </div>
+                        <div class="category-three">
+                            <label class="category-choice-label"><input type="radio" name="category" value="programming"><i class="fas fa-tv"></i><span class="category__label">프로그래밍</span></label>
+                            <label class="category-choice-label"><input type="radio" name="category" value="certificate"><i class="fas fa-medal"></i><span class="category__label">자격증</span></label>
+                            <label class="category-choice-label"><input type="radio" name="category" value="other"><i class="far fa-sticky-note"></i><span class="category__label">기타</span></label>
+                        </div>
+                        
+                    </div>
+
             </div>
             <br>
 
@@ -56,7 +71,7 @@
             <br>
 
             <div class = "label-container">
-                <label>기간 : </label>
+                <label>기간 (일): </label>
                 <div class="value">{{form.duration}}</div> 
             </div>
             <br>
@@ -65,6 +80,8 @@
                 <button type="submit" >등록하기</button>
             </div>
         </form>
+
+
     </div>
 </div>
 </div>

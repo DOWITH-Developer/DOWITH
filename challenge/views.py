@@ -93,6 +93,7 @@ def challenge_enrollment(request, pk):
         player = request.user
         challenge = Challenge.objects.get(pk=pk)
         challenge.cur_pp += 1
+        print(challenge.category)
         challenge.save()
 
         enrollment = Enrollment.objects.create(
@@ -241,3 +242,32 @@ def invitation_accept(request):
 
 def invitation_failed(request):
     return render(request, 'challenge/invitation_failed.html')
+
+
+class SearchAjax(View):
+    # 포비든 문제때문에 추가
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(SearchAjax, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request):
+        req = json.loads(request.body)
+        word = req["value"]
+        # friendship 인스턴스 중 me field 가 user 인 인스턴스만 접근하는 방식
+        user = request.user
+        challenge_list = [] # user 의 친구 list
+        
+        challenge = user.self_set.filter(Q(challenge__title__icontains=word))
+        challenge_serializer = JSON.Serializer()
+        challenge_serialized = challenge_serializer.serialize(challenge)
+        
+        # friend 를 serialize 해서 json 으로 넘겨줬는데, 이게 끝이 아니라 friend list 를 넘겨줘야해
+        
+        for i, ch in enumerate(list(challenge)):
+            challenge_list.append(ch.title)
+        
+        challenge_list_serializer = JSON.Serializer()
+        challenge_list_serialized = fz_list_serializer.serialize(friend_list)
+    
+        return JsonResponse({"friend" : friend_serialized, "friend_list" : friend_list_serialized})
+     

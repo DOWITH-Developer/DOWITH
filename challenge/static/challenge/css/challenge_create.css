@@ -46,7 +46,7 @@ h2{
     margin: 20px 0;
 }
 
-input, textarea, select{
+#id_min_pp, #id_max_pp, #id_title, #id_start_date, #id_duration, textarea, select{
     background: #EFEFEF;
     border-radius: 20px;
     transform: rotate(-0.23deg);
@@ -54,7 +54,18 @@ input, textarea, select{
     height: 40px;
     padding: 10px;
     font-weight: 300;
+    font-size: 1.2rem;
     margin: 10px 20px;
+    border: 0.1px solid #C4C4C4;
+}
+
+.category-choice {
+    width: 25vw;
+    padding: 10px;
+    margin: 10px 20px;
+    border-radius: 20px;
+    background: #EFEFEF;
+    transform: rotate(-0.23deg);
     border: 0.1px solid #C4C4C4;
 }
 
@@ -86,4 +97,35 @@ button:hover{
     display: flex;
     justify-content:center;
     align-items: center;
+}
+
+
+
+.category-choice label {
+    font-size: 50px;
+}
+
+input[type="radio"] {
+    display:none;
+}
+
+input:checked + i {
+    font-size: 60px;
+    color: #47CC71;
+}
+
+.category-choice-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.category__label {
+    font-size: 1.2rem;
+}
+
+.category-three {
+    display: flex;
+    justify-content: space-around;
 }
