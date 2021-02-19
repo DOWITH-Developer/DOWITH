@@ -60,6 +60,7 @@ input, textarea, select{
 
 textarea{
     height: 150px;
+    white-space: pre;
 }
 
 

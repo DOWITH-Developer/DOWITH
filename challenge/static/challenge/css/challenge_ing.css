@@ -49,6 +49,22 @@ body {
     white-space: pre;
 }
 
+.ch-cancel{
+    background: #EB7676;
+    border: 0.1px solid #EB7676;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    width: 15vw;
+    height: 35px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 auto;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+
 .container .right-container{
     width: 25%;
     height: 140vh;
@@ -99,82 +115,6 @@ body {
     font-weight: bold;
 }
 
-#url-link{
-    font-family: 'Do Hyeon', sans-serif;
-    text-align: center;
-}
-
-#copyBtn{
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
-    background: #47CC71;
-    border: 0.1px solid #47CC71;
-    width: 100px;
-    height: 23px;
-    color: #FFFFFF;
-    font-size: 13px;
-    font-weight: 400;
-    margin: 5px 0;
-    line-height: 23px;
-}
-
-#copyBtn:hover{
-    background: #06A739;
-    border: 0.1px solid #06A739;
-}
-
-.ch-join{
-    background: #5C62CC;
-    border: 0.1px solid #5C62CC;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
-    width: 15vw;
-    height: 35px;
-    color: #FFFFFF;
-    font-size: 15px;
-    font-weight: 600;
-    margin: 12px 0;
-}
-
-.ch-share{
-    background: #47CC71;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
-    line-height: 35px;
-    width: 15vw;
-    height: 35px;
-    color: #FFFFFF;
-    font-size: 15px;
-    font-weight: 600;
-    margin: 12px auto;
-}
-
-.ch-golist{
-    background: #F0D800;
-    border: 0.1px solid #F0D800;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
-    width: 15vw;
-    height: 35px;
-    color: #FFFFFF;
-    font-size: 15px;
-    font-weight: 600;
-    margin: 12px 0;
-}
-
-.ch-cancel{
-    background: #EB7676;
-    border: 0.1px solid #EB7676;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
-    width: 15vw;
-    height: 35px;
-    color: #FFFFFF;
-    font-size: 15px;
-    font-weight: 600;
-    margin: 12px 0;
-}
-
 .ch-result{
     background: #99D8F2;
     border: 2px dashed #00A8F0;
@@ -185,7 +125,6 @@ body {
     color: #FFFFFF;
     font-size: 15px;
     font-weight: 600;
-    margin: 12px 0;
 }
 
 .result-clicked {
@@ -199,5 +138,10 @@ body {
     color: #FFFFFF;
     font-size: 15px;
     font-weight: 600;
-    margin: 12px 0;
+}
+
+.challenge-ask{
+    padding: 25px 0;
+    font-size: 25px;
+    font-weight: bold;
 }

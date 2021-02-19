@@ -83,8 +83,14 @@ def challenge_detail(request, pk):
         # "private": challenge.private
     }
     # print(enrollment.total_player())
-    # print(data)    
-    return render(request, "challenge/challenge_detail.html", data)
+    # print(data)
+    if challenge.status == 0:
+        return render(request, "challenge/challenge_detail.html", data)
+    elif challenge.status == 1:
+        return render(request, "challenge/challenge_ing.html", data)
+    else:
+        return render(request, "challenge/challenge_done.html", data)
+    
 
 
 def challenge_enrollment(request, pk):
