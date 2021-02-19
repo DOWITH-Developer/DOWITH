@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'challenge/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="introduce">
+    <div class="introduce__detail"></div>
+    <div class="introduce__detail">자신만의 챌린지를 만들어 보세요!</div>
+    <div class="introduce__detail">매일매일 챌린지를 관리 해 보세요!</div>
+    <div class="introduce__detail">친구들과 함께 하세요!</div>
+    <div class="introduce__detail">친구가 아닌 사람들과도 함께 할 수 있어요!</div>
+    <div class="introduce__detail">카카오톡으로 알림도 받을 수 있어요!</div>
+    <div class="introduce__detail">DOWITH으로 함께 시작해봐요!</div>
+</div>
+
+<footer>
+    <div class="developers">
+        <h4>Developers</h4>
+        <ul class="developers__list">
+            <li><span style="color:#5C62CC">영빈</span>&nbsp;&nbsp;&nbsp;github.com/yb5464</li>
+            <li><span style="color:#5C62CC">인송</span>&nbsp;&nbsp;&nbsp;github.com/ingong</li>
+            <li><span style="color:#5C62CC">호영</span>&nbsp;&nbsp;&nbsp;github.com/HoYoungChun</li>
+            <li><span style="color:#5C62CC">지민</span>&nbsp;&nbsp;&nbsp;github.com/Charmull</li>
+            <li><span style="color:#5C62CC">지현</span>&nbsp;&nbsp;&nbsp;github.com/jihyunhong</li>
+        </ul>
+    </div>
+    <div class="logo">
+        <div><img class="logo__image" src="{% static 'img/DOWITH_logo.svg' %}" alt="logo" style="width:100px;"></div>
+        <span style="font-size:5px;">© DOWITH_DEVELOPER</span>
+    </div>
+</footer>
+
+{% endblock content %}

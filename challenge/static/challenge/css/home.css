@@ -1,0 +1,36 @@
+* {
+    font-family: "Do Hyeon", sans-serif;
+}
+
+.introduce__detail {
+    height: 100px;
+    text-align: center;
+}
+
+.introduce__detail:nth-child(2n + 1) {
+    background-color: #47cc71;
+    color: #ffffff;
+}
+
+.introduce__detail:nth-child(2n) {
+    background-color: #ffffff;
+    color: #47cc71;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 10px 0px;
+}
+
+.developers__list {
+    color: #47cc71;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    height: 140px;
+    justify-content: flex-end;
+}
