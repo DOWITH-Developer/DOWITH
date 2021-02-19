@@ -245,7 +245,10 @@ for (let i = 0; i < 6; i++) {
 
     window.addEventListener('DOMContentLoaded', selectMonth(thisMonth, thisYear))
 
-    
+    const todayId = (thisMonth < 10) ? `${thisYear}${'0' + thisMonth}${today.getDate()}`: `${thisYear}${thisMonth}${today.getDate()}`;
+    const todaySelector = document.getElementById(`${todayId}`);
+    const todayContainer = todaySelector.parentNode;
+    todayContainer.style.background = "skyblue";
     // style 에서 outline 을 추가만 할꺼야
 
 
@@ -254,9 +257,12 @@ for (let i = 0; i < 6; i++) {
     const url = "/result_ajax/";
 
     const { data } = await axios.post(url, {
-    id,
-    });
+        id,
+        });
     modify(data.id, data.result);
+        if (data.result == true){
+            changeCalendar(data.title, todayId)
+        }
     };
 
     const modify = (id, result) => {
@@ -272,12 +278,6 @@ for (let i = 0; i < 6; i++) {
         result_word.classList.add("success");
         }
     };
-
-    const todayId = (thisMonth < 10) ? `${thisYear}${'0' + thisMonth}${today.getDate()}`: `${thisYear}${thisMonth}${today.getDate()}`;
-    const todaySelector = document.getElementById(`${todayId}`);
-    const todayContainer = todaySelector.parentNode;
-    todayContainer.style.background = "skyblue";
-
 
     const changeCalendar = (title, date) => {
         const challengeContent = title + '🤔';
