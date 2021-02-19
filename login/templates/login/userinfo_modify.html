@@ -9,6 +9,10 @@
 {% block content %}
     <div class="userinfo_modify">
         <div class="userinfo_modify__container">
+            <div class="userinfo_modify__logo">
+                <img src="{% static 'img/DOWITH_logo.png' %}" alt="DOWITH_logo">
+            </div>
+
             <div class="userinfo_modify__title">
                 나의 정보 수정하기
             </div>
@@ -19,7 +23,8 @@
             
                     {% for field in image_form %}
                         <div class="{{ field.id_for_label }}__container">
-                            <div class="modify__form-field">
+                            <!-- <div class="modify__form-field"> -->
+                            <div>
                                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                                 {{ field }}
                             </div>
@@ -35,7 +40,7 @@
                                     {% if field.id_for_label != "id_password" %}
                                         {{ field }}
                                     {% else %}
-                                        <a href="{% url 'login:userinfo_password_modify' %}">비밀번호 바꾸기</a>
+                                        <a class="password_modify" href="{% url 'login:userinfo_password_modify' %}">비밀번호 변경 페이지로 이동</a>
                                     {% endif %}
                                 {% endif %}
                                 
@@ -50,8 +55,10 @@
                         </div>
                     {% endfor %}
                     
-                    <!-- {{ form.as_p }} -->
-                    <input type="submit" value="저장하기">
+
+                    <div class="modify__form-actions">
+                        <button type="submit">저장하기</button>
+                    </div>
                 </form>
             </div>
         </div>

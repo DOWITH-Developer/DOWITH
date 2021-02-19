@@ -17,6 +17,10 @@ import threading
 import time
 import hashlib
 
+# decorator
+from login.decorators import allowed_users
+
+
 def challenge_list(request):
     alls = Challenge.objects.filter(private=0,status=0)
     languages = Challenge.objects.filter(
@@ -100,6 +104,8 @@ def challenge_enrollment(request, pk):
     else:
         return redirect(f'/challenge/{challenge.pk}')
 
+
+@allowed_users
 def challenge_create(request):
     if request.method == 'POST':
         form = ChallengeForm(request.POST, request.FILES)

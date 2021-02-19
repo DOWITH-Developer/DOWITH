@@ -33,6 +33,16 @@ body {
     width: 400px;
 }
 
+/* 소셜 로그인을 위한 css */
+.login__title {
+    margin-bottom: 3rem;
+    font-family: "Do Hyeon";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    color: tomato;
+}
+
 .ToS {
     background-color: #efefef;
     width: 400px;

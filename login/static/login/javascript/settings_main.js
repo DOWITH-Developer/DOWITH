@@ -106,6 +106,7 @@ const printUserChallenge = (enrollmentList, challengeList) => {
     const challengeListParsed = JSON.parse(challengeList)
     console.log(enrollmentListParsed);
     console.log(challengeListParsed)
+    console.log(challengeListParsed[0].pk)
 
     const userChallengeTemplate = `
         <div class="userChallenge__content">
@@ -149,7 +150,8 @@ const printUserChallenge = (enrollmentList, challengeList) => {
         //                             `<br><br>
         //                         </div>`;
         // const innerHtmlTemplate = `<div><a href="http://127.0.0.1:8000/challenge/3">챌린지 명 : ` + challengeListParsed[i].fields.title + `</a></div>`
-        const innerHtmlTemplate = `<div><a href="">챌린지 명 : ` + challengeListParsed[i].fields.title + `</a></div>`
+        const innerHtmlTemplate = `<div><a href="http://127.0.0.1:8000/challenge/` + challengeListParsed[i].pk + `">챌린지 명 : `
+                                    + challengeListParsed[i].fields.title + `</a></div>`
 
         const newChallengeDiv = new DOMParser().parseFromString(innerHtmlTemplate, "text/html").body.firstElementChild
         

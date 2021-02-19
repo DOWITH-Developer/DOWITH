@@ -11,3 +11,137 @@ body {
     margin-top: 10rem;
     /* justify-content: center; */
 }
+
+.userinfo_modify__container {
+    width: 80%;
+    /* border: 1px solid gray;
+    border-radius: 10px; */
+    text-align: center;
+    margin: 0 auto;
+    /* 세로로 가운데 정렬 */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userinfo_modify__logo {
+    margin-bottom: 50px;
+}
+
+.userinfo_modify__logo > img {
+    width: 400px;
+}
+
+.userinfo_modify__title {
+    margin-bottom: 3rem;
+    font-family: "Do Hyeon";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+}
+
+.userinfo_modify__body {
+    margin: 0 1rem 1rem;
+    /* margin: 1rem; */
+    font-family: "Do Hyeon";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 35px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.userinfo_modify__body > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* form 안의 내용 가로로 가운데 정렬 */
+    align-items: center;
+}
+
+.modify__form-field,
+.password-modify__form-field {
+    width: 350px;
+    /* height: 30px; */
+    font-weight: bold;
+
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem;
+}
+
+.password-modify__form-field {
+    width: 400px;
+}
+
+.modify__form-field label {
+    width: 100px;
+}
+
+.password-modify__form-field label {
+    width: 140px;
+}
+
+.modify__form-field input,
+.password-modify__form-field input {
+    width: 240px;
+    background-color: #efefef;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.modify__form-actions {
+    width: 50%;
+    /* font-weight: bold; */
+}
+
+.modify__form-actions button {
+    width: 120px;
+    height: 30px;
+    margin-top: 40px;
+    border: none;
+    border-radius: 20px;
+    background-color: #47cc71;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+
+    font-family: "Do Hyeon";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 35px;
+}
+
+.modify__form-actions > button:hover {
+    cursor: pointer;
+}
+
+.modify__form-error {
+    font-size: 17px;
+    /* margin-bottom: 10px; */
+    color: #5c62cc;
+}
+
+.password_modify {
+    width: 240px;
+    height: 30px;
+    border: none;
+    border-radius: 20px;
+    background-color: #5c62cc;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+
+    font-family: "Do Hyeon";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 35px;
+}
