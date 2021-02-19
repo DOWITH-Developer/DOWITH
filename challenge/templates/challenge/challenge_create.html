@@ -27,7 +27,6 @@
             <br>
                             
             <div class="label-container">
-
                 <label>분류 : </label>
                     <div class="category-choice">
                         <div class="category-three">
@@ -40,15 +39,19 @@
                             <label class="category-choice-label"><input type="radio" name="category" value="certificate"><i class="fas fa-medal"></i><span class="category__label">자격증</span></label>
                             <label class="category-choice-label"><input type="radio" name="category" value="other"><i class="far fa-sticky-note"></i><span class="category__label">기타</span></label>
                         </div>
-                        
                     </div>
-
             </div>
             <br>
 
             <div class = "label-container">
                 <label>공개 상태 : </label>
-                <div class="value">{{form.private}}</div>
+                <div class="category-choice">
+                    <div class="category-three">
+                        <label class="category-choice-label"><input type="radio" name="status" value="1"><span class="category__label category__btn">전체 공개</span></label>
+                        <label class="category-choice-label"><input type="radio" name="status" value="2"><span class="category__label category__btn">친구 공개</span></label>
+                        <label class="category-choice-label"><input type="radio" name="status" value="3"><span class="category__label category__btn">나만 공개</span></label>
+                    </div>
+                </div>
             </div>
             <br>
 

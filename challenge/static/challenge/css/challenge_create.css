@@ -113,6 +113,11 @@ input:checked + i {
     font-size: 60px;
     color: #47CC71;
 }
+input:checked + span {
+    font-size:1.3rem;
+    color: #FFFFFF;
+    background: #47CC71;
+}
 
 .category-choice-label {
     display: flex;
@@ -128,4 +133,10 @@ input:checked + i {
 .category-three {
     display: flex;
     justify-content: space-around;
+}
+
+.category__btn {
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px;
 }
