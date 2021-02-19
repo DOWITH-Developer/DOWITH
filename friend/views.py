@@ -229,9 +229,11 @@ class SearchAjax(View):
         
         for i, ch in enumerate(list(friend)):
             friend_list.append(ch.friend)
-        
+
         friend_list_serializer = JSON.Serializer()
         friend_list_serialized = friend_list_serializer.serialize(friend_list)
+
+        print(friend_list_serialized)
     
         return JsonResponse({"friend" : friend_serialized, "friend_list" : friend_list_serialized})
         
@@ -265,5 +267,8 @@ class SearchUserAjax(View):
             for user in users:
                 if not(Friendship.objects.filter(me=me, friend=user, accepted=True).exists()):
                     user_list[user.id] = {'pk':user.pk, 'username':user.username, 'nickname':user.nickname}
+                    
+                    #리스트로 할 경우
+                    #user_list.append({'pk':user.pk, 'username':user.username, 'nickname':user.nickname})
 
             return JsonResponse({'user_list': user_list})

@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 from login.models import User
 import datetime
 
@@ -12,6 +13,10 @@ import datetime
 # python hash
 # URLSAFE : 띄어쓰기, 덧셈이 urlsafe functionå
 
+
+# def less_then_min_validator(value1, value2):
+#     if len(value1) < value2:
+#         raise forms.ValidationError("최소 인원보다 작은 수의 인원을 입력하셨습니다.")
 
 def redirect_link(link):
     challenges = Challenge.objects.filter(link=link)

@@ -9,6 +9,8 @@ const getUserList = async () => {
 
     let userList = data.user_list;
 
+    console.log(userList)
+
     makeUserList(userList)
 }
 
@@ -19,8 +21,6 @@ const makeUserList = (userList) => {
         userInfo = userList[key]
         
         let { pk, username, nickname } = userInfo;
-
-        console.log(username);
 
         let newUser = document.createElement("div");
         newUser.className="friends"
@@ -47,8 +47,6 @@ const makeUserList = (userList) => {
         newUserProfileInfo.appendChild(newUserProfileLink)
         newUserProfile.appendChild(newUserProfileInfo)
 
-
-
         let newUserBtnDiv = document.createElement("div")
         newUserBtnDiv.className="friends__btn"
 
@@ -56,6 +54,18 @@ const makeUserList = (userList) => {
         newUserBtn.className="friends__add__btn"
         newUserBtn.innerHTML="자세히"
         newUserBtn.setAttribute('href', `../list/detail/${pk}`)
+
+        // {% url 'friend:friend_list' %}
+
+        // 127.0.0.1:8000/friend/list
+
+        // render -> html 파일을 알맞게 바꿔서 보내주는거
+
+        // 서버에서 raw data
+
+        // render -> html
+
+        // 클라이언트 -> 보여준다
 
         newUserBtnDiv.appendChild(newUserBtn)
         newUserProfile.appendChild(newUserBtnDiv)

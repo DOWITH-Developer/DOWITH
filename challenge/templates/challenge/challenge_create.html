@@ -78,7 +78,7 @@
                 <div class = "label-container">
                     <label>종료일 : </label>
                     <div class="date-choice">
-                        <input type="date", name="end_date" id="currentDate">
+                        <input type="date", name="end_date" id="endDate">
                     </div>
                 </div>
                 <br>
@@ -86,6 +86,7 @@
                 <div class="button-container">
                     <button type="submit" >등록하기</button>
                 </div>
+
             </form>
 
 
@@ -94,7 +95,8 @@
 
     <script>
     
-        document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);;
+        document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
+        document.getElementById('endDate').value = new Date().toISOString().substring(0,10);
 
     </script>
 
