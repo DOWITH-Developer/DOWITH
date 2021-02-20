@@ -2,6 +2,12 @@
     font-family: 'Do Hyeon', sans-serif;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+}
+
 #friend_search {
     background: #EFEFEF;
     border: 0px;

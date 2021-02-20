@@ -5,6 +5,9 @@
 body {
     width: 100vw;
     height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
 }
 
 .invitation__accept {
@@ -29,7 +32,13 @@ body {
 
 .invitation__logo > img {
     margin-right: 20px;
-    width:100px;
+    width: 110px;
+    height: 85px;
+}
+
+h1{
+    font-size: 65px;
+    margin: 10px 0;
 }
 
 .invitation__form {
@@ -46,6 +55,7 @@ body {
     border: 0px;
     text-align: center;
     margin-bottom: 30px;
+    background-color: #efefef;
 }
 
 .invitation__btn {

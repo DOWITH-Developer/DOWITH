@@ -2,6 +2,7 @@ from django.db import models
 from django import forms
 from login.models import User
 import datetime
+from hashid_field import HashidField, HashidAutoField
 
 # User
 # - is staff : 내부자냐 아니냐
@@ -67,7 +68,8 @@ class Challenge(models.Model):
         (1, '진행 중'),
         (2, '완료'),
     )
-
+    
+    id = HashidAutoField(primary_key=True)
     title = models.CharField(max_length=100, verbose_name="제목")
     desc = models.TextField(verbose_name="설명")
     category = models.CharField(
