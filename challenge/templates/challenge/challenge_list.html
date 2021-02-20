@@ -63,10 +63,10 @@
         <div class="content">
             <div class="searchList">
                 {% if challenge_list %}
-                    {% for challenge in challenge_list %}
+                    {% for cha in challenge_list %}
                         <li>
-                            <a href="{% url 'challenge:challenge_detail' challenge.pk %}">
-                                <span> {{ challenge.title }} </span>
+                            <a href="{% url 'challenge:challenge_detail' cha.pk %}">
+                                <span> {{ cha.title }} </span>
                                 <span> {{ cha.cur_pp }} / {{ cha.max_pp }}</span>
                             </a>
                             <br>
