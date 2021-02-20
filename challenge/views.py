@@ -17,10 +17,12 @@ from datetime import date
 import threading
 import time
 import hashlib
-
 # decorator
 from login.decorators import allowed_users
 from django.contrib.auth.decorators import login_required
+
+
+#TODO challenge_detail view Ajax 변수명 수정
 
 
 def home(request):
@@ -77,7 +79,9 @@ def challenge_list(request):
 
 
 def challenge_detail(request, pk):
-    challenge = Challenge.objects.get(pk=pk)
+    print(pk)
+    challenge = get_object_or_404(Challenge, pk=pk)
+    print(challenge)
 
     if Enrollment.objects.filter(challenge=challenge, player=request.user).exists():
         status = True
@@ -92,28 +96,20 @@ def challenge_detail(request, pk):
         "enrollment": enrollment,
         # "private": challenge.private
     }
-    print(challenge.start_date)
     today = datetime.date.today()
-    print(today)
-    return render(request, "challenge/challenge_detail.html", data)
-    
-    # print(date.today())
-    
-    
-
-    # if challenge.start_date > today:
-    #     challenge.status = 0
-    #     return render(request, "challenge/challenge_detail.html", data)
-    # elif (challenge.start_date <= today) and (today < challenge.end_date):
-    #     challenge.status = 1
-    #     enrollment.challenge.status = 1
-    #     return render(request, "challenge/challenge_ing.html", data)
-    # else:
-    #     challenge.status = 2
-    #     enrollment.challenge.status = 1
-    #     return render(request, "challenge/challenge_done.html", data)
-
-   
+    if challenge.start_date > today:
+        challenge.status = 0
+        challenge.save()
+        return render(request, "challenge/challenge_detail.html", data)
+    elif challenge.start_date <= today < challenge.end_date:
+        # 진행상황 (진행중)
+        challenge.status = 1
+        challenge.save()
+        return render(request, "challenge/challenge_ing.html", data)
+    else:
+        challenge.status = 2
+        challenge.save()
+        return render(request, "challenge/challenge_done.html", data)
 
 
 def challenge_enrollment(request, pk):
@@ -121,16 +117,15 @@ def challenge_enrollment(request, pk):
         player = request.user
         challenge = Challenge.objects.get(pk=pk)
         challenge.cur_pp += 1
-        print(challenge.category)
         challenge.save()
 
         enrollment = Enrollment.objects.create(
             player = player, 
             challenge = challenge,
             )
-        return redirect(f'/challenge/{challenge.pk}')
+        return redirect(f'/challenge/list/{challenge.pk}')
     else:
-        return redirect(f'/challenge/{challenge.pk}')
+        return redirect(f'/challenge/list/{challenge.pk}')
 
 
 @login_required
@@ -161,7 +156,7 @@ def challenge_create(request):
             challenge.cur_pp += 1
             challenge.save()
 
-            return redirect(f'/challenge/{challenge.pk}')
+            return redirect(f'/challenge/list/{challenge.pk}')
     else:
         form = ChallengeForm()
     return render(request, 'challenge/challenge_create.html', {"form": form})
@@ -170,14 +165,16 @@ def challenge_delete(request, pk):
     if request.method == "POST":
         player = request.user
         challenge = Challenge.objects.get(pk=pk)
+        challenge.cur_pp -= 1
+        challenge.save()
         enrollment = get_object_or_404(Enrollment, player=player, challenge=challenge)
         enrollment.delete()
-        return redirect(f'/challenge/{challenge.pk}')
+        return redirect(f'/challenge/list/{challenge.pk}')
     else: #GET
-        return redirect(f'/challenge/{challenge.pk}')
+        return redirect(f'/challenge/list/{challenge.pk}')
 
 
-    return redirect(f'/challenge/{challenge.pk}')
+    return redirect(f'/challenge/list/{challenge.pk}')
 
 #날짜바뀔때 실행하는 EnrollmentDate객체 만드는 함수
 # def make_enrollment_date():
@@ -256,6 +253,7 @@ class InvitationAjax(View):
     def post(self, request):
         req = json.loads(request.body)
         challenge_id = req["id"]
+        print(challenge_id)
         challenge = Challenge.objects.get(id=challenge_id)
 
         return JsonResponse({'id': challenge_id, 'invitation_key': challenge.invitation_key})
@@ -298,7 +296,7 @@ class SearchAjax(View):
             challenge_list.append(ch.title)
         
         challenge_list_serializer = JSON.Serializer()
-        challenge_list_serialized = fz_list_serializer.serialize(friend_list)
+        challenge_list_serialized = challenge_list_serializer.serialize(challenge_list)
     
-        return JsonResponse({"friend" : friend_serialized, "friend_list" : friend_list_serialized})
+        return JsonResponse({"challenge" : challenge_serialized, "challenge_list" : challenge_list_serialized})
      
