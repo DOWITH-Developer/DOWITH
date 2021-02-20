@@ -64,7 +64,13 @@
             <div class="searchList">
                 {% if challenge_list %}
                     {% for challenge in challenge_list %}
-                        <div><a href="{% url 'challenge:challenge_detail' challenge.pk %}">{{ challenge.title }}</a></div>
+                        <li>
+                            <a href="{% url 'challenge:challenge_detail' challenge.pk %}">
+                                <span> {{ challenge.title }} </span>
+                                <span> {{ cha.cur_pp }} / {{ cha.max_pp }}</span>
+                            </a>
+                            <br>
+                        </li>
                     {% endfor %}
                 {% elif search_term %}<!-- 검색란이 공란인지 확인-->
                         <div><i class="words-notfound">검색한 단어 '{{ search_term }}' 를 찾지 못했습니다.</i></div>

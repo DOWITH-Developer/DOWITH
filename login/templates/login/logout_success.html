@@ -1,0 +1,32 @@
+{% extends 'login/layout.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'login/css/register_success.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="success">
+        <div class="success__container">
+
+            <div class="success__logo">
+                <img src="{% static 'img/DOWITH_logo.png' %}" alt="logo">
+            </div>
+
+            <div class="success__content">
+                <p>로그아웃 하시겠습니까?</p>
+            </div>
+        
+            <div class="success__button">
+                <form action="{% url 'login:logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button class="success__home__btn" type="submit">네</button>
+                </form>
+            </div>
+        
+        </div>
+    </div>
+
+
+{% endblock content %} 
