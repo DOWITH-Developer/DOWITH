@@ -79,9 +79,7 @@ def challenge_list(request):
 
 
 def challenge_detail(request, pk):
-    print(pk)
     challenge = get_object_or_404(Challenge, pk=pk)
-    print(challenge)
 
     if Enrollment.objects.filter(challenge=challenge, player=request.user).exists():
         status = True
@@ -135,13 +133,13 @@ def challenge_enrollment(request, pk):
 def challenge_create(request):
     if request.method == 'POST':
         form = ChallengeForm(request.POST, request.FILES)
+        
         if form.is_valid():
             challenge = form.save()
             challenge.status = 0
 
             #url hash 값 생성
             HASH_NAME = "md5"
-            temp_hash = str(challenge.pk)
 
             text = temp_hash.encode('utf-8')
             md5 = hashlib.new(HASH_NAME)

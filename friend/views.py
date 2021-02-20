@@ -83,12 +83,7 @@ def new_fd_create(request, pk):
                 # return redirect('friend:fd_list')
 
     else:
-        form = FriendshipForm()
-        ctx = {
-            'form': form
-        }
         return redirect('friend:fd_list')
-
 
 def fd_approve(request, pk):
     if request.method == "POST":
