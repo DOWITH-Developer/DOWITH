@@ -182,3 +182,5 @@ ACCOUNT_EMAIL_VERIFICATION = None
 #         }
 #     }
 # }
+
+HASHID_FIELD_SALT = "long long time ago"
