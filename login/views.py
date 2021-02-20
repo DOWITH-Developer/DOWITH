@@ -39,7 +39,7 @@ def sign_up(request):
         else:
             ctx = {
                 "form": form,
-                "er" : form.non_field_errors(),
+                # "er" : form.non_field_errors(),
             }
             return render(request, "login/signup.html", ctx)
     # if request.method == "POST":

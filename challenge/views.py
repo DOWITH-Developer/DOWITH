@@ -157,6 +157,13 @@ def challenge_create(request):
             challenge.save()
 
             return redirect(f'/challenge/list/{challenge.pk}')
+        else:
+            print(form.non_field_errors())
+            ctx = {
+                "form": form,
+                "error" : form.non_field_errors(),
+            }
+            return render(request, "challenge/challenge_create.html", ctx)
     else:
         form = ChallengeForm()
     return render(request, 'challenge/challenge_create.html', {"form": form})

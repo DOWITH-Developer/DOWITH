@@ -55,6 +55,15 @@
                 </div>
                 <br>
 
+                {% if error|length > 0 %}
+                    {% for er in error %}
+                        <div>
+                            {% if er == "최대 인원이 최소 인원보다 작을 수 없습니다." %}
+                                {{er}}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 <div class = "label-container">
                     <label>최소 인원  (숫자 입력): </label>
                     <div class="value">{{form.min_pp}}</div>
@@ -67,6 +76,18 @@
                 </div>
                 <br>
 
+                <div class="concon">
+
+                </div>
+                {% if error|length > 0 %}
+                    {% for er in error %}
+                        <div>
+                            {% if er == "종료일이 시작일보다 빠를 수 없습니다." %}
+                                {{er}}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 <div class = "label-container">
                     <label>시작일 : </label>
                     <div class="date-choice">
