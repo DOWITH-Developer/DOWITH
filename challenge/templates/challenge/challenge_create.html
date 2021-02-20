@@ -41,6 +41,15 @@
                             </div>
                         </div>
                 </div>
+                {% if form.errors|length > 0 %}
+                    <div class="error">
+                        {% for field in form %}
+                            {% if field.id_for_label == "id_category" and field.errors|length > 0 %}
+                                {{ field.errors }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <br>
 
                 <div class = "label-container">
@@ -53,11 +62,17 @@
                         </div>
                     </div>
                 </div>
+                {% if form.errors|length > 0 %}
+                    <div class="error">
+                        {% for field in form %}
+                            {% if field.id_for_label == "id_private" and field.errors|length > 0 %}
+                                {{ field.errors }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <br>
 
-                {% if error_pp %}
-                    <div class="error">{{ error_pp }}</div>
-                {% endif %}
 
                 <div class = "label-container">
                     <label>최소 인원  (숫자 입력): </label>
@@ -69,12 +84,11 @@
                     <label>최대 인원  (숫자 입력): </label>
                     <div class="value">{{form.max_pp}}</div>
                 </div>
+                {% if error_pp %}
+                    <div class="error">{{ error_pp }}</div>
+                {% endif %}
                 <br>
 
-                {% if error_date %}
-                    <div class="error">{{ error_date }}</div>
-                {% endif %}
-                
                 <div class = "label-container">
                     <label>시작일 : </label>
                     <div class="date-choice">
@@ -89,6 +103,9 @@
                         <input type="date", name="end_date" id="endDate">
                     </div>
                 </div>
+                {% if error_date %}
+                    <div class="error">{{ error_date }}</div>
+                {% endif %}
                 <br>
 
                 <div class="button-container">

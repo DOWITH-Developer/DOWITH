@@ -97,9 +97,11 @@ class Challenge(models.Model):
             error_list.append("최대 인원이 최소 인원보다 작을 수 없습니다.")
         if self.start_date > self.end_date:
             error_list.append("종료일이 시작일보다 빠를 수 없습니다.")
-        raise ValidationError(error_list)
+        
+        if len(error_list) > 0:
+            raise ValidationError(error_list)
 
-        return super(User, self).clean(*args, **kwargs)
+        # return super(User, self).clean(*args, **kwargs)
 
 
 class Enrollment(models.Model):
