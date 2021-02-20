@@ -92,28 +92,20 @@ def challenge_detail(request, pk):
         "enrollment": enrollment,
         # "private": challenge.private
     }
-    print(challenge.start_date)
     today = datetime.date.today()
-    print(today)
-    return render(request, "challenge/challenge_detail.html", data)
-    
-    # print(date.today())
-    
-    
-
-    # if challenge.start_date > today:
-    #     challenge.status = 0
-    #     return render(request, "challenge/challenge_detail.html", data)
-    # elif (challenge.start_date <= today) and (today < challenge.end_date):
-    #     challenge.status = 1
-    #     enrollment.challenge.status = 1
-    #     return render(request, "challenge/challenge_ing.html", data)
-    # else:
-    #     challenge.status = 2
-    #     enrollment.challenge.status = 1
-    #     return render(request, "challenge/challenge_done.html", data)
-
-   
+    if challenge.start_date > today:
+        challenge.status = 0
+        challenge.save()
+        return render(request, "challenge/challenge_detail.html", data)
+    elif challenge.start_date <= today < challenge.end_date:
+        # 진행상황 (진행중)
+        challenge.status = 1
+        challenge.save()
+        return render(request, "challenge/challenge_ing.html", data)
+    else:
+        challenge.status = 2
+        challenge.save()
+        return render(request, "challenge/challenge_done.html", data)
 
 
 def challenge_enrollment(request, pk):
