@@ -9,12 +9,12 @@ def is_ToS(value):
         raise forms.ValidationError("약관에 동의해야 합니다.")
  
 class User(AbstractUser):
-    nickname = models.CharField(max_length=100, unique=True)
-    email = models.EmailField(max_length=255, unique=True)
-    username = models.CharField(max_length=150)
-    image = models.ImageField(upload_to="profile_photo/%Y/%m/%d/", default="profile_photo/default/DOWITH.png")
-    is_social = models.BooleanField(default=False)
-    is_ToS = models.BooleanField(default=False, validators=[is_ToS])
+    nickname = models.CharField(max_length=100, unique=True, verbose_name="닉네임")
+    email = models.EmailField(max_length=255, unique=True, verbose_name="이메일 (ID)")
+    username = models.CharField(max_length=150, verbose_name="이름")
+    image = models.ImageField(upload_to="profile_photo/%Y/%m/%d/", default="profile_photo/default/DOWITH.png", verbose_name="프로필 사진")
+    is_social = models.BooleanField(default=False, verbose_name="소셜 계정")
+    is_ToS = models.BooleanField(default=False, validators=[is_ToS], verbose_name="약관 동의")
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "nickname"]

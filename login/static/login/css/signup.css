@@ -93,6 +93,15 @@ body {
     padding: 10px;
 }
 
+/* .signup__form-field input[type="checkbox"] {
+    display: inline-block;
+    width: 240px;
+    background-color: #ac1010;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+} */
+
 /* input값이 invalid할 경우 테두리 빨간색 --> js로 처리해보자 */
 /* .signup__form-field input:invalid {
     border-color: red;

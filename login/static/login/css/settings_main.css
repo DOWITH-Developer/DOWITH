@@ -72,6 +72,7 @@ body {
 .ToS:hover,
 .check {
     background-color: #47cc71;
+    cursor: pointer;
 }
 
 .settings__content {
