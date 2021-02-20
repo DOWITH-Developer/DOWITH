@@ -11,7 +11,7 @@ class User(AbstractUser):
     image = models.ImageField(upload_to="profile_photo/%Y/%m/%d/", default="profile_photo/default/DOWITH.png")
     is_social = models.BooleanField(default=False)
     is_ToS = models.BooleanField(default=False)
-
+ 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "nickname"]
 
