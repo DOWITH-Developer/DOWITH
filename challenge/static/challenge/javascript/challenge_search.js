@@ -23,9 +23,9 @@ const printFriendList = (challengeList) => {
         let infoContainer = document.createElement("div");
         infoContainer.className = "friends__profile__info";
         infoContainer.innerHTML = `
-            <a href="detail/${pk}">
+            <a href="detail/${field.invitation_key}">
             <img class="friends__profile__image" src="img/DOWITH.png" alt="logo">
-            <p class="friends__profile__name"> ${fields.nickname} </p></a>
+            <p class="friends__profile__name"> ${fields.invitation_key} </p></a>
         `;
 
         let btnContainer = document.createElement("div");
