@@ -16,12 +16,12 @@
 
             <div class="success__content">
                 <p>반갑습니다!</p>
-                <p>회원가입이 완료되었습니다.</p>
+                <p>로그인 완료되었습니다.</p>
             </div>
         
             <div class="success__button">
                 <a href="{% url 'home' %}"><button class="success__home__btn">홈</button></a>
-                <a href="{% url 'login:login' %}"><button class="success__login__btn">로그인</button></a>
+                <a href="{% url 'login:my_page' pk=request.user.pk %}"><button class="success__login__btn">대시보드</button></a>
             </div>
         
         </div>

@@ -2,6 +2,12 @@
     font-family: "Do Hyeon", sans-serif;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+}
+
 .green_text {
     color: #47CC71;
 }

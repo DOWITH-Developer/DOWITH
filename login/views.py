@@ -33,33 +33,39 @@ def get_item(dictionary, key):
 def sign_up(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
-        if(request.POST.get("is_ToS")):
-            # is_ToS 체크돼서 올때
-            if form.is_valid():
-                user = form.save()
-                return redirect("challenge:challenge_list")
-            else:
-                ctx = {
-                    "form": form,
-                }
-                return render(request, "login/signup.html", ctx)
+        if form.is_valid():
+            user = form.save()
+            return redirect("login:signup_success")
         else:
-            # is_ToS 체크 안돼서 올때
             ctx = {
                 "form": form,
-                "ToS_error": "약관을 동의해야합니다."
             }
             return render(request, "login/signup.html", ctx)
+    # if request.method == "POST":
+    #     form = SignUpForm(request.POST)
+    #     if(request.POST.get("is_ToS")):
+    #         # is_ToS 체크돼서 올때
+    #         if form.is_valid():
+    #             user = form.save()
+    #             return redirect("login:signup_success")
+    #         else:
+    #             ctx = {
+    #                 "form": form,
+    #             }
+    #             return render(request, "login/signup.html", ctx)
+    #     else:
+    #         # is_ToS 체크 안돼서 올때
+    #         ctx = {
+    #             "form": form,
+    #             "ToS_error": "약관에 동의해야합니다."
+    #         }
+    #         return render(request, "login/signup.html", ctx)
     elif request.method == "GET":
         form = SignUpForm()
         ctx = {
             "form": form,
         }
         return render(request, "login/signup.html", ctx)
-
-
-def test(request):
-    return render(request, "login/layout.html")
 
 
 def login(request):
@@ -70,7 +76,7 @@ def login(request):
         user = authenticate(email=email, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect("challenge:challenge_list")
+            return redirect("login:login_success")
         else:
             ctx = {
                 "form": form,
@@ -88,9 +94,20 @@ def login(request):
 def logout(request):
     if request.method == "POST":
         auth_logout(request)
-        return redirect("login:test")
+        return redirect("home")
     elif request.method == "GET":
-        return redirect("login:test")
+        return redirect("login:logout_success")
+
+
+def signup_success(request):
+    return render(request, "login/signup_success.html")
+
+def login_success(request):
+    return render(request, "login/login_success.html")
+
+def logout_success(request):
+    return render(request, "login/logout_success.html")
+
 
 @allowed_users
 def my_page(request, pk):
@@ -106,34 +123,44 @@ def my_page(request, pk):
 
     today = date.today() #오늘 날짜에 맞는 챌린지만 가져오게 하기
     enrollmentdates = EnrollmentDate.objects.all().filter(
-            enrollment__player=me, date__year=today.year, date__month=today.month, date__day=today.day)#.order_by('-pk')
-
+            enrollment__player=me, date__year=today.year, date__month=today.month, date__day=today.day)
+    challenge_success = EnrollmentDate.objects.all().filter(
+            enrollment__player=me, date_result=True)#.order_by('-pk')
+    
+    challenge_success_title = {}
+    for ch in challenge_success:
+        challenge_success_title[ch.enrollment.pk] = ch.enrollment.challenge.title
+    
+    challenge_success_serializer = json.Serializer()
+    challenge_success_serialized = challenge_success_serializer.serialize(
+        challenge_success)
+    
     ctx = {        
         'me': me,
         'friends': friends,
         'enrollmentdates': enrollmentdates,
         'friends_enrollment': friends_enrollment,
         'motivation_from_friends': motivation_from_friends,
+        'challenge_success' : JSON.dumps(challenge_success_serialized),
+        'challenge_success_title' : JSON.dumps(challenge_success_title),
     }
 
     print(ctx)
     return render(request, "login/mypage.html", ctx)
 
-def register_success(request):
-    return render(request, 'login/register_success.html')
 
 @csrf_exempt
 def result_ajax(request):
     req = JSON.loads(request.body)
     enrollmentdate = EnrollmentDate.objects.get(id=req["id"])
-
+    enrollment_title = enrollmentdate.enrollment.challenge.title
     if enrollmentdate.date_result == False:
         enrollmentdate.date_result = True
     else:
         enrollmentdate.date_result = False
     enrollmentdate.save()
 
-    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.date_result})
+    return JsonResponse({'id': enrollmentdate.id, 'result': enrollmentdate.date_result, 'title': enrollment_title})
 
 
 
@@ -157,27 +184,43 @@ def userinfo_get(request):
     return JsonResponse({"name": user_name, "nickname": user_nickname, "email": user_email, "is_social": user_is_social, "image": user_image})
 
 
+# # challenge 자체의 모든 내용들을 보내는 방식
+# @csrf_exempt
+# def userchallenge_get(request):
+#     user = request.user
+#     user_enrollment_list = user.chEnrollment_set.all()  # user의 enrollment list
+#     user_challenge_list = []    # user가 참여한 challenge list
+
+#     # enrollment list 직렬화 --> QuerySet을 json으로 변환
+#     enrollment_list_serializer = json.Serializer()
+#     enrollment_list_serialized = enrollment_list_serializer.serialize(
+#         user_enrollment_list)
+
+#     # user가 참여한 challenge를 user_enrollment_list를 통해 가져와 list로 담음
+#     for i, ch in enumerate(list(user_enrollment_list)):
+#         user_challenge_list.append(ch.challenge)
+
+#     # challenge list 직렬화 --> QuerySet을 json으로 변환
+#     challenge_list_serializer = json.Serializer()
+#     challenge_list_serialized = challenge_list_serializer.serialize(
+#         user_challenge_list)
+
+#     return JsonResponse({"enrollment_list": enrollment_list_serialized, "challenge_list": challenge_list_serialized})
+
+
+# challenge에서 필요한 내용들만 보내는 방식
 @csrf_exempt
 def userchallenge_get(request):
     user = request.user
     user_enrollment_list = user.chEnrollment_set.all()  # user의 enrollment list
     user_challenge_list = []    # user가 참여한 challenge list
 
-    # enrollment list 직렬화 --> QuerySet을 json으로 변환
-    enrollment_list_serializer = json.Serializer()
-    enrollment_list_serialized = enrollment_list_serializer.serialize(
-        user_enrollment_list)
-
     # user가 참여한 challenge를 user_enrollment_list를 통해 가져와 list로 담음
     for i, ch in enumerate(list(user_enrollment_list)):
-        user_challenge_list.append(ch.challenge)
+        user_challenge_list.append({"pk" : ch.challenge.pk, "title" : ch.challenge.title, "status" : ch.challenge.status})
 
-    # challenge list 직렬화 --> QuerySet을 json으로 변환
-    challenge_list_serializer = json.Serializer()
-    challenge_list_serialized = challenge_list_serializer.serialize(
-        user_challenge_list)
+    return JsonResponse({"challenge_list": user_challenge_list})
 
-    return JsonResponse({"enrollment_list": enrollment_list_serialized, "challenge_list": challenge_list_serialized})
 
 
 @csrf_exempt
@@ -239,7 +282,7 @@ def social_sign_up(request):
                 request.user.is_social = True
                 # TODO : 만약 로컬 회원가입 시 is_ToS 등이 false일 경우 로컬 계정은 소셜 계정이 됨
                 user = form.save()
-                return redirect("challenge:challenge_list")
+                return redirect("login:signup_success")
             else:
                 ctx = {
                     "form": form,
@@ -261,4 +304,4 @@ def social_sign_up(request):
         return render(request, "login/social_signup.html", ctx)
 
     elif request.method == "GET":
-        return redirect("challenge:challenge_list")
+        return redirect("login:login_success")

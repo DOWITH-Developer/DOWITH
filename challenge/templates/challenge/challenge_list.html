@@ -10,11 +10,11 @@
 <script defer src="{% static 'challenge/javascript/challenge_search.js' %}"></script>
 {% endblock %}
 
-{% block content %}
-<div class="title">
-    <img src="{% static 'img/DOWITH.png' %}" alt="logo">
-    <h2>챌린지</h2>
-</div>
+    {% block content %}
+    <div class="title">
+        <img src="{% static 'img/DOWITH.png' %}" alt="logo">
+        <h1>챌린지</h1>
+    </div>
 
     <div class="ch_add">
     <button class="ch-createBtn">
@@ -64,7 +64,13 @@
             <div class="searchList">
                 {% if challenge_list %}
                     {% for challenge in challenge_list %}
-                        <div><a href="{% url 'challenge:challenge_detail' challenge.pk %}">{{ challenge.title }}</a></div>
+                        <li>
+                            <a href="{% url 'challenge:challenge_detail' challenge.pk %}">
+                                <span> {{ challenge.title }} </span>
+                                <span> {{ cha.cur_pp }} / {{ cha.max_pp }}</span>
+                            </a>
+                            <br>
+                        </li>
                     {% endfor %}
                 {% elif search_term %}<!-- 검색란이 공란인지 확인-->
                         <div><i class="words-notfound">검색한 단어 '{{ search_term }}' 를 찾지 못했습니다.</i></div>
@@ -75,21 +81,84 @@
                 <div id="tab1" data-tab-content class="items">
             {% else %}
                 <div id="tab1" data-tab-content class="items active">
-            {% endif %}
+                {% endif %}
+    
                 {% for cha in alls %}
+                        <li>
+                            <a href="{% url 'challenge:challenge_detail' cha.id%}">
+                                <span>{{cha.title}}</span> 
+                                <span> {{ cha.cur_pp }} / {{ cha.max_pp }}</span>
+                            </a>
+                        </li>
+                        <br>
+                        {% endfor %}
+                    </div>
+                <div id="tab2" data-tab-content class="items">
+                    {% for cha in languages %}
                     <li>
-                        <div><a href="{% url 'challenge:challenge_detail' cha.pk %}">{{cha.title}}</a></div>
+                        <a href="{% url 'challenge:challenge_detail' cha.id%}">
+                            <span>{{cha.title}}</span> 
+                            <span> {{ cha.cur_pp }} / {{ cha.max_pp }}</span>
+                        </a>
                     </li>
                     <br>
                     {% endfor %}
                 </div>
-            <div id="tab2" data-tab-content class="items">
-                {% for cha in languages %}
-                <li>
-                    <div><a href="{% url 'challenge:challenge_detail' cha.pk %}">{{cha.title}}</a></div>
+                <div id="tab3" data-tab-content class="items">
+                    {% for cha in jobs %}
+                    <li>
+                        <a href="{% url 'challenge:challenge_detail' cha.id%}">
+                            <span>{{cha.title}}</span> 
+                            <span> {{ cha.cur_pp }} / {{ cha.max_pp }}</span>
+                        </a>
+                    </li>
+                    <br>
+                    {% endfor %}
+                </div>
+                <div id="tab4" data-tab-content class="items">
+                    {% for cha in NCSs %}
+                    <li>
+                        <a href="{% url 'challenge:challenge_detail' cha.id%}">
+                            <span>{{cha.title}}</span> 
+                            <span> {{ cha.cur_pp }} / {{ cha.max_pp }}</span>
+                        </a>
+                    </li>
+                    <br>
+                    {% endfor %}
+                </div>
+                <div id="tab5" data-tab-content class="items">
+                    {% for cha in programmings %}
+                    <li>
+                        <a href="{% url 'challenge:challenge_detail' cha.id%}">
+                            <span>{{cha.title}}</span> 
+                            <span> {{ cha.cur_pp }} / {{ cha.max_pp }}</span>
+                        </a>
+                    </li>
+                    <br>
+                    {% endfor %}
+                </div>
+                <div id="tab6" data-tab-content class="items">
+                    {% for cha in certificates %}
+                    <li>
+                    <a href="{% url 'challenge:challenge_detail' cha.id%}">
+                        <span>{{cha.title}}</span> 
+                        <span> {{ cha.cur_pp }} / {{ cha.max_pp }}</span>
+                    </a>
                 </li>
                 <br>
-                {% endfor %}
+                    {% endfor %}
+                </div>
+                <div id="tab7" data-tab-content class="items">
+                    {% for cha in others %}
+                    <li>
+                        <a href="{% url 'challenge:challenge_detail' cha.id%}">
+                            <span>{{cha.title}}</span> 
+                            <span> {{ cha.cur_pp }} / {{ cha.max_pp }}</span>
+                        </a>
+                    </li>
+                    <br>
+                    {% endfor %}
+                </div>
             </div>
             <div id="tab3" data-tab-content class="items">
                 {% for cha in jobs %}

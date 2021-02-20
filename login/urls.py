@@ -5,10 +5,8 @@ app_name = 'login'
 
 urlpatterns = [
     path("signup/", sign_up, name="signup"),
-    path("layout/", test, name="test"),  # 테스트용
     path("login/", login, name="login"),
     path("logout/", logout, name="logout"),
-    path("register/", register_success, name='register_success'),
     path("<int:pk>/mypage/",my_page, name="my_page"),
     # settings
     path("settings/", settings_main, name="settings"),
@@ -21,4 +19,8 @@ urlpatterns = [
          name="userinfo_password_modify"),
     # social sign up
     path("social_signup/", social_sign_up, name="social_signup"),
+    # success
+    path("signup_success/", signup_success, name='signup_success'),
+    path("login_success/", login_success, name="login_success"),
+    path("logout_success/", logout_success, name="logout_success"),
 ]
