@@ -9,6 +9,12 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ["is_ToS", "email", "username", "nickname"]
 
+    # def ToSS(self, *args, **kwargs):
+    #     is_ToS = self.cleaned_data.get("is_ToS")
+    #     print(is_ToS)
+    #     if is_ToS == False:
+    #         raise forms.ValidationError("약관에 동의해야 합니다.")
+    #     return is_ToS
 
 # class SocialSignUpForm(forms.Form):
 #     username = forms.CharField(max_length=100)

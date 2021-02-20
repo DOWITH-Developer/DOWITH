@@ -96,18 +96,83 @@ const onClickUserChallenge = async () => {
     const url = "/login/settings/user_challenge/";
 
     const {data} = await axios.get(url)
-    printUserChallenge(data.enrollment_list, data.challenge_list);
+    // printUserChallenge(data.enrollment_list, data.challenge_list);
+    printUserChallenge(data.challenge_list);
 }
 
-const printUserChallenge = (enrollmentList, challengeList) => {
+// // challenge 자체의 모든 내용들을 받는 방식
+// const printUserChallenge = (enrollmentList, challengeList) => {
+//     contentBox.innerHTML = ''
+
+//     const enrollmentListParsed = JSON.parse(enrollmentList)
+//     const challengeListParsed = JSON.parse(challengeList)
+//     console.log(enrollmentListParsed);
+//     console.log(challengeListParsed)
+//     console.log(challengeListParsed[0].pk)
+
+//     const userChallengeTemplate = `
+//         <div class="userChallenge__content">
+//             <div class="status_0__container">   
+//                 <div class="status_0__title">
+//                     대기 중
+//                 </div>
+//                 <div class="status_0">
+//                 </div>
+//             </div>
+
+//             <div class="status_1__container">   
+//                 <div class="status_1__title">
+//                     진행 중
+//                 </div>
+//                 <div class="status_1">
+//                 </div>
+//             </div>
+
+//             <div class="status_2__container">   
+//                 <div class="status_2__title">
+//                     완료
+//                 </div>
+//                 <div class="status_2">
+//                 </div>
+//             </div>
+//         </div>
+//     `
+//     const newUserChallengeDiv = new DOMParser().parseFromString(userChallengeTemplate, "text/html").body.firstElementChild
+//     contentBox.appendChild(newUserChallengeDiv)
+
+
+//     const status0 = document.querySelector(".status_0");
+//     const status1 = document.querySelector(".status_1");
+//     const status2 = document.querySelector(".status_2");
+//     for(let i = 0; i < challengeListParsed.length; i++){
+//         // const innerHtmlTemplate = `<div>챌린지 명 : ` + challengeListParsed[i].fields.title +
+//         //                             `<br>챌린지 창시일 : ` + challengeListParsed[i].fields.created_date +
+//         //                             `<br>챌린지 시작일 : ` + challengeListParsed[i].fields.start_date +
+//         //                             `<br>나의 챌린지 신청일 : ` + enrollmentListParsed[i].fields.created_at +
+//         //                             `<br><br>
+//         //                         </div>`;
+//         // const innerHtmlTemplate = `<div><a href="http://127.0.0.1:8000/challenge/3">챌린지 명 : ` + challengeListParsed[i].fields.title + `</a></div>`
+//         const innerHtmlTemplate = `<div><a href="http://127.0.0.1:8000/challenge/` + challengeListParsed[i].pk + `">챌린지 명 : `
+//                                 + challengeListParsed[i].fields.title + `</a></div>`
+
+//         const newChallengeDiv = new DOMParser().parseFromString(innerHtmlTemplate, "text/html").body.firstElementChild
+        
+//         if(challengeListParsed[i].fields.status === 0){
+//             status0.appendChild(newChallengeDiv);
+//         }
+//         else if(challengeListParsed[i].fields.status === 1){
+//             status1.appendChild(newChallengeDiv);
+//         }
+//         else if(challengeListParsed[i].fields.status === 2){
+//             status2.appendChild(newChallengeDiv);
+//         }
+//     }
+// }
+
+// challenge에서 필요한 내용들만 보내는 방식
+const printUserChallenge = (challengeList) => {
     contentBox.innerHTML = ''
-
-    const enrollmentListParsed = JSON.parse(enrollmentList)
-    const challengeListParsed = JSON.parse(challengeList)
-    console.log(enrollmentListParsed);
-    console.log(challengeListParsed)
-    console.log(challengeListParsed[0].pk)
-
+    
     const userChallengeTemplate = `
         <div class="userChallenge__content">
             <div class="status_0__container">   
@@ -142,26 +207,20 @@ const printUserChallenge = (enrollmentList, challengeList) => {
     const status0 = document.querySelector(".status_0");
     const status1 = document.querySelector(".status_1");
     const status2 = document.querySelector(".status_2");
-    for(let i = 0; i < challengeListParsed.length; i++){
-        // const innerHtmlTemplate = `<div>챌린지 명 : ` + challengeListParsed[i].fields.title +
-        //                             `<br>챌린지 창시일 : ` + challengeListParsed[i].fields.created_date +
-        //                             `<br>챌린지 시작일 : ` + challengeListParsed[i].fields.start_date +
-        //                             `<br>나의 챌린지 신청일 : ` + enrollmentListParsed[i].fields.created_at +
-        //                             `<br><br>
-        //                         </div>`;
-        // const innerHtmlTemplate = `<div><a href="http://127.0.0.1:8000/challenge/3">챌린지 명 : ` + challengeListParsed[i].fields.title + `</a></div>`
-        const innerHtmlTemplate = `<div><a href="http://127.0.0.1:8000/challenge/` + challengeListParsed[i].pk + `">챌린지 명 : `
-                                    + challengeListParsed[i].fields.title + `</a></div>`
+    for(let i = 0; i < challengeList.length; i++){
+        // const innerHtmlTemplate = `<div><a href="http://127.0.0.1:8000/challenge/3">챌린지 명 : ` + challengeList[i].title + `</a></div>`
+        const innerHtmlTemplate = `<div><a href="http://127.0.0.1:8000/challenge/` + challengeList[i].pk + `">챌린지 명 : `
+                                + challengeList[i].title + `</a></div>`
 
         const newChallengeDiv = new DOMParser().parseFromString(innerHtmlTemplate, "text/html").body.firstElementChild
         
-        if(challengeListParsed[i].fields.status === 0){
+        if(challengeList[i].status === 0){
             status0.appendChild(newChallengeDiv);
         }
-        else if(challengeListParsed[i].fields.status === 1){
+        else if(challengeList[i].status === 1){
             status1.appendChild(newChallengeDiv);
         }
-        else if(challengeListParsed[i].fields.status === 2){
+        else if(challengeList[i].status === 2){
             status2.appendChild(newChallengeDiv);
         }
     }
