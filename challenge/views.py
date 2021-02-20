@@ -96,6 +96,8 @@ def challenge_detail(request, pk):
         "enrollment": enrollment,
         # "private": challenge.private
     }
+
+    #TODO view 정리하기
     today = datetime.date.today()
     if challenge.start_date > today:
         challenge.status = 0
