@@ -158,10 +158,20 @@ def challenge_create(request):
 
             return redirect(f'/challenge/list/{challenge.pk}')
         else:
-            print(form.non_field_errors())
+            # print(form.non_field_errors())
+            error_pp = ""
+            error_date = ""
+
+            for error in form.non_field_errors():
+                if error == "최대 인원이 최소 인원보다 작을 수 없습니다.":
+                    error_pp = error
+                elif error == "종료일이 시작일보다 빠를 수 없습니다.":
+                    error_date = error
+            
             ctx = {
                 "form": form,
-                "error" : form.non_field_errors(),
+                "error_pp" : error_pp,
+                "error_date" : error_date,
             }
             return render(request, "challenge/challenge_create.html", ctx)
     else:
