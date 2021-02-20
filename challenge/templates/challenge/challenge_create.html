@@ -42,13 +42,13 @@
                         </div>
                 </div>
                 {% if form.errors|length > 0 %}
-                    <div class="error">
-                        {% for field in form %}
-                            {% if field.id_for_label == "id_category" and field.errors|length > 0 %}
+                    {% for field in form %}
+                        {% if field.id_for_label == "id_category" and field.errors|length > 0 %}
+                            <div class="error">    
                                 {{ field.errors }}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
                 <br>
 
@@ -63,13 +63,13 @@
                     </div>
                 </div>
                 {% if form.errors|length > 0 %}
-                    <div class="error">
-                        {% for field in form %}
-                            {% if field.id_for_label == "id_private" and field.errors|length > 0 %}
+                    {% for field in form %}
+                        {% if field.id_for_label == "id_private" and field.errors|length > 0 %}
+                            <div class="error">
                                 {{ field.errors }}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
                 <br>
 

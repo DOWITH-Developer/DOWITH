@@ -158,12 +158,6 @@ def challenge_create(request):
 
             return redirect(f'/challenge/list/{challenge.pk}')
         else:
-            print(form.errors)
-            # for error in form.errors:
-            #     if error == "category":
-            #         error_category = error
-            #         print(error_category)
-            print(form.non_field_errors())
             error_pp = ""
             error_date = ""
 
