@@ -41,7 +41,8 @@
                             </div>
                         </div>
                 </div>
-                {% if form.errors|length > 0 %}
+                <!-- 변수 자체를 뷰에서 넘겨받지 않을 때 -->
+                <!-- {% if form.errors|length > 0 %}
                     {% for field in form %}
                         {% if field.id_for_label == "id_category" and field.errors|length > 0 %}
                             <div class="error">    
@@ -49,7 +50,16 @@
                             </div>
                         {% endif %}
                     {% endfor %}
+                {% endif %} -->
+                {% if "category" in error_list %}
+                    <div class="error">
+                        {{ error_list|get_item:"category" }}
+                    </div>
                 {% endif %}
+                <!-- 변수를 뷰에서 넘겨받을 때 -->
+                <!-- {% if error_category %}
+                    <div class="error">{{ error_category }}</div>
+                {% endif %} -->
                 <br>
 
                 <div class = "label-container">
@@ -62,7 +72,8 @@
                         </div>
                     </div>
                 </div>
-                {% if form.errors|length > 0 %}
+                <!-- 변수 자체를 뷰에서 넘겨받지 않을 때 -->
+                <!-- {% if form.errors|length > 0 %}
                     {% for field in form %}
                         {% if field.id_for_label == "id_private" and field.errors|length > 0 %}
                             <div class="error">
@@ -70,7 +81,16 @@
                             </div>
                         {% endif %}
                     {% endfor %}
+                {% endif %} -->
+                {% if "private" in error_list %}
+                    <div class="error">
+                        {{ error_list|get_item:"private" }}
+                    </div>
                 {% endif %}
+                <!-- 변수를 뷰에서 넘겨받을 때 -->
+                <!-- {% if error_private %}
+                    <div class="error">{{ error_private }}</div>
+                {% endif %} -->
                 <br>
 
 
@@ -84,9 +104,15 @@
                     <label>최대 인원  (숫자 입력): </label>
                     <div class="value">{{form.max_pp}}</div>
                 </div>
-                {% if error_pp %}
-                    <div class="error">{{ error_pp }}</div>
+                {% if "pp" in error_list %}
+                    <div class="error">
+                        {{ error_list|get_item:"pp" }}
+                    </div>
                 {% endif %}
+                <!-- 변수를 뷰에서 넘겨받을 때 -->
+                <!-- {% if error_pp %}
+                    <div class="error">{{ error_pp }}</div>
+                {% endif %} -->
                 <br>
 
                 <div class = "label-container">
@@ -103,9 +129,15 @@
                         <input type="date", name="end_date" id="endDate">
                     </div>
                 </div>
-                {% if error_date %}
-                    <div class="error">{{ error_date }}</div>
+                {% if "date" in error_list %}
+                    <div class="error">
+                        {{ error_list|get_item:"date" }}
+                    </div>
                 {% endif %}
+                <!-- 변수를 뷰에서 넘겨받을 때 -->
+                <!-- {% if error_date %}
+                    <div class="error">{{ error_date }}</div>
+                {% endif %} -->
                 <br>
 
                 <div class="button-container">
