@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: 'Do Hyeon', sans-serif;  
+    font-family: "Do Hyeon", sans-serif;
 }
 
 body {
@@ -11,52 +11,58 @@ body {
     background: #ffffff;
 }
 
-option{
-    font-family: 'Do Hyeon', sans-serif; 
+option {
+    font-family: "Do Hyeon", sans-serif;
 }
 
-content{
+content {
     width: 70%;
     height: 90%;
-    background: #FFFFFF;
+    background: #ffffff;
     mix-blend-mode: normal;
     border: 1px solid rgba(0, 0, 0, 0.55);
     box-sizing: border-box;
     border-radius: 20px;
 }
 
-.total-container{
+.total-container {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
 }
 
-h2{
+h2 {
     text-align: center;
     padding: 30px;
     margin-top: 20px;
     font-weight: 200;
-    font-family: 'Do Hyeon', sans-serif;  
+    font-family: "Do Hyeon", sans-serif;
 }
 
-.form-container{
+.form-container {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     width: 100%;
 }
 
-.label-container{
+.label-container {
     display: flex;
     justify-content: space-between;
 }
 
-.label-container label{
+.label-container label {
     margin: 20px 0;
 }
 
-#id_min_pp, #id_max_pp, #id_title, #id_start_date, #id_duration, textarea, select{
-    background: #EFEFEF;
+#id_min_pp,
+#id_max_pp,
+#id_title,
+#id_start_date,
+#id_duration,
+textarea,
+select {
+    background: #efefef;
     border-radius: 20px;
     transform: rotate(-0.23deg);
     width: 25vw;
@@ -65,7 +71,7 @@ h2{
     font-weight: 300;
     font-size: 1.2rem;
     margin: 10px 20px;
-    border: 0.1px solid #C4C4C4;
+    border: 0.1px solid #c4c4c4;
 }
 
 .category-choice {
@@ -73,73 +79,68 @@ h2{
     padding: 10px;
     margin: 10px 20px;
     border-radius: 20px;
-    background: #EFEFEF;
+    background: #efefef;
     transform: rotate(-0.23deg);
-    border: 0.1px solid #C4C4C4;
+    border: 0.1px solid #c4c4c4;
 }
-
-
 
 .date-choice > input {
     width: 25vw;
     padding: 10px;
     margin: 10px 20px;
     border-radius: 20px;
-    background: #EFEFEF;
+    background: #efefef;
     transform: rotate(-0.23deg);
-    border: 0.1px solid #C4C4C4;
+    border: 0.1px solid #c4c4c4;
     font-size: 1rem;
 }
 
-textarea{
+textarea {
     height: 150px;
     white-space: pre;
 }
 
-
-button{
+button {
     font-style: normal;
     font-size: 18px;
     line-height: 34px;
-    background: #47CC71;
+    background: #47cc71;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    border: 0.1px solid #47CC71;
-    color: #FFFFFF;
+    border: 0.1px solid #47cc71;
+    color: #ffffff;
     width: 20vw;
     margin: 30px;
 }
 
-button:hover{
-    color: #FFFFFF;
+button:hover {
+    color: #ffffff;
     background: #007826;
     border: 0.1px solid #007826;
 }
 
-.button-container{
+.button-container {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
 }
-
-
 
 .category-choice label {
     font-size: 50px;
 }
 
 input[type="radio"] {
-    display:none;
+    display: none;
 }
 
 input:checked + i {
     font-size: 60px;
-    color: #47CC71;
+    color: #47cc71;
 }
 input:checked + span {
-    font-size:1.3rem;
-    color: #FFFFFF;
-    background: #47CC71;
+    font-size: 1.3rem;
+    color: #ffffff;
+    background: #47cc71;
 }
 
 .category-choice-label {
@@ -162,4 +163,12 @@ input:checked + span {
     background-color: white;
     border-radius: 20px;
     padding: 10px;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #5c62cc;
 }
