@@ -70,6 +70,7 @@ h1{
 
 .friend__search {
     width: 60%;
+    height: 80vh;
     overflow: auto;
     text-align: center;
     min-height: 30%;
@@ -110,6 +111,7 @@ h1{
 .friend__request {
     width: 30%;
     min-height: 30%;
+    height: 80vh;
     float: right;
     background: #EFEFEF;
     border-radius: 20px;
