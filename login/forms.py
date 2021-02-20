@@ -9,7 +9,14 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ["is_ToS", "email", "username", "nickname"]
 
-    # def ToSS(self, *args, **kwargs):
+    # def clean_username(self, *args, **kwargs):
+    #     username = self.cleaned_data.get("username")
+    #     print(username)
+    #     if username == "안녕":
+    #         raise forms.ValidationError("안녕은 안돼")
+    #     return username
+
+    # def clean_is_ToS(self, *args, **kwargs):
     #     is_ToS = self.cleaned_data.get("is_ToS")
     #     print(is_ToS)
     #     if is_ToS == False:
