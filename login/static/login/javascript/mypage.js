@@ -20,9 +20,7 @@ let thirdModalText = thirdContent.textContent;
 
 const alertModal = document.querySelector('.alert__modal');
 const alertModalContainer = document.querySelector('.alert__modal__container');
-const alertConfirm = document.querySelector('.alertconfirm');
 const alertModalContent = document.querySelector('.alert__modal__content');
-const finalConfirm = document.querySelector('.finalconfirm');
 
 const deleteOneMotivModal = document.querySelector('.Delete__Onemotiv__Modal');
 const deleteOneModalContent = document.querySelector('.delete-one-modal-content');
