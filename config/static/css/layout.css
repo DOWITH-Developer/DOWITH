@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 
 /* root */
 :root {
@@ -139,7 +139,7 @@ nav {
     box-shadow: var(--light-shadow);
     height: 10vh;
     display: flex;
-    font-family: 'Do Hyeon', sans-serif;
+    font-family: "Do Hyeon", sans-serif;
 }
 
 .nav-center {
@@ -147,6 +147,7 @@ nav {
     padding: 0;
     width: 100vw;
 }
+
 .nav-header {
     display: flex;
     align-items: center;
@@ -161,6 +162,7 @@ nav {
     transition: var(--transition);
     cursor: pointer;
 }
+
 .nav-toggle:hover {
     color: var(--clr-primary-1);
     transform: rotate(90deg);
@@ -178,6 +180,7 @@ nav {
     padding: 0.5rem 1rem;
     transition: var(--transition);
 }
+
 .links a:hover {
     background: var(--clr-primary-8);
     color: var(--clr-green-1);
@@ -198,44 +201,42 @@ nav {
     background-color: var(--clr-green-1);
 }
 
-@media screen and (min-width: 800px) {
-    .nav-center {
-        max-width: 1170px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem;
-    }
-    .nav-header {
-        padding: 0;
-    }
-    .nav-toggle {
-        display: none;
-    }
-    .links {
-        height: auto;
-        display: flex;
-    }
-    .links a {
-        padding: 0;
-        margin: 0 0.5rem;
-    }
-    .links a:hover {
-        padding: 0;
-        background: transparent;
-    }
-    .social-icons {
-        display: flex;
-    }
-    .social-icons a {
-        margin: 0 0.5rem;
-        color: var(--clr-primary-5);
-        transition: var(--transition);
-    }
-    .social-icons a:hover {
-        color: var(--clr-primary-7);
-    }
+.nav-center {
+    max-width: 1170px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+.nav-header {
+    padding: 0;
+}
+.nav-toggle {
+    display: none;
+}
+.links {
+    height: auto;
+    display: flex;
+}
+.links a {
+    padding: 0;
+    margin: 0 0.5rem;
+}
+.links a:hover {
+    padding: 0;
+    background: transparent;
+}
+.social-icons {
+    display: flex;
+}
+.social-icons a {
+    margin: 0 0.5rem;
+    color: var(--clr-primary-5);
+    transition: var(--transition);
+}
+.social-icons a:hover {
+    color: var(--clr-primary-7);
 }
 
 .btn {
@@ -343,7 +344,6 @@ main {
     margin-bottom: 0;
     padding-top: 1rem;
 }
-
 
 #main__logo {
     width: 100px;

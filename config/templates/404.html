@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/404.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/4b9ba14b0f.js" crossorigin="anonymous"></script>
+{% endblock extra_head %}
+
+{% block content %}
+<div class="mainbox">
+    <div class="err"></div>
+    <i class="far fa-question-circle fa-spin"></i>
+    <div class="err2"></div>
+    <div class="msg"><b>원하시는 페이지를 찾을 수가 없습니다</b><p><a href="{% url 'challenge:home' %}">메인화면으로 이동</a></p></div>
+</div>
+{% endblock %}

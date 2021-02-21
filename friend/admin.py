@@ -9,5 +9,5 @@ class FriendshipAdmin(admin.ModelAdmin):
 
 @admin.register(Motivation)
 class MotivationAdmin(admin.ModelAdmin):
-    list_display = ['me', 'friend']
-    list_display_links = ['me','friend']
+    list_display = ['me', 'friend', 'count']
+    list_display_links = ['me','friend', 'count']
