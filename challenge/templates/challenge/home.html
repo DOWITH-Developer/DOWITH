@@ -8,25 +8,89 @@
 
 {% block content %}
 <div class="introduce">
-    <div class="introduce__detail"></div>
-    <div class="introduce__detail">자신만의 챌린지를 만들어 보세요!</div>
-    <div class="introduce__detail">매일매일 챌린지를 관리 해 보세요!</div>
-    <div class="introduce__detail">친구들과 함께 하세요!</div>
-    <div class="introduce__detail">친구가 아닌 사람들과도 함께 할 수 있어요!</div>
-    <div class="introduce__detail">카카오톡으로 알림도 받을 수 있어요!</div>
-    <div class="introduce__detail">DOWITH으로 함께 시작해봐요!</div>
+    <div class="introduce__detail content1">
+        <img src="{% static 'img/DOWITH_logo.png' %}" alt="DOWITH_logo">
+        <a href="{% url 'login:login' %}"><button>시작하기</button></a>
+        
+    </div>
+    <div class="introduce__detail content2">
+        <img src="{% static 'challenge/img/challenge-list.png' %}" alt="challenge-lsit">
+        <h2>자신만의 챌린지를 만들어 보세요!</h2>
+    </div>
+    <div class="introduce__detail content3">
+        <h2>다양한 분야의 스터디를 제공하고 있습니다!</h2>
+        <div class="category-container">
+            <div class="category category-lan">
+                <i class="fas fa-language"></i>
+                <div>어학</div>
+            </div>
+            <div class="category category-job">
+                <i class="fas fa-laptop-house"></i>
+                <div>취업</div>
+            </div>
+            <div class="category category-NCS">
+                <i class="fas fa-user-check"></i>
+                <div>고시/공무원</div>
+            </div>
+            <div class="category category-programming">
+                <i class="fas fa-tv"></i>
+                <div>프로그래밍</div>
+            </div>
+            <div class="category category-certificate">
+                <i class="fas fa-medal"></i>
+                <div>자격증</div>
+            </div>
+        </div>
+    </div>
+    <div class="introduce__detail content4">
+        <h2>매일매일 챌린지를 관리 해 보세요!</h2>
+        <img src="{% static 'challenge/img/challenge-list.png' %}" alt="challenge-lsit">
+    </div>
+    <div class="introduce__detail content5">
+        <h2>챌린지 공개 범위도 내맘대로!</h2>
+        <div class="private-container">
+            <div class="greenbox">
+                <div class="whitebox">
+                    <div>모두와 함께 도전할 수 있는 </div>
+                    <div>전체공개 챌린지</div>
+                    <div class="button">전체공개</div>
+                </div>
+            </div>
+            <div class="greenbox">
+                <div class="whitebox">
+                    <div>친구랑만 도전하고 싶은</div>
+                    <div>우리만의 챌린지</div>
+                    <div class="button">친구공개</div>
+                </div>
+            </div>
+            <div class="greenbox">
+                <div class="whitebox">
+                    <div>공개하기엔 부끄러운 </div>
+                    <div>나만의 시크릿 챌린지</div>
+                    <div class="button">나만보기</div>
+                </div>
+            </div>
+        </div>   
+    </div>
+    <div class="introduce__detail content6">
+        <h2>DOWITH으로 함께 시작해보아요!</h2>
+        <a href="{% url 'login:signup' %}"><button>시작하기</button></a>
+        
+    </div>
 </div>
 
 <footer>
     <div class="developers">
-        <h4>Developers</h4>
-        <ul class="developers__list">
-            <li><span style="color:#5C62CC">영빈</span>&nbsp;&nbsp;&nbsp;github.com/yb5464</li>
-            <li><span style="color:#5C62CC">인송</span>&nbsp;&nbsp;&nbsp;github.com/ingong</li>
-            <li><span style="color:#5C62CC">호영</span>&nbsp;&nbsp;&nbsp;github.com/HoYoungChun</li>
-            <li><span style="color:#5C62CC">지민</span>&nbsp;&nbsp;&nbsp;github.com/Charmull</li>
-            <li><span style="color:#5C62CC">지현</span>&nbsp;&nbsp;&nbsp;github.com/jihyunhong</li>
-        </ul>
+        <div class="developers-container">
+            <h4>Developers</h4>
+            <ul class="developers__list">
+                <li><span style="color:#5C62CC">영빈</span>&nbsp;&nbsp;&nbsp;github.com/yb5464</li>
+                <li><span style="color:#5C62CC">인송</span>&nbsp;&nbsp;&nbsp;github.com/ingong</li>
+                <li><span style="color:#5C62CC">호영</span>&nbsp;&nbsp;&nbsp;github.com/HoYoungChun</li>
+                <li><span style="color:#5C62CC">지민</span>&nbsp;&nbsp;&nbsp;github.com/Charmull</li>
+                <li><span style="color:#5C62CC">지현</span>&nbsp;&nbsp;&nbsp;github.com/jihyunhong</li>
+            </ul>
+        </div>
     </div>
     <div class="logo">
         <div><img class="logo__image" src="{% static 'img/DOWITH_logo.svg' %}" alt="logo" style="width:100px;"></div>
