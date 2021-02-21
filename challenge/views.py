@@ -24,8 +24,7 @@ from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import register
 
 
-#TODO challenge_detail view Ajax 변수명 수정
-
+#TODO inviation => 수정
 
 @register.filter
 def get_item(dictionary, key):
@@ -101,20 +100,16 @@ def challenge_detail(request, pk):
         # "private": challenge.private
     }
 
-    #TODO view 정리하기
-    today = datetime.date.today()
-    if challenge.start_date > today:
-        challenge.status = 0
-        challenge.save()
+    if challenge.status == 0:
         return render(request, "challenge/challenge_detail.html", data)
-    elif challenge.start_date <= today < challenge.end_date:
-        # 진행상황 (진행중)
-        challenge.status = 1
-        challenge.save()
+    elif challenge.status == 1:
+        if EnrollmentDate.objects.filter(enrollment=enrollment, date=datetime.date.today()).exists():
+            enrollment_date = get_object_or_404(EnrollmentDate, enrollment=enrollment, date=datetime.date.today())
+            data['success'] = enrollment_date.date_result
+        else:
+            data['success'] = None
         return render(request, "challenge/challenge_ing.html", data)
     else:
-        challenge.status = 2
-        challenge.save()
         return render(request, "challenge/challenge_done.html", data)
 
 
@@ -142,11 +137,18 @@ def challenge_create(request):
         
         if form.is_valid():
             challenge = form.save()
-            challenge.status = 0
+
+            if challenge.start_date > datetime.date.today():
+                challenge.status = 0
+            elif challenge.end_date < datetime.date.today():
+                challenge.status = 2
+            else:
+                challenge.status = 1
 
             #url hash 값 생성
             HASH_NAME = "md5"
             temp_hash = str(challenge.pk)
+
             text = temp_hash.encode('utf-8')
             md5 = hashlib.new(HASH_NAME)
             md5.update(text)
@@ -159,6 +161,7 @@ def challenge_create(request):
                 player=request.user,
                 challenge=challenge
             )
+
             challenge.cur_pp += 1
             challenge.save()
 
@@ -237,15 +240,15 @@ class ResultAjax(View):
         challenge_id = req["id"]
         challenge = Challenge.objects.get(id=challenge_id)
         enrollment = Enrollment.objects.get(player=request.user, challenge=challenge)
-        print(enrollment.result)
+        enrollment_date = get_object_or_404(EnrollmentDate, enrollment=enrollment, date=datetime.date.today())
 
-        if enrollment.result == False:
-            enrollment.result = True
+        if enrollment_date.date_result == False:
+            enrollment_date.date_result = True
         else:
-            enrollment.result = False
-        enrollment.save()
+            enrollment_date.date_result = False
+        enrollment_date.save()
 
-        return JsonResponse({'id': challenge_id, 'result': enrollment.result})
+        return JsonResponse({'id': challenge_id, 'result': enrollment_date.date_result})
 
 #         if challenge.success.filter(id=user.id).exists():
 #             # user has already liked this company
@@ -263,8 +266,8 @@ class ResultAjax(View):
 
 
 def challenge_invitation(request, invitation):
-    challenge = Challenge.objects.get(invitation_key=invitation)
-    
+    challenge = get_object_or_404(Challenge, invitation_key=invitation)
+
     if Enrollment.objects.filter(challenge=challenge, player=request.user).exists():
         status = True
         enrollment = Enrollment.objects.get(player=request.user, challenge=challenge)
@@ -278,9 +281,18 @@ def challenge_invitation(request, invitation):
         "enrollment": enrollment,
         # "private": challenge.private
     }
-    # print(enrollment.total_player())
-    # print(data)    
-    return render(request, "challenge/challenge_detail.html", data) 
+
+    if challenge.status == 0:
+        return render(request, "challenge/challenge_detail.html", data)
+    elif challenge.status == 1:
+        if EnrollmentDate.objects.filter(enrollment=enrollment, date=datetime.date.today()).exists():
+            enrollment_date = get_object_or_404(EnrollmentDate, enrollment=enrollment, date=datetime.date.today())
+            data['success'] = enrollment_date.date_result
+        else:
+            data['success'] = None
+        return render(request, "challenge/challenge_ing.html", data)
+    else:
+        return render(request, "challenge/challenge_done.html", data)
 
 
 
@@ -306,8 +318,10 @@ def invitation_accept(request):
             return redirect(f'/challenge/invite/' + invitation_key)
         else:
             return redirect(f'/challenge/invitation/failed')
+
     else:    
         return render(request, 'challenge/invitation_accept.html')
+
 
 def invitation_failed(request):
     return render(request, 'challenge/invitation_failed.html')
