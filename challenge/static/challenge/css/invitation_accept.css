@@ -1,3 +1,15 @@
+@keyframes slidein {
+    from {
+        margin-top: 0px;
+        width: 100%;
+    }
+    to {
+        margin-top: 50px;
+        width: 100%;
+    }
+}
+
+
 * {
     font-family: 'Do Hyeon', sans-serif;          
 }
@@ -12,15 +24,21 @@ body {
 
 .invitation__accept {
     display: flex;
-    height: 100%;
+    height: 90%;
     flex-direction: column;
     justify-content: center;
+
 }
 
 .invitation__accept__container {
     width: 80%;
     text-align:center;
     margin: 0 auto;
+
+    margin-top: 50px;
+
+    animation-duration: 1.5s;
+    animation-name: slidein;
 }
 
 .invitation__logo {

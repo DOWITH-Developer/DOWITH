@@ -1,3 +1,13 @@
+@keyframes slidein {
+    from {
+        margin-top: 0px;
+    }
+    to {
+        margin-top: 50px;
+    }
+}
+
+
 * {
     box-sizing: border-box;
     font-family: "Do Hyeon", sans-serif;
@@ -15,6 +25,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 50px;
+
+    animation-duration: 1.5s;
+    animation-name: slidein;
 }
 
 .title img {
