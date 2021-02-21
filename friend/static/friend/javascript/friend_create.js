@@ -19,8 +19,8 @@ const makeUserList = (userList) => {
 
     for (var key in userList) {
         userInfo = userList[key]
-        
-        let { pk, username, nickname } = userInfo;
+        console.log(userInfo)
+        let { pk, username, nickname, image } = userInfo;
 
         let newUser = document.createElement("div");
         newUser.className="friends"
@@ -35,8 +35,8 @@ const makeUserList = (userList) => {
         newUserProfileLink.setAttribute('href', `../list/detail/${pk}`)
 
         let newUserProfileImg = document.createElement("img")
-        newUserProfileImg.className="friends__profile__imgae"
-        newUserProfileImg.setAttribute('src', '#')
+        newUserProfileImg.className="friends__profile__image"
+        newUserProfileImg.setAttribute('src', `${image}`)
 
         let newUserProfileName = document.createElement("p")
         newUserProfileName.className="friends__profile__name"

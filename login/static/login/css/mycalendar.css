@@ -14,15 +14,50 @@
     margin: 4rem auto;
     padding: 0;
     width: 100%;
-    height: 70vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
+.friend__detail__calendar__container {
+    width: 90vw;
+    margin: 0 auto;
+    background-color: #efefef;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.calendar_title {
+    width: 100%;
+    text-align: center;
+    font-family: "Do Hyeon", sans-serif;
+    font-weight: 100;
+}
+
+.calendar_header {
+    display: flex;
+    justify-content: space-around;
+    height: 7vh;
+    margin-bottom: 6px;
+    width: 100%;
+}
+
+.previous,
+.after {
+    background: #47cc71;
+    border-radius: 20px;
+    width: 100px;
+    border: 0px;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+}
+
+
 .weekday {
-    height: 8%;
+    height: 5%;
     width: 100%;
     padding: 0.5rem 0;
     background-color: #47cc71;
@@ -44,7 +79,7 @@
     display: inline-block;
     vertical-align: bottom;
     width: calc(97% / 7);
-    height: calc(98% / 5);
+    height: calc(98% / 5.9);
     box-sizing: border-box;
     /* background-clip: content-box; */
     border-radius: 5px;

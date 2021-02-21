@@ -1,6 +1,15 @@
+@keyframes slidein {
+    from {
+        margin-top: 0px;
+    }
+    to {
+        margin-top: 50px;
+    }
+}
+
 body {
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
     background-color: #ffffff;
 }
 
@@ -8,7 +17,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: 15rem;
+    margin-top: 50px;
     /* justify-content: center; */
 }
 
@@ -18,6 +27,12 @@ body {
     border-radius: 10px; */
     text-align: center;
     margin: 0 auto;
+
+    margin-top: 50px;
+
+
+    animation-duration: 1.5s;
+    animation-name: slidein;
 
     /* display: flex;
     flex-direction: column;
@@ -29,7 +44,7 @@ body {
 }
 
 .login__logo > img {
-    width: 400px;
+    width: 350px;
 }
 
 .login__body {

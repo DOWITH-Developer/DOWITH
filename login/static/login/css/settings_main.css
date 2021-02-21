@@ -1,3 +1,12 @@
+@keyframes slidein {
+    from {
+        margin-top: 0px;
+    }
+    to {
+        margin-top: 50px;
+    }
+}
+
 body {
     width: 100vw;
     height: 100vh;
@@ -10,6 +19,13 @@ body {
     margin: 0 auto;
     margin-top: 5rem;
     text-align: center;
+
+
+    margin-top: 50px;
+
+
+    animation-duration: 1.5s;
+    animation-name: slidein;
 
     display: flex;
     flex-direction: column;

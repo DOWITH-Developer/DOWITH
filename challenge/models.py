@@ -97,6 +97,11 @@ class Challenge(models.Model):
             error_list.append("최대 인원이 최소 인원보다 작을 수 없습니다.")
         if self.start_date > self.end_date:
             error_list.append("종료일이 시작일보다 빠를 수 없습니다.")
+        if self.min_pp == 0:
+            error_list.append("최소 인원은 0이 될 수 없습니다.")
+        if self.start_date < datetime.date.today():
+            error_list.append(f"시작일은 {datetime.date.today()} (오늘) 이전이 될 수 없습니다.")
+
         
         if len(error_list) > 0:
             raise ValidationError(error_list)

@@ -1,3 +1,13 @@
+@keyframes slidein {
+    from {
+        margin-top: 0px;
+    }
+    to {
+        margin-top: 30px;
+    }
+}
+
+
 * {
     font-family: "Do Hyeon", sans-serif;
 }
@@ -24,6 +34,11 @@ h3 {
     padding: 8px 12px;
     width: 60%;
     margin: 0 auto;
+    margin-top: 30px;
+
+    animation-duration: 1.5s;
+    animation-name: slidein;
+
 }
 
 .calendar_title {
@@ -49,6 +64,17 @@ h3 {
     color: white;
     height: 30px;
     cursor: pointer;
+}
+
+.calendar_container.container {
+    background-color: #efefef;
+    border-radius: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 80px;
+    padding: 20px;
 }
 
 .container {
@@ -229,6 +255,9 @@ h3 {
 
 .friends__profile__image {
     width: 80px;
+    height: 80px;
+    /* cover할건가요? */
+    object-fit: cover;
     margin: 0 auto;
 }
 
