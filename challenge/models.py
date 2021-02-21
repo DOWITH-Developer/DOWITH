@@ -108,7 +108,7 @@ class Enrollment(models.Model):
 class EnrollmentDate(models.Model):
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE, verbose_name="인롤먼트", related_name="chEnrollmentDate_set")
     date_result = models.BooleanField(default=False)
-    date = models.DateField(auto_now_add=True) #12시 1분쯤 생성된 시간이 들어감
+    date = models.DateField(blank=True) #12시 1분쯤 생성된 시간이 들어감
 
     def __str__(self):
         return str(self.enrollment) +'   date:'+ str(self.date)
