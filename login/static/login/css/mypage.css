@@ -8,7 +8,7 @@ body {
     background: #ffffff;
 }
 
-h3{
+h3 {
     text-align: center;
     font-family: "Do Hyeon", sans-serif;
     font-weight: 100;
@@ -26,8 +26,8 @@ h3{
     margin: 0 auto;
 }
 
-.container{
-    background-color: #efefef; 
+.container {
+    background-color: #efefef;
     border-radius: 20px;
     width: 100%;
     display: flex;
@@ -38,7 +38,7 @@ h3{
 }
 
 .green_text {
-    color: #47CC71;
+    color: #47cc71;
 }
 
 .mypage a {
@@ -46,13 +46,13 @@ h3{
     color: black;
 }
 
-.motivation_container{
+.motivation_container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
-.moti{
+.moti {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -63,28 +63,28 @@ h3{
 
 .moti div:first-child {
     list-style: none;
-    background-color: #C4C4C4;
+    background-color: #c4c4c4;
     border-radius: 20px;
     width: 80%;
     padding: 3px 0;
     text-align: center;
 }
 
-.moti button{
-    background-color: #EB7676;
-    border: 1px solid #EB7676;
+.moti button {
+    background-color: #eb7676;
+    border: 1px solid #eb7676;
     border-radius: 20px;
     font-weight: 100;
     padding: 7px 20px;
     color: white;
 }
-.moti_delete_all{
-    background-color: #EB7676;
-    border: 1px solid #EB7676;
+.moti_delete_all {
+    background-color: #eb7676;
+    border: 1px solid #eb7676;
     border-radius: 20px;
     font-weight: 100;
     padding: 7px 15px;
-    color: white; 
+    color: white;
     margin-top: 15px;
 }
 
@@ -106,7 +106,7 @@ h3{
     width: 100%;
 }
 .mypage .one_challenge .challenge_title {
-    background-color: #C4C4C4;
+    background-color: #c4c4c4;
     border-radius: 20px;
     width: 80%;
     padding: 3px 0;
@@ -124,8 +124,8 @@ h3{
 }
 
 .mypage .one_challenge .fail {
-    background-color: #EB7676;
-    border: 1px solid #EB7676;
+    background-color: #eb7676;
+    border: 1px solid #eb7676;
     border-radius: 20px;
     font-weight: 100;
     padding: 7px;
@@ -140,16 +140,15 @@ h3{
 }
 
 /* 챌린지 관련 */
-.challenge_list .container{
+.challenge_list .container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 }
 
-
 /* 친구관련 */
-.friend__list .container{
+.friend__list .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -175,7 +174,7 @@ h3{
     flex-direction: row;
     justify-content: space-around;
 }
-.friends{
+.friends {
     flex-flow: wrap;
 }
 
@@ -205,6 +204,9 @@ h3{
 
 .friends__profile__image {
     width: 80px;
+    height: 80px;
+    /* cover할건가요? */
+    object-fit: cover;
     margin: 0 auto;
 }
 
@@ -218,13 +220,13 @@ h3{
     height: 30px;
 }
 
-.friend__motivation{
+.friend__motivation {
     width: 100%;
 }
 
-.setting-btn{
-    background: #47CC71;
-    border: 1px solid #47CC71;
+.setting-btn {
+    background: #47cc71;
+    border: 1px solid #47cc71;
     border-radius: 20px;
     line-height: 50px;
     width: 25vw;
@@ -233,20 +235,19 @@ h3{
     font-weight: 600;
     margin: 12px auto;
 }
-.all-friend-btn{
-    background-color: #47CC71;
-    border: 1px solid #47CC71;
+.all-friend-btn {
+    background-color: #47cc71;
+    border: 1px solid #47cc71;
     border-radius: 20px;
     font-weight: 100;
     padding: 7px 15px;
-    color: white; 
+    color: white;
 }
-.all-friend-btn a{
-    color: #FFFFFF;
+.all-friend-btn a {
+    color: #ffffff;
 }
 
-
-.setting-btn a{
-    color: #FFFFFF;
+.setting-btn a {
+    color: #ffffff;
     font-weight: 100;
 }
