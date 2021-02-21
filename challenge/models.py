@@ -117,7 +117,7 @@ class Enrollment(models.Model):
         unique_together = ('challenge', 'player',)
 
     def __str__(self):
-        return str(self.challenge) +' '+ str(self.player) +' created_at:'+str(self.created_at)
+        return '{1} : {0}'.format(self.challenge.title, self.player.nickname)
 
 class EnrollmentDate(models.Model):
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE, verbose_name="인롤먼트", related_name="chEnrollmentDate_set")
@@ -125,4 +125,4 @@ class EnrollmentDate(models.Model):
     date = models.DateField(blank=True) #12시 1분쯤 생성된 시간이 들어감
 
     def __str__(self):
-        return str(self.enrollment) +'   date:'+ str(self.date)
+        return str(self.enrollment.challenge.title) +' '+str(self.enrollment.player.username) + ' date: '+ str(self.date)

@@ -29,11 +29,5 @@ def make_enrollment_date():
             new_ed = EnrollmentDate(enrollment=E, date=datetime.date.today())
             new_ed.save() #오늘의 날짜로 EnrollmentDate 생성
 
-
-#12시에 시작 하면 안돼 큰일남
-#1. 지현이가 한 것 -> 12시가 되면 오늘과 스타트 데이트를 비교해서 status 정보를 바꿔줘야 함
-#2. 바뀐 status정보를 가지고 오늘을 기점으로 status가 1인 enrollment들만 enrollmentDate로 새로 만들어 줘야해
-
-
 change_challenge_status()
 make_enrollment_date()
