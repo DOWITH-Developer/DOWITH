@@ -69,21 +69,19 @@
                             <div class="firstModal">
                                 <!-- First Modal content -->
                                 <div class="first-modal-content first-modal">
-                                    <span class="close">&times;</span>
                                     <div class="modal-first-content">
                                         <p class="firstContent">콕 찌르시겠습니까?</p>
                                         <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
-                                        <button class="cancel motivationbtn">취소</button>
+                                        <button class="motivationbtn" onclick="cancelFirst()">취소</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="secondModal">
                                 <!-- Second Modal content -->
                                 <div class="second-modal-content second-modal">
-                                    <span class="close">&times;</span>
                                     <div class="modal-second-content">
                                         <p class="secondContent"></p>
-                                        <button class="finalconfirm motivationbtn">확인</button>
+                                        <button class="finalconfirm motivationbtn" onclick="cancelSecond()">확인</button>
                                     </div>
                                 </div>
                             </div>
@@ -107,31 +105,32 @@
                     <button class="motivationbtn" onclick="removeMotivation({{motivation.id}})">지우기</button>
                 </li>
                 <div class="Delete__Onemotiv__Modal">
-                    <!-- First Modal content -->
                     <div class="delete-one-modal-content">
                         <p class="delete-one-content">해당 콕 찌르기를 지우시겠습니까?</p>
-                        <button class="confirm motivationbtn" onclick="makeOneRemove({{motivation.id}})">확인</button>
-                        <button class="cancelremove motivationbtn"">취소</button>
+                        <div class="button__container">
+                            <button class="confirm motivationbtn" onclick="makeOneRemove({{motivation.id}})">확인</button>
+                            <button class="motivationbtn" onclick="cancelDelete()">취소</button>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
             <div class="thirdModal">
                 <div class="third-modal-content">
                     <p class="thirdContent">모든 콕 찌르기를 지우시겠습니까?</p>
-                    <button class="confirm motivationbtn" onclick="makeRemove()">확인</button>
-                    <button class="cancelremove motivationbtn">취소</button>
+                    <div class="button__container">
+                        <button class="confirm motivationbtn" onclick="makeRemove()">확인</button>
+                        <button class="motivationbtn" onclick="cancelAllDelete()">취소</button>
+                    </div>
                 </div>
             </div>
         </div>
-
-
 
         <a href="{% url 'login:settings' %}">설정으로 가기</a>
         <br>
         <div class="alert__modal">
             <div class="alert__modal__container">
                 <p class="alert__modal__content"></p>
-                <button class="alertconfirm motivationbtn">확인</button>
+                <button class="motivationbtn" onclick="alertConfirm()">확인</button>
             </div>
         </div>
     </div>
@@ -352,12 +351,5 @@ for (let i = 0; i < 6; i++) {
         date = date.replace('-', '')
         changeCalendar(enrollment, true, date)
     }
-    // TODO
-    // 1. 챌린지 성공상태에서 눌렀을 때 달력에서 제거 -> 여러 개 중복 생성을 방지 
-
-    // 2. 달력에서 쓰레기통 버튼을 눌럿을 때 -> 모달 정말 삭제하시겠습니까? -> django viewes delete
-    // 3. 2번을 ajax 로 구현
-    // 4. 날짜를 눌렀을 때 추가하거나 수정이 가능하게 만들기! 
-
     </script>
 {% endblock %}

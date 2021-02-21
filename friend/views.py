@@ -168,7 +168,8 @@ class MotivationAjax(View):
         req = json.loads(request.body)
         user_id =req['id']
         user = User.objects.get(id=user_id)
-
+        print(request);
+        
         if not(Motivation.objects.filter(me=request.user, friend=user).exists()):
             motivation = Motivation.objects.create(
                 me=request.user,
@@ -176,6 +177,7 @@ class MotivationAjax(View):
         )
         else:
             motivation = Motivation.objects.get(me=request.user, friend=user)
+            print(motivation)
             motivation.count += 1
             motivation.save()
         return JsonResponse({'user': user.nickname, 'count':motivation.count})

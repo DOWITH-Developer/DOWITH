@@ -69,15 +69,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="secondModal">
-                            <!-- Second Modal content -->
-                            <div class="second-modal-content second-modal">
-                                <div class="modal-second-content">
-                                    <p class="secondContent"></p>
-                                    <button class="finalconfirm motivationbtn">확인</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             {% endfor %}
@@ -117,6 +108,38 @@
 
 
             {% endfor %}
+        </div>
+        <div class="allModal">
+            <div class="secondModal">
+                <!-- Second Modal content -->
+                <div class="second-modal-content second-modal">
+                    <div class="modal-second-content">
+                        <p class="secondContent"></p>
+                        <button class="finalconfirm motivationbtn">확인</button>
+                    </div>
+                </div>
+            </div>
+            <div class="thirdModal">
+                <div class="third-modal-content">
+                    <p class="thirdContent">모든 콕 찌르기를 지우시겠습니까?</p>
+                    <button class="confirm motivationbtn" onclick="makeRemove()">확인</button>
+                    <button class="cancelremove motivationbtn">취소</button>
+                </div>
+            </div>
+            <div class="alert__modal">
+                <div class="alert__modal__container">
+                    <p class="alert__modal__content"></p>
+                    <button class="alertconfirm motivationbtn">확인</button>
+                </div>
+            </div>
+            <div class="Delete__Onemotiv__Modal">
+                <!-- First Modal content -->
+                <div class="delete-one-modal-content">
+                    <p class="delete-one-content">해당 콕 찌르기를 지우시겠습니까?</p>
+                    <button class="confirm motivationbtn" onclick="makeOneRemove({{motivation.id}})">확인</button>
+                    <button class="cancelremove motivationbtn"">취소</button>
+                </div>
+            </div>
         </div>
     </section>
 

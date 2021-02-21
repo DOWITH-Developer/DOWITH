@@ -73,8 +73,9 @@
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
+    border-radius: 2rem;
     border: 1px solid #888;
-    width: 50%;
+    width: 30%;
   }
   
   .second-modal-content {
@@ -82,7 +83,7 @@
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 50%;
+    width: 30%;
   }
 
   .third-modal-content {
@@ -90,15 +91,23 @@
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 50%;
+    width: 30%;
   }
 
+  .button__container {
+    display: flex;
+    justify-content: space-around;
+  }
   .delete-one-modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: ;
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 50%;
+    width: 30%;
   }
 
   .alert__modal__container {
@@ -106,7 +115,7 @@
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 50%;
+    width: 30%;
   }
 
   /* The Close Button */
@@ -132,8 +141,8 @@
       border-radius: 20px;
       border: 0px;
       color: white;
-      margin-left: 20px;
-      padding: 30px auto;
+      margin-left: 0;
+      padding: 0;
   }
   .firstContent {
     padding-right: 5px;

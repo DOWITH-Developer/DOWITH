@@ -147,6 +147,7 @@ nav {
     padding: 0;
     width: 100vw;
 }
+
 .nav-header {
     display: flex;
     align-items: center;
@@ -161,6 +162,7 @@ nav {
     transition: var(--transition);
     cursor: pointer;
 }
+
 .nav-toggle:hover {
     color: var(--clr-primary-1);
     transform: rotate(90deg);
@@ -178,6 +180,7 @@ nav {
     padding: 0.5rem 1rem;
     transition: var(--transition);
 }
+
 .links a:hover {
     background: var(--clr-primary-8);
     color: var(--clr-green-1);
