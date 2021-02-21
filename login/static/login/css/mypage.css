@@ -35,7 +35,7 @@ h3 {
 
 .calendar_header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-bottom: 6px;
     width: 100%;
 }
@@ -44,7 +44,7 @@ h3 {
 .after {
     background: #47cc71;
     border-radius: 20px;
-    width: 60px;
+    width: 100px;
     border: 0px;
     color: white;
     height: 30px;
