@@ -190,6 +190,10 @@ def challenge_create(request):
                 elif error == "종료일이 시작일보다 빠를 수 없습니다.":
                     # error_date = error
                     error_list["date"] = "종료일이 시작일보다 빠를 수 없습니다."
+                elif error == "최소 인원은 0이 될 수 없습니다.":
+                    error_list["min_pp"] = "최소 인원은 0이 될 수 없습니다."
+                elif error == f"시작일은 {datetime.date.today()} (오늘) 이전이 될 수 없습니다.":
+                    error_list["start_date"] = f"시작일은 {datetime.date.today()} (오늘) 이전이 될 수 없습니다."
             
             ctx = {
                 "form": form,
