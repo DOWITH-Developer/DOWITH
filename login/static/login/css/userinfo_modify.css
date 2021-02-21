@@ -147,7 +147,23 @@ body {
     line-height: 35px;
 }
 
-.current img {
+.current > p,
+.change > p {
+    margin: 0;
+}
+
+.current .current_img__container {
+    height: 250px;
+    width: 250px;
+    border: none;
+    border-radius: 20px;
+    background-color: #c4c4c4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.3rem;
+}
+.current .current_img__container img {
     height: 230px;
     width: 230px;
     object-fit: cover;
