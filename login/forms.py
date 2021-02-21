@@ -9,6 +9,31 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ["is_ToS", "email", "username", "nickname"]
 
+    # def clean_nickname(self, *args, **kwargs):
+    #     # 입력한 nickname 값(or 현재 user의 바꾸려는 nickname 값)
+    #     nickname = self.cleaned_data.get("nickname")
+    #     # 입력한 nickname과 같은 nickname을 가지는 user 인스턴스들
+    #     nickname_same_users = User.objects.filter(nickname=nickname)
+
+    #     # social 회원가입 시의 오류를 해결하기 위해
+    #     if nickname == "":
+    #         return
+    #     print(self)
+    #     # 현재 user의 pk 값
+    #     current_user = self.cleaned_data.get("pk")
+    #     print(current_user)
+    #     for user in nickname_same_users:
+    #         # 만약 입력한 nickname과 같은 nickname을 가지는 user가 본인이라면
+    #         if user.pk == current_user:
+    #             # 에러 없음
+    #             return
+        
+    #     # 입력한 nickname 값과 같은 nickname을 가지는 다른 user가 존재한다면
+    #     if User.objects.filter(nickname=nickname).exists():
+    #         # 에러 발생
+    #         raise forms.ValidationError("사용자의 닉네임은/는 이미 존재합니다.")        
+
+
     # def clean(self):
     #     form_data = self.cleaned_data
     #     username = self.cleaned_data.get("username")

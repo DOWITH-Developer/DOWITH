@@ -90,6 +90,14 @@
                                     {% endif%}
                                 {% endif %} -->
                             </div>
+                            {% if field.id_for_label == "id_nickname" %}
+                                {% if error_nickname_same|length > 0 %}
+                                    <div class="signup__form-error">
+                                        <label class="error" for="{{ field.id_for_label }}">{{ error_nickname_same }}</label>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+
                             {% if field.errors|length > 0 %}
                                 <div class="signup__form-error">
                                     {% for error in field.errors %}

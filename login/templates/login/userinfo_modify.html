@@ -54,8 +54,17 @@
                                         <a class="password_modify" href="{% url 'login:userinfo_password_modify' %}">비밀번호 변경 페이지로 이동</a>
                                     {% endif %}
                                 {% endif %}
-                                
+        
                             </div>
+                            
+                            {% if field.id_for_label == "id_nickname" %}
+                                {% if error_nickname_same|length > 0 %}
+                                    <div class="modify__form-error">
+                                        <label class="error" for="{{ field.id_for_label }}">{{ error_nickname_same }}</label>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+
                             {% if field.errors|length > 0 %}
                                 <div class="modify__form-error">
                                     {% for error in field.errors %}

@@ -98,6 +98,11 @@
                     <label>최소 인원  (숫자 입력): </label>
                     <div class="value">{{form.min_pp}}</div>
                 </div>
+                {% if "min_pp" in error_list %}
+                    <div class="error">
+                        {{ error_list|get_item:"min_pp" }}
+                    </div>
+                {% endif %}
                 <br>
 
                 <div class = "label-container">
@@ -121,6 +126,11 @@
                         <input type="date" name="start_date" id="currentDate">
                     </div>
                 </div>          
+                {% if "start_date" in error_list %}
+                    <div class="error">
+                        {{ error_list|get_item:"start_date" }}
+                    </div>
+                {% endif %}
                 <br>
 
                 <div class = "label-container">
@@ -152,8 +162,8 @@
 
     <script>
     
-        document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
-        document.getElementById('endDate').value = new Date().toISOString().substring(0,10);
+        document.getElementById('currentDate').value = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substring(0, 10);
+        document.getElementById('endDate').value = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substring(0, 10);
 
     </script>
 

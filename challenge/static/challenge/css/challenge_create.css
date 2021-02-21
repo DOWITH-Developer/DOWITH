@@ -1,3 +1,14 @@
+@keyframes slidein {
+    from {
+        margin-top: 0px;
+        width: 100%;
+    }
+    to {
+        margin-top: 50px;
+        width: 100%;
+    }
+}
+
 * {
     box-sizing: border-box;
     font-family: "Do Hyeon", sans-serif;
@@ -23,6 +34,7 @@ content {
     border: 1px solid rgba(0, 0, 0, 0.55);
     box-sizing: border-box;
     border-radius: 20px;
+
 }
 
 .total-container {
@@ -37,6 +49,11 @@ h2 {
     margin-top: 20px;
     font-weight: 200;
     font-family: "Do Hyeon", sans-serif;
+    margin-top: 50px;
+
+
+    animation-duration: 1.5s;
+    animation-name: slidein;
 }
 
 .form-container {

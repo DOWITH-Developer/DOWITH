@@ -121,14 +121,27 @@ def fd_detail(request, pk):
 
     #만약 detail을 조회한 사람이 친구관계에 있는 사람이 아니라면
     friendship = Friendship.objects.filter(me=me, friend=user, accepted=True).exists()
-    #challenges = user.player_set.all()
+    
+    challenge_success = EnrollmentDate.objects.all().filter(
+            enrollment__player=user, date_result=True)#.order_by('-pk')
+    
+    challenge_success_title = {}
+    for ch in challenge_success:
+        challenge_success_title[ch.enrollment.pk] = ch.enrollment.challenge.title
+    
+    challenge_success_serializer = JSON.Serializer()
+    challenge_success_serialized = challenge_success_serializer.serialize(
+        challenge_success)
+    
     ctx = {
         'user': user,
         'enrollments': enrollments,
         'friendship': friendship,
+        'challenge_success' : json.dumps(challenge_success_serialized),
+        'challenge_success_title' : json.dumps(challenge_success_title),
     }
+    print(ctx)
     return render(request, 'friend/friend_detail.html', context=ctx)
-
 
 def fd_delete(request, pk):
     me = request.user
@@ -202,8 +215,9 @@ class MotivationRemoveAjax(View):
             motivation.delete()
 
             return JsonResponse({'id': motivation.id})
-        
-    
+
+
+# 필요한 값만 넘겨주는 경우
 class SearchAjax(View):
     # 포비든 문제때문에 추가
     @method_decorator(csrf_exempt)
@@ -215,30 +229,58 @@ class SearchAjax(View):
         word = req["value"]
         # friendship 인스턴스 중 me field 가 user 인 인스턴스만 접근하는 방식
         user = request.user
-        friend_list = [] # user 의 친구 list
         
         friend = user.self_set.filter(Q(friend__nickname__icontains=word))
-        friend_serializer = JSON.Serializer()
-        friend_serialized = friend_serializer.serialize(friend)
-        
-        # friend 를 serialize 해서 json 으로 넘겨줬는데, 이게 끝이 아니라 friend list 를 넘겨줘야해
-        
-        for i, ch in enumerate(list(friend)):
-            friend_list.append(ch.friend)
+        friend_list = {}
 
-        friend_list_serializer = JSON.Serializer()
-        friend_list_serialized = friend_list_serializer.serialize(friend_list)
-    
-        return JsonResponse({"friend" : friend_serialized, "friend_list" : friend_list_serialized})
+        for i, ch in enumerate(list(friend)):
+            friend_list[ch.friend.pk] = {"pk":ch.friend.pk, "username":ch.friend.username, "nickname":ch.friend.nickname, "image":ch.friend.image.url}
+
+        print(friend_list)
+
+        return JsonResponse({"friend_list":friend_list})
+
         
-        # if request.method == 'GET':
-        # form = FriendSearchForm()
-        # ctx = {        
-        #     'friends': friends,
-        #     'pendings' : friends_pending,
-        #     'form': form,
-        #     'motivation_from_friends' : motivation_from_friends,
-        # }   
+# serialized로 전체를 넘겨주는 경우
+# class SearchAjax(View):
+#     # 포비든 문제때문에 추가
+#     @method_decorator(csrf_exempt)
+#     def dispatch(self, request, *args, **kwargs):
+#         return super(SearchAjax, self).dispatch(request, *args, **kwargs)
+
+#     def post(self, request):
+#         req = json.loads(request.body)
+#         word = req["value"]
+#         # friendship 인스턴스 중 me field 가 user 인 인스턴스만 접근하는 방식
+#         user = request.user
+#         friend_list = [] # user 의 친구 list
+        
+#         friend = user.self_set.filter(Q(friend__nickname__icontains=word))
+#         friend_serializer = JSON.Serializer()
+#         friend_serialized = friend_serializer.serialize(friend)
+        
+#         # friend 를 serialize 해서 json 으로 넘겨줬는데, 이게 끝이 아니라 friend list 를 넘겨줘야해
+        
+#         for i, ch in enumerate(list(friend)):
+#             friend_list.append(ch.friend)
+
+#         # friend_list_dic = {}
+#         # for i, ch in enumerate(list(friend)):
+#         #     friend_list_dic[ch.friend.pk] = {"pk":ch.friend.pk, "username":ch.friend.username, "nickname":ch.friend.nickname, "image":ch.friend.image.url}
+
+#         friend_list_serializer = JSON.Serializer()
+#         friend_list_serialized = friend_list_serializer.serialize(friend_list)
+    
+#         return JsonResponse({"friend" : friend_serialized, "friend_list" : friend_list_serialized})
+        
+#         # if request.method == 'GET':
+#         # form = FriendSearchForm()
+#         # ctx = {        
+#         #     'friends': friends,
+#         #     'pendings' : friends_pending,
+#         #     'form': form,
+#         #     'motivation_from_friends' : motivation_from_friends,
+#         # }   
 
 
 class SearchUserAjax(View):
@@ -260,7 +302,7 @@ class SearchUserAjax(View):
 
             for user in users:
                 if not(Friendship.objects.filter(me=me, friend=user, accepted=True).exists()):
-                    user_list[str(user.id)] = {'pk':user.pk, 'username':user.username, 'nickname':user.nickname}
+                    user_list[str(user.id)] = {'pk':user.pk, 'username':user.username, 'nickname':user.nickname, "image":user.image.url}
                     
                     #리스트로 할 경우
                     #user_list.append({'pk':user.pk, 'username':user.username, 'nickname':user.nickname})

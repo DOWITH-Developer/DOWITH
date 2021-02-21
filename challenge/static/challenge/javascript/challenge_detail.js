@@ -15,15 +15,16 @@ function copyToClipboard(element) {
       const {data} = await axios.post(url, {
           id
       })
-  
+
+      console.log(data)
       result_modify(data.id, data.result);
   }
   
   const result_modify = (id, result) => {
-          const resultBtn = document.querySelector(`.result-${id}`);
+          const resultBtn = document.querySelector(`.result`);
   
           if (result === false) {
-              resultBtn.className = `result-${id} ch-result`;
+              resultBtn.className = `result ch-result`;
               resultBtn.innerText = "챌린지 실패"
           }
           else {
