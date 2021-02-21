@@ -8,7 +8,7 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["is_ToS", "email", "username", "nickname"]
-
+        
     # def clean(self):
     #     form_data = self.cleaned_data
     #     username = self.cleaned_data.get("username")

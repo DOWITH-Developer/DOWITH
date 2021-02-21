@@ -70,31 +70,30 @@
                                 </div>
                                 <div>
                                     <button class="one_friend_motivate" onclick="giveMotivation({{fd.me.id}})">응원하기</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <button class="one_friend_motivate" onclick="giveMotivation({{fd.me.id}})">응원하기</button>
-                            <div class="firstModal">
-                                <!-- First Modal content -->
-                                <div class="first-modal-content first-modal">
-                                    <div class="modal-first-content">
-                                        <p class="firstContent">콕 찌르시겠습니까?</p>
-                                        <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
-                                        <button class="motivationbtn" onclick="cancelFirst()">취소</button>
+                                    <div class="firstModal">
+                                        <!-- First Modal content -->
+                                        <div class="first-modal-content first-modal">
+                                            <div class="modal-first-content">
+                                                <p class="firstContent">콕 찌르시겠습니까?</p>
+                                                <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
+                                                <button class="motivationbtn" onclick="cancelFirst()">취소</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="secondModal">
+                                        <!-- Second Modal content -->
+                                        <div class="second-modal-content second-modal">
+                                            <div class="modal-second-content">
+                                                <p class="secondContent"></p>
+                                                <button class="finalconfirm motivationbtn" onclick="cancelSecond()">확인</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="secondModal">
-                                <!-- Second Modal content -->
-                                <div class="second-modal-content second-modal">
-                                    <div class="modal-second-content">
-                                        <p class="secondContent"></p>
-                                        <button class="finalconfirm motivationbtn" onclick="cancelSecond()">확인</button>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                     <div style = "margin-top: 30px;">
                         <button class = "all-friend-btn" >

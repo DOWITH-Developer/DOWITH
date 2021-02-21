@@ -135,7 +135,6 @@ def my_page(request, pk):
     challenge_success_serializer = json.Serializer()
     challenge_success_serialized = challenge_success_serializer.serialize(
         challenge_success)
-    
     ctx = {        
         'me': me,
         'friends': friends,
