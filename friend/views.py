@@ -188,7 +188,7 @@ class MotivationRemoveAjax(View):
 
     def post(self, request):
         req = json.loads(request.body)
-
+        print(request)
         #모두 지우기 일 경우
         if req['id'] == None:
             me = request.user
@@ -199,7 +199,6 @@ class MotivationRemoveAjax(View):
             
             return JsonResponse({'status': True})
             
-
         #특정 콕 찌르기만 지우기일 경우
         else:
             motivation = Motivation.objects.get(id=req['id'])

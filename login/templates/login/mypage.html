@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
     <link rel="stylesheet" href="{% static 'login/css/mycalendar.css' %}">
     <link rel="stylesheet" href="{% static 'login/css/mypage.css' %}">
+    <link rel="stylesheet" href="{% static 'friend/css/modal.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="{% static 'friend/javascript/friend_list.js' %}"></script>
 {% endblock %}
@@ -65,6 +66,27 @@
                         </div>
                         <div>
                             <button class="one_friend_motivate" onclick="giveMotivation({{fd.me.id}})">응원하기</button>
+                            <div class="firstModal">
+                                <!-- First Modal content -->
+                                <div class="first-modal-content first-modal">
+                                    <span class="close">&times;</span>
+                                    <div class="modal-first-content">
+                                        <p class="firstContent">콕 찌르시겠습니까?</p>
+                                        <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
+                                        <button class="cancel motivationbtn">취소</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="secondModal">
+                                <!-- Second Modal content -->
+                                <div class="second-modal-content second-modal">
+                                    <span class="close">&times;</span>
+                                    <div class="modal-second-content">
+                                        <p class="secondContent"></p>
+                                        <button class="finalconfirm motivationbtn">확인</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
@@ -78,16 +100,40 @@
                 <!--임시방편으로 위치만 잡아둔 것 나중에 코드 복사를 통해서 위치 조정 예정-->
         <div class="friend__motivation">
             <h3>나를 찌른 친구</h3>
-            <button onclick="removeMotivation()">모두 지우기</button>
+            <button class="motivationbtn" onclick="removeMotivation()">모두 지우기</button>
             {% for motivation in motivation_from_friends %}
 
-                <li class="friend__motivation__from__friend motivation-{{motivation.id}}">{{motivation.me.nickname}}님이 {{motivation.count}}번 콕 찔렀습니다. <button onclick="removeMotivation({{motivation.id}})">지우기</button></li>
-
+                <li class="friend__motivation__from__friend motivation-{{motivation.id}}">{{motivation.me.nickname}}님이 {{motivation.count}}번 콕 찔렀습니다. 
+                    <button class="motivationbtn" onclick="removeMotivation({{motivation.id}})">지우기</button>
+                </li>
+                <div class="Delete__Onemotiv__Modal">
+                    <!-- First Modal content -->
+                    <div class="delete-one-modal-content">
+                        <p class="delete-one-content">해당 콕 찌르기를 지우시겠습니까?</p>
+                        <button class="confirm motivationbtn" onclick="makeOneRemove({{motivation.id}})">확인</button>
+                        <button class="cancelremove motivationbtn"">취소</button>
+                    </div>
+                </div>
             {% endfor %}
+            <div class="thirdModal">
+                <div class="third-modal-content">
+                    <p class="thirdContent">모든 콕 찌르기를 지우시겠습니까?</p>
+                    <button class="confirm motivationbtn" onclick="makeRemove()">확인</button>
+                    <button class="cancelremove motivationbtn">취소</button>
+                </div>
+            </div>
         </div>
+
+
 
         <a href="{% url 'login:settings' %}">설정으로 가기</a>
         <br>
+        <div class="alert__modal">
+            <div class="alert__modal__container">
+                <p class="alert__modal__content"></p>
+                <button class="alertconfirm motivationbtn">확인</button>
+            </div>
+        </div>
     </div>
     <script>
 
