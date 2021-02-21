@@ -1,3 +1,14 @@
+@keyframes slidein {
+    from {
+        margin-top: 0px;
+        width: 100%;
+    }
+    to {
+        margin-top: 50px;
+        width: 100%;
+    }
+}
+
 * {
     font-family: "Do Hyeon", sans-serif;
 }
@@ -11,9 +22,12 @@ body {
 }
 
 .friend__detail {
-    margin: 5rem auto;
+    margin: 50px auto;
     display: flex;
     justify-content: space-around;
+
+    animation-duration: 1.5s;
+    animation-name: slidein;
 }
 
 .friend__detail__calendar {

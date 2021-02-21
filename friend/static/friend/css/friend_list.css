@@ -1,3 +1,14 @@
+@keyframes slidein {
+    from {
+        margin-top: 0px;
+        width: 100%;
+    }
+    to {
+        margin-top: 50px;
+        width: 100%;
+    }
+}
+
 * {
     font-family: "Do Hyeon", sans-serif;
 }
@@ -38,7 +49,10 @@ h1 {
     justify-content: center;
     align-items: center;
     margin-bottom: 30px;
-    margin-top: 70px;
+    margin-top: 50px;
+    
+    animation-duration: 1.5s;
+    animation-name: slidein;
 }
 
 .invitation__logo > img {

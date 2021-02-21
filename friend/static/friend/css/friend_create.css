@@ -1,3 +1,14 @@
+@keyframes slidein {
+    from {
+        margin-top: 0px;
+        width: 100%;
+    }
+    to {
+        margin-top: 50px;
+        width: 100%;
+    }
+}
+
 * {
     font-family: "Do Hyeon", sans-serif;
 }
@@ -33,10 +44,14 @@ body {
 .friend__search__container {
     width: 100%;
     height: 30vh;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    animation-duration: 1.5s;
+    animation-name: slidein
 }
 
 #friend__new__search__container {
