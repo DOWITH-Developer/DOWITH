@@ -179,6 +179,7 @@
             document
             .querySelector(".calendar")
             .insertAdjacentHTML("beforeend", calHtml);
+            showAllSuccess();
         };
         
         
@@ -233,35 +234,39 @@
             const todayContainer = todaySelector.parentNode;
             todayContainer.style.background = "#47cc71";
 
-            const changeCalendar = (title, result, date) => {
+            function changeCalendar (title, result, date) {
                 const thisday = document.getElementById(`${date}`);
-                const challengeContent = title + '🤔';
-                if (result === true){
-                    const newTag = document.createElement('p');
-                    newTag.classList.add('done');
-                    newTag.textContent = challengeContent;
-                    thisday.append(newTag)
-                } else {
-                    for(let child of thisday.children){
-                        if(child.innerHTML === challengeContent){
-                            child.remove()
+                if (thisday != null){
+                    const challengeContent = title + '🤔';
+                    if (result === true){
+                        const newTag = document.createElement('p');
+                        newTag.classList.add('done');
+                        newTag.textContent = challengeContent;
+                        thisday.append(newTag)
+                    } else {
+                        for(let child of thisday.children){
+                            if(child.innerHTML === challengeContent){
+                                child.remove()
+                            }
                         }
                     }
                 }
-                // 성공하면 p 에게 특정 클래스 부여한다
-                // 실패버튼을 누르면 p 태그에 display: none 을 준다
             }
         
-            // date, title 
-            let enrollmentDateList = JSON.parse({{challenge_success|safe}});
-            let challengeTitleList = {{challenge_success_title|safe}}
-            for(let enrollmentDate in enrollmentDateList){
-                let {enrollment, date} = enrollmentDateList[enrollmentDate]["fields"]
-                enrollment = challengeTitleList[enrollment]
-                date = date.replace('-', '')
-                date = date.replace('-', '')
-                changeCalendar(enrollment, true, date)
+            function showAllSuccess(){
+                let enrollmentDateList = JSON.parse({{challenge_success|safe}});
+                let challengeTitleList = {{challenge_success_title|safe}}
+                for(let enrollmentDate in enrollmentDateList){
+                    let {enrollment, date} = enrollmentDateList[enrollmentDate]["fields"]
+                    enrollment = challengeTitleList[enrollment]
+                    console.log(enrollment)
+                    date = date.replace('-', '')
+                    date = date.replace('-', '')
+                    changeCalendar(enrollment, true, date)
+                }
             }
+        
+            showAllSuccess()
         </script>
 {% endblock content %}
 
