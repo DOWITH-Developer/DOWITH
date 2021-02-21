@@ -1,7 +1,11 @@
+* {
+    font-family: "Do Hyeon", sans-serif;
+}
+
 :root {
-    --base: #BBFFC9;
-    --saturday: #FFE0BB;
-    --sunday: #FFB3BB;
+    --base: #bbffc9;
+    --saturday: #ffe0bb;
+    --sunday: #ffb3bb;
     --spacing: 10px;
     --blur: 10px;
 }
@@ -21,7 +25,7 @@
     height: 8%;
     width: 100%;
     padding: 0.5rem 0;
-    background-color: skyblue;
+    background-color: #47cc71;
     color: white;
     display: flex;
     justify-content: space-around;
@@ -35,7 +39,6 @@
     box-sizing: border-box;
     padding: 0.5%;
 }
-
 
 .calendar__day {
     display: inline-block;
@@ -59,7 +62,6 @@
 .todayOutline {
     background-color: red;
 }
-
 
 .done {
     margin: 0;
