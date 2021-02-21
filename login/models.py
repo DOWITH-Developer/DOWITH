@@ -13,7 +13,7 @@ def nickname_unique(value):
     # 따라서 User 모델의 nickname field에 unique=True를 주는 것보다, 다음과 같이 처리하는 것이 적절함.
     if value != "":
         if User.objects.filter(nickname=value).exists():
-            raise forms.ValidationError("사용자의 닉네임은 이미 존재합니다.")
+            raise forms.ValidationError("사용자의 닉네임은/는 이미 존재합니다.")
  
 class User(AbstractUser):
     nickname = models.CharField(max_length=100, validators=[nickname_unique], verbose_name="닉네임")
