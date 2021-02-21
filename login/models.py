@@ -7,9 +7,16 @@ from django.core.exceptions import ValidationError
 def is_ToS(value):
     if value == False:
         raise forms.ValidationError("약관에 동의해야 합니다.")
+
+def nickname_unique(value):
+    # social 회원가입 시, 자동으로 nickname에 빈 str이 들어감. 이를 사용자가 변경하지 않을 경우, 다른 사용자가 social 회원가입을 못함.
+    # 따라서 User 모델의 nickname field에 unique=True를 주는 것보다, 다음과 같이 처리하는 것이 적절함.
+    if value != "":
+        if User.objects.filter(nickname=value).exists():
+            raise forms.ValidationError("사용자의 닉네임은 이미 존재합니다.")
  
 class User(AbstractUser):
-    nickname = models.CharField(max_length=100, unique=True, verbose_name="닉네임")
+    nickname = models.CharField(max_length=100, validators=[nickname_unique], verbose_name="닉네임")
     email = models.EmailField(max_length=255, unique=True, verbose_name="이메일 (ID)")
     username = models.CharField(max_length=150, verbose_name="이름")
     image = models.ImageField(upload_to="profile_photo/%Y/%m/%d/", default="profile_photo/default/DOWITH.png", verbose_name="프로필 사진")
