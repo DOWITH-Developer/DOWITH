@@ -83,12 +83,7 @@ def new_fd_create(request, pk):
                 # return redirect('friend:fd_list')
 
     else:
-        form = FriendshipForm()
-        ctx = {
-            'form': form
-        }
         return redirect('friend:fd_list')
-
 
 def fd_approve(request, pk):
     if request.method == "POST":
@@ -168,7 +163,8 @@ class MotivationAjax(View):
         req = json.loads(request.body)
         user_id =req['id']
         user = User.objects.get(id=user_id)
-
+        print(request);
+        
         if not(Motivation.objects.filter(me=request.user, friend=user).exists()):
             motivation = Motivation.objects.create(
                 me=request.user,
@@ -176,6 +172,7 @@ class MotivationAjax(View):
         )
         else:
             motivation = Motivation.objects.get(me=request.user, friend=user)
+            print(motivation)
             motivation.count += 1
             motivation.save()
         return JsonResponse({'user': user.nickname, 'count':motivation.count})
@@ -188,7 +185,7 @@ class MotivationRemoveAjax(View):
 
     def post(self, request):
         req = json.loads(request.body)
-
+        print(request)
         #모두 지우기 일 경우
         if req['id'] == None:
             me = request.user
@@ -199,7 +196,6 @@ class MotivationRemoveAjax(View):
             
             return JsonResponse({'status': True})
             
-
         #특정 콕 찌르기만 지우기일 경우
         else:
             motivation = Motivation.objects.get(id=req['id'])

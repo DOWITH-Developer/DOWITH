@@ -4,6 +4,8 @@ from login.models import User
 import datetime
 from hashid_field import HashidField, HashidAutoField
 
+from django.core.exceptions import ValidationError
+
 # User
 # - is staff : 내부자냐 아니냐
 
@@ -89,6 +91,18 @@ class Challenge(models.Model):
     def __str__(self):
         return self.title
 
+    def clean(self, *args, **kwargs):
+        error_list = []
+        if self.min_pp > self.max_pp:
+            error_list.append("최대 인원이 최소 인원보다 작을 수 없습니다.")
+        if self.start_date > self.end_date:
+            error_list.append("종료일이 시작일보다 빠를 수 없습니다.")
+        
+        if len(error_list) > 0:
+            raise ValidationError(error_list)
+
+        # return super(User, self).clean(*args, **kwargs)
+
 
 class Enrollment(models.Model):
     # player_total = 0
@@ -103,7 +117,7 @@ class Enrollment(models.Model):
         unique_together = ('challenge', 'player',)
 
     def __str__(self):
-        return str(self.challenge) +' '+ str(self.player) +' created_at:'+str(self.created_at)
+        return '{1} : {0}'.format(self.challenge.title, self.player.nickname)
 
 class EnrollmentDate(models.Model):
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE, verbose_name="인롤먼트", related_name="chEnrollmentDate_set")
@@ -111,4 +125,4 @@ class EnrollmentDate(models.Model):
     date = models.DateField(blank=True) #12시 1분쯤 생성된 시간이 들어감
 
     def __str__(self):
-        return str(self.enrollment) +'   date:'+ str(self.date)
+        return str(self.enrollment.challenge.title) +' '+str(self.enrollment.player.username) + ' date: '+ str(self.date)

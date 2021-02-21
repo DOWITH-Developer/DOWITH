@@ -28,7 +28,9 @@
                                 <div>
                                     <div class="current">
                                         <p>현재 사진</p>
-                                        <img src="{{ request.user.image.url }}" alt="">
+                                        <div class="current_img__container">
+                                            <img src="{{ request.user.image.url }}" alt="">
+                                        </div>
                                     </div>
                                     <div class="change">
                                         <p>변경할 사진</p>
