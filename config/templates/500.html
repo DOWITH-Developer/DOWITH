@@ -10,9 +10,9 @@
 
 {% block content %}
 <div class="mainbox">
-    <div class="err">5</div>
+    <div class="err"></div>
     <i class="far fa-question-circle fa-spin"></i>
-    <div class="err2">0</div>
-    <div class="msg">Internal Server Error. The server is not responding.<p>Let's go <a href="{% url 'challenge:home' %}">home</a> and try from there.</p></div>
+    <div class="err2"></div>
+    <div class="msg"><b>서버 오류</b><p><a href="{% url 'challenge:home' %}">메인화면으로 이동</a></p></div>
 </div>
 {% endblock %}
