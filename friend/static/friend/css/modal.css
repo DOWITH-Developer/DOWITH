@@ -82,6 +82,7 @@
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
+    border-radius: 2rem;
     border: 1px solid #888;
     width: 30%;
   }
@@ -90,6 +91,7 @@
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
+    border-radius: 2rem;
     border: 1px solid #888;
     width: 30%;
   }
@@ -98,11 +100,10 @@
     display: flex;
     justify-content: space-around;
   }
+
   .delete-one-modal-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: ;
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -150,4 +151,8 @@
 
   .secondContent {
     padding-right: 5px;
+  }
+
+  .thirdContent {
+    text-align: center;
   }

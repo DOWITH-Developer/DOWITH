@@ -38,9 +38,6 @@
 
             
             <div class="friend__search__input">
-                <!-- <form action="" method="post"> {% csrf_token %} -->
-                    <!-- </form> -->
-                    <!-- {{ form.as_p }} -->
                 <input class="friend__list__search" type="text" id="friend_search" placeholder="친구 닉네임을 검색하세요!">
                 <button class="friend__list__btn" onclick="searchFriend()">검색</button>    
             </div>
@@ -63,8 +60,10 @@
                                 <div class="first-modal-content first-modal">
                                     <div class="modal-first-content">
                                         <p class="firstContent">콕 찌르시겠습니까?</p>
-                                        <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
-                                        <button class="cancel motivationbtn">취소</button>
+                                        <div class="button__container">
+                                            <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
+                                            <button class="motivationbtn" onclick="cancelFirst()">취소</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -105,25 +104,26 @@
 
                 </div>
             </div>
-
-
             {% endfor %}
         </div>
+
         <div class="allModal">
             <div class="secondModal">
                 <!-- Second Modal content -->
                 <div class="second-modal-content second-modal">
                     <div class="modal-second-content">
                         <p class="secondContent"></p>
-                        <button class="finalconfirm motivationbtn">확인</button>
+                        <button class="motivationbtn" onclick="cancelSecond()">확인</button>
                     </div>
                 </div>
             </div>
             <div class="thirdModal">
                 <div class="third-modal-content">
                     <p class="thirdContent">모든 콕 찌르기를 지우시겠습니까?</p>
-                    <button class="confirm motivationbtn" onclick="makeRemove()">확인</button>
-                    <button class="cancelremove motivationbtn">취소</button>
+                    <div class="button__container">
+                        <button class="confirm motivationbtn" onclick="makeRemove()">확인</button>
+                        <button class="motivationbtn" onclick="cancelAllDelete()">취소</button>
+                    </div>
                 </div>
             </div>
             <div class="alert__modal">
