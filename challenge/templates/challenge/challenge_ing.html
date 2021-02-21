@@ -18,11 +18,14 @@
 
         <i class="fas fa-heart"></i>
 
-        <div class = "ch-desc">{{ challenge.desc }}</div> 
-        <form action="{% url 'challenge:challenge_delete' challenge.pk %}", method="POST">
+        <div class = "ch-desc">{{ challenge.desc }}</div>
+        
+        {% if status %}
+            <form action="{% url 'challenge:challenge_delete' challenge.pk %}", method="POST">
                 {% csrf_token %}
                 <button class="ch-cancel" type="submit">챌린지 취소하기</button>
-        </form>
+            </form>
+        {% endif %}
     </div>
 
     <div class = "right-container">
@@ -38,7 +41,7 @@
 
         <div class="ch-targetpp">
             <div>목표인원</div> 
-            <div style = "font-size: 20px;">4/9</div>
+            <div style = "font-size: 20px;">{{challenge.cur_pp}}/{{challenge.max_pp}}</div>
         </div>
 
         <div class="ch-category">
@@ -82,12 +85,12 @@
         <div class = "button-container">
             <div>
                 {% if status %}
-                    {% if enrollment.result %}
+                    {% if success %}
                         <div class="challenge-ask">오늘 챌린지를 하셨나요?</div>
-                        <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}} result-clicked ch-result">챌린지 성공</button>
+                        <button type="submit" onclick="onClickResult('{{ challenge.id }}')" class="result result-clicked ch-result">챌린지 성공</button>
                     {% else %}
                         <div class="challenge-ask">오늘 챌린지를 하셨나요?</div>
-                        <button type="submit" onclick="onClickResult({{ challenge.id }})" class="result-{{challenge.id}} ch-result">챌린지 성공</button>
+                        <button type="submit" onclick="onClickResult('{{ challenge.id }}')" class="result ch-result">챌린지 완료</button>
                     {% endif %}
                 {% endif %}
             </div>
