@@ -1,0 +1,2 @@
+SHELL=/bin/bash
+1 0 * * * /home/ubuntu/iChallenge/routine.sh >> /home/ubuntu/iChallenge/log/$
