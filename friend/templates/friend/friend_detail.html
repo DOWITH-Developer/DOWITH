@@ -5,6 +5,7 @@
 {% block extra_head %}
 
     <link rel="stylesheet" href="{% static 'friend/css/friend_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'login/css/mycalendar.css' %}">
 
 {% endblock extra_head %}
 
@@ -45,10 +46,27 @@
     </section>
 
     {% if friendship %}
-    
+    <div class="friend__detail__calendar__container">
         <section class="friend__detail__calendar">
-            <p style="text-align: center; font-size: 3rem;">달력</p>
+            <div class="calendar_container container">
+                <div class="calendar_header">
+                    <button class="previous">previous</button>
+                    <h2 class="calendar_title"></h2>
+                    <button class="after">after</button>
+                </div>
+                <div class="weekday">
+                    <div>일요일</div>
+                    <div>월요일</div>
+                    <div>화요일</div>
+                    <div>수요일</div>
+                    <div>목요일</div>
+                    <div>금요일</div>
+                    <div>토요일</div>
+                </div>
+                <div class="calendar"></div>
+            </div>
         </section>
+    </div>
 
         <section class="friend__detail__delete">
             <form action="{% url 'friend:fd_delete' user.pk %}", method="POST">
@@ -67,8 +85,184 @@
         </section>
 
     {% endif %}
+    <script>
 
+        //! Calendar
+        let months = ["0월", "1월", "2월", "3월", "4월", "5월", "6월", 
+        "7월", "8월", "9월", "10월", "11월", "12월"];
+        
+        const calendarTitle = document.querySelector('.calendar_title')
+        const today = new Date();
+        
+        //날짜 데이터를 가공하는 함수
+        function setCalendarData(year, month){        
+        let calHtml = "";
+        // 이번 달의 첫째 날 객체 반환
+        const setDate = new Date(year, month - 1, 1);
+        //이번 달의 첫째 날을 구합니다.
+        const firstDay = setDate.getDate();
+        
+        //이번 달의 처음 요일을 구합니다 / (0-6)
+        const firstDayName = setDate.getDay();
+        
+        //이번 달의 마지막 날의 날짜(숫자)를 구합니다.
+        const lastDay = new Date(year, month, 0).getDate();
+        //지난 달의 마지막 날의 날짜(숫자)를 구합니다.
+        const prevLastDay = new Date(year, month-1, 0).getDate();
+        
+        let startDayCount = 1;
+        let lastDayCount = 1;
+        for (let i = 0; i < 6; i++) {
+            for (let j = 0; j < 7; j++) {
+                if (i == 0 && j < firstDayName) {
+                if (j == 0) {
+        
+                calHtml +=
+                `<div style='background-color:#FFFFFF; visibility: hidden' class='calendar__day horizontalGutter'><span>${(prevLastDay - (firstDayName - 1) + j)}</span><span></span></div>`;
+                } else if (j == 6) {
+        
+                calHtml +=
+                `<div style='background-color:#FFFFFF; visibility: hidden' class='calendar__day'><span>${(prevLastDay - (firstDayName - 1) + j)}</span><span></span></div>`;
+                } else {
+        
+                calHtml +=
+                `<div style='background-color:#FFFFFF; visibility: hidden' class='calendar__day horizontalGutter'><span>${(prevLastDay - (firstDayName - 1) + j)}</span><span></span></div>`;
+                }
+                }
+                else if (i == 0 && j == firstDayName) {
+                if (j == 0) {
+        
+                calHtml +=
+                `<div style='background-color:#FFFFFF;' class='calendar__day horizontalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+                } else if (j == 6) {
+        
+                calHtml +=
+                `<div style='background-color:#FFFFFF;' class='calendar__day'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+                } else {
+        
+                calHtml +=
+                `<div style='background-color:#FFFFFF;' class='calendar__day horizontalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+                }
+                }
+                else if (i == 0 && j > firstDayName) {
+                if (j == 0) {
+        
+                calHtml +=
+                `<div style='background-color:#FFFFFF' class='calendar__day horizontalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+                } else if (j == 6) {
+        
+                calHtml +=
+                `<div style='background-color:#FFFFFF' class='calendar__day'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+                } else {
+        
+                calHtml +=
+                `<div style='background-color:#FFFFFF' class='calendar__day horizontalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+                }
+                }
+                else if (i > 0 && startDayCount <= lastDay) {
+                if (j == 0) {
+                
+                calHtml +=
+                `<div style='background-color: #FFFFFF;'class='calendar__day horizontalGutter verticalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+                } else if (j == 6) {
+                
+                calHtml +=
+                `<div style='background-color: #FFFFFF;'class='calendar__day verticalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+                } else {
+                calHtml +=
+                `<div style='background-color: #FFFFFF;'class='calendar__day horizontalGutter verticalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+                }
+                }
+                }
+            }
+            calendarTitle.innerHTML = months[(+month)%13];
+            document
+            .querySelector(".calendar")
+            .insertAdjacentHTML("beforeend", calHtml);
+        };
+        
+        
+            const setFixDayCount = number => {
+            let fixNum = "";
+            if (number < 10) {
+            fixNum = "0" + number;
+            } else {
+            fixNum = number;
+            }
+            return fixNum;
+            };
+        
+            let thisMonth = today.getMonth()+1;
+            let thisYear = today.getFullYear();
+            let plus = 1;
+            let minus = 1;
+        
+            function selectMonth(thisMonth, thisYear){
+            if (thisMonth < 10) {
+            setCalendarData(thisYear, "0" + thisMonth);
+            } else {
+            setCalendarData(thisYear, "" + thisMonth);
+            }
+            }
+        
+        
+        
+            let afterMonth = document.querySelector('.after');
+            afterMonth.addEventListener('click', () => {
+            thisMonth += plus;
+            document.querySelector(".calendar").innerHTML = ""
+            thisYear = (thisMonth === 13) ? thisYear + 1 : thisYear;
+            thisMonth = (thisMonth === 13) ? 1 : thisMonth;
+            selectMonth(thisMonth, thisYear);
+            })
+        
+            let previousMonth = document.querySelector('.previous');
+            previousMonth.addEventListener('click', () => {
+            thisMonth -= minus;
+            document.querySelector(".calendar").innerHTML = ""
+            thisYear = (thisMonth === 0) ? thisYear - 1 : thisYear;
+            thisMonth = (thisMonth === 0) ? 12 : thisMonth;
+            selectMonth(thisMonth, thisYear);
+            })
+        
+        
+            window.addEventListener('DOMContentLoaded', selectMonth(thisMonth, thisYear))
+        
+            const todayId = (thisMonth < 10) ? `${thisYear}${'0' + thisMonth}${today.getDate()}`: `${thisYear}${thisMonth}${today.getDate()}`;
+            const todaySelector = document.getElementById(`${todayId}`);
+            const todayContainer = todaySelector.parentNode;
+            todayContainer.style.background = "#47cc71";
 
+            const changeCalendar = (title, result, date) => {
+                const thisday = document.getElementById(`${date}`);
+                const challengeContent = title + '🤔';
+                if (result === true){
+                    const newTag = document.createElement('p');
+                    newTag.classList.add('done');
+                    newTag.textContent = challengeContent;
+                    thisday.append(newTag)
+                } else {
+                    for(let child of thisday.children){
+                        if(child.innerHTML === challengeContent){
+                            child.remove()
+                        }
+                    }
+                }
+                // 성공하면 p 에게 특정 클래스 부여한다
+                // 실패버튼을 누르면 p 태그에 display: none 을 준다
+            }
+        
+            // date, title 
+            let enrollmentDateList = JSON.parse({{challenge_success|safe}});
+            let challengeTitleList = {{challenge_success_title|safe}}
+            for(let enrollmentDate in enrollmentDateList){
+                let {enrollment, date} = enrollmentDateList[enrollmentDate]["fields"]
+                enrollment = challengeTitleList[enrollment]
+                date = date.replace('-', '')
+                date = date.replace('-', '')
+                changeCalendar(enrollment, true, date)
+            }
+        </script>
 {% endblock content %}
 
 

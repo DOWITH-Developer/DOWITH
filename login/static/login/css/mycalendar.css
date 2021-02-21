@@ -21,6 +21,40 @@
     justify-content: center;
 }
 
+.friend__detail__calendar__container {
+    width: 90vw;
+    margin: 0 auto;
+    background-color: #efefef;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.calendar_title {
+    width: 100%;
+    text-align: center;
+    font-family: "Do Hyeon", sans-serif;
+    font-weight: 100;
+}
+
+.calendar_header {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 6px;
+    width: 100%;
+}
+
+.previous,
+.after {
+    background: #47cc71;
+    border-radius: 20px;
+    width: 100px;
+    border: 0px;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+}
+
+
 .weekday {
     height: 8%;
     width: 100%;

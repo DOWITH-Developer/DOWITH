@@ -121,14 +121,27 @@ def fd_detail(request, pk):
 
     #만약 detail을 조회한 사람이 친구관계에 있는 사람이 아니라면
     friendship = Friendship.objects.filter(me=me, friend=user, accepted=True).exists()
-    #challenges = user.player_set.all()
+    
+    challenge_success = EnrollmentDate.objects.all().filter(
+            enrollment__player=user, date_result=True)#.order_by('-pk')
+    
+    challenge_success_title = {}
+    for ch in challenge_success:
+        challenge_success_title[ch.enrollment.pk] = ch.enrollment.challenge.title
+    
+    challenge_success_serializer = JSON.Serializer()
+    challenge_success_serialized = challenge_success_serializer.serialize(
+        challenge_success)
+    
     ctx = {
         'user': user,
         'enrollments': enrollments,
         'friendship': friendship,
+        'challenge_success' : json.dumps(challenge_success_serialized),
+        'challenge_success_title' : json.dumps(challenge_success_title),
     }
+    print(ctx)
     return render(request, 'friend/friend_detail.html', context=ctx)
-
 
 def fd_delete(request, pk):
     me = request.user

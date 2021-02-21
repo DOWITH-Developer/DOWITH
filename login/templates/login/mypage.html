@@ -188,60 +188,59 @@ for (let i = 0; i < 6; i++) {
     for (let j = 0; j < 7; j++) {
         if (i == 0 && j < firstDayName) {
         if (j == 0) {
-        // 스타일링을 위한 클래스 추가
+
         calHtml +=
         `<div style='background-color:#FFFFFF; visibility: hidden' class='calendar__day horizontalGutter'><span>${(prevLastDay - (firstDayName - 1) + j)}</span><span></span></div>`;
         } else if (j == 6) {
-        // 스타일링을 위한 클래스 추가
+
         calHtml +=
         `<div style='background-color:#FFFFFF; visibility: hidden' class='calendar__day'><span>${(prevLastDay - (firstDayName - 1) + j)}</span><span></span></div>`;
         } else {
-        // 스타일링을 위한 클래스 추가
+
         calHtml +=
         `<div style='background-color:#FFFFFF; visibility: hidden' class='calendar__day horizontalGutter'><span>${(prevLastDay - (firstDayName - 1) + j)}</span><span></span></div>`;
         }
         }
         else if (i == 0 && j == firstDayName) {
         if (j == 0) {
-        // 스타일링을 위한 클래스 추가
+
         calHtml +=
         `<div style='background-color:#FFFFFF;' class='calendar__day horizontalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
         } else if (j == 6) {
-        // 스타일링을 위한 클래스 추가
+
         calHtml +=
         `<div style='background-color:#FFFFFF;' class='calendar__day'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
         } else {
-        // 스타일링을 위한 클래스 추가
+
         calHtml +=
         `<div style='background-color:#FFFFFF;' class='calendar__day horizontalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
         }
         }
         else if (i == 0 && j > firstDayName) {
         if (j == 0) {
-        // 스타일링을 위한 클래스 추가
+
         calHtml +=
         `<div style='background-color:#FFFFFF' class='calendar__day horizontalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
         } else if (j == 6) {
-        // 스타일링을 위한 클래스 추가
+
         calHtml +=
         `<div style='background-color:#FFFFFF' class='calendar__day'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
         } else {
-        // 스타일링을 위한 클래스 추가
+
         calHtml +=
         `<div style='background-color:#FFFFFF' class='calendar__day horizontalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
         }
         }
         else if (i > 0 && startDayCount <= lastDay) {
         if (j == 0) {
-        // 스타일링을 위한 클래스 추가
+        
         calHtml +=
         `<div style='background-color: #FFFFFF;'class='calendar__day horizontalGutter verticalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
         } else if (j == 6) {
-        // 스타일링을 위한 클래스 추가
+        
         calHtml +=
         `<div style='background-color: #FFFFFF;'class='calendar__day verticalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
         } else {
-        // 스타일링을 위한 클래스 추가
         calHtml +=
         `<div style='background-color: #FFFFFF;'class='calendar__day horizontalGutter verticalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
         }
@@ -265,18 +264,6 @@ for (let i = 0; i < 6; i++) {
     return fixNum;
     };
 
-
-
-    // TODO 
-    // 1. 다음 달 표시
-    //  - after 버튼을 클릭하면 다음 달 (년도를 신경쓰지 말고 구해보자)
-    //  - 저번 달 보여주는 걸 지우는 함수
-    // 2. 지난 달 표시 
-    // 3. 년도가 바뀔 때 연도를 바꿔주는 함수 + 년도가 바뀔 때 함수 위에 이름도 
-    // 4. 날짜 선택자로 선택 (완료)
-    // 5. 오늘 날짜 표시
-    // 6. 리펙토링 범수쓰 함수 구성 참고 
-    // 7. 일주일 단위 보여주기
     let thisMonth = today.getMonth()+1;
     let thisYear = today.getFullYear();
     let plus = 1;
