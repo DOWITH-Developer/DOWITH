@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: 'Do Hyeon', sans-serif;
+    font-family: "Do Hyeon", sans-serif;
 }
 
 body {
@@ -11,18 +11,18 @@ body {
     background: #ffffff;
 }
 
-.title{
+.title {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
 }
 
-.title img{
+.title img {
     width: 110px;
     height: 85px;
 }
 
-.title h1{
+.title h1 {
     padding: 20px;
     margin-top: 20px;
     height: 90px;
@@ -30,7 +30,7 @@ body {
     font-size: 65px;
 }
 
-.category-container{
+.category-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -40,16 +40,16 @@ body {
     margin: 0 auto;
 }
 
-.ch_add{
+.ch_add {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
 }
 
-.ch-createBtn{
+.ch-createBtn {
     text-decoration: none;
-    background: #47CC71;
-    border: 0.1px solid #47CC71;
+    background: #47cc71;
+    border: 0.1px solid #47cc71;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     width: 170px;
@@ -61,10 +61,10 @@ body {
     margin-bottom: 20px;
 }
 
-.ch-shareBtn{
+.ch-shareBtn {
     text-decoration: none;
-    background: #47CC71;
-    border: 0.1px solid #47CC71;
+    background: #47cc71;
+    border: 0.1px solid #47cc71;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     width: 170px;
@@ -90,8 +90,8 @@ body {
     width: 70vw;
     margin: 0 auto;
     border-radius: 0.5rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    background: #EFEFEF;;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    background: #efefef;
 }
 
 .total_container .top_box {
@@ -113,10 +113,10 @@ body {
 }
 
 .tabs > button {
-    background: #EFEFEF;
+    background: #efefef;
     width: 5.5rem;
     height: 1.5rem;
-    border-color: 0.1px solid #EFEFEF;
+    border-color: 0.1px solid #efefef;
     font-size: 18px;
     font-weight: 700;
     margin: 0 0.5rem;
@@ -127,9 +127,9 @@ body {
     transition: var(--transition);
     border-radius: 5px;
 }
-.tabs > button:hover{
+.tabs > button:hover {
     color: #ffffff;
-    background: #47CC71;
+    background: #47cc71;
 }
 
 /* 
@@ -166,15 +166,15 @@ li.tab.active button {
     display: none;
 }
 
-.content{
+.content {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     text-align: center;
     padding: 30px;
 }
 
-.content div{
+.content div {
     margin-bottom: 20px;
 }
 
@@ -184,36 +184,36 @@ li.tab.active button {
     width: 60vw;
     height: 50px;
     line-height: 50px;
-    background: #C4C4C4;
+    background: #c4c4c4;
     border-radius: 20px;
     display: block;
     color: black;
     font-size: 20px;
 }
 
-.content div a span{
+.content div a span {
     width: 30%;
     display: inline-block;
 }
 
-.content div a:hover{
+.content div a:hover {
     background: #818482;
-    color:#EFEFEF;
+    color: #efefef;
 }
 
-.searchList a{
+.searchList a {
     text-decoration: none;
     font-size: 20px;
     text-align: center;
     font-weight: 200;
-    color: #102A42;
+    color: #102a42;
     margin-bottom: 10px;
 }
-.searchList a:hover{
-    color: #47CC71;
+.searchList a:hover {
+    color: #47cc71;
 }
 
-.words-notfound{
+.words-notfound {
     text-decoration: none;
     font-size: 20px;
     text-align: center;
@@ -221,4 +221,3 @@ li.tab.active button {
     font-weight: 200;
     margin-bottom: 10px;
 }
-
