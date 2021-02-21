@@ -209,8 +209,8 @@ const printUserChallenge = (challengeList) => {
     const status2 = document.querySelector(".status_2");
     for(let i = 0; i < challengeList.length; i++){
         // const innerHtmlTemplate = `<div><a href="http://127.0.0.1:8000/challenge/3">챌린지 명 : ` + challengeList[i].title + `</a></div>`
-        const innerHtmlTemplate = `<div><a href="http://127.0.0.1:8000/challenge/` + challengeList[i].pk + `">챌린지 명 : `
-                                + challengeList[i].title + `</a></div>`
+        const innerHtmlTemplate = `<a href="http://127.0.0.1:8000/challenge/invite/` + challengeList[i].invitation_key + `">`
+                                + challengeList[i].title + `</a>`
 
         const newChallengeDiv = new DOMParser().parseFromString(innerHtmlTemplate, "text/html").body.firstElementChild
         

@@ -218,7 +218,7 @@ def userchallenge_get(request):
 
     # user가 참여한 challenge를 user_enrollment_list를 통해 가져와 list로 담음
     for i, ch in enumerate(list(user_enrollment_list)):
-        user_challenge_list.append({"pk" : ch.challenge.pk, "title" : ch.challenge.title, "status" : ch.challenge.status})
+        user_challenge_list.append({"invitation_key" : ch.challenge.invitation_key, "title" : ch.challenge.title, "status" : ch.challenge.status})
 
     return JsonResponse({"challenge_list": user_challenge_list})
 

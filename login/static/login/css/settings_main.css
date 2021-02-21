@@ -219,13 +219,27 @@ body {
 
     padding: 20px;
     margin: 0 1rem;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .status_0 div,
 .status_1 div,
 .status_2 div {
-    background: #505050;
+    /* background: #505050;
     color: rgb(228, 228, 228);
+    border-radius: 20px;
+    text-align: center;
+    font-size: 20px;
+    margin: 0.5rem 0; */
+}
+
+.status_0 a,
+.status_1 a,
+.status_2 a {
+    background: #505050;
+    color: rgb(226, 226, 226);
     border-radius: 20px;
     text-align: center;
     font-size: 20px;
@@ -234,7 +248,6 @@ body {
 
 a {
     text-decoration: none;
-    color: rgb(226, 226, 226);
 }
 
 .ToS__content {
