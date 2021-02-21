@@ -9,12 +9,12 @@
 {% block content %}
 <div class="introduce">
     <div class="introduce__detail content1">
-        <img src="{% static 'img/DOWITH_logo.png' %}" alt="DOWITH_logo">
+        <img class="scale-down-center" src="{% static 'img/DOWITH_logo.png' %}" alt="DOWITH_logo">
         <a href="{% url 'login:login' %}"><button>시작하기</button></a>
         
     </div>
     <div class="introduce__detail content2">
-        <img src="{% static 'challenge/img/challenge-list.png' %}" alt="challenge-lsit">
+        <img class="img-updown" src="{% static 'challenge/img/challenge-list.png' %}" alt="challenge-lsit">
         <h2>자신만의 챌린지를 만들어 보세요!</h2>
     </div>
     <div class="introduce__detail content3">
@@ -44,7 +44,7 @@
     </div>
     <div class="introduce__detail content4">
         <h2>매일매일 챌린지를 관리 해 보세요!</h2>
-        <img src="{% static 'challenge/img/challenge-list.png' %}" alt="challenge-lsit">
+        <img class="img-updown" src="{% static 'challenge/img/challenge-list.png' %}" alt="challenge-lsit">
     </div>
     <div class="introduce__detail content5">
         <h2>챌린지 공개 범위도 내맘대로!</h2>
@@ -84,11 +84,21 @@
         <div class="developers-container">
             <h4>Developers</h4>
             <ul class="developers__list">
-                <li><span style="color:#5C62CC">영빈</span>&nbsp;&nbsp;&nbsp;github.com/yb5464</li>
-                <li><span style="color:#5C62CC">인송</span>&nbsp;&nbsp;&nbsp;github.com/ingong</li>
-                <li><span style="color:#5C62CC">호영</span>&nbsp;&nbsp;&nbsp;github.com/HoYoungChun</li>
-                <li><span style="color:#5C62CC">지민</span>&nbsp;&nbsp;&nbsp;github.com/Charmull</li>
-                <li><span style="color:#5C62CC">지현</span>&nbsp;&nbsp;&nbsp;github.com/jihyunhong</li>
+                <li>
+                    <a href="https://github.com/yb5464"><span style="color:#5C62CC">영빈</span>&nbsp;&nbsp;&nbsp;github.com/yb5464</a>
+                </li>
+                <li>
+                    <a href="https://github.com/ingong"><span style="color:#5C62CC">인송</span>&nbsp;&nbsp;&nbsp;github.com/ingong</a>
+                </li>
+                <li>
+                    <a href="https://github.com/HoYoungChun"><span style="color:#5C62CC">호영</span>&nbsp;&nbsp;&nbsp;github.com/HoYoungChun</a>
+                </li>
+                <li>
+                    <a href="https://github.com/Charmull"><span style="color:#5C62CC">지민</span>&nbsp;&nbsp;&nbsp;github.com/Charmull</a>
+                </li>
+                <li>
+                    <a href="https://github.com/jihyunhong"><span style="color:#5C62CC">지현</span>&nbsp;&nbsp;&nbsp;github.com/jihyunhong</a>
+                </li>
             </ul>
         </div>
     </div>
