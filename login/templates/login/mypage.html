@@ -60,7 +60,7 @@
                                 <div class="one_friend">
                                     <div>
                                         <a href="{% url 'friend:fd_detail' fd.me.pk %}">
-                                            <img class="friends__profile__image" src="{% static 'img/DOWITH.png' %}" alt="logo">
+                                            <img class="friends__profile__image" src="{{ fd.me.image.url }}" alt="logo">
                                             <p class="friends__profile__name">{{fd.me}}</p>
                                         </a>
                                     </div>

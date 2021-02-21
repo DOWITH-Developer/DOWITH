@@ -255,6 +255,9 @@ h3 {
 
 .friends__profile__image {
     width: 80px;
+    height: 80px;
+    /* cover할건가요? */
+    object-fit: cover;
     margin: 0 auto;
 }
 

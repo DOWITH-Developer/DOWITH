@@ -56,7 +56,10 @@ body {
 
 .friend__detail__profile__img {
     width: 150px;
+    height: 150px;
     margin: 1.5rem;
+    /* cover할건가요? */
+    object-fit: cover;
 }
 
 .friend__detail__info {
@@ -114,8 +117,7 @@ body {
     color: white;
     border: 0px;
     border-radius: 20px;
-    background: #47CC71;
+    background: #47cc71;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     color: white;
 }
-

@@ -10,7 +10,7 @@
 }
 
 * {
-    font-family: 'Do Hyeon', sans-serif;
+    font-family: "Do Hyeon", sans-serif;
 }
 
 body {
@@ -20,22 +20,22 @@ body {
 }
 
 #friend_search {
-    background: #EFEFEF;
+    background: #efefef;
     border: 0px;
     border-radius: 20px;
     width: 500px;
     height: 30px;
     padding: 10px;
     margin: 20px;
-    text-align:center;
+    text-align: center;
     color: black;
 }
 
 .friend__search__btn {
-    background: #47CC71;
+    background: #47cc71;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    color: #FFFFFF;
+    color: #ffffff;
     border: 0px;
     height: 30px;
     width: 100px;
@@ -57,7 +57,7 @@ body {
 #friend__new__search__container {
     width: 80%;
     min-height: 300px;
-    background: #EFEFEF;
+    background: #efefef;
     border-radius: 20px;
     padding: 20px;
     margin: 0 auto;
@@ -65,7 +65,7 @@ body {
 
 .friends__profile {
     width: 110px;
-    min-width:40%;
+    min-width: 40%;
     padding: 0.5rem;
     margin: 1rem 1rem;
     background: white;
@@ -79,6 +79,9 @@ body {
 
 .friends__profile__image {
     width: 80px;
+    height: 80px;
+    /* cover할건가요? */
+    object-fit: cover;
     margin: 0 auto;
 }
 
@@ -92,12 +95,12 @@ body {
 
 .friends__add__btn {
     border: 0px;
-    background: #47CC71;
+    background: #47cc71;
     color: white;
     padding: 10px;
     height: 25px;
-    font-size: .8rem;
+    font-size: 0.8rem;
     border-radius: 20px;
-    box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     transform: rotate(-0.23deg);
 }
