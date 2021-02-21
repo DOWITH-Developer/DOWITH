@@ -118,6 +118,8 @@ def challenge_detail(request, pk):
         return render(request, "challenge/challenge_done.html", data)
 
 
+@login_required
+@allowed_users
 def challenge_enrollment(request, pk):
     if request.method == "POST":  
         player = request.user
@@ -146,6 +148,7 @@ def challenge_create(request):
 
             #url hash 값 생성
             HASH_NAME = "md5"
+            temp_hash = str(challenge.pk)
 
             text = temp_hash.encode('utf-8')
             md5 = hashlib.new(HASH_NAME)

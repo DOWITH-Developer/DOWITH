@@ -37,8 +37,14 @@ def sign_up(request):
             user = form.save()
             return redirect("login:signup_success")
         else:
+            error_nickname_same = ""
+
+            if form.non_field_errors():
+                error_nickname_same = "사용자의 닉네임은/는 이미 존재합니다."
+
             ctx = {
                 "form": form,
+                "error_nickname_same": error_nickname_same,
                 # "er" : form.non_field_errors(),
             }
             return render(request, "login/signup.html", ctx)
@@ -239,9 +245,15 @@ def userinfo_modify(request):
             image_form.save()
             return redirect("login:settings")
         else:
+            error_nickname_same = ""
+
+            if form.non_field_errors():
+                error_nickname_same = "사용자의 닉네임은/는 이미 존재합니다."
+
             ctx = {
                 "form": form,
                 "image_form": image_form,
+                "error_nickname_same": error_nickname_same,
             }
             return render(request, "login/userinfo_modify.html", ctx)
     elif request.method == "GET":
@@ -282,8 +294,14 @@ def social_sign_up(request):
             user = form.save()
             return redirect("login:signup_success")
         else:
+            error_nickname_same = ""
+
+            if form.non_field_errors():
+                error_nickname_same = "사용자의 닉네임은/는 이미 존재합니다."
+
             ctx = {
                 "form": form,
+                "error_nickname_same": error_nickname_same,
                 # "er" : form.non_field_errors(),
             }
             return render(request, "login/social_signup.html", ctx)

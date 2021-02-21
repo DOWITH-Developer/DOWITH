@@ -29,6 +29,7 @@ class User(AbstractUser):
     def __str__(self):
         return str(self.nickname)
 
+    # clean_fields 함수의 경우 -> 각각의 필드 파라미터에 줬던 validators들이 덮어씌워짐
     def clean(self, *args, **kwargs):
         # 입력한 nickname 값(or 현재 user의 바꾸려는 nickname 값)
         nickname = self.nickname
