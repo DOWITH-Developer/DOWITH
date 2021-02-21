@@ -236,3 +236,19 @@ a {
     text-decoration: none;
     color: rgb(226, 226, 226);
 }
+
+.ToS__content {
+    text-align: left;
+    padding: 2rem;
+    /* overflow-y: scroll; */
+
+    font-family: "Do Hyeon";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.ToS__content .ToS__title {
+    font-size: 30px;
+    font-weight: bold;
+}
