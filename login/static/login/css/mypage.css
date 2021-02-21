@@ -51,6 +51,17 @@ h3 {
     cursor: pointer;
 }
 
+.calendar_container.container {
+    background-color: #efefef;
+    border-radius: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 80px;
+    padding: 20px;
+}
+
 .container {
     background-color: #efefef;
     border-radius: 20px;
