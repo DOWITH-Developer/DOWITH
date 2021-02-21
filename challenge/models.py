@@ -4,6 +4,8 @@ from login.models import User
 import datetime
 from hashid_field import HashidField, HashidAutoField
 
+from django.core.exceptions import ValidationError
+
 # User
 # - is staff : 내부자냐 아니냐
 
@@ -88,6 +90,18 @@ class Challenge(models.Model):
 
     def __str__(self):
         return self.title
+
+    def clean(self, *args, **kwargs):
+        error_list = []
+        if self.min_pp > self.max_pp:
+            error_list.append("최대 인원이 최소 인원보다 작을 수 없습니다.")
+        if self.start_date > self.end_date:
+            error_list.append("종료일이 시작일보다 빠를 수 없습니다.")
+        
+        if len(error_list) > 0:
+            raise ValidationError(error_list)
+
+        # return super(User, self).clean(*args, **kwargs)
 
 
 class Enrollment(models.Model):

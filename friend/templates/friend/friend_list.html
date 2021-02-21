@@ -5,6 +5,7 @@
 {% block extra_head %}
 
     <link rel="stylesheet" href="{% static 'friend/css/friend_list.css' %}">
+    <link rel="stylesheet" href="{% static 'friend/css/modal.css' %}">
     <script defer src="{% static 'friend/javascript/friend_list.js' %}"></script>
     <script defer src="{% static 'friend/javascript/friend_search.js' %}"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -56,7 +57,17 @@
                         </div>
 
                         <div class="friends__btn">
-                            <button class="friends__btn__cheer" onclick="giveMotivation({{fd.me.id}})">응원하기</button>
+                            <button class="friends__btn__cheer" onclick="giveMotivation()">응원하기</button>
+                            <div class="firstModal">
+                                <!-- First Modal content -->
+                                <div class="first-modal-content first-modal">
+                                    <div class="modal-first-content">
+                                        <p class="firstContent">콕 찌르시겠습니까?</p>
+                                        <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
+                                        <button class="cancel motivationbtn">취소</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,7 +109,38 @@
 
             {% endfor %}
         </div>
-
+        <div class="allModal">
+            <div class="secondModal">
+                <!-- Second Modal content -->
+                <div class="second-modal-content second-modal">
+                    <div class="modal-second-content">
+                        <p class="secondContent"></p>
+                        <button class="finalconfirm motivationbtn">확인</button>
+                    </div>
+                </div>
+            </div>
+            <div class="thirdModal">
+                <div class="third-modal-content">
+                    <p class="thirdContent">모든 콕 찌르기를 지우시겠습니까?</p>
+                    <button class="confirm motivationbtn" onclick="makeRemove()">확인</button>
+                    <button class="cancelremove motivationbtn">취소</button>
+                </div>
+            </div>
+            <div class="alert__modal">
+                <div class="alert__modal__container">
+                    <p class="alert__modal__content"></p>
+                    <button class="alertconfirm motivationbtn">확인</button>
+                </div>
+            </div>
+            <div class="Delete__Onemotiv__Modal">
+                <!-- First Modal content -->
+                <div class="delete-one-modal-content">
+                    <p class="delete-one-content">해당 콕 찌르기를 지우시겠습니까?</p>
+                    <button class="confirm motivationbtn" onclick="makeOneRemove({{motivation.id}})">확인</button>
+                    <button class="cancelremove motivationbtn"">취소</button>
+                </div>
+            </div>
+        </div>
     </section>
 
 {% endblock content %}

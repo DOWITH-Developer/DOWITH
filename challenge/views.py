@@ -20,10 +20,16 @@ import hashlib
 # decorator
 from login.decorators import allowed_users
 from django.contrib.auth.decorators import login_required
+# dic
+from django.template.defaultfilters import register
 
 
 #TODO challenge_detail view Ajax 변수명 수정
 
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
 
 def home(request):
     return render(request, "challenge/home.html")
@@ -157,6 +163,40 @@ def challenge_create(request):
             challenge.save()
 
             return redirect(f'/challenge/list/{challenge.pk}')
+        else:
+            # error_list 딕셔너리로 넘겨주지않고, 각각 변수로 넘겨줄때
+            # error_pp = ""
+            # error_date = ""
+            # error_category = ""
+            # error_private = ""
+            error_list = {}
+            # print(request.POST.get("category"))
+            # print(request.POST.get("private"))
+
+            if request.POST.get("category") == None:
+                # error_category = "카테고리를 선택해야 합니다."
+                error_list["category"] = "카테고리를 선택해야 합니다."
+            if request.POST.get("private") == None:
+                # error_private = "공개 상태를 선택해야 합니다."
+                error_list["private"] = "공개 상태를 선택해야 합니다."
+
+            for error in form.non_field_errors():
+                if error == "최대 인원이 최소 인원보다 작을 수 없습니다.":
+                    # error_pp = error
+                    error_list["pp"] = "최대 인원이 최소 인원보다 작을 수 없습니다."
+                elif error == "종료일이 시작일보다 빠를 수 없습니다.":
+                    # error_date = error
+                    error_list["date"] = "종료일이 시작일보다 빠를 수 없습니다."
+            
+            ctx = {
+                "form": form,
+                # "error_pp" : error_pp,
+                # "error_date" : error_date,
+                # "error_category" : error_category,
+                # "error_private" : error_private,
+                "error_list" : error_list,
+            }
+            return render(request, "challenge/challenge_create.html", ctx)
     else:
         form = ChallengeForm()
     return render(request, 'challenge/challenge_create.html', {"form": form})

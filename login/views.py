@@ -39,6 +39,7 @@ def sign_up(request):
         else:
             ctx = {
                 "form": form,
+                # "er" : form.non_field_errors(),
             }
             return render(request, "login/signup.html", ctx)
     # if request.method == "POST":
@@ -217,7 +218,7 @@ def userchallenge_get(request):
 
     # user가 참여한 challenge를 user_enrollment_list를 통해 가져와 list로 담음
     for i, ch in enumerate(list(user_enrollment_list)):
-        user_challenge_list.append({"pk" : ch.challenge.pk, "title" : ch.challenge.title, "status" : ch.challenge.status})
+        user_challenge_list.append({"invitation_key" : ch.challenge.invitation_key, "title" : ch.challenge.title, "status" : ch.challenge.status})
 
     return JsonResponse({"challenge_list": user_challenge_list})
 
@@ -276,26 +277,39 @@ def userinfo_password_modify(request):
 def social_sign_up(request):
     if request.method == "POST":
         form = SocialSignUpForm(request.POST, instance=request.user)
-        if(request.POST.get("is_ToS")):
-            # is_ToS 체크돼서 올때
-            if form.is_valid():
-                request.user.is_social = True
-                # TODO : 만약 로컬 회원가입 시 is_ToS 등이 false일 경우 로컬 계정은 소셜 계정이 됨
-                user = form.save()
-                return redirect("login:signup_success")
-            else:
-                ctx = {
-                    "form": form,
-                }
-                return render(request, "login/social_signup.html", ctx)
+        if form.is_valid():
+            request.user.is_social = True
+            # TODO : 만약 로컬 회원가입 시 is_ToS 등이 false일 경우 로컬 계정은 소셜 계정이 됨
+            user = form.save()
+            return redirect("login:signup_success")
         else:
-            # is_ToS 체크 안돼서 올때
             ctx = {
                 "form": form,
-                "ToS_error": "약관을 동의해야합니다."
+                # "er" : form.non_field_errors(),
             }
             return render(request, "login/social_signup.html", ctx)
 
+    # if request.method == "POST":
+    #     form = SocialSignUpForm(request.POST, instance=request.user)
+    #     if(request.POST.get("is_ToS")):
+    #         # is_ToS 체크돼서 올때
+    #         if form.is_valid():
+    #             request.user.is_social = True
+    #             # TODO : 만약 로컬 회원가입 시 is_ToS 등이 false일 경우 로컬 계정은 소셜 계정이 됨
+    #             user = form.save()
+    #             return redirect("login:signup_success")
+    #         else:
+    #             ctx = {
+    #                 "form": form,
+    #             }
+    #             return render(request, "login/social_signup.html", ctx)
+    #     else:
+    #         # is_ToS 체크 안돼서 올때
+    #         ctx = {
+    #             "form": form,
+    #             "ToS_error": "약관을 동의해야합니다."
+    #         }
+    #         return render(request, "login/social_signup.html", ctx)
     elif request.method == "GET" and (request.user.is_ToS == False or request.user.email == None or request.user.username == None or request.user.nickname == None):
         form = SocialSignUpForm(instance=request.user)
         ctx = {

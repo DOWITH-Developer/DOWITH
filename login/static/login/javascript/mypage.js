@@ -1,3 +1,8 @@
+const x = document.querySelector(".close");
+const cancelRemove = document.querySelector(".cancelremove")
+const cancel = document.querySelector(".cancel")
+const yes = document.querySelector(".confirm")
+
 const firstModal = document.querySelector('.firstModal');
 const firstContent = document.querySelector('firstContent');
 const firstModalContent = document.querySelector('.first-modal-content');
@@ -15,34 +20,47 @@ let thirdModalText = thirdContent.textContent;
 
 const alertModal = document.querySelector('.alert__modal');
 const alertModalContainer = document.querySelector('.alert__modal__container');
+const alertConfirm = document.querySelector('.alertconfirm');
 const alertModalContent = document.querySelector('.alert__modal__content');
+const finalConfirm = document.querySelector('.finalconfirm');
 
 const deleteOneMotivModal = document.querySelector('.Delete__Onemotiv__Modal');
-const deleteOneModalContent = document.querySelector('delete-one-modal-content');
+const deleteOneModalContent = document.querySelector('.delete-one-modal-content');
 const deleteOneContent = document.querySelector('.delete-one-content');
 let deleteOneModalText = deleteOneContent.textContent;
-const yes = document.querySelector(".confirm");
 
-
-function cancelFirst(){
+cancel.onclick = function() {
     firstModal.style.display = "none";
 }
 
-function alertConfirm(){
+alertConfirm.onclick = function() {
     alertModal.style.display = "none";
 }
 
-function cancelSecond(){
+finalConfirm.onclick = function() {
     secondModal.style.display = "none";
 }
 
-function cancelAllDelete(){
+x.onclick = function() {
+    firstModal.style.display = "none";
+}
+
+cancelRemove.onclick = function() {
     thirdModal.style.display = "none";
 }
 
-function cancelDelete(){
-    deleteOneMotivModal.style.display = "none";
+const makeConfirm = async (id) => {
+    firstModal.style.display = "none";
+    const url = "/friend/motivate/";
+    const {data} = await axios.post(url, {
+                id
+    })
+    secondModal.style.display = "block"
+    secondContent.textContent = `${data.user} 를 콕 찔렀습니다`;
+}
 
+const giveMotivation = () => {
+    openModal("콕 찌르시겠습니까?")
 }
 
 function openModal(text){
@@ -69,28 +87,6 @@ function openRemoveOneModal(text){
     deleteOneMotivModal.style.display = "block";
 }
 
-const makeConfirm = async (id) => {
-    firstModal.style.display = "none";
-    const url = "/friend/motivate/";
-    const {data} = await axios.post(url, {
-                id
-    })
-    secondModal.style.display = "block"
-    secondContent.textContent = `${data.user} 를 콕 찔렀습니다`;
-}
-
-const makeOneRemove = async (id) => {
-    deleteOneMotivModal.style.display = "none";
-    const url = "/friend/motivate/remove/";
-    const motivationTarget = document.querySelector(`.motivation-${id}`)
-    motivationTarget.remove()
-    
-    openAlertModal('지웠습니다.')
-    const {data} = await axios.post(url, {
-            id
-    })
-}
-
 const makeRemove = async (id=null) => {
     thirdModal.style.display = "none";
     const url = "/friend/motivate/remove/";
@@ -108,8 +104,16 @@ const makeRemove = async (id=null) => {
     }
 }
 
-const giveMotivation = () => {
-    openModal("콕 찌르시겠습니까?")
+const makeOneRemove = async (id) => {
+    deleteOneMotivModal.style.display = "none";
+    const url = "/friend/motivate/remove/";
+    const motivationTarget = document.querySelector(`.motivation-${id}`)
+    motivationTarget.remove()
+    
+    openAlertModal('지웠습니다.')
+    const {data} = await axios.post(url, {
+            id
+    })
 }
 
 const removeMotivation = (id=null) => {

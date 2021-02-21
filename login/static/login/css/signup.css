@@ -45,8 +45,24 @@ body {
 
 .ToS {
     background-color: #efefef;
+    border-radius: 20px;
     width: 400px;
     height: 300px;
+    /* white-space: pre; */
+    /* text-overflow: clip; */
+    text-align: left;
+    padding: 1.3rem;
+    overflow-y: scroll;
+
+    font-family: "Do Hyeon";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+}
+
+.ToS .ToS__title {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .signup__body {
@@ -79,6 +95,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin: 1rem;
+    align-items: center;
 }
 
 .signup__form-field label {
@@ -91,6 +108,18 @@ body {
     border: none;
     border-radius: 20px;
     padding: 10px;
+}
+
+.signup__form-field input[type="checkbox"] {
+    /* width와 height 외에 적용 안됨 */
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: #efefef;
+    border: 5px solid #efefef;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 0.5rem;
 }
 
 /* input값이 invalid할 경우 테두리 빨간색 --> js로 처리해보자 */
