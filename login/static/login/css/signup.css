@@ -69,7 +69,7 @@ body {
     padding: 1.3rem;
     overflow-y: scroll;
 
-    font-family: "Do Hyeon";
+    font-family: "gothic";
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
@@ -164,8 +164,8 @@ body {
     font-family: "Do Hyeon";
     font-style: normal;
     font-weight: normal;
-    font-size: 20px;
-    line-height: 35px;
+    font-size: 17px;
+    line-height: 30px;
 }
 
 .signup__form-error {
