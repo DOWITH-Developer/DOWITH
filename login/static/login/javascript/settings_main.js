@@ -70,7 +70,9 @@ const checkAddCss = (event) => {
     let target = event.currentTarget;
     target.classList.add("check");
 
-    const settings_list = [userInfo, userChallenge, setting, ToS];
+    const settings_list = [userInfo, userChallenge, ToS];
+    // 설정 삭제
+    // const settings_list = [userInfo, userChallenge, setting, ToS];
     settings_list.forEach((i) => {
         if (i == target){
             i.classList.add("check");
@@ -85,7 +87,8 @@ userInfo.addEventListener("click", onClickUserInfo)
 
 userInfo.addEventListener("click", checkAddCss)
 userChallenge.addEventListener("click", checkAddCss)
-setting.addEventListener("click", checkAddCss)
+// 설정 삭제
+// setting.addEventListener("click", checkAddCss)
 ToS.addEventListener("click", checkAddCss)
 
 
@@ -258,7 +261,8 @@ const printSetting = () => {
     contentBox.appendChild(newSettingDiv)
 }
 
-setting.addEventListener("click", onClickSetting)
+// 설정 삭제
+// setting.addEventListener("click", onClickSetting)
 
 
 

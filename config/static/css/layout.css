@@ -378,7 +378,7 @@ main {
         height: 0rem;
         flex-direction: column;
         justify-content: space-between;
-        align-items:flex-start;
+        align-items:flex-start; 
         text-align: center;
         width: 100%;
     }

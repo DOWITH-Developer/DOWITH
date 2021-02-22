@@ -256,7 +256,7 @@ class SearchAjax(View):
         return JsonResponse({"friend_list":friend_list})
 
         
-# serialized로 전체를 넘겨주는 경우
+# # serialized로 전체를 넘겨주는 경우
 # class SearchAjax(View):
 #     # 포비든 문제때문에 추가
 #     @method_decorator(csrf_exempt)
