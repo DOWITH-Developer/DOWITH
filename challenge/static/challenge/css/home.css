@@ -88,13 +88,15 @@ h2 {
 
 .content2 {
     display: flex;
-    justify-content: space-around;
+    justify-content: center; 
     align-items: center;
 }
 
 .content2 img {
     width: 450px;
     border-radius: 10px;
+    margin-right: 80px;
+    margin-left: 80px;
 }
 
 .img-updown {

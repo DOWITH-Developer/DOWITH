@@ -4,7 +4,6 @@ from django import forms
 
 
 class FriendshipForm(forms.ModelForm):
-
     class Meta:
         model = Friendship
         fields = '__all__'
