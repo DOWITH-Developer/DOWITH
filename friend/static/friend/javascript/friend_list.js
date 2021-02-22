@@ -1,4 +1,4 @@
-const firstModal = document.querySelector(".firstModal");
+let firstModal = document.querySelector(".firstModal");
 const firstContent = document.querySelector("firstContent");
 const firstModalContent = document.querySelector(".first-modal-content");
 
@@ -42,9 +42,13 @@ function cancelDelete() {
     deleteOneMotivModal.style.display = "none";
 }
 
+// let firstModal1 = document.querySelector(".firstModal1");
 function openModal(text) {
     firstModal.style.display = "block";
     firstModalText = text;
+
+    // console.log("openModal OK");
+    // console.log(firstModal);
 }
 
 function openSecondModal(text) {
@@ -115,6 +119,7 @@ const makeRemove = async (id = null) => {
 
 const giveMotivation = () => {
     openModal("콕 찌르시겠습니까?");
+    // console.log("giveMotivation OK");
 };
 
 const removeMotivation = (id = null) => {
