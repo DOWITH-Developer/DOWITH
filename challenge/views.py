@@ -139,7 +139,7 @@ def challenge_enrollment(request, pk):
 def challenge_create(request):
     if request.method == 'POST':
         form = ChallengeForm(request.POST, request.FILES)
-        
+
         if form.is_valid():
             challenge = form.save()
 

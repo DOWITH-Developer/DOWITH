@@ -13,6 +13,8 @@
 }
 
 body {
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     padding: 0;
     background: #ffffff;
@@ -34,11 +36,32 @@ h3 {
     padding: 8px 12px;
     width: 60%;
     margin: 0 auto;
+}
+
+.setting{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 78.5%;
     margin-top: 30px;
 
     animation-duration: 1.5s;
     animation-name: slidein;
+}
 
+.setting i{
+    color: #47cc71;
+    font-size: 40px;
+}
+
+.setting i:hover{
+    color: #055A05;
+    font-size: 40px;
+}
+
+.setting i a{
+    color: #47cc71;
+    text-decoration: none;
 }
 
 .calendar_title {
@@ -66,6 +89,10 @@ h3 {
     cursor: pointer;
 }
 
+.calendar_container{
+    margin-top: 20px;
+}
+
 .calendar_container.container {
     background-color: #efefef;
     border-radius: 20px;
@@ -86,6 +113,7 @@ h3 {
     align-items: center;
     margin-bottom: 80px;
     padding: 20px;
+    min-height: 300px;
 }
 
 .green_text {
@@ -130,8 +158,8 @@ h3 {
     color: white;
 }
 .moti_delete_all {
-    background-color: #eb7676;
-    border: 1px solid #eb7676;
+    background-color: #47CC71;
+    border: 1px solid #47CC71;
     border-radius: 20px;
     font-weight: 100;
     padding: 7px 15px;
@@ -141,7 +169,7 @@ h3 {
 
 .challenge_list {
     width: 100%;
-}
+ }
 
 .challenge_list h3 {
     text-align: center;
@@ -301,4 +329,8 @@ h3 {
 .setting-btn a {
     color: #ffffff;
     font-weight: 100;
+}
+
+.setting-btn{
+    width: 14vw;
 }

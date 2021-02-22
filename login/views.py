@@ -105,7 +105,6 @@ def login(request):
         }
         return render(request, "login/login.html", ctx)
 
-
 def logout(request):
     if request.method == "POST":
         auth_logout(request)
