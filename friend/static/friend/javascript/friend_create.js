@@ -41,6 +41,7 @@ const makeUserList = (userList) => {
         let newUserProfileName = document.createElement("p")
         newUserProfileName.className="friends__profile__name"
         newUserProfileName.innerHTML = `${nickname}`
+        newUserProfileName.style.textAlign = 'center'
 
         newUserProfileLink.appendChild(newUserProfileImg)
         newUserProfileLink.appendChild(newUserProfileName)

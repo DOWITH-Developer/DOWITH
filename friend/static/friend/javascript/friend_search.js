@@ -5,7 +5,7 @@ const searchFriend = async () => {
     const { data } = await axios.post(url, {
         value: value.value,
     });
-    // serialized로 전체를 넘겨주는 경우
+    // // serialized로 전체를 넘겨주는 경우
     // let friend = JSON.parse(data.friend);
     // let friendList = JSON.parse(data.friend_list);
     // printFriendList(friendList);
@@ -31,10 +31,10 @@ const printFriendList = (friendListDic) => {
 
     for(let key in friendListDic){
         freindInfo = friendListDic[key];
-        console.log(freindInfo);
+        // console.log(freindInfo);
         let { pk, username, nickname, image } = freindInfo;
 
-        console.log(pk, username, nickname, image)
+        // console.log(pk, username, nickname, image)
         let friends = document.createElement("div");
         friends.className = "friends";
         let profileContainer = document.createElement("div");
@@ -50,7 +50,23 @@ const printFriendList = (friendListDic) => {
 
         let btnContainer = document.createElement("div");
         btnContainer.className = "friends__btn";
-        btnContainer.innerHTML = `<button class="friends__btn__cheer" onclick="giveMotivation ({{${pk}}})">응원하기</button>`;
+        btnContainer.innerHTML = `<button class="friends__btn__cheer" onclick="giveMotivation(${pk})">응원하기</button>`;
+        
+        let firstModal = document.createElement("div");
+        firstModal.className = "firstModal"
+        firstModal.innerHTML = `<!-- First Modal content -->
+                                <div class="first-modal-content first-modal">
+                                    <div class="modal-first-content">
+                                        <p class="firstContent">콕 찌르시겠습니까?</p>
+                                        <div class="button__container">
+                                            <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
+                                            <button class="motivationbtn" onclick="cancelFirst()">취소</button>
+                                        </div>
+                                    </div>
+                                </div>`
+
+        console.log(firstModal)
+        btnContainer.appendChild(firstModal)
 
         profileContainer.appendChild(infoContainer);
         profileContainer.appendChild(btnContainer);
@@ -59,7 +75,7 @@ const printFriendList = (friendListDic) => {
     }
 }
 
-// serialized로 전체를 넘겨주는 경우
+// // serialized로 전체를 넘겨주는 경우
 // const printFriendList = (friendList) => {
 //     friendContainer.innerHTML = "";
 

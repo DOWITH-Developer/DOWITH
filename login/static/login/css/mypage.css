@@ -7,7 +7,6 @@
     }
 }
 
-
 * {
     font-family: "Do Hyeon", sans-serif;
 }
@@ -38,7 +37,7 @@ h3 {
     margin: 0 auto;
 }
 
-.setting{
+.setting {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -49,17 +48,17 @@ h3 {
     animation-name: slidein;
 }
 
-.setting i{
+.setting i {
     color: #47cc71;
     font-size: 40px;
 }
 
-.setting i:hover{
-    color: #055A05;
+.setting i:hover {
+    color: #055a05;
     font-size: 40px;
 }
 
-.setting i a{
+.setting i a {
     color: #47cc71;
     text-decoration: none;
 }
@@ -89,7 +88,7 @@ h3 {
     cursor: pointer;
 }
 
-.calendar_container{
+.calendar_container {
     margin-top: 20px;
 }
 
@@ -158,8 +157,8 @@ h3 {
     color: white;
 }
 .moti_delete_all {
-    background-color: #47CC71;
-    border: 1px solid #47CC71;
+    background-color: #47cc71;
+    border: 1px solid #47cc71;
     border-radius: 20px;
     font-weight: 100;
     padding: 7px 15px;
@@ -170,7 +169,7 @@ h3 {
 
 .challenge_list {
     width: 100%;
- }
+}
 
 .challenge_list h3 {
     text-align: center;
@@ -265,13 +264,14 @@ h3 {
     border-radius: 20px;
     padding: 2rem 1rem;
     width: 20vw;
-    height: 27vh;
+    /* height: 27vh; */
     margin: 10px 0;
 }
 
 .friend__list .friends .one_friend {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     background: white;
 }
 
@@ -333,6 +333,6 @@ h3 {
     font-weight: 100;
 }
 
-.setting-btn{
+.setting-btn {
     width: 14vw;
 }

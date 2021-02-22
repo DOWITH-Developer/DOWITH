@@ -141,11 +141,6 @@
                     </div>
                 </div>
                 {% endfor %}
-                {% if motivation_from_friends %}
-                    <div>
-                        <button class="moti_delete_all motivationbtn" onclick="removeMotivation()">모두 지우기</button>
-                    </div>
-                {% endif %}
             </div>
         </div>
 
@@ -190,6 +185,8 @@ let thisMonth = today.getMonth()+1;
 let thisYear = today.getFullYear();
 let plus = 1;
 let minus = 1;
+const todayId = (thisMonth < 10) ? `${thisYear}${'0' + thisMonth}${today.getDate()}`: `${thisYear}${thisMonth}${today.getDate()}`;
+const todaySelector = document.getElementById(`${todayId}`);
 
 //날짜 데이터를 가공하는 함수
 function setCalendarData(year, month){        
@@ -335,6 +332,7 @@ function setCalendarData(year, month){
 
     // 챌린지 결과를 보여주는 함수
     const onClickResult = async (id) => {
+        console.log('onclickresult 진입')
         const url = "/result_ajax/";
         const { data } = await axios.post(url, {
             id,
