@@ -7,7 +7,7 @@ urlpatterns = [
     path("signup/", sign_up, name="signup"),
     path("login/", login, name="login"),
     path("logout/", logout, name="logout"),
-    path("<int:pk>/mypage/",my_page, name="my_page"),
+    path("mypage/",my_page, name="my_page"),
     # settings
     path("settings/", settings_main, name="settings"),
     path("settings/user_info/", userinfo_get, name="user_info"),

@@ -7,7 +7,6 @@
     }
 }
 
-
 body {
     width: 100vw;
     height: 100vh;
@@ -21,7 +20,6 @@ body {
     /* justify-content: center; */
 
     margin-top: 50px;
-
 
     animation-duration: 1.5s;
     animation-name: slidein;
@@ -69,7 +67,7 @@ body {
     padding: 1.3rem;
     overflow-y: scroll;
 
-    font-family: "Do Hyeon";
+    font-family: "gothic";
     font-style: normal;
     font-weight: normal;
     font-size: 15px;
@@ -164,14 +162,16 @@ body {
     font-family: "Do Hyeon";
     font-style: normal;
     font-weight: normal;
-    font-size: 20px;
-    line-height: 35px;
+    font-size: 17px;
+    line-height: 30px;
 }
 
 .signup__form-error {
     font-size: 17px;
     /* margin-bottom: 10px; */
     color: #5c62cc;
+    display: flex;
+    flex-direction: column;
 }
 
 .signup__form-actions > button:hover {

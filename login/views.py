@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.views import View
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
@@ -23,7 +22,9 @@ from datetime import date #today가져오기 위해
 from django.template.defaulttags import register
 
 # decorator
-from .decorators import allowed_users
+from .decorators import allowed_users, required_login
+# from django.contrib.auth.decorators import login_required
+
 
 @register.filter
 def get_item(dictionary, key):
@@ -76,6 +77,9 @@ def sign_up(request):
 
 
 def login(request):
+    # next_url이 있을 경우를 위해
+    next_url = request.GET.get("next")
+
     if request.method == "POST":
         form = LoginForm(request.POST)
         email = request.POST["email"]
@@ -83,6 +87,10 @@ def login(request):
         user = authenticate(email=email, password=password)
         if user is not None:
             auth_login(request, user)
+
+            # next_url이 있을 경우를 위해
+            if next_url:
+                return redirect(next_url)
             return redirect("login:login_success")
         else:
             ctx = {
@@ -96,7 +104,6 @@ def login(request):
             "form": form,
         }
         return render(request, "login/login.html", ctx)
-
 
 def logout(request):
     if request.method == "POST":
@@ -116,8 +123,9 @@ def logout_success(request):
     return render(request, "login/logout_success.html")
 
 
+@required_login
 @allowed_users
-def my_page(request, pk):
+def my_page(request):
     me = request.user
     friends = me.friend_set.all().filter(accepted=True)
     # me = get_object_or_404(User, id=pk) #me = 접속한 user
@@ -172,7 +180,7 @@ def result_ajax(request):
 
 # settings
 
-@login_required
+@required_login
 @allowed_users
 def settings_main(request):
     return render(request, "login/settings_main.html")

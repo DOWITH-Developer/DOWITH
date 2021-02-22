@@ -7,7 +7,6 @@
     }
 }
 
-
 body {
     width: 100vw;
     height: 100vh;
@@ -21,7 +20,6 @@ body {
     /* justify-content: center; */
 
     margin-top: 50px;
-
 
     animation-duration: 1.5s;
     animation-name: slidein;
@@ -131,8 +129,8 @@ body {
     font-family: "Do Hyeon";
     font-style: normal;
     font-weight: normal;
-    font-size: 20px;
-    line-height: 35px;
+    font-size: 17px;
+    line-height: 30px;
 }
 
 .modify__form-actions > button:hover {
@@ -143,6 +141,8 @@ body {
     font-size: 17px;
     /* margin-bottom: 10px; */
     color: #5c62cc;
+    display: flex;
+    flex-direction: column;
 }
 
 .password_modify {
@@ -160,6 +160,14 @@ body {
     font-weight: normal;
     font-size: 20px;
     line-height: 35px;
+}
+
+.password-modify__form-error {
+    font-size: 17px;
+    /* margin-bottom: 10px; */
+    color: #5c62cc;
+    display: flex;
+    flex-direction: column;
 }
 
 .current > p,
