@@ -55,12 +55,13 @@ body {
     transform: rotate(-0.23deg);
     color: white;
     width: 8vw;
-    height: 3vh;
+    height: 4vh;
     border: 0px;
     margin-right: 10px;
     cursor: pointer;
     font-family: "Do Hyeon", sans-serif;
     font-weight: 100;
+    font-size: 15px;
 }
 
 .success__login__btn {
@@ -70,10 +71,11 @@ body {
     transform: rotate(-0.23deg);
     color: white;
     width: 8vw;
-    height: 3vh;
+    height: 4vh;
     border: 0px;
     margin-left: 10px;
     cursor: pointer;
     font-family: "Do Hyeon", sans-serif;
     font-weight: 100;
+    font-size: 15px;
 }
