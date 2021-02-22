@@ -117,6 +117,7 @@ def logout_success(request):
     return render(request, "login/logout_success.html")
 
 
+@required_login
 @allowed_users
 def my_page(request):
     me = request.user
