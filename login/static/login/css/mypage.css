@@ -34,11 +34,32 @@ h3 {
     padding: 8px 12px;
     width: 60%;
     margin: 0 auto;
+}
+
+.setting{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 78.5%;
     margin-top: 30px;
 
     animation-duration: 1.5s;
     animation-name: slidein;
+}
 
+.setting i{
+    color: #47cc71;
+    font-size: 40px;
+}
+
+.setting i:hover{
+    color: #055A05;
+    font-size: 40px;
+}
+
+.setting i a{
+    color: #47cc71;
+    text-decoration: none;
 }
 
 .calendar_title {
@@ -64,6 +85,10 @@ h3 {
     color: white;
     height: 30px;
     cursor: pointer;
+}
+
+.calendar_container{
+    margin-top: 20px;
 }
 
 .calendar_container.container {
