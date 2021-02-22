@@ -54,6 +54,8 @@ def allowed_users(function):
 
 
 
+from urllib.parse import urlparse
+
 # 로그인 안 한 유저가 로그인한 유저만 할 수 있는 행위를 할때 로그인 페이지로 이동시키게 하기
 def required_login(function):
     @wraps(function)
@@ -63,5 +65,31 @@ def required_login(function):
         if user and user.is_authenticated:
             return function(request, *args, **kwargs)
 
-        return redirect("login:login")
+        path = request.get_full_path()
+
+        return redirect("/login/login/?next="+ path)
+    return wrap
+
+
+
+from django.core.handlers.wsgi import WSGIRequest
+
+def required_login_POST(function):
+    @wraps(function)
+    def wrap(request, *args, **kwargs):
+        print(request)
+
+        user = getattr(request, "user")
+
+        # user가 로그인을 했다면
+        if user and user.is_authenticated:
+            return function(request, *args, **kwargs)
+
+        # user가 로그인을 안 했고 post방식이라면
+        if isinstance(request, WSGIRequest) and request.method == "POST":
+            path = urlparse(request.META['HTTP_REFERER']).path
+            return redirect("/login/login/?next="+ path)
+
+        # user가 로그인을 안 했고 get방식이라면(솔직히 신경쓸 필요 없음. challenge id가 hash값이기 때문)
+        return redirect("/login/login/?next="+ path)
     return wrap

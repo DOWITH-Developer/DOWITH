@@ -77,6 +77,9 @@ def sign_up(request):
 
 
 def login(request):
+    # next_url이 있을 경우를 위해
+    next_url = request.GET.get("next")
+
     if request.method == "POST":
         form = LoginForm(request.POST)
         email = request.POST["email"]
@@ -84,6 +87,10 @@ def login(request):
         user = authenticate(email=email, password=password)
         if user is not None:
             auth_login(request, user)
+
+            # next_url이 있을 경우를 위해
+            if next_url:
+                return redirect(next_url)
             return redirect("login:login_success")
         else:
             ctx = {
