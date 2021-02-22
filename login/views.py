@@ -76,6 +76,10 @@ def sign_up(request):
 
 
 def login(request):
+
+    #
+    next_url = request.GET.get("next")
+
     if request.method == "POST":
         form = LoginForm(request.POST)
         email = request.POST["email"]
@@ -83,6 +87,10 @@ def login(request):
         user = authenticate(email=email, password=password)
         if user is not None:
             auth_login(request, user)
+
+            # 
+            if next_url:
+                return redirect(next_url)
             return redirect("login:login_success")
         else:
             ctx = {
@@ -96,7 +104,6 @@ def login(request):
             "form": form,
         }
         return render(request, "login/login.html", ctx)
-
 
 def logout(request):
     if request.method == "POST":

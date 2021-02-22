@@ -86,6 +86,7 @@ h3 {
     align-items: center;
     margin-bottom: 80px;
     padding: 20px;
+    min-height: 300px;
 }
 
 .green_text {
@@ -130,8 +131,8 @@ h3 {
     color: white;
 }
 .moti_delete_all {
-    background-color: #eb7676;
-    border: 1px solid #eb7676;
+    background-color: #47CC71;
+    border: 1px solid #47CC71;
     border-radius: 20px;
     font-weight: 100;
     padding: 7px 15px;
@@ -141,7 +142,7 @@ h3 {
 
 .challenge_list {
     width: 100%;
-}
+ }
 
 .challenge_list h3 {
     text-align: center;

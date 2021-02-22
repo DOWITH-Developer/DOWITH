@@ -51,7 +51,15 @@
         <br>
 
         <div class="friend__list">
+            <div class="page__container__title">
                 <h3> 오늘 내 친구들은?</h3>
+                <div style = "float:right;">
+                    <button class = "all-friend-btn" >
+                        <a href="{% url 'friend:fd_list' %}">친구 더보기</a>
+                    </button>
+                </div>
+            </div>
+
                 <div class="container">
                     <div class="friends">
                         {% for fd in friends %}
@@ -100,18 +108,19 @@
                         </div>
                         {% endfor %}
                     </div>
-                    <div style = "margin-top: 30px;">
-                        <button class = "all-friend-btn" >
-                            <a href="{% url 'friend:fd_list' %}">친구 더보기</a>
-                        </button>
-                    </div>
+
                 </div>
         
 
         
                 <!--임시방편으로 위치만 잡아둔 것 나중에 코드 복사를 통해서 위치 조정 예정-->
         <div class="friend__motivation">
-            <h3>나를 찌른 친구</h3>
+            <div class="page__container__title">
+                <h3>나를 찌른 친구</h3>
+                <div>
+                    <button style="float:right;" class="moti_delete_all" onclick="removeMotivation()">모두 지우기</button></div>
+                </div>
+            </div>
             <div class="motivation_container container">
                 {% for motivation in motivation_from_friends %}
                     <div class = "moti">
@@ -128,8 +137,7 @@
                         </div>
                     </div>
                 {% endfor %}
-            <div><button class="moti_delete_all motivationbtn" onclick="removeMotivation()">모두 지우기</button></div>
-            </div>
+
         </div>
 
         <div>
