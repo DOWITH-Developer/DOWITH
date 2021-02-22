@@ -15,7 +15,6 @@
 
 
 {% block content %}
-
     <div class="invitation__logo">
         <img src="{% static 'img/DOWITH.png' %}" alt="logo">
         <h1 syle="font-size: 65px;">친구들</h1>
@@ -55,19 +54,20 @@
 
                         <div class="friends__btn">
                             <button class="friends__btn__cheer" onclick="giveMotivation()">응원하기</button>
-                            <div class="firstModal">
-                                <!-- First Modal content -->
-                                <div class="first-modal-content first-modal">
-                                    <div class="modal-first-content">
-                                        <p class="firstContent">콕 찌르시겠습니까?</p>
-                                        <div class="button__container">
-                                            <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
-                                            <button class="motivationbtn" onclick="cancelFirst()">취소</button>
-                                        </div>
+                        </div>
+
+                        <div class="firstModal">
+                            <div class="first-modal-content first-modal">
+                                <div class="modal-first-content">
+                                    <p class="firstContent">콕 찌르시겠습니까?</p>
+                                    <div class="button__container">
+                                        <button class="motivationbtn" onclick="cancelFirst()">취소</button>
+                                        <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             {% endfor %}
@@ -121,8 +121,8 @@
                 <div class="third-modal-content">
                     <p class="thirdContent">모든 콕 찌르기를 지우시겠습니까?</p>
                     <div class="button__container">
-                        <button class="confirm motivationbtn" onclick="makeRemove()">확인</button>
                         <button class="motivationbtn" onclick="cancelAllDelete()">취소</button>
+                        <button class="confirm motivationbtn" onclick="makeRemove()">확인</button>
                     </div>
                 </div>
             </div>
@@ -136,8 +136,8 @@
                 <!-- First Modal content -->
                 <div class="delete-one-modal-content">
                     <p class="delete-one-content">해당 콕 찌르기를 지우시겠습니까?</p>
-                    <button class="confirm motivationbtn" onclick="makeOneRemove({{motivation.id}})">확인</button>
                     <button class="cancelremove motivationbtn"">취소</button>
+                    <button class="confirm motivationbtn" onclick="makeOneRemove({{motivation.id}})">확인</button>
                 </div>
             </div>
         </div>

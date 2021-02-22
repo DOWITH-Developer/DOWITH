@@ -14,8 +14,12 @@
         
     </div>
     <div class="introduce__detail content2">
-        <img class="img-updown" src="{% static 'challenge/img/challenge-list.png' %}" alt="challenge-lsit">
-        <h2>자신만의 챌린지를 만들어 보세요!</h2>
+        <div>
+            <img class="img-updown" src="{% static 'challenge/img/challenge-list.png' %}" alt="challenge-lsit">
+        </div>
+        <div>
+            <h2 class="mychallenge">자신만의 챌린지를 만들어 보세요!</h2>
+        </div>
     </div>
     <div class="introduce__detail content3">
         <h2>다양한 분야의 스터디를 제공하고 있습니다!</h2>
@@ -75,7 +79,6 @@
     <div class="introduce__detail content6">
         <h2>DOWITH으로 함께 시작해보아요!</h2>
         <a href="{% url 'login:signup' %}"><button>시작하기</button></a>
-        
     </div>
 </div>
 
