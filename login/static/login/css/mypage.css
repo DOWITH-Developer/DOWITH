@@ -165,6 +165,7 @@ h3 {
     padding: 7px 15px;
     color: white;
     margin-top: 15px;
+    margin-bottom: 5px;
 }
 
 .challenge_list {
@@ -321,6 +322,7 @@ h3 {
     font-weight: 100;
     padding: 7px 15px;
     color: white;
+    margin-bottom: 5px;
 }
 .all-friend-btn a {
     color: #ffffff;
