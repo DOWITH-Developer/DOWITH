@@ -7,7 +7,6 @@
     }
 }
 
-
 body {
     width: 100vw;
     height: 100vh;
@@ -21,7 +20,6 @@ body {
     /* justify-content: center; */
 
     margin-top: 50px;
-
 
     animation-duration: 1.5s;
     animation-name: slidein;
@@ -172,6 +170,8 @@ body {
     font-size: 17px;
     /* margin-bottom: 10px; */
     color: #5c62cc;
+    display: flex;
+    flex-direction: column;
 }
 
 .signup__form-actions > button:hover {
