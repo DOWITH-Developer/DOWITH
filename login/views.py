@@ -118,7 +118,7 @@ def logout_success(request):
 
 
 @allowed_users
-def my_page(request, pk):
+def my_page(request):
     me = request.user
     friends = me.friend_set.all().filter(accepted=True)
     # me = get_object_or_404(User, id=pk) #me = 접속한 user
