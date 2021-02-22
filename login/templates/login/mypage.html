@@ -166,6 +166,12 @@ let months = ["0월", "1월", "2월", "3월", "4월", "5월", "6월",
 const calendarTitle = document.querySelector('.calendar_title')
 const today = new Date();
 
+// 버튼을 눌렀을 때 다음 달이나 이번 달로 돌아오기 위한 변수 
+let thisMonth = today.getMonth()+1;
+let thisYear = today.getFullYear();
+let plus = 1;
+let minus = 1;
+
 //날짜 데이터를 가공하는 함수
 function setCalendarData(year, month){        
     let calHtml = "";
@@ -252,24 +258,29 @@ function setCalendarData(year, month){
         .querySelector(".calendar")
         .insertAdjacentHTML("beforeend", calHtml);
         showAllSuccess()
+
+        // 오늘 날짜를 보여주기 위한 selector
+        const todayId = (thisMonth < 10) ? `${thisYear}${'0' + thisMonth}${today.getDate()}`: `${thisYear}${thisMonth}${today.getDate()}`;
+        const todaySelector = document.getElementById(`${todayId}`);
+        
+        if (thisMonth === today.getMonth()+1 ){
+            const todayContainer = todaySelector.parentNode;
+            todayContainer.style.background = "#47cc71";
+        }
 };
 
 
     const setFixDayCount = number => {
-    let fixNum = "";
-    if (number < 10) {
-    fixNum = "0" + number;
-    } else {
-    fixNum = number;
-    }
-    return fixNum;
+        let fixNum = "";
+        if (number < 10) {
+        fixNum = "0" + number;
+        } else {
+            fixNum = number;
+        }   
+        return fixNum;
     };
 
-    let thisMonth = today.getMonth()+1;
-    let thisYear = today.getFullYear();
-    let plus = 1;
-    let minus = 1;
-
+    
     function selectMonth(thisMonth, thisYear){
         if (thisMonth < 10) {
             setCalendarData(thisYear, "0" + thisMonth);
@@ -278,8 +289,7 @@ function setCalendarData(year, month){
         }
     }
 
-
-
+    // 다음 달 선택
     let afterMonth = document.querySelector('.after');
     afterMonth.addEventListener('click', () => {
         thisMonth += plus;
@@ -289,6 +299,7 @@ function setCalendarData(year, month){
         selectMonth(thisMonth, thisYear);
     })
 
+    // 지난 달 선택
     let previousMonth = document.querySelector('.previous');
         previousMonth.addEventListener('click', () => {
         thisMonth -= minus;
@@ -298,25 +309,16 @@ function setCalendarData(year, month){
         selectMonth(thisMonth, thisYear);
     })
 
-
     window.addEventListener('DOMContentLoaded', selectMonth(thisMonth, thisYear))
 
-    const todayId = (thisMonth < 10) ? `${thisYear}${'0' + thisMonth}${today.getDate()}`: `${thisYear}${thisMonth}${today.getDate()}`;
-    const todaySelector = document.getElementById(`${todayId}`);
-    const todayContainer = todaySelector.parentNode;
-    todayContainer.style.background = "#47cc71";
-    // style 에서 outline 을 추가만 할꺼야
-
-
-    // Ajax 코드
+    // 챌린지 결과를 보여주는 함수
     const onClickResult = async (id) => {
-    const url = "/result_ajax/";
-
-    const { data } = await axios.post(url, {
-        id,
-        });
-            modify(data.id, data.result);
-            changeCalendar(data.title, data.result, todayId)
+        const url = "/result_ajax/";
+        const { data } = await axios.post(url, {
+            id,
+            });
+        modify(data.id, data.result);
+        changeCalendar(data.title, data.result, todayId)
     };
     
     const modify = (id, result) => {
@@ -363,16 +365,5 @@ function setCalendarData(year, month){
             changeCalendar(enrollment, true, date)
         }
     }
-
-    //showAllSuccess()
-    // date, title 
-    
-    // TODO
-    // 1. 챌린지 성공상태에서 눌렀을 때 달력에서 제거 -> 여러 개 중복 생성을 방지 
-
-    // 2. 달력에서 쓰레기통 버튼을 눌럿을 때 -> 모달 정말 삭제하시겠습니까? -> django viewes delete
-    // 3. 2번을 ajax 로 구현
-    // 4. 날짜를 눌렀을 때 추가하거나 수정이 가능하게 만들기! 
-
     </script>
 {% endblock %}
