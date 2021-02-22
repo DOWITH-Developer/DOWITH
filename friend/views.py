@@ -92,11 +92,16 @@ def fd_approve(request, pk):
         friendship.accepted = True
         friendship.save()
 
-        opposite = Friendship.objects.create(
-            me = friendship.friend,
-            friend = friendship.me,
-            accepted = True,
-        )
+        if Friendship.objects.filter(me=friendship.friend, friend=friendship.me).exists():
+            opposite = Friendship.objects.get(me=friendship.friend, friend=friendship.me)
+            opposite.accepted = True
+            opposite.save()
+        else:
+            opposite = Friendship.objects.create(
+                me = friendship.friend,
+                friend = friendship.me,
+                accepted = True,
+            )
 
         return redirect('friend:fd_list')
     else:
@@ -154,6 +159,16 @@ def fd_delete(request, pk):
         friendship.delete()
         friendship = get_object_or_404(Friendship, me=friend, friend=me)
         friendship.delete()
+
+        #motivation 없애기
+        if Motivation.objects.filter(me=me, friend=friend).exists():
+            motivation = get_object_or_404(Motivation, me=me, friend=friend)
+            motivation.delete()
+        
+        if Motivation.objects.filter(me=friend, friend=me).exists():
+            motivation = get_object_or_404(Motivation, me=friend, friend=me)
+            motivation.delete()
+
         return redirect('friend:fd_list')
 
 def fd_more(request,pk):
