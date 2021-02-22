@@ -42,8 +42,15 @@ h2 {
 
 .content1 img {
     width: 1000px;
-    margin-bottom: 20px;
 }
+
+.content1 .one_line {
+    color: #000000;
+    margin-top: -40px;
+    margin-bottom: 50px;
+    font-size: 20px;
+}
+
 .scale-down-center {
     animation: scale-down-center 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
@@ -88,7 +95,7 @@ h2 {
 
 .content2 {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
 }
 
