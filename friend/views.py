@@ -176,7 +176,7 @@ class MotivationAjax(View):
         req = json.loads(request.body)
         user_id =req['id']
         user = User.objects.get(id=user_id)
-        print(request);
+        print(request)
         
         if not(Motivation.objects.filter(me=request.user, friend=user).exists()):
             motivation = Motivation.objects.create(

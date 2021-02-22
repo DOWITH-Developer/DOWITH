@@ -55,9 +55,8 @@
     cursor: pointer;
 }
 
-
 .weekday {
-    height: 5%;
+    height: 6%; /*수정*/
     width: 100%;
     padding: 0.5rem 0;
     background-color: #47cc71;
@@ -84,6 +83,23 @@
     /* background-clip: content-box; */
     border-radius: 5px;
     padding: 0;
+    overflow: auto; /*수정*/
+}
+
+.calendar__day::-webkit-scrollbar {
+    width: 6px;
+}
+
+.calendar__day::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.calendar__day::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: gray;
+}
+.calendar__day::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
 }
 
 .horizontalGutter {

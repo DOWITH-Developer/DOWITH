@@ -11,6 +11,7 @@ body {
     width: 100vw;
     height: 80vh;
     background-color: white;
+    font-family: "Do Hyeon", sans-serif;
 }
 
 .success {
@@ -53,11 +54,14 @@ body {
     border-radius: 20px;
     transform: rotate(-0.23deg);
     color: white;
-    width: 120px;
-    height: 30px;
+    width: 8vw;
+    height: 4vh;
     border: 0px;
     margin-right: 10px;
     cursor: pointer;
+    font-family: "Do Hyeon", sans-serif;
+    font-weight: 100;
+    font-size: 15px;
 }
 
 .success__login__btn {
@@ -66,9 +70,12 @@ body {
     border-radius: 20px;
     transform: rotate(-0.23deg);
     color: white;
-    width: 120px;
-    height: 30px;
+    width: 8vw;
+    height: 4vh;
     border: 0px;
     margin-left: 10px;
     cursor: pointer;
+    font-family: "Do Hyeon", sans-serif;
+    font-weight: 100;
+    font-size: 15px;
 }

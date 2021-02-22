@@ -1,5 +1,4 @@
 from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required
 from django.db.models import Q    
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, JsonResponse
@@ -18,8 +17,8 @@ import threading
 import time
 import hashlib
 # decorator
-from login.decorators import allowed_users, required_login
-from django.contrib.auth.decorators import login_required
+from login.decorators import allowed_users, required_login, required_login_POST
+# from django.contrib.auth.decorators import login_required
 # dic
 from django.template.defaultfilters import register
 
@@ -86,6 +85,10 @@ def challenge_list(request):
 def challenge_detail(request, pk):
     challenge = get_object_or_404(Challenge, pk=pk)
 
+    user = getattr(request, "user")
+    if not(user.is_authenticated) :
+        request.user = None
+
     if Enrollment.objects.filter(challenge=challenge, player=request.user).exists():
         status = True
         enrollment = Enrollment.objects.get(player=request.user, challenge=challenge)
@@ -113,7 +116,7 @@ def challenge_detail(request, pk):
         return render(request, "challenge/challenge_done.html", data)
 
 
-@login_required
+@required_login_POST
 @allowed_users
 def challenge_enrollment(request, pk):
     if request.method == "POST":  
@@ -273,6 +276,10 @@ class ResultAjax(View):
 
 def challenge_invitation(request, invitation):
     challenge = get_object_or_404(Challenge, invitation_key=invitation)
+
+    user = getattr(request, "user")
+    if not(user.is_authenticated) :
+        request.user = None
 
     if Enrollment.objects.filter(challenge=challenge, player=request.user).exists():
         status = True

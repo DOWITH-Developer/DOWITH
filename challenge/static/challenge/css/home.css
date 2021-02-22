@@ -145,6 +145,10 @@ h2{
     font-size: 16px;
 }
 
+.content3 .category-container .category div{
+    margin-top: 15px;
+}
+
 .content4{
     display: flex;
     justify-content: center;
