@@ -10,6 +10,7 @@
 <div class="introduce">
     <div class="introduce__detail content1">
         <img class="scale-down-center" src="{% static 'img/DOWITH_logo.png' %}" alt="DOWITH_logo">
+        <div class="one_line">함께 만드는 루틴, DOWITH</div>
         {% if request.user.is_authenticated %}
             <a href="{% url 'challenge:challenge_list' %}"><button>시작하기</button></a>
         {% else %}
