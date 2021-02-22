@@ -9,6 +9,8 @@ h2{
     font-size: 25px;
     font-family: "Do Hyeon", sans-serif;
     font-weight: 100;
+    margin: 0;
+    padding: 0;
 }
 
 .introduce__detail {
@@ -22,6 +24,7 @@ h2{
 .introduce__detail:nth-child(2n) {
     background-color: #47cc71;
     color: #ffffff;
+    display: flex;
 }
 
 .introduce__detail:nth-child(2n+1) {
@@ -77,12 +80,8 @@ h2{
 
 .content2{
     display: flex;
-    justify-content: center;
+    justify-content: space-around; 
     align-items: center;
-}
-
-.content2 h2{
-    margin-left: 100px;
 }
 
 .content2 img{
@@ -179,6 +178,11 @@ h2{
     margin-top: 50px;
 }
 
+.content5 .private-container .greenbox:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
 .content5 .private-container .greenbox{
     background:  #47cc71;
     border-radius: 10px;
@@ -189,10 +193,6 @@ h2{
     align-items: center;
     margin: 0 30px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-.content5 .private-container .greenbox:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .content5 .private-container .whitebox{
@@ -284,4 +284,75 @@ h4{
     flex-direction: column;
     height: 140px;
     justify-content: flex-end;
+}
+
+.mychallenge {
+    padding: 0;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 768px){
+    .introduce__detail:nth-child(2n) {
+        background-color: #47cc71;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mychallenge {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+    .introduce__detail {
+        height: 75vh;
+        text-align: center; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .content5 .private-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    .content5 .private-container .greenbox{
+        background:  #47cc71;
+        border-radius: 10px;
+        width: 60vw;
+        /* 15 */
+        height: 17vh;
+        /* 28 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 15px 30px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+    
+    .content5 .private-container .whitebox{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: #efefef;
+        border-radius: 10px;
+        width: 63vw;
+        /* 16 */
+        height: 15vh;
+        /* 25 */
+        margin: 0 20px;
+        color: black;
+    }
+
+    .content5 .private-container .whitebox .button {
+        width: 15vw;
+    }
+    
+    .introduce__detail.content6 h2{
+        font-size: 30px;
+    }
 }

@@ -65,6 +65,8 @@ def challenge_list(request):
         form = SearchForm(request.POST)
         searchWord = request.POST["search_word"]
         ChallengeList = Challenge.objects.filter(Q(title__icontains=searchWord))
+        ChallengeList = ChallengeList.filter(status=0, private=0)
+        print(ChallengeList)
         # distinct() 함수는 중복 방지, 나중에 추가
 
         context = {
