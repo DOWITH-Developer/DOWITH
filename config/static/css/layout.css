@@ -115,8 +115,6 @@ p {
         line-height: 1;
     }
 }
-/*  global classes */
-
 /* section */
 .section {
     padding: 5rem 0;
@@ -137,13 +135,13 @@ main {
 nav {
     background: var(--clr-white);
     box-shadow: var(--light-shadow);
-    height: 10vh;
+    align-items: center;
     display: flex;
     font-family: "Do Hyeon", sans-serif;
 }
 
 .nav-center {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     width: 100vw;
 }
@@ -154,7 +152,9 @@ nav {
     justify-content: space-between;
     padding: 1rem;
 }
+
 .nav-toggle {
+    width: 100px;
     font-size: 1.5rem;
     color: var(--clr-green-1);
     background: transparent;
@@ -192,7 +192,7 @@ nav {
     transition: var(--transition);
 }
 .show-links {
-    height: 10rem;
+    display: block;
 }
 
 .back-image {
@@ -212,9 +212,7 @@ nav {
 .nav-header {
     padding: 0;
 }
-.nav-toggle {
-    display: none;
-}
+
 .links {
     height: auto;
     display: flex;
@@ -222,6 +220,7 @@ nav {
 .links a {
     padding: 0;
     margin: 0 0.5rem;
+    letter-spacing: 1px;
 }
 .links a:hover {
     padding: 0;
@@ -347,4 +346,44 @@ main {
 
 #main__logo {
     width: 100px;
+}
+
+.nav-toggle {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 0;
+    margin: 0;
+    display: none;
+    border: none;
+}
+
+
+@media screen and (max-width: 768px){
+    .nav-toggle {
+        display: block;
+        padding: 0;
+        margin: 0;
+        border: none;
+    }
+
+    .nav-center {
+        flex-direction: column;
+        align-items: flex-start;
+        
+    }
+
+    .links {
+        padding-top: 0.5rem;
+        height: 0rem;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items:flex-start;
+        text-align: center;
+        width: 100%;
+    }
+
+    .show-links {
+        height: 25vh;
+    }
 }

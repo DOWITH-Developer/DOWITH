@@ -81,7 +81,7 @@ const makeOneRemove = async (id) => {
     const url = "/friend/motivate/remove/";
     const motivationTarget = document.querySelector(`.motivation-${id}`)
         .parentNode.parentNode;
-    console.log(motivationTarget);
+
 
     motivationTarget.remove();
 
@@ -94,7 +94,8 @@ const makeOneRemove = async (id) => {
 const makeRemove = async (id = null) => {
     thirdModal.style.display = "none";
     const url = "/friend/motivate/remove/";
-
+    const deleteAllSelector = document.querySelector('.moti_delete_all');
+    
     const { data } = await axios.post(url, {
         id,
     });
@@ -106,6 +107,7 @@ const makeRemove = async (id = null) => {
             motivation.parentNode.parentNode.remove()
         );
         openAlertModal("모든 콕 찌르기를 지우셨습니다.");
+        deleteAllSelector.remove()
     } else {
         openAlertModal("다시 실행해 주세요.");
     }

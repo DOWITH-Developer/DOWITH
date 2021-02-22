@@ -77,8 +77,8 @@
                                             <div class="modal-first-content">
                                                 <p class="firstContent">콕 찌르시겠습니까?</p>
                                                 <div class="button__container">
-                                                    <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
                                                     <button class="motivationbtn" onclick="cancelFirst()">취소</button>
+                                                    <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -114,21 +114,25 @@
             <h3>나를 찌른 친구</h3>
             <div class="motivation_container container">
                 {% for motivation in motivation_from_friends %}
-                    <div class = "moti">
-                        <div><li class="friend__motivation__from__friend motivation-{{motivation.id}}">{{motivation.me.nickname}}님이 {{motivation.count}}번 콕 찔렀습니다. </li></div>
-                        <div><button class="motivationbtn" onclick="removeMotivation({{motivation.id}})">지우기</button></div>
-                    </div>
-                    <div class="Delete__Onemotiv__Modal">
-                        <div class="delete-one-modal-content">
-                            <p class="delete-one-content">해당 콕 찌르기를 지우시겠습니까?</p>
-                            <div class="button__container">
-                                <button class="confirm motivationbtn" onclick="makeOneRemove({{motivation.id}})">확인</button>
-                                <button class="motivationbtn" onclick="cancelDelete()">취소</button>
-                            </div>
+                <div class = "moti">
+                    <div><li class="friend__motivation__from__friend motivation-{{motivation.id}}">{{motivation.me.nickname}}님이 {{motivation.count}}번 콕 찔렀습니다. </li></div>
+                    <div><button class="motivationbtn" onclick="removeMotivation({{motivation.id}})">지우기</button></div>
+                </div>
+                <div class="Delete__Onemotiv__Modal">
+                    <div class="delete-one-modal-content">
+                        <p class="delete-one-content">해당 콕 찌르기를 지우시겠습니까?</p>
+                        <div class="button__container">
+                            <button class="motivationbtn" onclick="cancelDelete()">취소</button>
+                            <button class="confirm motivationbtn" onclick="makeOneRemove({{motivation.id}})">확인</button>
                         </div>
                     </div>
+                </div>
                 {% endfor %}
-            <div><button class="moti_delete_all motivationbtn" onclick="removeMotivation()">모두 지우기</button></div>
+                {% if motivation_from_friends %}
+                    <div>
+                        <button class="moti_delete_all motivationbtn" onclick="removeMotivation()">모두 지우기</button>
+                    </div>
+                {% endif %}
             </div>
         </div>
 
@@ -143,8 +147,8 @@
             <div class="third-modal-content">
                 <p class="thirdContent">모든 콕 찌르기를 지우시겠습니까?</p>
                 <div class="button__container">
-                    <button class="confirm motivationbtn" onclick="makeRemove()">확인</button>
                     <button class="motivationbtn" onclick="cancelAllDelete()">취소</button>
+                    <button class="confirm motivationbtn" onclick="makeRemove()">확인</button>
                 </div>
             </div>
         </div>
@@ -152,7 +156,9 @@
         <div class="alert__modal">
             <div class="alert__modal__container">
                 <p class="alert__modal__content"></p>
-                <button class="motivationbtn" onclick="alertConfirm()">확인</button>
+                <div class="button__container">
+                    <button class="motivationbtn" onclick="alertConfirm()">확인</button>
+                </div>
             </div>
         </div>
     </div>
@@ -262,11 +268,8 @@ function setCalendarData(year, month){
         // 오늘 날짜를 보여주기 위한 selector
         const todayId = (thisMonth < 10) ? `${thisYear}${'0' + thisMonth}${today.getDate()}`: `${thisYear}${thisMonth}${today.getDate()}`;
         const todaySelector = document.getElementById(`${todayId}`);
-        
-        if (thisMonth === today.getMonth()+1 ){
-            const todayContainer = todaySelector.parentNode;
-            todayContainer.style.background = "#47cc71";
-        }
+        const todayContainer = todaySelector.parentNode;
+        todayContainer.style.background = "#47cc71";
 };
 
 
