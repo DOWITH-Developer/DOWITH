@@ -89,9 +89,9 @@
                     {% csrf_token %}
                     <button class="ch-join" type="submit">나도 도전하기</button>
                 </form>
-                    <div class="ch-share" onclick="urlGet('{{challenge.id}}');">챌린지 공유코드 확인하기</div>
-                    <div id="url-link"></div>
-                    <button class="ch-golist"><a href="{% url 'challenge:challenge_list' %}" style="text-decoration: none; color: #FFFFFF;">챌린지 리스트로 가기</a></button>
+                <div class="ch-share" onclick="urlGet('{{challenge.id}}');">챌린지 공유코드 확인하기</div>
+                <div id="url-link"></div>
+                <button class="ch-golist"><a href="{% url 'challenge:challenge_list' %}" style="text-decoration: none; color: #FFFFFF;">챌린지 리스트로 가기</a></button>
             {% endif %}
         </div>
     </div>

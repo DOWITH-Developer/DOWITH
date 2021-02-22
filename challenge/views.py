@@ -18,7 +18,7 @@ import threading
 import time
 import hashlib
 # decorator
-from login.decorators import allowed_users
+from login.decorators import allowed_users, required_login
 from django.contrib.auth.decorators import login_required
 # dic
 from django.template.defaultfilters import register
@@ -131,12 +131,12 @@ def challenge_enrollment(request, pk):
         return redirect(f'/challenge/list/{challenge.pk}')
 
 
-@login_required
+@required_login
 @allowed_users
 def challenge_create(request):
     if request.method == 'POST':
         form = ChallengeForm(request.POST, request.FILES)
-        
+
         if form.is_valid():
             challenge = form.save()
 
