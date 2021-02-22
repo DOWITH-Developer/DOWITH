@@ -51,3 +51,17 @@ def allowed_users(function):
 #             return redirect("login:social_signup")
 
 #     return wrap
+
+
+
+# 로그인 안 한 유저가 로그인한 유저만 할 수 있는 행위를 할때 로그인 페이지로 이동시키게 하기
+def required_login(function):
+    @wraps(function)
+    def wrap(request, *args, **kwargs):
+        user = getattr(request, "user")
+
+        if user and user.is_authenticated:
+            return function(request, *args, **kwargs)
+
+        return redirect("login:login")
+    return wrap

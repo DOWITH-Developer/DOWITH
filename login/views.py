@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.views import View
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
@@ -23,7 +22,9 @@ from datetime import date #today가져오기 위해
 from django.template.defaulttags import register
 
 # decorator
-from .decorators import allowed_users
+from .decorators import allowed_users, required_login
+# from django.contrib.auth.decorators import login_required
+
 
 @register.filter
 def get_item(dictionary, key):
@@ -172,7 +173,7 @@ def result_ajax(request):
 
 # settings
 
-@login_required
+@required_login
 @allowed_users
 def settings_main(request):
     return render(request, "login/settings_main.html")

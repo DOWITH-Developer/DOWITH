@@ -1,5 +1,4 @@
 from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required
 from django.db.models import Q    
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, JsonResponse
@@ -18,8 +17,8 @@ import threading
 import time
 import hashlib
 # decorator
-from login.decorators import allowed_users
-from django.contrib.auth.decorators import login_required
+from login.decorators import allowed_users, required_login
+# from django.contrib.auth.decorators import login_required
 # dic
 from django.template.defaultfilters import register
 
@@ -82,7 +81,6 @@ def challenge_list(request):
         }
         return render(request, 'challenge/challenge_list.html', context)
 
-
 def challenge_detail(request, pk):
     challenge = get_object_or_404(Challenge, pk=pk)
 
@@ -113,7 +111,7 @@ def challenge_detail(request, pk):
         return render(request, "challenge/challenge_done.html", data)
 
 
-@login_required
+@required_login
 @allowed_users
 def challenge_enrollment(request, pk):
     if request.method == "POST":  
@@ -131,7 +129,7 @@ def challenge_enrollment(request, pk):
         return redirect(f'/challenge/list/{challenge.pk}')
 
 
-@login_required
+@required_login
 @allowed_users
 def challenge_create(request):
     if request.method == 'POST':
