@@ -20,7 +20,7 @@
             </div>
         
             <div class="success__button">
-                <a href="{% url 'home' %}"><button class="success__home__btn">홈</button></a>
+                <a href="{% url 'challenge:challenge_list' %}"><button class="success__home__btn">홈</button></a>
                 {% if request.user and request.user.is_social == True %}
                 
                 {% else %}
