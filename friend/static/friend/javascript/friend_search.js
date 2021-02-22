@@ -50,26 +50,26 @@ const printFriendList = (friendListDic) => {
 
         let btnContainer = document.createElement("div");
         btnContainer.className = "friends__btn";
-        // btnContainer.innerHTML = `<button class="friends__btn__cheer" onclick="giveMotivation()">응원하기</button>`;
+        btnContainer.innerHTML = `<button class="friends__btn__cheer" onclick="giveMotivation(${pk})">응원하기</button>`;
         
-        let firstModal = document.createElement("div");
-        firstModal.className = "firstModal firstModal1"
-        firstModal.innerHTML = `<!-- First Modal content -->
-                                <div class="first-modal-content first-modal">
-                                    <div class="modal-first-content">
-                                        <p class="firstContent">콕 찌르시겠습니까?</p>
-                                        <div class="button__container">
-                                            <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
-                                            <button class="motivationbtn" onclick="cancelFirst()">취소</button>
-                                        </div>
-                                    </div>
-                                </div>`
+        // let firstModal = document.createElement("div");
+        // firstModal.className = "firstModal firstModal1"
+        // firstModal.innerHTML = `<!-- First Modal content -->
+        //                         <div class="first-modal-content first-modal">
+        //                             <div class="modal-first-content">
+        //                                 <p class="firstContent">콕 찌르시겠습니까?</p>
+        //                                 <div class="button__container">
+        //                                     <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
+        //                                     <button class="motivationbtn" onclick="cancelFirst()">취소</button>
+        //                                 </div>
+        //                             </div>
+        //                         </div>`
 
         // console.log(firstModal)
 
         profileContainer.appendChild(infoContainer);
         profileContainer.appendChild(btnContainer);
-        profileContainer.appendChild(firstModal)
+        // profileContainer.appendChild(firstModal)
 
         friends.appendChild(profileContainer);
         friendContainer.append(friends);

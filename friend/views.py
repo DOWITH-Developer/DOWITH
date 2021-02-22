@@ -189,7 +189,7 @@ class MotivationAjax(View):
 
     def post(self, request):
         req = json.loads(request.body)
-        user_id =req['id']
+        user_id = req['id']
         user = User.objects.get(id=user_id)
         print(request)
         
