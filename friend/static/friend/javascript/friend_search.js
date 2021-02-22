@@ -50,7 +50,7 @@ const printFriendList = (friendListDic) => {
 
         let btnContainer = document.createElement("div");
         btnContainer.className = "friends__btn";
-        btnContainer.innerHTML = `<button class="friends__btn__cheer" onclick="giveMotivation ({{${pk}}})">응원하기</button>`;
+        btnContainer.innerHTML = `<button class="friends__btn__cheer" onclick="giveMotivation()">응원하기</button>`;
 
         profileContainer.appendChild(infoContainer);
         profileContainer.appendChild(btnContainer);
