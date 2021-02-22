@@ -180,6 +180,18 @@
             .querySelector(".calendar")
             .insertAdjacentHTML("beforeend", calHtml);
             showAllSuccess();
+
+            /*수정*/
+            let thisMonth = today.getMonth()+1;
+            let thisYear = today.getFullYear();
+            let plus = 1;
+            let minus = 1;
+            const todayId = (thisMonth < 10) ? `${thisYear}${'0' + thisMonth}${today.getDate()}`: `${thisYear}${thisMonth}${today.getDate()}`;
+            const todaySelector = document.getElementById(`${todayId}`);
+            if(todaySelector != null){
+                const todayContainer = todaySelector.parentNode;
+                todayContainer.style.background = "#47cc71";
+        }
         };
         
         
@@ -266,7 +278,6 @@
                 }
             }
         
-            showAllSuccess()
         </script>
 {% endblock content %}
 
