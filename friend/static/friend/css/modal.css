@@ -157,3 +157,8 @@
   .thirdContent {
     text-align: center;
   }
+
+
+  .showing {
+    display: block;
+  }

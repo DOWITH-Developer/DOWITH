@@ -1,6 +1,6 @@
-const firstModal = document.querySelector(".firstModal");
-const firstContent = document.querySelector("firstContent");
-const firstModalContent = document.querySelector(".first-modal-content");
+let firstModal = document.querySelector(".firstModal");
+let firstContent = document.querySelector(".firstContent");
+let firstModalContent = document.querySelector(".first-modal-content");
 
 const secondModal = document.querySelector(".secondModal");
 const secondContent = document.querySelector(".secondContent");
@@ -9,16 +9,13 @@ const secondModalContent = document.querySelector(".second-modal-content");
 const thirdModal = document.querySelector(".thirdModal");
 const thirdContent = document.querySelector(".thirdContent");
 const thirdModalContent = document.querySelector(".third-modal-content");
-// let thirdModalText = thirdContent.textContent;
 
 const alertModal = document.querySelector(".alert__modal");
 const alertModalContainer = document.querySelector(".alert__modal__container");
 const alertModalContent = document.querySelector(".alert__modal__content");
 
 const deleteOneMotivModal = document.querySelector(".Delete__Onemotiv__Modal");
-const deleteOneModalContent = document.querySelector(
-    "delete-one-modal-content"
-);
+const deleteOneModalContent = document.querySelector("delete-one-modal-content");
 const deleteOneContent = document.querySelector(".delete-one-content");
 const yes = document.querySelector(".confirm");
 
@@ -76,6 +73,11 @@ const makeConfirm = async (id) => {
     secondContent.textContent = `${data.user} 를 콕 찔렀습니다`;
 };
 
+const giveMotivation = () => {
+    console.log('실행중')
+    openModal("콕 찌르시겠습니까?");
+};
+
 const makeOneRemove = async (id) => {
     deleteOneMotivModal.style.display = "none";
     const url = "/friend/motivate/remove/";
@@ -111,10 +113,6 @@ const makeRemove = async (id = null) => {
     } else {
         openAlertModal("다시 실행해 주세요.");
     }
-};
-
-const giveMotivation = () => {
-    openModal("콕 찌르시겠습니까?");
 };
 
 const removeMotivation = (id = null) => {
