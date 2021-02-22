@@ -222,6 +222,7 @@ nav {
 .links a {
     padding: 0;
     margin: 0 0.5rem;
+    letter-spacing: 1px;
 }
 .links a:hover {
     padding: 0;
