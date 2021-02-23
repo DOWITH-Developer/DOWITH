@@ -169,6 +169,15 @@ def challenge_create(request):
                 challenge=challenge
             )
 
+            if challenge.status == 1:
+                enrollment = Enrollment.objects.get(challenge=challenge, player=request.user)
+                
+                EnrollmentDate.objects.create(
+                    enrollment = enrollment,
+                    date = datetime.date.today()
+            )
+            #EnrollmentDate.objects.create
+
             challenge.cur_pp += 1
             challenge.save()
 

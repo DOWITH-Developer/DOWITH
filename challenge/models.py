@@ -91,12 +91,13 @@ class Challenge(models.Model):
     def __str__(self):
         return self.title
 
-    def clean(self, *args, **kwargs):
-        error_list = []
-        if self.min_pp > self.max_pp:
-            error_list.append("최대 인원이 최소 인원보다 작을 수 없습니다.")
-        if self.start_date > self.end_date:
-            error_list.append("종료일이 시작일보다 빠를 수 없습니다.")
+#TODO 챌린지 바꾸기
+    #def clean(self, *args, **kwargs):
+    #    error_list = []
+    #    if self.min_pp > self.max_pp:
+    #        error_list.append("최대 인원이 최소 인원보다 작을 수 없습니다.")
+    #    if self.start_date > self.end_date:
+    #        error_list.append("종료일이 시작일보다 빠를 수 없습니다.")
         if self.min_pp == 0:
             error_list.append("최소 인원은 0이 될 수 없습니다.")
         if self.start_date < datetime.date.today():
