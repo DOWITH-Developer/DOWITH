@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>DOWITH</title>
+
+    
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+        />
+        <link rel="stylesheet" href="{% static 'css/layout.css' %}" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        {% block extra_head %} {% endblock %}
+        {% block calendar_head %} {% endblock %}
+        {% block search_friend %} {% endblock %}
+    </head>
+    <body>
+        <!-- navbar -->
+        <nav >
+            <div class="nav-center">
+                <div class="nav-home">
+                    <a href="{% url 'home' %}"><img id="main__logo" src="{% static 'img/DOWITH_logo.svg' %}" alt="logo"></a>
+                </div>
+                <!-- nav header -->
+                <!-- <div class="nav-header"> -->
+                    <button class="nav-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                <!-- </div> -->
+                <!-- links -->
+                <ul class="links">
+                    {% if user.is_active %}
+                        <li>
+                            <a href="{% url 'challenge:challenge_list' %}">챌린지</a>                    
+                        </li>
+                        <li>
+                            <a href="{% url 'friend:fd_list' %}">친구들</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'login:logout' %}">로그아웃</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'login:my_page' %}">마이페이지</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'challenge:challenge_list' %}">챌린지</a>                    
+                        </li>
+                        <li>
+                            <!-- <a href="/accounts/social/signup">aa</a>
+                            <a href="/accounts/signup">구글구글네이버</a>
+                            <a href="{% url 'kakao_login' %}">카카오</a> -->
+                            <a href="{% url 'login:login' %}">로그인</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'login:signup' %}">회원가입</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <!--<section class="back-image"></section>-->
+        {% block calendar %}
+        {% endblock calendar %}
+        {% block content %}
+        {% endblock content %}
+        <script>
+            const navToggle = document.querySelector(".nav-toggle");
+            const links = document.querySelector(".links");
+            navToggle.addEventListener("click", function () {
+                links.classList.toggle('show-links');
+                console.log('hi')
+            });
+        </script>
+    </body>
+</html>

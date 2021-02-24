@@ -1,0 +1,106 @@
+{% extends 'challenge/layout.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="fontawesome-free-5.15.1-web/css/all.css">
+    <link rel="stylesheet" href="{% static 'challenge/css/challenge_ing.css' %}">
+    <!-- axios install -->
+    <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script defer src="{% static 'challenge/javascript/challenge_detail.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class = "left-container">
+        <div class='ch-title'>{{ challenge.title }}</div>
+
+        <i class="fas fa-heart"></i>
+
+        <div class = "ch-desc">{{ challenge.desc }}</div>
+        
+        {% if status %}
+            <form action="{% url 'challenge:challenge_delete' challenge.pk %}", method="POST">
+                {% csrf_token %}
+                <button class="ch-cancel" type="submit">챌린지 취소하기</button>
+            </form>
+        {% endif %}
+    </div>
+
+    <div class = "right-container">
+        <div class="ch-startdate">
+            <div>시작</div> 
+            <div style = "font-size: 20px;"><span style = "color: #47CC71;">{{ challenge.start_date }}</span> 시작</div>
+        </div>
+
+        <div class="ch-end_date">
+            <div>종료</div> 
+            <div style = "font-size: 20px;"><span style = "color: #47CC71;">{{ challenge.end_date }}</span> 종료</div>
+        </div>
+
+        <div class="ch-targetpp">
+            <div>목표인원</div> 
+            <div style = "font-size: 20px;">{{challenge.cur_pp}}/{{challenge.max_pp}}</div>
+        </div>
+
+        <div class="ch-category">
+            <div>분야</div>
+            {% if challenge.category ==  'language' %}
+                <i class="fas fa-language"></i>
+                <div class="category-name">[ 어학 ]</div>
+            {% elif challenge.category ==  'job' %}
+                <i class="fas fa-laptop-house"></i>
+                <div class="category-name">[ 취업 ]</div>
+            {% elif challenge.category ==  'NCS' %}
+                <i class="fas fa-user-check"></i>
+                <div class="category-name">[ 고시/공무원 ]</div>
+            {% elif challenge.category ==  'programming' %}
+                <i class="fas fa-tv"></i>
+                <div class="category-name">[ 프로그래밍 ]</div>
+            {% elif challenge.category ==  'certificate' %}
+                <i class="fas fa-medal"></i>
+                <div class="category-name">[ 자격증 ]</div>
+            {% else %}
+                <i class="far fa-sticky-note"></i>
+                <div class="category-name">[ 기타 ]</div>
+            {% endif %}
+    
+        </div>
+
+        <div class="ch-private">
+            <div>공개</div> 
+            <div style = "font-size: 20px; color: #47CC71;">
+                {% if challenge.private == 0 %}
+                    전체 공개
+                {% elif challenge.private == 1 %}
+                    친구 공개
+                {% else %}
+                    나만 보기
+                {% endif %}
+            </div> 
+        </div>
+        
+        
+        <div class = "button-container">
+            <div>
+                {% if status %}
+                    {% if success %}
+                        <div class="challenge-ask">오늘 챌린지를 하셨나요?</div>
+                        <button type="submit" onclick="onClickResult('{{ challenge.id }}')" class="result result-clicked ch-result">챌린지 성공</button>
+                    {% else %}
+                        <div class="challenge-ask">오늘 챌린지를 하셨나요?</div>
+                        <button type="submit" onclick="onClickResult('{{ challenge.id }}')" class="result ch-result">챌린지 완료</button>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+<hr> 
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock script %}

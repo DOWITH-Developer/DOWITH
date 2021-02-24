@@ -1,0 +1,142 @@
+{% extends 'friend/layout.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+
+    <link rel="stylesheet" href="{% static 'friend/css/friend_list.css' %}">
+    <link rel="stylesheet" href="{% static 'friend/css/modal.css' %}">
+    <script defer src="{% static 'friend/javascript/friend_list.js' %}"></script>
+    <script defer src="{% static 'friend/javascript/friend_search.js' %}"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+{% endblock extra_head %}
+
+
+{% block content %}
+
+    <div class="invitation__logo">
+        <img src="{% static 'img/DOWITH.png' %}" alt="logo">
+        <h1 syle="font-size: 65px;">친구들</h1>
+    </div>
+
+    <div class="friend__add__btn">
+        <button class="friend__list__createBtn">
+            <a href="{% url 'friend:fd_create' %}" style = "color: #FFFFFF" >친구 추가하기</a>
+        </button>
+    </div>
+
+
+
+    <section class="friend__list">
+
+        <div class="friend__search">
+            <p class="friend__list__title">
+                나의 친구 리스트
+            </p>
+
+            
+            <div class="friend__search__input">
+                <input class="friend__list__search" type="text" id="friend_search" placeholder="친구 닉네임을 검색하세요!">
+                <button class="friend__list__btn" onclick="searchFriend()">검색</button>    
+            </div>
+
+            <div class="friend__list__container">
+            {% for fd in friends %}
+                <div class="friends">
+                    <div class="friends__profile">
+                        <div class="friends__profile__info">
+                            <a href="{% url 'friend:fd_detail' fd.me.pk %}">
+                                <img class="friends__profile__image" src="{{ fd.me.image.url }}" alt="logo">
+                                <p class="friends__profile__name">{{fd.me.nickname}}</p>
+                            </a>
+                        </div>
+
+                        <div class="friends__btn">
+                            <button class="friends__btn__cheer" onclick="giveMotivation({{fd.me.pk}})">응원하기</button>
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>        
+
+        <div class="friend__request">
+            <p class="friend__list__title">
+                수락 대기 중인 친구
+            </p>
+            {% for pd in pendings %}
+
+            <div class="friends">
+                <div class="friends__profile">
+
+                    <div class="friends__profile__info">
+                        <a href="{% url 'friend:fd_detail' pd.me.pk %}">
+                            <img class="friends__profile__image" src="{{ pd.me.image.url }}" alt="logo">
+                            <p class="friends__profile__name">{{pd.me}}</p>
+                        </a>
+                    </div>
+
+                    <div class="friends__pending__btn">
+                        <form action="{% url 'friend:fd_approve' pd.me.pk %}", method="POST">
+                            {% csrf_token %}
+                            <input class="friend__pending__btn__accept" type="submit" value="수락">
+                        </form>
+    
+                        <form action="{% url 'friend:fd_deny' pd.me.pk %}", method="POST">
+                            {% csrf_token %}
+                            <input class="friend__pending__btn__reject" type="submit" value="거절">
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="allModal">
+            <div class="firstModal">
+                <div class="first-modal-content first-modal">
+                    <div class="modal-first-content">
+                        <p class="firstContent">콕 찌르시겠습니까?</p>
+                        <div class="button__container">
+                            <button class="no motivationbtn">취소</button>
+                            <button class="confirm motivationbtn">확인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="secondModal">
+                <!-- Second Modal content -->
+                <div class="second-modal-content second-modal">
+                    <div class="modal-second-content">
+                        <p class="secondContent"></p>
+                        <button class="ok motivationbtn">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+{% endblock content %}
+
+{% block script %}
+
+    $(document).ready(function() {
+        $("#friend_search").keyup(function() {
+            var k = $(this).val();
+
+            console.log(k);
+
+        })
+    })
+
+
+{% endblock script %}
+
+
+
+

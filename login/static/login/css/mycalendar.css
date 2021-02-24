@@ -1,0 +1,121 @@
+* {
+    font-family: "Do Hyeon", sans-serif;
+}
+
+:root {
+    --base: #bbffc9;
+    --saturday: #ffe0bb;
+    --sunday: #ffb3bb;
+    --spacing: 10px;
+    --blur: 10px;
+}
+
+.calendar_container {
+    margin: 4rem auto;
+    padding: 0;
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.friend__detail__calendar__container {
+    width: 90vw;
+    margin: 0 auto;
+    background-color: #efefef;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.calendar_title {
+    width: 100%;
+    text-align: center;
+    font-family: "Do Hyeon", sans-serif;
+    font-weight: 100;
+}
+
+.calendar_header {
+    display: flex;
+    justify-content: space-around;
+    height: 7vh;
+    margin-bottom: 6px;
+    width: 100%;
+}
+
+.previous,
+.after {
+    background: #47cc71;
+    border-radius: 20px;
+    width: 100px;
+    border: 0px;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+}
+
+.weekday {
+    height: 6%; /*수정*/
+    width: 100%;
+    padding: 0.5rem 0;
+    background-color: #47cc71;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.calendar {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0.5%;
+}
+
+.calendar__day {
+    display: inline-block;
+    vertical-align: bottom;
+    width: calc(97% / 7);
+    height: calc(98% / 5.9);
+    box-sizing: border-box;
+    /* background-clip: content-box; */
+    border-radius: 5px;
+    padding: 0;
+    overflow: auto; /*수정*/
+}
+
+.calendar__day::-webkit-scrollbar {
+    width: 6px;
+}
+
+.calendar__day::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.calendar__day::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: gray;
+}
+.calendar__day::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+}
+
+.horizontalGutter {
+    margin-right: 0.5%;
+}
+
+.verticalGutter {
+    margin-top: 0.5%;
+}
+
+.todayOutline {
+    background-color: red;
+}
+
+.done {
+    margin: 0;
+    padding: 0;
+    font-size: small;
+}

@@ -1,0 +1,35 @@
+{% extends 'login/layout.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'login/css/register_success.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="success">
+        <div class="success__container">
+
+            <div class="success__logo">
+                <img src="{% static 'img/DOWITH_logo.png' %}" alt="logo">
+            </div>
+
+            <div class="success__content">
+                <p>반갑습니다!</p>
+                <p>회원가입이 완료되었습니다.</p>
+            </div>
+        
+            <div class="success__button">
+                <a href="{% url 'challenge:challenge_list' %}"><button class="success__home__btn">홈</button></a>
+                {% if request.user and request.user.is_social == True %}
+                
+                {% else %}
+                    <a href="{% url 'login:login' %}"><button class="success__login__btn">로그인</button></a>
+                {% endif%}
+            </div>
+        
+        </div>
+    </div>
+
+
+{% endblock content %} 

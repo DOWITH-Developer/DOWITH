@@ -1,0 +1,88 @@
+@keyframes slidein {
+    from {
+        margin-top: 0px;
+        width: 100%;
+    }
+    to {
+        margin-top: 50px;
+        width: 100%;
+    }
+}
+
+
+* {
+    font-family: 'Do Hyeon', sans-serif;          
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+}
+
+.invitation__accept {
+    display: flex;
+    height: 90%;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.invitation__accept__container {
+    width: 80%;
+    text-align:center;
+    margin: 0 auto;
+
+    margin-top: 50px;
+
+    animation-duration: 1.5s;
+    animation-name: slidein;
+}
+
+.invitation__logo {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.invitation__logo > img {
+    margin-right: 20px;
+    width: 110px;
+    height: 85px;
+}
+
+h1{
+    font-size: 65px;
+    margin: 10px 0;
+}
+
+.invitation__form {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.invitation__search {
+    width: 400px;
+    height: 30px;
+    border-radius: 20px;
+    border: 0px;
+    text-align: center;
+    margin-bottom: 30px;
+    background-color: #efefef;
+}
+
+.invitation__btn {
+    width: 150px;
+    height: 30px;
+    border-radius: 20px;
+    border: 0px;
+    background: #47CC71;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transform: rotate(-0.23deg);
+    color: white;
+}

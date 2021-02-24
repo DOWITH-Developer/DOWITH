@@ -1,0 +1,30 @@
+{% extends 'challenge/layout.html' %}
+
+{% load static %}
+
+{% block calendar_head %}
+    <link rel="stylesheet" href="{% static 'challenge/css/calendar.css' %}">
+    <script src="{% static 'challenge/javascript/calendar.js' %}" defer></script>
+{% endblock %}
+
+{% block calendar %}
+<div class="calendar_container">
+    <div class="calendar_header">
+        <h2 class="calendar_title"></h2>
+        <button class="previous">previous</button>
+        <button class="after">after</button>
+    </div>
+    <div class="weekday">
+        <div>일요일</div>
+        <div>월요일</div>
+        <div>화요일</div>
+        <div>수요일</div>
+        <div>목요일</div>
+        <div>금요일</div>
+        <div>토요일</div>
+    </div>
+    <div class="calendar"></div>
+</div>
+
+{% endblock calendar %}
+

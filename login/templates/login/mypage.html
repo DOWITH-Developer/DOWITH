@@ -1,0 +1,389 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'login/css/mycalendar.css' %}">
+    <link rel="stylesheet" href="{% static 'login/css/mypage.css' %}">
+    <link rel="stylesheet" href="{% static 'friend/css/modal.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="{% static 'friend/javascript/friend_list.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+    
+    <div class="setting">
+        <a href="{% url 'login:settings' %}"><i class="fas fa-cog"></i></a>       
+    </div>
+    <div class="mypage">
+        <div class="calendar_container container">
+            <div class="calendar_header">
+                <button class="previous">previous</button>
+                <h2 class="calendar_title"></h2>
+                <button class="after">after</button>
+            </div>
+            <div class="weekday">
+                <div>일요일</div>
+                <div>월요일</div>
+                <div>화요일</div>
+                <div>수요일</div>
+                <div>목요일</div>
+                <div>금요일</div>
+                <div>토요일</div>
+            </div>
+            <div class="calendar"></div>
+        </div>
+        <div class="challenge_list">
+            <h3>오늘의 챌린지 리스트</h3>
+            <div class="container">
+            {% for end in enrollmentdates %}
+                <div class="one_challenge">
+                    <div class="challenge_title"><a href="{% url 'challenge:challenge_detail' end.enrollment.challenge.id%}">{{end.enrollment.challenge.title}}</a></div>
+                    <div class="result result-{{end.id}}" onclick="onClickResult({{end.pk}})">
+                        {% if end.date_result %}
+                            <input type="button" class="result_word success" value="챌린지 성공">
+                        {% elif end.date_result == False %}
+                            <input type="button" class="result_word fail" value="성공시 클릭">
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        <br>
+
+        <div class="friend__list">
+            <div class="page__container__title">
+                <h3> 오늘 내 친구들은?</h3>
+                <div style = "float:right;">
+                    <button class = "all-friend-btn" >
+                        <a href="{% url 'friend:fd_list' %}">친구 더보기</a>
+                    </button>
+                </div>
+            </div>
+
+                <div class="container">
+                    <div class="friends">
+                        {% for fd in friends %}
+                        <div class="friends-container">
+                            <div class="friend_total">
+                                <div class="one_friend">
+                                    <div>
+                                        <a href="{% url 'friend:fd_detail' fd.me.pk %}">
+                                            <img class="friends__profile__image" src="{{ fd.me.image.url }}" alt="logo">
+                                            <p class="friends__profile__name">{{fd.me}}</p>
+                                        </a>
+                                    </div>
+                                    <div class="complete_challenge">
+                                        <div>오늘 완료한 챌린지</div>
+                                        <div><span class="green_text">{{friends_enrollment|get_item:fd.me.id}}</span>개</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="one_friend_motivate" onclick="giveMotivation()">응원하기</button>
+                                    <div class="firstModal">
+                                        <!-- First Modal content -->
+                                        <div class="first-modal-content first-modal">
+                                            <div class="modal-first-content">
+                                                <p class="firstContent">콕 찌르시겠습니까?</p>
+                                                <div class="button__container">
+                                                    <button class="motivationbtn" onclick="cancelFirst()">취소</button>
+                                                    <button class="confirm motivationbtn" onclick="makeConfirm({{fd.me.id}})">확인</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="secondModal">
+                                        <!-- Second Modal content -->
+                                        <div class="second-modal-content second-modal">
+                                            <div class="modal-second-content">
+                                                <p class="secondContent"></p>
+                                                <div class="button__container">
+                                                    <button class="finalconfirm motivationbtn" onclick="cancelSecond()">확인</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+        
+
+        
+                <!--임시방편으로 위치만 잡아둔 것 나중에 코드 복사를 통해서 위치 조정 예정-->
+        <div class="friend__motivation">
+            <div class="page__container__title">
+                <h3>나를 찌른 친구</h3>
+                <div>
+                    <button style="float:right;" class="motivationDeleteButton" onclick="removeMotivation()">모두 지우기</button></div>
+                </div>
+            </div>
+            <div class="motivation_container container">
+                {% for motivation in motivation_from_friends %}
+                <div class = "moti">
+                    <div><li class="friend__motivation__from__friend motivation-{{motivation.id}}">{{motivation.me.nickname}}님이 {{motivation.count}}번 콕 찔렀습니다. </li></div>
+                    <div><button class="motivationbtn" onclick="removeMotivation({{motivation.id}})">지우기</button></div>
+                </div>
+                <div class="Delete__Onemotiv__Modal">
+                    <div class="delete-one-modal-content">
+                        <p class="delete-one-content">해당 콕 찌르기를 지우시겠습니까?</p>
+                        <div class="button__container">
+                            <button class="motivationbtn" onclick="cancelDelete()">취소</button>
+                            <button class="confirm motivationbtn" onclick="makeOneRemove({{motivation.id}})">확인</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div>
+        <button class="setting-btn"><a href="{% url 'login:settings' %}">설정으로 가기</a></button>
+        </div>
+        <br>
+    </div>
+
+    <div>
+        <div class="thirdModal">
+            <div class="third-modal-content">
+                <p class="thirdContent">모든 콕 찌르기를 지우시겠습니까?</p>
+                <div class="button__container">
+                    <button class="motivationbtn" onclick="cancelAllDelete()">취소</button>
+                    <button class="confirm motivationbtn" onclick="makeRemove()">확인</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="alert__modal">
+            <div class="alert__modal__container">
+                <p class="alert__modal__content"></p>
+                <div class="button__container">
+                    <button class="motivationbtn" onclick="alertConfirm()">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+//! Calendar
+let months = ["0월", "1월", "2월", "3월", "4월", "5월", "6월", 
+"7월", "8월", "9월", "10월", "11월", "12월"];
+
+const calendarTitle = document.querySelector('.calendar_title')
+const today = new Date();
+
+// 버튼을 눌렀을 때 다음 달이나 이번 달로 돌아오기 위한 변수 
+let thisMonth = today.getMonth()+1;
+let thisYear = today.getFullYear();
+let plus = 1;
+let minus = 1;
+const todayId = (thisMonth < 10) ? `${thisYear}${'0' + thisMonth}${today.getDate()}`: `${thisYear}${thisMonth}${today.getDate()}`;
+const todaySelector = document.getElementById(`${todayId}`);
+
+//날짜 데이터를 가공하는 함수
+function setCalendarData(year, month){        
+    let calHtml = "";
+    // 이번 달의 첫째 날 객체 반환
+    const setDate = new Date(year, month - 1, 1);
+    //이번 달의 첫째 날을 구합니다.
+    const firstDay = setDate.getDate();
+
+    //이번 달의 처음 요일을 구합니다 / (0-6)
+    const firstDayName = setDate.getDay();
+
+    //이번 달의 마지막 날의 날짜(숫자)를 구합니다.
+    const lastDay = new Date(year, month, 0).getDate();
+    //지난 달의 마지막 날의 날짜(숫자)를 구합니다.
+    const prevLastDay = new Date(year, month-1, 0).getDate();
+
+    let startDayCount = 1;
+    let lastDayCount = 1;
+    for (let i = 0; i < 6; i++) {
+        for (let j = 0; j < 7; j++) {
+            if (i == 0 && j < firstDayName) {
+            if (j == 0) {
+
+            calHtml +=
+            `<div style='background-color:#FFFFFF; visibility: hidden' class='calendar__day horizontalGutter'><span>${(prevLastDay - (firstDayName - 1) + j)}</span><span></span></div>`;
+            } else if (j == 6) {
+
+            calHtml +=
+            `<div style='background-color:#FFFFFF; visibility: hidden' class='calendar__day'><span>${(prevLastDay - (firstDayName - 1) + j)}</span><span></span></div>`;
+            } else {
+
+            calHtml +=
+            `<div style='background-color:#FFFFFF; visibility: hidden' class='calendar__day horizontalGutter'><span>${(prevLastDay - (firstDayName - 1) + j)}</span><span></span></div>`;
+            }
+            }
+            else if (i == 0 && j == firstDayName) {
+            if (j == 0) {
+
+            calHtml +=
+            `<div style='background-color:#FFFFFF;' class='calendar__day horizontalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+            } else if (j == 6) {
+
+            calHtml +=
+            `<div style='background-color:#FFFFFF;' class='calendar__day'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+            } else {
+
+            calHtml +=
+            `<div style='background-color:#FFFFFF;' class='calendar__day horizontalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+            }
+            }
+            else if (i == 0 && j > firstDayName) {
+            if (j == 0) {
+
+            calHtml +=
+            `<div style='background-color:#FFFFFF' class='calendar__day horizontalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+            } else if (j == 6) {
+
+            calHtml +=
+            `<div style='background-color:#FFFFFF' class='calendar__day'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+            } else {
+
+            calHtml +=
+            `<div style='background-color:#FFFFFF' class='calendar__day horizontalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+            }
+            }
+            else if (i > 0 && startDayCount <= lastDay) {
+            if (j == 0) {
+            
+            calHtml +=
+            `<div style='background-color: #FFFFFF;'class='calendar__day horizontalGutter verticalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+            } else if (j == 6) {
+            
+            calHtml +=
+            `<div style='background-color: #FFFFFF;'class='calendar__day verticalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+            } else {
+            calHtml +=
+            `<div style='background-color: #FFFFFF;'class='calendar__day horizontalGutter verticalGutter'><span>${startDayCount}</span><span id='${year}${month}${setFixDayCount(startDayCount++)}'></span></div>`;
+            }
+            }
+            }
+        }
+        calendarTitle.innerHTML = months[(+month)%13];
+        document
+        .querySelector(".calendar")
+        .insertAdjacentHTML("beforeend", calHtml);
+        showAllSuccess()
+
+        /*수정*/
+        let thisMonth = today.getMonth()+1;
+        let thisYear = today.getFullYear();
+        let plus = 1;
+        let minus = 1;
+        const todayId = (thisMonth < 10) ? `${thisYear}${'0' + thisMonth}${today.getDate()}`: `${thisYear}${thisMonth}${today.getDate()}`;
+        const todaySelector = document.getElementById(`${todayId}`);
+        if(todaySelector != null){
+            const todayContainer = todaySelector.parentNode;
+            todayContainer.style.background = "#47cc71";
+        }
+};
+
+
+    const setFixDayCount = number => {
+        let fixNum = "";
+        if (number < 10) {
+        fixNum = "0" + number;
+        } else {
+            fixNum = number;
+        }   
+        return fixNum;
+    };
+
+    
+    function selectMonth(thisMonth, thisYear){
+        if (thisMonth < 10) {
+            setCalendarData(thisYear, "0" + thisMonth);
+        } else {
+            setCalendarData(thisYear, "" + thisMonth);
+        }
+    }
+
+    // 다음 달 선택
+    let afterMonth = document.querySelector('.after');
+    afterMonth.addEventListener('click', () => {
+        thisMonth += plus;
+        document.querySelector(".calendar").innerHTML = ""
+        thisYear = (thisMonth === 13) ? thisYear + 1 : thisYear;
+        thisMonth = (thisMonth === 13) ? 1 : thisMonth;
+        selectMonth(thisMonth, thisYear);
+    })
+
+    // 지난 달 선택
+    let previousMonth = document.querySelector('.previous');
+        previousMonth.addEventListener('click', () => {
+        thisMonth -= minus;
+        document.querySelector(".calendar").innerHTML = ""
+        thisYear = (thisMonth === 0) ? thisYear - 1 : thisYear;
+        thisMonth = (thisMonth === 0) ? 12 : thisMonth;
+        selectMonth(thisMonth, thisYear);
+    })
+
+    window.addEventListener('DOMContentLoaded', selectMonth(thisMonth, thisYear))
+
+    // 챌린지 결과를 보여주는 함수
+    const onClickResult = async (id) => {
+        console.log('onclickresult 진입')
+        const url = "/result_ajax/";
+        const { data } = await axios.post(url, {
+            id,
+            });
+        modify(data.id, data.result);
+        changeCalendar(data.title, data.result, todayId)
+    };
+    
+    const modify = (id, result) => {
+        const result_word = document.querySelector(`.result-${id} .result_word`);
+        if (result === false) {
+            result_word.value = "성공시 클릭";
+            result_word.classList.remove("success");
+            result_word.classList.add("fail");
+        } else {
+            result_word.value = "챌린지 성공";
+            result_word.classList.remove("fail");
+            result_word.classList.add("success");
+        }
+    };
+    
+    function changeCalendar (title, result, date) {
+        const thisday = document.getElementById(`${date}`);
+        if (thisday != null){
+            const challengeContent = title + '😁';
+            if (result === true){
+                const newTag = document.createElement('p');
+                newTag.classList.add('done');
+                newTag.textContent = challengeContent;
+                thisday.append(newTag)
+            } else {
+                for(let child of thisday.children){
+                    if(child.innerHTML === challengeContent){
+                        child.remove()
+                    }
+                }
+            }
+        }
+    }
+
+    function showAllSuccess(){
+        let enrollmentDateList = JSON.parse({{challenge_success|safe}});
+        let challengeTitleList = {{challenge_success_title|safe}}
+        for(let enrollmentDate in enrollmentDateList){
+            let {enrollment, date} = enrollmentDateList[enrollmentDate]["fields"]
+            enrollment = challengeTitleList[enrollment]
+            console.log(enrollment)
+            date = date.replace('-', '')
+            date = date.replace('-', '')
+            changeCalendar(enrollment, true, date)
+        }
+    }
+    </script>
+{% endblock %}

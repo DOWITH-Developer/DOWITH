@@ -1,0 +1,106 @@
+@keyframes slidein {
+    from {
+        margin-top: 0px;
+        width: 100%;
+    }
+    to {
+        margin-top: 50px;
+        width: 100%;
+    }
+}
+
+* {
+    font-family: "Do Hyeon", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+}
+
+#friend_search {
+    background: #efefef;
+    border: 0px;
+    border-radius: 20px;
+    width: 500px;
+    height: 30px;
+    padding: 10px;
+    margin: 20px;
+    text-align: center;
+    color: black;
+}
+
+.friend__search__btn {
+    background: #47cc71;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    color: #ffffff;
+    border: 0px;
+    height: 30px;
+    width: 100px;
+}
+
+.friend__search__container {
+    width: 100%;
+    height: 30vh;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    animation-duration: 1.5s;
+    animation-name: slidein
+}
+
+#friend__new__search__container {
+    width: 80%;
+    min-height: 300px;
+    background: #efefef;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.friends__profile {
+    width: 110px;
+    min-width: 40%;
+    padding: 0.5rem;
+    margin: 1rem 1rem;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 180px;
+    border-radius: 20px;
+}
+
+.friends__profile__image {
+    width: 80px;
+    height: 80px;
+    /* cover할건가요? */
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+.friend__profile__name {
+    margin-bottom: 0.5rem;
+}
+
+.friends {
+    display: inline-block;
+}
+
+.friends__add__btn {
+    border: 0px;
+    background: #47cc71;
+    color: white;
+    padding: 10px;
+    height: 25px;
+    font-size: 0.8rem;
+    border-radius: 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transform: rotate(-0.23deg);
+}
